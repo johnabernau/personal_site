@@ -43,26 +43,26 @@ cachebuster            = true                        # add the current unix time
 dateform               = "Jan 2, 2006"
 dateformfull           = "Mon Jan 2 2006 15:04:05 MST"
 description            = "Don't panic"
-email                  = "you@example.space"
+email                  = "john.bernau@emory.edu"
 extracssfiles          = [ "/css/override.css" ]       # In your `static` directory, add/remove files as necessary.
-faviconfile            = "img/leaf.ico"
-github                 = "//github.com/you"
-instagram              = "//instagram.com/you"
-px500                  = "//500px.com/username"
+faviconfile            = ""
+github                 = "https://github.com/johnbernau"
+instagram              = ""
+px500                  = ""
 lang                   = "en"
-linkedin               = "//linkedin.com/in/you"
-noshowreadtime         = false                         # if true, don't show "<x> minutes read" in posts
-selfintro              = ""                            # appears in the site header when set to a non-empty string
-twitter                = "//twitter.com/you"
-mastodon               = "//example.com/@you"
+linkedin               = "/https://www.linkedin.com/in/john-bernau-b384a9153/"
+noshowreadtime         = true     # if true, don't show "<x> minutes read" in posts
+selfintro              = "PhD Candidate, Sociology"    # appears in the site header when set to a non-empty string
+twitter                = ""
+mastodon               = ""
 
 highlightjs            = true
 # highlightjslanguages = ["go"]                        # additional languages not included in the "common" set
 # highlightjsStyle     = "darcula"
 
 piwik                  = false                         # If true, Piwik integration is enabled
-# piwik_url            = "//www.example.com/piwik/"    # URL to your Piwik installation. Must End with a slash
-# piwik_id             = 2                             # Id of your site in Piwik
+# piwik_url            = ""    # URL to your Piwik installation. Must End with a slash
+# piwik_id             =                              # Id of your site in Piwik
 
 gitalk                 = false
 # if gitalk is true, the following params should be set. These parameters could be retrieved from github OAuth
