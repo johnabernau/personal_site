@@ -1,0 +1,203 @@
+---
+title: 'DataViz in R: Part 2'
+author: John A. Bernau
+date: '2018-04-17'
+slug: dataviz2
+categories: []
+tags: []
+---
+
+*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/).*  
+  
+**Part 2 includes:**  
+1. Assigning variables to graphical parameters  
+2. Expressing variables using color  
+3. Putting it all together  
+4. Exercises 3 and 4  
+
+  
+___
+___
+  
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+```
+
+___
+
+### 1. Assigning variables to graphic parameters  
+In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color. In part 2 we will learn how to use these parameters to express new information by assigning them to variables. 
+
+First, we can use size to convey the variable 'carat' in our diamonds dataset. (When a scatterplot uses size to convey a variable it is sometimes refered to as a 'bubble chart.')  
+  
+Notice that when assigning parameters to variables, global options (options that apply to everything, like those described in part 1) are simply separated with a comma: `geom_point(size=X, shape=X, ......)`. When assigning these parameters to other variables in our dataset, they must be wrapped in `aes()` within our geom: `geom_point(aes(size=var1, shape=var2, ...))`. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat))
+```
+
+These attributes are called 'scales.' Scales can be continuous or discrete. In this case, carat is continuous. It also automatically creates a legend on the right hand side. With any scale, you can adjust the options with the `scale_...` command. The following command will add a title to the legend and force the size range to a minimum of 3 and maximum of 10. Using `guide=FALSE` here will remove your legend. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat)) + 
+  scale_size(name="Title Here", range=c(3,10))
+```
+
+Using the same logic, let's assign the variable 'cut' to the shape parameter. In the code below, notice how we can combine global parameters like (`size=4`) with variable-assigned parameters (`aes(shape=cut)`). We've also added a legend title using the `scale_shape()` options command. 
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(shape=cut), size=4) +
+  scale_shape(name="Legend title here")
+```
+
+Lastly, we can assign our alpha (or opacity) parameter to a variable in the same way. In the code below our points are shaded according to price: the more expensive a diamond is, the more opaque it becomes. This is helpful for emphasizing influential cases and minimizing the 'noise' of all our low-value cases. 
+  
+The diamonds dataset is so large that even some of the lower priced diamonds appear opaque. Because of this, I've added a custom alpha range, using the `scale_alpha()` command, that starts at 0.001. I've also turned the legend off and added some annotations. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(alpha=price)) +
+  scale_alpha(range=c(0.001, 1), guide=F) +
+  labs(x="Size (carats)", y="Price ($)", title= "Figure 1: Diamond Prices by Carat",
+       subtitle= "Source: ggplot2 dataset")
+
+```
+___
+___
+
+Combine these to express carat, cut, and price using size, shape, and alpha. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat, shape=cut, alpha=price))
+```
+
+
+It doesn't take a graphic designer to realize this is a bad visualization. **While graphs often do an excellent job in conveying complex information, they can easily fall into the same trap as the data itself: there is simply too much information to take in.** For this reason keep in mind the main points you want to convey and strive for parsimony.  
+  
+* **Size** - this is best used for continuous variables. It is extremely hard for our eyes to distinguish between small changes in size. Make sure to use the `scale_size(range=c("low range value", "hi range value"))` command to pick a range that helps make your point.
+
+* **Shape** - this is best used for categorical values. Be careful of using too many shapes as your graphic can become distracting quickly. ggplot2 has a maximum of 6 shapes when using them as a scale. 2-3 different shapes are probably ideal. 
+
+* **Alpha** - like size, opacity is best used for continuous variables. This is a subtle effect that is probably best used in conjunction with another parameter. In our examples, alpha mapped onto the y-axis and added a subtle feature. 
+
+___
+___
+
+### 2. Expressing variables using color
+Color is one of the most efficient ways to express information. It works much like the previous examples. If you set it to a continuous variable it will produce an automatic gradient. In this case, we're coloring our data points by the variable 'price'.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price))
+```
+
+The default color gradient goes from navy to light blue. To set it manually use the `scale_color_gradient()` command. As we learned in part 1, you can use color names, RGB, or hexcodes when using color.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price)) + 
+  scale_color_gradient(name="Title here", low="darkblue", high="orange")
+```
+
+
+When assigning color to a categorical variable, ggplot produces an array of default colors which are evenly spaced on the color wheel. In this case, we're coloring our data by the variable 'clarity'.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity))
+```
+
+The following command will show you the 8 hex codes it used to produce the graph above. You can use these values to emulate or edit this color scheme.
+
+```{r, message=FALSE}
+# First load the scales package
+require(scales)
+# Then specify how many values you want to return. In this case 8. 
+show_col(hue_pal()(8))
+```
+
+If you have specific colors in mind, you can set them manually using the `scale_color_manual()` command: 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_manual(name="Legend title", values=c("red", "darkblue","darkgreen", "grey50", "darkorange", "grey3", "black", "darkred"))
+```
+
+While you might have a particular reason for using certain colors, setting colors manually can be time-consuming. As we've seen, ggplot's default uses evenly spaced hues on a color wheel. The package RColorBrewer provides some additional palletes to pick from.  After installing (see header), we display the available palletes below. There are 18 are intended for continuous variables, 8 for categorical variables, and 9 divergent palletes. (Use the zoom feature to make out the pallete names.)
+
+```{r}
+display.brewer.all()
+```
+
+We can use these within ggplot by naming the pallete in the `scale_color_brewer()` command.
+  
+PS- To reverse the direction of a pallete, simply add `direction=-1` in the command `scale_color_brewer(..., direction=-1, ...)`
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_brewer(name="Title here", palette="RdYlGn")
+```
+
+### Putting it all together...
+
+Using all the commands we've learned so far, the following graph assigns opacity of all points to 0.3, colors our data points according to the 'clarity' variable using the 'RdYlGn' pallete from RColorBrewer, adds labels, and uses the minimal theme. 
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(alpha=0.3, aes(color=clarity)) +
+  scale_color_brewer(name="Clarity", palette="RdYlGn") +
+  labs(x="Carat", y="Price", title= "Figure 1: Diamond Prices") +
+  theme_minimal() 
+```
+
+  
+PS- While the legend obeys the aesthetics of your data points, the following command overrides this by setting alpha and size for our legend manually: 
+`guides(colour = guide_legend(override.aes = list(alpha = 1, size=4)))` 
+
+___
+___
+
+### EXERCISE 3
+Use the "mtcars" dataset (built-in) to make a scatterplot of "weight" and "mpg". Change axes labels and give your plot a title. Set the alpha of all points to 0.7. 
+
+Set the color of the points to the "mpg" variable (continuous). Also, set this color parameter so that high mpgs are colored green and low mpgs are colored blue. Title the legend "MPG". 
+
+Set the size of the points to the "wt" variable (continuous). Also, to make the small points more readable, set the range of sizes to go from 3-10. Title this legend "Weight".
+
+When you're done, save this as an object "ex3", export as a jpg.
+
+For help:
+```{r, eval=FALSE}
+?mtcars
+describe(mtcars)
+?geom_point
+```
+
+
+### EXERCISE 4
+Use the "mpg" dataset to make a scatterplot of "City MPG" and "Highway MPG". Change axes labels and give your plot a title. Set the alpha of all points to 0.8 and the size of all points to 6. Use the position='jitter' command to spread out your data (see exercise 2).  
+
+Because they are numbers, in this dataset "year" and "cyl" are both assumed to be continuous variables. However, we want to graph them as if they are categorical variables. To do this you will write the variables like so: "factor(year)" & "factor(cyl)".
+
+Set shape to year and color to cylinder. Remember to use the factor notation described above! HINT: aes(shape=factor(variable name), color=factor(variable name))
+
+Set the title of these legends to "Year" and "Cylinders."
+When you're done, save this as an object "ex4", export as a jpg.
+
+  
+   
+[Code Home](/xcode/)  
+[Part 1 <<<](/code/dataviz1)[>>> Part 3](/code/dataviz3/)

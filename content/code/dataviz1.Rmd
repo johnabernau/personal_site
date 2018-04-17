@@ -225,7 +225,7 @@ ___
 ___
 
 ### EXERCISE 1  
-Use the "mpg" dataset (built-in) to make a scatterplot of "city mpg" and "highway mpg" (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object "ex1". Finally, export as a jpg using the `ggsave()` command. [(Google this for more info).](http://ggplot2.tidyverse.org/reference/ggsave.html) Turn in your jpg file (ex1.jpg) in the assignments folder on Canvas.  
+Use the "mpg" dataset (built-in) to make a scatterplot of "city mpg" and "highway mpg" (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object "ex1". Finally, export as a jpg using the `ggsave()` command. [(Google this for more info).](http://ggplot2.tidyverse.org/reference/ggsave.html)
   
 For help:  
 ```{r, eval=FALSE}
@@ -243,4 +243,5 @@ Why are some triangles darker than others? We can introduce random variation in 
 Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the "Atlanta Falcons". (Search online for the hex code or rgb value). Save this plot as an object "ex2". Export as a jpg. 
   
 
-[Part 2](/code/)
+[Code Home](/xcode/)  
+[>>> Part 2](/code/dataviz2/)

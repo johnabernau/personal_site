@@ -1,0 +1,146 @@
+---
+title: 'DataViz in R: Part 4'
+author: John A. Bernau
+date: '2018-04-17'
+slug: dataviz4
+categories: []
+tags: []
+---
+
+
+
+<p><em>These materials come from an interactive workshop I lead at the <a href="http://digitalscholarship.emory.edu/">Emory Center for Digital Scholarship</a>.</em></p>
+<p><strong>Part 4 includes:</strong><br />
+1. Adding text labels<br />
+2. Facet wrap / grid<br />
+3. Editing theme elements<br />
+4. Exercise 6, 7, 8</p>
+<hr />
+<hr />
+<pre class="r"><code># install.packages(&quot;psych&quot;)
+require(&quot;psych&quot;)
+# install.packages(&quot;ggplot2&quot;)
+require(&quot;ggplot2&quot;)
+# install.packages(&quot;RColorBrewer&quot;)
+require(&quot;RColorBrewer&quot;)
+# install.packages(&quot;dplyr&quot;)
+require(&quot;dplyr&quot;)</code></pre>
+<hr />
+<div id="adding-text-labels" class="section level3">
+<h3>1. Adding Text Labels</h3>
+<p>When adding text to a plot, <code>geom_text</code> works like many other geoms in ggplot. Below, using the mpg dataset, we’ve taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle. Because manufactureer is a variable in the <code>mpg</code> dataset, we’ve wrapped it with the <code>aes()</code> code.</p>
+<pre class="r"><code>ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position=&#39;jitter&#39;) + 
+  scale_color_continuous(low=&quot;blue&quot;, high=&quot;orange&quot;) +
+  geom_text(aes(label=manufacturer))</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>As we learned in part 3, geoms work independently. Perhaps you only want the text and not the scatterplots:</p>
+<pre class="r"><code>ggplot(mpg, aes(cty, hwy)) + 
+  geom_text(aes(label=manufacturer, color=cty)) +
+  scale_color_continuous(low=&quot;blue&quot;, high=&quot;orange&quot;)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The points add a level of specificity, so let’s keep them for now. Let’s use the <code>check_overlap = TRUE</code> command to clean up our plot. This removes any labels that overlap. Notice that this makes your labels conditional on the size of your graph: try opening this plot in a new window and changing the size. Additionally, we can tweak some other text options:</p>
+<p>*<code>hjust =</code> Horizontal justification. 1 = right allign, 0 = left allign.</p>
+<p>*<code>nudge_x =</code> In units of the x axis, nudge the text label left or right.</p>
+<p>*<code>nudge_y =</code> In units of the y axis, nudge the text label up or down.</p>
+<pre class="r"><code>ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position=&#39;jitter&#39;) + 
+  scale_color_continuous(low=&quot;blue&quot;, high=&quot;orange&quot;) +
+  geom_text(aes(label=manufacturer), check_overlap = T, hjust=0, nudge_x=0.5, nudge_y=0.5)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>?geom_text</p>
+<p>It’s still a bit cluttered, and with any modestly sized dataset, there will likely be too many datapoints to clearly label. For this reason, we can use text to emphasize certain data rather than simply display it. In the code below I’ve used an if / else statement to <strong>only label the vehicles who’s city mpg is above 25.</strong></p>
+<p>In other words, in place of <code>label=manufacturer</code> I’ve swapped <code>label=ifelse(cty&gt;25, manufacturer, ''))</code>. The <code>ifelse</code> command takes three arguments, first the logical condition, second, what to do if the condition is true, and third, what to do if the condition is false. Here, we’ve said 1) If <code>cty</code> is greater than 25pmg, 2) return the manufacturer name, and 3) if not return nothing (’’).</p>
+<pre class="r"><code>ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cyl), alpha=0.7, size=7, position=&#39;jitter&#39;) + 
+  scale_color_continuous(low=&quot;blue&quot;, high=&quot;orange&quot;) +
+  geom_text(aes(label=ifelse(cty&gt;25, manufacturer, &#39;&#39;)), hjust=1, nudge_x=0.5, nudge_y=0.5)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-5-1.png" width="672" /> <strong><em> </em></strong></p>
+</div>
+<div id="facet-wrap" class="section level3">
+<h3>2. Facet Wrap</h3>
+<p>Facet wrap allows you to split your data into multiple panes to easily compare data across variables. Sometimes you will simply have too many categories to distinguish by any visual parameter (color, shape, etc), and facet wrap helps by splitting your data into separate panes. Using our scatterplot of diamond size vs price, we can easily put each category of clarity in a new pane. Use <code>facet_wrap(~variable)</code> to specify which variable you want to split by. In this case, I’ve used <code>ncol=X</code> to set the number of colunms to use.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  facet_wrap(~clarity, ncol=4)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>This works for other types of plots too.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = &quot;dodge&quot;) +
+  scale_fill_brewer(palette=&quot;RdYlGn&quot;) +
+  facet_wrap(~clarity, ncol=4)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=cut, y=price)) + 
+  geom_boxplot(aes(color=clarity), fill=NA) + 
+  scale_color_discrete(guide=F) +
+  facet_wrap(~clarity, ncol=4)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>If you have space for a large graphic, you may even try the facet grid option, which will split your data by two variables. In the following graph, there is a separate pane for each combination of color and cut. Looking vertically we can examine how each cut (ie ‘Fair’) varies by color (D,E,F,G,H,I,J). Looking horizontally, we can examine how each color of diamond varies across different levels of cut.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=color)) +
+  facet_grid(color~cut)</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-9-1.png" width="672" /> <strong><em> </em></strong></p>
+</div>
+<div id="editing-font-size-color" class="section level3">
+<h3>3. Editing Font, Size, &amp; Color</h3>
+<p>Things like font, size, background color can all be edited using the <code>theme()</code> command. These commands can get a little confusing, and <a href="http://ggplot2.tidyverse.org/reference/theme.html">I recommend bookmarking this link for reference.</a> Below we’ve made the title size 17, boldface, and centered, and changed both axis text to be size 14.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name=&quot;Clarity&quot;) +
+  labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;) +
+  theme(title=element_text(size=17, face=&quot;bold&quot;), # title size 17 &amp; boldface
+      plot.title = element_text(hjust = 0.5),     # title centered
+      axis.text.x=element_text(size=14),          # axis text size 14
+      axis.text.y=element_text(size=14))  </code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Because themes can be so cumbersome, you can create your own template and include it at the beginning of every R script. For example, I put together this theme configuration and title it “johntheme1”. Then for each graph, I can just add <code>+ johntheme1</code> at the end to quickly format it.</p>
+<pre class="r"><code>johntheme1 &lt;- theme(plot.title = element_text(hjust = 0.5), # Centered title
+        plot.background = element_rect(fill=&quot;black&quot;), # Black background
+        panel.background = element_rect(fill=&quot;gray20&quot;), # Dark grey panel background
+        panel.grid.minor = element_line(color=&quot;black&quot;), # Hide grid lines
+        panel.grid.major = element_line(color=&quot;black&quot;), # Hide grid lines
+        axis.text = element_text(color=&quot;white&quot;), # Make axis text white
+        title = element_text(color=&quot;white&quot;, face=&quot;bold&quot;), # Make title white and bold.
+        legend.background = element_rect(fill=&quot;black&quot;), # Make legend background black
+        legend.text = element_text(color=&quot;white&quot;), # Make legend text white
+        legend.key = element_rect(fill=&quot;black&quot;, color=&quot;black&quot;), #Squares/borders of legend black
+        legend.position = c(.9,.4)) # Coordinates. Top right = (1,1)</code></pre>
+<p>Then add it to existing plot…</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;) +
+  johntheme1</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<hr />
+<hr />
+<p>Changing the fonts can be done with the <code>extrafont</code> package. First install, then require, then use <code>font_import()</code> to load fonts in, and <code>fonts()</code> to display.</p>
+<pre class="r"><code># install.packages(&quot;extrafont&quot;)
+require(&quot;extrafont&quot;)
+# font_import()
+fonts()</code></pre>
+<pre><code>## NULL</code></pre>
+<p>Within the theme options, you can specify your font with this command: <code>theme(text=element_text(family=&quot;Times New Roman&quot;))</code></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name=&quot;Clarity&quot;) +
+  labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;) +
+  johntheme1 +
+  theme(text=element_text(family=&quot;Times New Roman&quot;))</code></pre>
+<p><img src="/code/dataviz4_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<hr />
+<hr />
+</div>
+<div id="exercise-6" class="section level3">
+<h3>EXERCISE 6</h3>
+<p>Using the plot from ex2, facet wrap by the variable “cyl”. Save this as an object “ex6”, export as a jpg.</p>
+</div>
+<div id="exercise-7" class="section level3">
+<h3>EXERCISE 7</h3>
+<p>Using the plot from ex3, label each point by their 1/4 mile time (qsec), if their time is less than 16 seconds. Save this as an object “ex7”, export as a jpg.</p>
+</div>
+<div id="exercise-8" class="section level3">
+<h3>EXERCISE 8</h3>
+<p>Using the plot from ex4, make the titles size 15 and in boldface. Save this as an object “ex8”, export as a jpg.</p>
+<p><a href="/xcode/">Code Home</a><br />
+<a href="/code/dataviz3">Part 3 &lt;&lt;&lt;</a></p>
+</div>

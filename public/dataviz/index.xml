@@ -23,10 +23,24 @@ Part 1 includes:
 2. Basics of ggplot
 3. Changing size, shape, and alpha (opacity)
 4. Three ways of specifying color
-+ name
-+ RGB value + hexadecimal codes 5. Putting it all together
+5. Putting it all together
 6. Exercises 1 and 2
 1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online.</description>
+    </item>
+    
+    <item>
+      <title>DataViz in R: Part 2</title>
+      <link>/dataviz/dataviz2/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/dataviz/dataviz2/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 2 includes:
+1. Assigning variables to graphical parameters
+2. Expressing variables using color
+3. Putting it all together
+4. Exercises 3 and 4
+# install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) 1. Assigning variables to graphic parameters In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color.</description>
     </item>
     
   </channel>

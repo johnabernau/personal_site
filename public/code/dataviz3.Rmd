@@ -1,0 +1,190 @@
+---
+title: 'DataViz in R: Part 3'
+author: John A. Bernau
+date: '2018-04-17'
+slug: dataviz3
+categories: []
+tags: []
+---
+
+*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/).*   
+  
+**Part 3 includes:**  
+1. Line graphs  
+2. Bar graphs / Histograms  
+3. Other geoms  
+4. Combining geoms  
+5. Exercise 5  
+
+  
+___
+___
+  
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+# install.packages("dplyr")
+require("dplyr")
+```
+
+___
+
+### 1. Line Graphs
+In part 1 and 2 we've been working with scatterplots, and here I'll briefly introduce some of the other options. The uniformity of ggplot2 makes it very easy to translate aesthetic commands to other geometric objects, or geoms. 
+
+To begin, perhaps we want a line graph that displays out diamond data better than an individual point for each diamond. Using the `geom_line` instead of `geom_point` seems like an intuitive starting point, but try the first chunk of code and see what happens. What we probably want for this dataset is `geom_smooth` which runs a smoothed line through out data points, rather than a connecting line. 
+
+
+```{r, message=FALSE}
+# ggplot(diamonds, aes(x=carat, y=price)) +
+#   geom_line()
+
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth()
+```
+
+Check out `?geom_smooth` for all the available options, but for now it's important to note the following:
+
+* The default line produces a confidence interval, and `se=F` will turn this off.
+* The default line uses a generalized additive model (GAM) to smooth your data, and the span option controls how smooth this line will be. (From the help menu: "Smaller numbers produce wigglier lines, larger numbers produce smoother lines.")
+* If you prefer a linear method, use `method="lm"` to produce a straight line. 
+* Size and color are produced in the same way they are for `geom_point`: `size=4` or `color="red"`. When assigned to other variables, remember to wrap the option inside `aes()`. You can also use any of the RColorBrewer palettes.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method="lm", size=4)
+```
+
+```{r, message=FALSE}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(aes(color=clarity))
+```
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method="lm", aes(color=clarity))
+
+```
+
+
+___
+
+### 2. Bar Graphs
+Bar graphs are extremely effective at displaying information. They sometimes require a bit of data wrangling unless your data is already grouped the way you want. For now, let's focus on a simple bar graph displaying counts of diamonds by cut. Note in this example we only specify an x axis (cut) and the y axis defaults to counts. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar()
+```
+
+When using color for a bar graph, ggplot uses "color" to refer to the border line and "fill" for the inside color. This applies to boxplots and violin plots too. A bit confusing! 
+
+With that in mind, lets split our bars by `clarity` using the fill command. Because clarity is another variable in our dataset, remember to wrap it in `aes()`.
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity))
+```
+
+When displaying multiple categories, the defaults is a 'stacked' position. I find these a bit hard to read and compare accross categories. `fill` presents each category as a percentage, and `dodge` presents each category side by side. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "fill")
+```
+
+  
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge")
+```
+
+Like `geom_point` and `geom_smooth` you can also use any of the RColorBrewer palettes to color your bar graph. For a bar graph, because of the "color" vs "fill" distinction, you will use the `scale_fill_brewer` command instead of the `scale_color_brewer` command.
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="Blues")
+```
+
+___
+
+### 3. Other Geoms...
+There are many geoms out there. While some options will be geom-specific, many of the basic properties will be familiar.
+  
+```{r}
+ggplot(diamonds, aes(cut, price)) + 
+  geom_boxplot(aes(color=cut), fill=NA)
+```
+
+
+```{r}
+ggplot(diamonds, aes(cut, price)) + 
+  geom_violin(aes(color=cut, fill=cut))
+```
+
+```{r}
+ggplot(diamonds, aes(x=price)) + 
+  geom_density(aes(color=cut))
+```
+
+[This site provides a pretty comprehensive list of available geoms.](http://sape.inf.usi.ch/quick-reference/ggplot2/geom)
+
+___
+### 4. Combining Geoms
+Now the beauty of geom layers comes in. You can combine multiple geoms in the same plot, manipulate them separately, change the layering, color, size, etc. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="Blues") +
+  geom_hline(yintercept = 2000, color="darkred") +
+  annotate("text", x = 1.5, y=2250, label = "My budget", color= "darkred")
+```
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(aes(color=clarity), method="lm")
+```
+
+  
+Geom layers are independent and can obey independent options (and even different datasets). You could specify color for each geom, or you could include it in your global options. This eliminates redundancy if you want each geom to be colored the same way. These codes each produce identical graphs. 
+
+```{r, eval=FALSE}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  geom_smooth(aes(color=clarity))
+
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) +
+  geom_point() +
+  geom_smooth()
+```
+
+With a little wrangling using the "dplyr" package, the follow code creates a nested bar graph: after creating a basic bar graph, I added another geom_bar to breakdown clarity within each level of cut. The dplyr package is very helpful for sorting and cleaning data- [check it out here.](http://dplyr.tidyverse.org/)
+
+```{r}
+dio2 <- diamonds %>% count(cut, clarity)
+
+ggplot(dio2, aes(x=cut, y=n)) +
+  geom_bar(stat="identity", alpha=0.4) +
+  geom_bar(stat="identity", aes(fill=clarity), position="dodge")
+
+```
+
+___
+___
+
+### EXERCISE 5
+Using the plot from ex1, add a smoothed trend line. Save this as an object "ex5", export as a jpg.  
+
+
+[Code Home](/xcode/)  
+[Part 2 <<<](/code/dataviz2)[>>> Part 4](/code/dataviz4/)

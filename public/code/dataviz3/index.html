@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau">
+<meta name="description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 3 includes:
+1. Line graphs
+2. Bar graphs / Histograms
+3. Other geoms
+4. Combining geoms
+5. Exercise 5
+# install.packages(&quot;psych&quot;) require(&quot;psych&quot;) # install.packages(&quot;ggplot2&quot;) require(&quot;ggplot2&quot;) # install.packages(&quot;RColorBrewer&quot;) require(&quot;RColorBrewer&quot;) # install.packages(&quot;dplyr&quot;) require(&quot;dplyr&quot;) 1. Line Graphs In part 1 and 2 we’ve been working with scatterplots, and here I’ll briefly introduce some of the other options.">
+
+<meta property="og:title" content="DataViz in R: Part 3" />
+<meta property="og:description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 3 includes:
+1. Line graphs
+2. Bar graphs / Histograms
+3. Other geoms
+4. Combining geoms
+5. Exercise 5
+# install.packages(&quot;psych&quot;) require(&quot;psych&quot;) # install.packages(&quot;ggplot2&quot;) require(&quot;ggplot2&quot;) # install.packages(&quot;RColorBrewer&quot;) require(&quot;RColorBrewer&quot;) # install.packages(&quot;dplyr&quot;) require(&quot;dplyr&quot;) 1. Line Graphs In part 1 and 2 we’ve been working with scatterplots, and here I’ll briefly introduce some of the other options." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dataviz3/" />
+
+
+
+<meta property="article:published_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+<title>
+
+
+     DataViz in R: Part 3 
+
+</title>
+<link rel="canonical" href="/code/dataviz3/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-17%2017%3a26%3a54.307633%20-0400%20EDT%20m%3d%2b0.226922248">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-17%2017%3a26%3a54.307633%20-0400%20EDT%20m%3d%2b0.226922248">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-17%2017%3a26%3a54.307633%20-0400%20EDT%20m%3d%2b0.226922248">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-17%2017%3a26%3a54.307633%20-0400%20EDT%20m%3d%2b0.226922248">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau</div></a>
+            
+              <h3 class="self-intro">PhD Candidate, Sociology</h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/research/"><span>research</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
+                    
+                        <li class="nav-cv"><a href="/img/cv2018.pdf"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="/https://www.linkedin.com/in/john-bernau-b384a9153/" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+<section class="main">
+    <div class="container">
+        <div class="content">
+            <div class="page-heading">
+
+    DataViz in R: Part 3
+
+</div>
+
+            <div class="markdown">
+                <p><em>These materials come from an interactive workshop I lead at the <a href="http://digitalscholarship.emory.edu/">Emory Center for Digital Scholarship</a>.</em></p>
+<p><strong>Part 3 includes:</strong><br />
+1. Line graphs<br />
+2. Bar graphs / Histograms<br />
+3. Other geoms<br />
+4. Combining geoms<br />
+5. Exercise 5</p>
+<hr />
+<hr />
+<pre class="r"><code># install.packages(&quot;psych&quot;)
+require(&quot;psych&quot;)
+# install.packages(&quot;ggplot2&quot;)
+require(&quot;ggplot2&quot;)
+# install.packages(&quot;RColorBrewer&quot;)
+require(&quot;RColorBrewer&quot;)
+# install.packages(&quot;dplyr&quot;)
+require(&quot;dplyr&quot;)</code></pre>
+<hr />
+<div id="line-graphs" class="section level3">
+<h3>1. Line Graphs</h3>
+<p>In part 1 and 2 we’ve been working with scatterplots, and here I’ll briefly introduce some of the other options. The uniformity of ggplot2 makes it very easy to translate aesthetic commands to other geometric objects, or geoms.</p>
+<p>To begin, perhaps we want a line graph that displays out diamond data better than an individual point for each diamond. Using the <code>geom_line</code> instead of <code>geom_point</code> seems like an intuitive starting point, but try the first chunk of code and see what happens. What we probably want for this dataset is <code>geom_smooth</code> which runs a smoothed line through out data points, rather than a connecting line.</p>
+<pre class="r"><code># ggplot(diamonds, aes(x=carat, y=price)) +
+#   geom_line()
+
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth()</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Check out <code>?geom_smooth</code> for all the available options, but for now it’s important to note the following:</p>
+<ul>
+<li>The default line produces a confidence interval, and <code>se=F</code> will turn this off.</li>
+<li>The default line uses a generalized additive model (GAM) to smooth your data, and the span option controls how smooth this line will be. (From the help menu: “Smaller numbers produce wigglier lines, larger numbers produce smoother lines.”)</li>
+<li>If you prefer a linear method, use <code>method=&quot;lm&quot;</code> to produce a straight line.</li>
+<li>Size and color are produced in the same way they are for <code>geom_point</code>: <code>size=4</code> or <code>color=&quot;red&quot;</code>. When assigned to other variables, remember to wrap the option inside <code>aes()</code>. You can also use any of the RColorBrewer palettes.</li>
+</ul>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method=&quot;lm&quot;, size=4)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(aes(color=clarity))</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method=&quot;lm&quot;, aes(color=clarity))</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="bar-graphs" class="section level3">
+<h3>2. Bar Graphs</h3>
+<p>Bar graphs are extremely effective at displaying information. They sometimes require a bit of data wrangling unless your data is already grouped the way you want. For now, let’s focus on a simple bar graph displaying counts of diamonds by cut. Note in this example we only specify an x axis (cut) and the y axis defaults to counts.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar()</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>When using color for a bar graph, ggplot uses “color” to refer to the border line and “fill” for the inside color. This applies to boxplots and violin plots too. A bit confusing!</p>
+<p>With that in mind, lets split our bars by <code>clarity</code> using the fill command. Because clarity is another variable in our dataset, remember to wrap it in <code>aes()</code>.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity))</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>When displaying multiple categories, the defaults is a ‘stacked’ position. I find these a bit hard to read and compare accross categories. <code>fill</code> presents each category as a percentage, and <code>dodge</code> presents each category side by side.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = &quot;fill&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = &quot;dodge&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Like <code>geom_point</code> and <code>geom_smooth</code> you can also use any of the RColorBrewer palettes to color your bar graph. For a bar graph, because of the “color” vs “fill” distinction, you will use the <code>scale_fill_brewer</code> command instead of the <code>scale_color_brewer</code> command.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = &quot;dodge&quot;) +
+  scale_fill_brewer(palette=&quot;Blues&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="other-geoms" class="section level3">
+<h3>3. Other Geoms…</h3>
+<p>There are many geoms out there. While some options will be geom-specific, many of the basic properties will be familiar.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut, price)) + 
+  geom_boxplot(aes(color=cut), fill=NA)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(cut, price)) + 
+  geom_violin(aes(color=cut, fill=cut))</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=price)) + 
+  geom_density(aes(color=cut))</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><a href="http://sape.inf.usi.ch/quick-reference/ggplot2/geom">This site provides a pretty comprehensive list of available geoms.</a></p>
+<hr />
+</div>
+<div id="combining-geoms" class="section level3">
+<h3>4. Combining Geoms</h3>
+<p>Now the beauty of geom layers comes in. You can combine multiple geoms in the same plot, manipulate them separately, change the layering, color, size, etc.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = &quot;dodge&quot;) +
+  scale_fill_brewer(palette=&quot;Blues&quot;) +
+  geom_hline(yintercept = 2000, color=&quot;darkred&quot;) +
+  annotate(&quot;text&quot;, x = 1.5, y=2250, label = &quot;My budget&quot;, color= &quot;darkred&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(aes(color=clarity), method=&quot;lm&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Geom layers are independent and can obey independent options (and even different datasets). You could specify color for each geom, or you could include it in your global options. This eliminates redundancy if you want each geom to be colored the same way. These codes each produce identical graphs.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  geom_smooth(aes(color=clarity))
+
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) +
+  geom_point() +
+  geom_smooth()</code></pre>
+<p>With a little wrangling using the “dplyr” package, the follow code creates a nested bar graph: after creating a basic bar graph, I added another geom_bar to breakdown clarity within each level of cut. The dplyr package is very helpful for sorting and cleaning data- <a href="http://dplyr.tidyverse.org/">check it out here.</a></p>
+<pre class="r"><code>dio2 &lt;- diamonds %&gt;% count(cut, clarity)
+
+ggplot(dio2, aes(x=cut, y=n)) +
+  geom_bar(stat=&quot;identity&quot;, alpha=0.4) +
+  geom_bar(stat=&quot;identity&quot;, aes(fill=clarity), position=&quot;dodge&quot;)</code></pre>
+<p><img src="/code/dataviz3_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<hr />
+<hr />
+</div>
+<div id="exercise-5" class="section level3">
+<h3>EXERCISE 5</h3>
+<p>Using the plot from ex1, add a smoothed trend line. Save this as an object “ex5”, export as a jpg.</p>
+<p><a href="/xcode/">Code Home</a><br />
+<a href="/code/dataviz2">Part 2 &lt;&lt;&lt;</a><a href="/code/dataviz4/">&gt;&gt;&gt; Part 4</a></p>
+</div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+</body>
+</html>
+

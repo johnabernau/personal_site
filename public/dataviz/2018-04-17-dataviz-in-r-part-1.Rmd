@@ -1,13 +1,22 @@
 ---
 title: 'DataViz in R: Part 1'
-author: John A. Bernau
+author: "John A. Bernau"
 date: '2018-04-17'
-slug: dataviz-in-r-part-1
-categories: []
+slug: dataviz1
 tags: []
+categories: []
 ---
 
-*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/)*
+*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/).*  
+  
+**Part 1 includes:**  
+1. Orientation to RStudio  
+2. Basics of ggplot  
+3. Changing size, shape, and alpha (opacity)  
+4. Three ways of specifying color  
+5. Putting it all together  
+6. Exercises 1 and 2  
+
 ___
 ___
 
@@ -234,4 +243,4 @@ Why are some triangles darker than others? We can introduce random variation in 
 Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the "Atlanta Falcons". (Search online for the hex code or rgb value). Save this plot as an object "ex2". Export as a jpg. 
   
 
-
+[Part 2](/code/)

@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Baylor Religion Survey 2010: Import, Clean, Descriptives</title>
+      <link>/code/baylor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/baylor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>DataViz in R: Part 1</title>
       <link>/code/dataviz1/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
@@ -26,6 +35,52 @@ Part 1 includes:
 5. Putting it all together
 6. Exercises 1 and 2
 1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online.</description>
+    </item>
+    
+    <item>
+      <title>DataViz in R: Part 2</title>
+      <link>/code/dataviz2/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/dataviz2/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 2 includes:
+1. Assigning variables to graphical parameters
+2. Expressing variables using color
+3. Putting it all together
+4. Exercises 3 and 4
+# install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) 1. Assigning variables to graphic parameters In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color.</description>
+    </item>
+    
+    <item>
+      <title>DataViz in R: Part 3</title>
+      <link>/code/dataviz3/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/dataviz3/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 3 includes:
+1. Line graphs
+2. Bar graphs / Histograms
+3. Other geoms
+4. Combining geoms
+5. Exercise 5
+# install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) # install.packages(&amp;quot;dplyr&amp;quot;) require(&amp;quot;dplyr&amp;quot;) 1. Line Graphs In part 1 and 2 we’ve been working with scatterplots, and here I’ll briefly introduce some of the other options.</description>
+    </item>
+    
+    <item>
+      <title>DataViz in R: Part 4</title>
+      <link>/code/dataviz4/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/dataviz4/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 4 includes:
+1. Adding text labels
+2. Facet wrap / grid
+3. Editing theme elements
+4. Exercise 6, 7, 8
+# install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) # install.packages(&amp;quot;dplyr&amp;quot;) require(&amp;quot;dplyr&amp;quot;) 1. Adding Text Labels When adding text to a plot, geom_text works like many other geoms in ggplot. Below, using the mpg dataset, we’ve taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle.</description>
     </item>
     
   </channel>

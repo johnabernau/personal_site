@@ -1,0 +1,201 @@
+---
+title: 'DataViz in R: Part 4'
+author: John A. Bernau
+date: '2018-04-17'
+slug: dataviz4
+categories: []
+tags: []
+---
+
+*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/).*   
+  
+**Part 4 includes:**  
+1. Adding text labels  
+2. Facet wrap / grid  
+3. Editing theme elements  
+4. Exercise 6, 7, 8  
+
+
+___
+___
+  
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+# install.packages("dplyr")
+require("dplyr")
+```
+
+___
+
+### 1. Adding Text Labels
+
+When adding text to a plot, `geom_text` works like many other geoms in ggplot. Below, using the mpg dataset, we've taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle. Because manufactureer is a variable in the `mpg` dataset, we've wrapped it with the `aes()` code. 
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=manufacturer))
+```
+
+As we learned in part 3, geoms work independently. Perhaps you only want the text and not the scatterplots:
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_text(aes(label=manufacturer, color=cty)) +
+  scale_color_continuous(low="blue", high="orange")
+```
+
+The points add a level of specificity, so let's keep them for now. Let's use the `check_overlap = TRUE` command to clean up our plot. This removes any labels that overlap. Notice that this makes your labels conditional on the size of your graph: try opening this plot in a new window and changing the size. Additionally, we can tweak some other text options:
+          
+*`hjust =` Horizontal justification. 1 = right allign, 0 = left allign. 
+
+*`nudge_x =` In units of the x axis, nudge the text label left or right. 
+
+*`nudge_y =` In units of the y axis, nudge the text label up or down. 
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=manufacturer), check_overlap = T, hjust=0, nudge_x=0.5, nudge_y=0.5)
+```
+
+?geom_text
+
+It's still a bit cluttered, and with any modestly sized dataset, there will likely be too many datapoints to clearly label. For this reason, we can use text to emphasize certain data rather than simply display it. In the code below I've used an if / else statement to **only label the vehicles who's city mpg is above 25.**
+
+In other words, in place of `label=manufacturer` I've swapped `label=ifelse(cty>25, manufacturer, ''))`. The `ifelse` command takes three arguments, first the logical condition, second, what to do if the condition is true, and third, what to do if the condition is false. Here, we've said 1) If `cty` is greater than 25pmg, 2) return the manufacturer name, and 3) if not return nothing ('').
+
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cyl), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=ifelse(cty>25, manufacturer, '')), hjust=1, nudge_x=0.5, nudge_y=0.5)
+```
+___
+___
+
+### 2. Facet Wrap
+
+Facet wrap allows you to split your data into multiple panes to easily compare data across variables. Sometimes you will simply have too many categories to distinguish by any visual parameter (color, shape, etc), and facet wrap helps by splitting your data into separate panes. Using our scatterplot of diamond size vs price, we can easily put each category of clarity in a new pane. Use `facet_wrap(~variable)` to specify which variable you want to split by. In this case, I've used `ncol=X` to set the number of colunms to use.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  facet_wrap(~clarity, ncol=4)
+```
+
+This works for other types of plots too. 
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="RdYlGn") +
+  facet_wrap(~clarity, ncol=4)
+```
+
+```{r}
+ggplot(diamonds, aes(x=cut, y=price)) + 
+  geom_boxplot(aes(color=clarity), fill=NA) + 
+  scale_color_discrete(guide=F) +
+  facet_wrap(~clarity, ncol=4)
+```
+
+If you have space for a large graphic, you may even try the facet grid option, which will split your data by two variables. In the following graph, there is a separate pane for each combination of color and cut. Looking vertically we can examine how each cut (ie 'Fair') varies by color (D,E,F,G,H,I,J). Looking horizontally, we can examine how each color of diamond varies across different levels of cut. 
+  
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=color)) +
+  facet_grid(color~cut)
+```
+___
+___
+
+
+### 3. Editing Font, Size, & Color
+Things like font, size, background color can all be edited using the `theme()` command. These commands can get a little confusing, and [I recommend bookmarking this link for reference.](http://ggplot2.tidyverse.org/reference/theme.html) Below we've made the title size 17, boldface, and centered, and changed both axis text to be size 14. 
+
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name="Clarity") +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  theme(title=element_text(size=17, face="bold"), # title size 17 & boldface
+      plot.title = element_text(hjust = 0.5),     # title centered
+      axis.text.x=element_text(size=14),          # axis text size 14
+      axis.text.y=element_text(size=14))  
+```
+
+
+Because themes can be so cumbersome, you can create your own template and include it at the beginning of every R script. For example, I put together this theme configuration and title it "johntheme1". Then for each graph, I can just add `+ johntheme1` at the end to quickly format it. 
+
+```{r, message=FALSE}
+johntheme1 <- theme(plot.title = element_text(hjust = 0.5), # Centered title
+        plot.background = element_rect(fill="black"), # Black background
+        panel.background = element_rect(fill="gray20"), # Dark grey panel background
+        panel.grid.minor = element_line(color="black"), # Hide grid lines
+        panel.grid.major = element_line(color="black"), # Hide grid lines
+        axis.text = element_text(color="white"), # Make axis text white
+        title = element_text(color="white", face="bold"), # Make title white and bold.
+        legend.background = element_rect(fill="black"), # Make legend background black
+        legend.text = element_text(color="white"), # Make legend text white
+        legend.key = element_rect(fill="black", color="black"), #Squares/borders of legend black
+        legend.position = c(.9,.4)) # Coordinates. Top right = (1,1)
+```
+
+Then add it to existing plot...
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  johntheme1
+```
+
+___
+___
+Changing the fonts can be done with the `extrafont` package. First install, then require, then use `font_import()` to load fonts in, and `fonts()` to display. 
+
+```{r, message=FALSE}
+# install.packages("extrafont")
+require("extrafont")
+# font_import()
+fonts()
+```
+
+Within the theme options, you can specify your font with this command: `theme(text=element_text(family="Times New Roman"))`
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name="Clarity") +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  johntheme1 +
+  theme(text=element_text(family="Times New Roman"))
+```
+
+___
+___
+
+### EXERCISE 6
+Using the plot from ex2, facet wrap by the variable "cyl". Save this as an object "ex6", export as a jpg.
+  
+  
+### EXERCISE 7
+Using the plot from ex3, label each point by their 1/4 mile time (qsec), if their time is less than 16 seconds. Save this as an object "ex7", export as a jpg.
+  
+  
+### EXERCISE 8
+Using the plot from ex4, make the titles size 15 and in boldface. Save this as an object "ex8", export as a jpg.
+
+[Code Home](/xcode/)  
+[Part 3 <<<](/code/dataviz3)  

@@ -1,0 +1,9 @@
+---
+title: 'Baylor Religion Survey 2010: Import, Clean, Descriptives'
+author: John A. Bernau
+date: '2018-04-17'
+slug: baylor
+categories: []
+tags: []
+---
+

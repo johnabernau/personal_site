@@ -1,0 +1,247 @@
+---
+title: 'DataViz in R: Part 1'
+author: "John A. Bernau"
+date: '2018-04-17'
+slug: dataviz1
+tags: []
+categories: []
+---
+
+*These materials come from an interactive workshop I lead at the [Emory Center for Digital Scholarship](http://digitalscholarship.emory.edu/).*  
+  
+**Part 1 includes:**  
+1. Orientation to RStudio  
+2. Basics of ggplot  
+3. Changing size, shape, and alpha (opacity)  
+4. Three ways of specifying color  
+5. Putting it all together  
+6. Exercises 1 and 2  
+
+___
+___
+
+### 1. Orientation to RStudio
+
+* If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.
+
+* In short, RStudio provides a clean and intuitive interface for working in R. The opening dashboard contains four panes. Open a new R script using the top left-most button. Opening in the top left pane of RStudio, this is a saveable version of your R code. When you run commands, they will appear in the R console- the bottom left pane. In the top right pane you'll find an overview of your workspace environment and history. In the bottom right you'll find many helpful things: your plots, your packages, and the help menu. [More information available here.](https://www.rstudio.com/products/RStudio/)
+
+* For now, here are some of my favorite shortcuts to get you started. (Commands here are for Mac OSX)
+
+**Preferences > Code > "Soft Wrap R source files"**  
+*...This will make your R script easier to read by wrapping the text to fit your window.*  
+  
+**Preferences > Appearance**  
+*...This allows you to customize the font / size / color of your R scripts and console.*  
+  
+**Place a `#` before any line to make notes to yourself**  
+*...R will ignore anything that comes after the `#` sign. Take extensive notes in your code to remember what you did! *
+  
+**Command + Enter = Run**  
+*...Place your cursor on the line you want to run and press "command" and "enter / return" to run this line of code.*  
+  
+**Option + "-" = ` <- `**  
+*...To create the assignment operator (`<-`), use the 'option' + "-" keys.*  
+  
+**Control + L = clear R console**  
+*...This is helpful if you want a fresh console to work in.*  
+  
+**Clears workspace: `rm(list=ls())`**  
+*...To clear everything in your R session (console, variables, datasets, etc.) This doesn't clear your R script.*  
+  
+See Help > Keyboard Shortcuts for more  
+
+___
+
+As an object-oriented language, in R you can save things to variables. Below, we've saved "5" to the variable `x` using the `<-` assignment operator. We've also saved a list from 1 to 1,000 in the variable `y` using `c` to combine or 'concatenate.' Lastly, we've generated a random normal distribution and saved it to the variable `z`. This is done with the `rnorm(N, Mean, SD)` command.
+
+```{r}
+x <- 5
+y <- c(1:1000)
+z <- rnorm(1000, 500, 100)
+```
+
+
+We can then use these variables to run analyses. Below we've produced a simple histogram of our `z` variable using the `hist()` command.
+
+```{r}
+hist(z)
+```
+
+Nothing fancy, but we'll get into more features later. We can also make a scatter plot of our two variables `y` and `z`. Using the `plot()` command, R guesses the best graphing option, but we can specify a scatterplot using the `type=p` option: `plot(y,z, type="p")`. Placing the `?` before a command pulls up the R help files: `?plot` 
+
+```{r}
+plot(y,z)
+```
+
+Similarly bare-bones, but a quick way to visualize on the fly!
+
+___
+___
+One of the biggest advantages of R is the extensive package library. These free installations dramatically widen R's functionality. Check out some [useful packages here.](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages)
+  
+Let's install the `psych` and `ggplot2` packages. Once they are installed on your computer, you will need to "require" them at the beginning of each new R session. For this reason, I recommend putting a block of code at the beginning of your script with all the packages required. Subsequent lessons will include a package install header at the beginning. (You may see other tutorials using `library()` in place of `require()`, but for our purposes they are quivalent.)
+
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+
+# install.packages("ggplot2")
+require("ggplot2")
+```
+
+
+Load the diamonds dataset that comes with ggplot2: `data(diamonds)`.  
+This is a unique command for built-in datasets. 
+View dataset by typing `diamonds`. This lists the first ten rows. (Also see enivironment view in upper right).    
+  
+From the psych package, the `describe()` command gives a summary of your dataset:    
+
+```{r}
+describe(diamonds) 
+```
+
+The variables with asteriks(*) are identified as potentially non-numeric, so be careful when working with these summary features. 
+
+___
+___
+  
+  
+### 2. Grammar of Graphics: ggplot2
+  
+Under Hadley Wickham's philosophy, all visualizations can be broken down into three components: data, a coordinate system, and geoms (for 'geometric objects'). If you want to read more, check out [this excellent article](http://vita.had.co.nz/papers/layered-grammar.pdf) where he explains this 'grammar of graphics' and the development of the ggplot2 package. **More importantly, [save this excellent cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) as a resource for making plots with ggplot2.**
+  
+As a layered approach, ggplot2 works by building components step by step. To understand this logic, lets look at each step incrementally before combining them all. This first command calls the 'diamonds' dataset. We can run it, but it won't look like much yet. Importantly though, it doesn't produce an error message, which means it's just an empty visualization. 
+
+```{r}
+ggplot(diamonds)
+```
+
+Once we specify the variables we want to plot, R can fill out our coordinate system (or axes). Use the `aes()` code to refer to your graph's aesthetics, in this case, the x and y axis. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price))
+```
+
+Finally, we add the geometric object- the visualization itself! In this case, points. Notice how this command is separate from our initial command and joined with a `+` sign. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
+```
+
+We can add labels with the `labs()` command:
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + labs(x="Carat", y="Price", title="Figure 1: Diamond Prices")
+```
+
+Our code is already spilling onto multiple lines. To keep things neat and readable, try to break up your code into multiple lines. You can break anywhere, **as long as each line ends with "+".** This signals that there is more code to read on the next line.  
+  
+Additionally, we can save this code to an object, `graph1` for example, so we don't have to keep retyping everything.  Once saved, we simply type `graph1` and R will display our graph. 
+
+
+```{r}
+graph1 <- ggplot(diamonds, aes(x=carat, y=price)) + 
+            geom_point() + 
+            labs(x="Carat", y="Price", title="Figure 1: Diamond Prices")
+graph1
+```
+
+
+
+Once saved as an object, you can add layers and other features to this object. This makes editing less cumbersome. Try adding a few of these graph themes to our plot.
+```{r, eval=FALSE}
+graph1 + theme_bw() 
+graph1 + theme_gray() # This is default
+graph1 + theme_dark()
+graph1 + theme_classic()
+graph1 + theme_light()
+graph1 + theme_linedraw()
+graph1 + theme_minimal()
+graph1 + theme_void()
+```
+
+___
+___
+### 3. Changing size, shape, alpha
+
+Within the `geom_point()` command there are a lot of options for specifying your graph. Here are a couple.
+  
+In this case, the size of the points are 7x larger than the default. Try plugging in values like 0.01, 0.5, 3, 10, etc.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(size=7)
+```
+
+You can also specify the shape of your points. Try searching online for "R plot symbols" to find these codes. In this case I've chosen 8, a large asterik symbol. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(shape=8)
+```
+
+
+With a large scatterplot like ours, it's helpful to change the alpha, or opacity, of our points. This adds a three dimensional quality to see through large datasets and get around issues of overplotting. Alpha can range from 0 (fully translucent) to 1 (fully opaque). 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(alpha=0.2)
+```
+___
+___
+  
+### 4. Changing Color: Three ways {#anchor}
+
+There are at least three ways to specify color in R. First, you can use simple color names. R has an extensive color library and most of them are intuitively named. Try searching for "colors in R" online. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color="red4")
+```
+
+Second, you can use RGB codes. Like a painter's wheel, this specifies the proportion of red, green, and blue used to create your color. If they're not expressed in proportions, you will have to set the maximum (usually this is 256). These codes can be found online for certain brands or sports teams. The second example uses RGB codes found online for "Facebook blue."
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(.5,.7,.6))
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(67,96,156, max=256))
+```
+
+
+
+Lastly, you can use hexadecimal codes. These are like RGB codes but act more like a barcode for a specific shade. These are also easy to look up online if you want a specific color. This example uses the code found online for "Minnesota Viking purple".
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color="#582C81")
+```
+
+
+
+
+### Putting it all together...
+
+Using all the commands we've learned so far, the following graph has specifications for color, size, shape, and alpha. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(color="#582C81", size=4, shape=9, alpha=0.2)
+```
+
+___
+___
+
+### EXERCISE 1  
+Use the "mpg" dataset (built-in) to make a scatterplot of "city mpg" and "highway mpg" (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object "ex1". Finally, export as a jpg using the `ggsave()` command. [(Google this for more info).](http://ggplot2.tidyverse.org/reference/ggsave.html)
+  
+For help:  
+```{r, eval=FALSE}
+?mpg
+describe(mpg)
+?geom_point
+```
+  
+
+When you are done...  
+Why are some triangles darker than others? We can introduce random variation in our data using the 'jitter' command to reveal overlapping data points: geom_point(...., position='jitter', ...)
+
+
+### EXERCISE 2
+Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the "Atlanta Falcons". (Search online for the hex code or rgb value). Save this plot as an object "ex2". Export as a jpg. 
+  
+
+[Code Home](/xcode/)  
+[>>> Part 2](/code/dataviz2/)

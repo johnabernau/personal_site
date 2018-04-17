@@ -39,13 +39,14 @@ url                    = "/about/"
 name                   = "Code"
 weight                 = 4
 identifier             = "code"
-url                    = "/code/"
+url                    = "/xcode/"
 
 [[menu.main]]
 name                   = "CV"
 weight                 = 5
 identifier             = "cv"
 url                    = "/img/cv2018.pdf"
+
 
 
 [params]

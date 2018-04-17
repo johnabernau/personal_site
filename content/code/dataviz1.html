@@ -48,10 +48,10 @@ y &lt;- c(1:1000)
 z &lt;- rnorm(1000, 500, 100)</code></pre>
 <p>We can then use these variables to run analyses. Below we’ve produced a simple histogram of our <code>z</code> variable using the <code>hist()</code> command.</p>
 <pre class="r"><code>hist(z)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Nothing fancy, but we’ll get into more features later. We can also make a scatter plot of our two variables <code>y</code> and <code>z</code>. Using the <code>plot()</code> command, R guesses the best graphing option, but we can specify a scatterplot using the <code>type=p</code> option: <code>plot(y,z, type=&quot;p&quot;)</code>. Placing the <code>?</code> before a command pulls up the R help files: <code>?plot</code></p>
 <pre class="r"><code>plot(y,z)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Similarly bare-bones, but a quick way to visualize on the fly!</p>
 <hr />
 <hr />
@@ -97,23 +97,23 @@ This is a unique command for built-in datasets. View dataset by typing <code>dia
 <p>Under Hadley Wickham’s philosophy, all visualizations can be broken down into three components: data, a coordinate system, and geoms (for ‘geometric objects’). If you want to read more, check out <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">this excellent article</a> where he explains this ‘grammar of graphics’ and the development of the ggplot2 package. <strong>More importantly, <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">save this excellent cheat sheet</a> as a resource for making plots with ggplot2.</strong></p>
 <p>As a layered approach, ggplot2 works by building components step by step. To understand this logic, lets look at each step incrementally before combining them all. This first command calls the ‘diamonds’ dataset. We can run it, but it won’t look like much yet. Importantly though, it doesn’t produce an error message, which means it’s just an empty visualization.</p>
 <pre class="r"><code>ggplot(diamonds)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Once we specify the variables we want to plot, R can fill out our coordinate system (or axes). Use the <code>aes()</code> code to refer to your graph’s aesthetics, in this case, the x and y axis.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price))</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Finally, we add the geometric object- the visualization itself! In this case, points. Notice how this command is separate from our initial command and joined with a <code>+</code> sign.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point()</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>We can add labels with the <code>labs()</code> command:</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Our code is already spilling onto multiple lines. To keep things neat and readable, try to break up your code into multiple lines. You can break anywhere, <strong>as long as each line ends with “+”.</strong> This signals that there is more code to read on the next line.</p>
 <p>Additionally, we can save this code to an object, <code>graph1</code> for example, so we don’t have to keep retyping everything. Once saved, we simply type <code>graph1</code> and R will display our graph.</p>
 <pre class="r"><code>graph1 &lt;- ggplot(diamonds, aes(x=carat, y=price)) + 
             geom_point() + 
             labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;)
 graph1</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Once saved as an object, you can add layers and other features to this object. This makes editing less cumbersome. Try adding a few of these graph themes to our plot.</p>
 <pre class="r"><code>graph1 + theme_bw() 
 graph1 + theme_gray() # This is default
@@ -131,40 +131,40 @@ graph1 + theme_void()</code></pre>
 <p>Within the <code>geom_point()</code> command there are a lot of options for specifying your graph. Here are a couple.</p>
 <p>In this case, the size of the points are 7x larger than the default. Try plugging in values like 0.01, 0.5, 3, 10, etc.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(size=7)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>You can also specify the shape of your points. Try searching online for “R plot symbols” to find these codes. In this case I’ve chosen 8, a large asterik symbol.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(shape=8)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>With a large scatterplot like ours, it’s helpful to change the alpha, or opacity, of our points. This adds a three dimensional quality to see through large datasets and get around issues of overplotting. Alpha can range from 0 (fully translucent) to 1 (fully opaque).</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(alpha=0.2)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-14-1.png" width="672" /> <strong><em> </em></strong></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-14-1.png" width="672" /> <strong><em> </em></strong></p>
 </div>
 <div id="anchor" class="section level3">
 <h3>4. Changing Color: Three ways</h3>
 <p>There are at least three ways to specify color in R. First, you can use simple color names. R has an extensive color library and most of them are intuitively named. Try searching for “colors in R” online.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=&quot;red4&quot;)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Second, you can use RGB codes. Like a painter’s wheel, this specifies the proportion of red, green, and blue used to create your color. If they’re not expressed in proportions, you will have to set the maximum (usually this is 256). These codes can be found online for certain brands or sports teams. The second example uses RGB codes found online for “Facebook blue.”</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(.5,.7,.6))</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(67,96,156, max=256))</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
 <p>Lastly, you can use hexadecimal codes. These are like RGB codes but act more like a barcode for a specific shade. These are also easy to look up online if you want a specific color. This example uses the code found online for “Minnesota Viking purple”.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=&quot;#582C81&quot;)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="putting-it-all-together" class="section level3">
 <h3>Putting it all together…</h3>
 <p>Using all the commands we’ve learned so far, the following graph has specifications for color, size, shape, and alpha.</p>
 <pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
   geom_point(color=&quot;#582C81&quot;, size=4, shape=9, alpha=0.2)</code></pre>
-<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/code/dataviz1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <hr />
 <hr />
 </div>
 <div id="exercise-1" class="section level3">
 <h3>EXERCISE 1</h3>
-<p>Use the “mpg” dataset (built-in) to make a scatterplot of “city mpg” and “highway mpg” (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object “ex1”. Finally, export as a jpg using the <code>ggsave()</code> command. <a href="http://ggplot2.tidyverse.org/reference/ggsave.html">(Google this for more info).</a> Turn in your jpg file (ex1.jpg) in the assignments folder on Canvas.</p>
+<p>Use the “mpg” dataset (built-in) to make a scatterplot of “city mpg” and “highway mpg” (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object “ex1”. Finally, export as a jpg using the <code>ggsave()</code> command. <a href="http://ggplot2.tidyverse.org/reference/ggsave.html">(Google this for more info).</a></p>
 <p>For help:</p>
 <pre class="r"><code>?mpg
 describe(mpg)
@@ -175,5 +175,6 @@ Why are some triangles darker than others? We can introduce random variation in 
 <div id="exercise-2" class="section level3">
 <h3>EXERCISE 2</h3>
 <p>Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the “Atlanta Falcons”. (Search online for the hex code or rgb value). Save this plot as an object “ex2”. Export as a jpg.</p>
-<p><a href="/code/">Part 2</a></p>
+<p><a href="/xcode/">Code Home</a><br />
+<a href="/code/dataviz2/">&gt;&gt;&gt; Part 2</a></p>
 </div>

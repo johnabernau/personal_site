@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau">
+<meta name="description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 2 includes:
+1. Assigning variables to graphical parameters
+2. Expressing variables using color
+3. Putting it all together
+4. Exercises 3 and 4
+# install.packages(&quot;psych&quot;) require(&quot;psych&quot;) # install.packages(&quot;ggplot2&quot;) require(&quot;ggplot2&quot;) # install.packages(&quot;RColorBrewer&quot;) require(&quot;RColorBrewer&quot;) 1. Assigning variables to graphic parameters In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color.">
+
+<meta property="og:title" content="DataViz in R: Part 2" />
+<meta property="og:description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 2 includes:
+1. Assigning variables to graphical parameters
+2. Expressing variables using color
+3. Putting it all together
+4. Exercises 3 and 4
+# install.packages(&quot;psych&quot;) require(&quot;psych&quot;) # install.packages(&quot;ggplot2&quot;) require(&quot;ggplot2&quot;) # install.packages(&quot;RColorBrewer&quot;) require(&quot;RColorBrewer&quot;) 1. Assigning variables to graphic parameters In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dataviz2/" />
+
+
+
+<meta property="article:published_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+<title>
+
+
+     DataViz in R: Part 2 
+
+</title>
+<link rel="canonical" href="/code/dataviz2/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-17%2017%3a26%3a54.304656%20-0400%20EDT%20m%3d%2b0.223946394">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-17%2017%3a26%3a54.304656%20-0400%20EDT%20m%3d%2b0.223946394">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-17%2017%3a26%3a54.304656%20-0400%20EDT%20m%3d%2b0.223946394">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-17%2017%3a26%3a54.304656%20-0400%20EDT%20m%3d%2b0.223946394">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau</div></a>
+            
+              <h3 class="self-intro">PhD Candidate, Sociology</h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/research/"><span>research</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
+                    
+                        <li class="nav-cv"><a href="/img/cv2018.pdf"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="/https://www.linkedin.com/in/john-bernau-b384a9153/" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+<section class="main">
+    <div class="container">
+        <div class="content">
+            <div class="page-heading">
+
+    DataViz in R: Part 2
+
+</div>
+
+            <div class="markdown">
+                <p><em>These materials come from an interactive workshop I lead at the <a href="http://digitalscholarship.emory.edu/">Emory Center for Digital Scholarship</a>.</em></p>
+<p><strong>Part 2 includes:</strong><br />
+1. Assigning variables to graphical parameters<br />
+2. Expressing variables using color<br />
+3. Putting it all together<br />
+4. Exercises 3 and 4</p>
+<hr />
+<hr />
+<pre class="r"><code># install.packages(&quot;psych&quot;)
+require(&quot;psych&quot;)
+# install.packages(&quot;ggplot2&quot;)
+require(&quot;ggplot2&quot;)
+# install.packages(&quot;RColorBrewer&quot;)
+require(&quot;RColorBrewer&quot;)</code></pre>
+<hr />
+<div id="assigning-variables-to-graphic-parameters" class="section level3">
+<h3>1. Assigning variables to graphic parameters</h3>
+<p>In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color. In part 2 we will learn how to use these parameters to express new information by assigning them to variables.</p>
+<p>First, we can use size to convey the variable ‘carat’ in our diamonds dataset. (When a scatterplot uses size to convey a variable it is sometimes refered to as a ‘bubble chart.’)</p>
+<p>Notice that when assigning parameters to variables, global options (options that apply to everything, like those described in part 1) are simply separated with a comma: <code>geom_point(size=X, shape=X, ......)</code>. When assigning these parameters to other variables in our dataset, they must be wrapped in <code>aes()</code> within our geom: <code>geom_point(aes(size=var1, shape=var2, ...))</code>.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>These attributes are called ‘scales.’ Scales can be continuous or discrete. In this case, carat is continuous. It also automatically creates a legend on the right hand side. With any scale, you can adjust the options with the <code>scale_...</code> command. The following command will add a title to the legend and force the size range to a minimum of 3 and maximum of 10. Using <code>guide=FALSE</code> here will remove your legend.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat)) + 
+  scale_size(name=&quot;Title Here&quot;, range=c(3,10))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Using the same logic, let’s assign the variable ‘cut’ to the shape parameter. In the code below, notice how we can combine global parameters like (<code>size=4</code>) with variable-assigned parameters (<code>aes(shape=cut)</code>). We’ve also added a legend title using the <code>scale_shape()</code> options command.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(shape=cut), size=4) +
+  scale_shape(name=&quot;Legend title here&quot;)</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Lastly, we can assign our alpha (or opacity) parameter to a variable in the same way. In the code below our points are shaded according to price: the more expensive a diamond is, the more opaque it becomes. This is helpful for emphasizing influential cases and minimizing the ‘noise’ of all our low-value cases.</p>
+<p>The diamonds dataset is so large that even some of the lower priced diamonds appear opaque. Because of this, I’ve added a custom alpha range, using the <code>scale_alpha()</code> command, that starts at 0.001. I’ve also turned the legend off and added some annotations.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(alpha=price)) +
+  scale_alpha(range=c(0.001, 1), guide=F) +
+  labs(x=&quot;Size (carats)&quot;, y=&quot;Price ($)&quot;, title= &quot;Figure 1: Diamond Prices by Carat&quot;,
+       subtitle= &quot;Source: ggplot2 dataset&quot;)</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-5-1.png" width="672" /> <strong><em> </em></strong></p>
+<p>Combine these to express carat, cut, and price using size, shape, and alpha.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat, shape=cut, alpha=price))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>It doesn’t take a graphic designer to realize this is a bad visualization. <strong>While graphs often do an excellent job in conveying complex information, they can easily fall into the same trap as the data itself: there is simply too much information to take in.</strong> For this reason keep in mind the main points you want to convey and strive for parsimony.</p>
+<ul>
+<li><p><strong>Size</strong> - this is best used for continuous variables. It is extremely hard for our eyes to distinguish between small changes in size. Make sure to use the <code>scale_size(range=c(&quot;low range value&quot;, &quot;hi range value&quot;))</code> command to pick a range that helps make your point.</p></li>
+<li><p><strong>Shape</strong> - this is best used for categorical values. Be careful of using too many shapes as your graphic can become distracting quickly. ggplot2 has a maximum of 6 shapes when using them as a scale. 2-3 different shapes are probably ideal.</p></li>
+<li><p><strong>Alpha</strong> - like size, opacity is best used for continuous variables. This is a subtle effect that is probably best used in conjunction with another parameter. In our examples, alpha mapped onto the y-axis and added a subtle feature.</p></li>
+</ul>
+<hr />
+<hr />
+</div>
+<div id="expressing-variables-using-color" class="section level3">
+<h3>2. Expressing variables using color</h3>
+<p>Color is one of the most efficient ways to express information. It works much like the previous examples. If you set it to a continuous variable it will produce an automatic gradient. In this case, we’re coloring our data points by the variable ‘price’.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The default color gradient goes from navy to light blue. To set it manually use the <code>scale_color_gradient()</code> command. As we learned in part 1, you can use color names, RGB, or hexcodes when using color.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price)) + 
+  scale_color_gradient(name=&quot;Title here&quot;, low=&quot;darkblue&quot;, high=&quot;orange&quot;)</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>When assigning color to a categorical variable, ggplot produces an array of default colors which are evenly spaced on the color wheel. In this case, we’re coloring our data by the variable ‘clarity’.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>The following command will show you the 8 hex codes it used to produce the graph above. You can use these values to emulate or edit this color scheme.</p>
+<pre class="r"><code># First load the scales package
+require(scales)
+# Then specify how many values you want to return. In this case 8. 
+show_col(hue_pal()(8))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>If you have specific colors in mind, you can set them manually using the <code>scale_color_manual()</code> command:</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_manual(name=&quot;Legend title&quot;, values=c(&quot;red&quot;, &quot;darkblue&quot;,&quot;darkgreen&quot;, &quot;grey50&quot;, &quot;darkorange&quot;, &quot;grey3&quot;, &quot;black&quot;, &quot;darkred&quot;))</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>While you might have a particular reason for using certain colors, setting colors manually can be time-consuming. As we’ve seen, ggplot’s default uses evenly spaced hues on a color wheel. The package RColorBrewer provides some additional palletes to pick from. After installing (see header), we display the available palletes below. There are 18 are intended for continuous variables, 8 for categorical variables, and 9 divergent palletes. (Use the zoom feature to make out the pallete names.)</p>
+<pre class="r"><code>display.brewer.all()</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>We can use these within ggplot by naming the pallete in the <code>scale_color_brewer()</code> command.</p>
+<p>PS- To reverse the direction of a pallete, simply add <code>direction=-1</code> in the command <code>scale_color_brewer(..., direction=-1, ...)</code></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_brewer(name=&quot;Title here&quot;, palette=&quot;RdYlGn&quot;)</code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="putting-it-all-together" class="section level3">
+<h3>Putting it all together…</h3>
+<p>Using all the commands we’ve learned so far, the following graph assigns opacity of all points to 0.3, colors our data points according to the ‘clarity’ variable using the ‘RdYlGn’ pallete from RColorBrewer, adds labels, and uses the minimal theme.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(alpha=0.3, aes(color=clarity)) +
+  scale_color_brewer(name=&quot;Clarity&quot;, palette=&quot;RdYlGn&quot;) +
+  labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title= &quot;Figure 1: Diamond Prices&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="/code/dataviz2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>PS- While the legend obeys the aesthetics of your data points, the following command overrides this by setting alpha and size for our legend manually: <code>guides(colour = guide_legend(override.aes = list(alpha = 1, size=4)))</code></p>
+<hr />
+<hr />
+</div>
+<div id="exercise-3" class="section level3">
+<h3>EXERCISE 3</h3>
+<p>Use the “mtcars” dataset (built-in) to make a scatterplot of “weight” and “mpg”. Change axes labels and give your plot a title. Set the alpha of all points to 0.7.</p>
+<p>Set the color of the points to the “mpg” variable (continuous). Also, set this color parameter so that high mpgs are colored green and low mpgs are colored blue. Title the legend “MPG”.</p>
+<p>Set the size of the points to the “wt” variable (continuous). Also, to make the small points more readable, set the range of sizes to go from 3-10. Title this legend “Weight”.</p>
+<p>When you’re done, save this as an object “ex3”, export as a jpg.</p>
+<p>For help:</p>
+<pre class="r"><code>?mtcars
+describe(mtcars)
+?geom_point</code></pre>
+</div>
+<div id="exercise-4" class="section level3">
+<h3>EXERCISE 4</h3>
+<p>Use the “mpg” dataset to make a scatterplot of “City MPG” and “Highway MPG”. Change axes labels and give your plot a title. Set the alpha of all points to 0.8 and the size of all points to 6. Use the position=‘jitter’ command to spread out your data (see exercise 2).</p>
+<p>Because they are numbers, in this dataset “year” and “cyl” are both assumed to be continuous variables. However, we want to graph them as if they are categorical variables. To do this you will write the variables like so: “factor(year)” &amp; “factor(cyl)”.</p>
+<p>Set shape to year and color to cylinder. Remember to use the factor notation described above! HINT: aes(shape=factor(variable name), color=factor(variable name))</p>
+<p>Set the title of these legends to “Year” and “Cylinders.” When you’re done, save this as an object “ex4”, export as a jpg.</p>
+<p><a href="/xcode/">Code Home</a><br />
+<a href="/code/dataviz1">Part 1 &lt;&lt;&lt;</a><a href="/code/dataviz3/">&gt;&gt;&gt; Part 3</a></p>
+</div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+</body>
+</html>
+
