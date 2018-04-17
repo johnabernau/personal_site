@@ -21,6 +21,16 @@
     </item>
     
     <item>
+      <title>Code</title>
+      <link>/code/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/</guid>
+      <description>So this should be main page&amp;hellip;
+2017 DataViz in R: Part 1</description>
+    </item>
+    
+    <item>
       <title>Country Music</title>
       <link>/research/country-music/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
@@ -31,11 +41,19 @@
     
     <item>
       <title>DataViz in R: Part 1</title>
-      <link>/dataviz/dataviz-in-r-part-1/</link>
+      <link>/code/dataviz1/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/dataviz/dataviz-in-r-part-1/</guid>
-      <description></description>
+      <guid>/code/dataviz1/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 1 includes:
+1. Orientation to RStudio
+2. Basics of ggplot
+3. Changing size, shape, and alpha (opacity)
+4. Three ways of specifying color
+5. Putting it all together
+6. Exercises 1 and 2
+1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online.</description>
     </item>
     
     <item>

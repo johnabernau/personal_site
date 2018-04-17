@@ -6,10 +6,27 @@
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 19 Aug 2015 20:29:37 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DataViz in R: Part 1</title>
+      <link>/code/dataviz1/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/dataviz1/</guid>
+      <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
+Part 1 includes:
+1. Orientation to RStudio
+2. Basics of ggplot
+3. Changing size, shape, and alpha (opacity)
+4. Three ways of specifying color
+5. Putting it all together
+6. Exercises 1 and 2
+1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online.</description>
+    </item>
     
   </channel>
 </rss>

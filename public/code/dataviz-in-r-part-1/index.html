@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau">
+<meta name="description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship  
+1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.
+ In short, RStudio provides a clean and intuitive interface for working in R.">
+
+<meta property="og:title" content="DataViz in R: Part 1" />
+<meta property="og:description" content="These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship  
+1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.
+ In short, RStudio provides a clean and intuitive interface for working in R." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dataviz-in-r-part-1/" />
+
+
+
+<meta property="article:published_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-17T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+<title>
+
+
+     DataViz in R: Part 1 
+
+</title>
+<link rel="canonical" href="/code/dataviz-in-r-part-1/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-17%2016%3a11%3a10.700202%20-0400%20EDT%20m%3d%2b0.186375420">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-17%2016%3a11%3a10.700202%20-0400%20EDT%20m%3d%2b0.186375420">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-17%2016%3a11%3a10.700202%20-0400%20EDT%20m%3d%2b0.186375420">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-17%2016%3a11%3a10.700202%20-0400%20EDT%20m%3d%2b0.186375420">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau</div></a>
+            
+              <h3 class="self-intro">PhD Candidate, Sociology</h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/research/"><span>research</span></a></li>
+                    
+                        <li class="nav-dataviz"><a href="/dataviz/"><span>DataViz</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-code"><a href="/code/"><span>Code</span></a></li>
+                    
+                        <li class="nav-cv"><a href="/img/cv2018.pdf"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="/https://www.linkedin.com/in/john-bernau-b384a9153/" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+<section class="main">
+    <div class="container">
+        <div class="content">
+            <div class="page-heading">
+
+    DataViz in R: Part 1
+
+</div>
+
+            <div class="markdown">
+                <p><em>These materials come from an interactive workshop I lead at the <a href="http://digitalscholarship.emory.edu/">Emory Center for Digital Scholarship</a></em> <strong><em> </em></strong></p>
+<div id="orientation-to-rstudio" class="section level3">
+<h3>1. Orientation to RStudio</h3>
+<ul>
+<li><p>If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.</p></li>
+<li><p>In short, RStudio provides a clean and intuitive interface for working in R. The opening dashboard contains four panes. Open a new R script using the top left-most button. Opening in the top left pane of RStudio, this is a saveable version of your R code. When you run commands, they will appear in the R console- the bottom left pane. In the top right pane you’ll find an overview of your workspace environment and history. In the bottom right you’ll find many helpful things: your plots, your packages, and the help menu. <a href="https://www.rstudio.com/products/RStudio/">More information available here.</a></p></li>
+<li><p>For now, here are some of my favorite shortcuts to get you started. (Commands here are for Mac OSX)</p></li>
+</ul>
+<p><strong>Preferences &gt; Code &gt; “Soft Wrap R source files”</strong><br />
+<em>…This will make your R script easier to read by wrapping the text to fit your window.</em></p>
+<p><strong>Preferences &gt; Appearance</strong><br />
+<em>…This allows you to customize the font / size / color of your R scripts and console.</em></p>
+<p><strong>Place a <code>#</code> before any line to make notes to yourself</strong><br />
+<em>…R will ignore anything that comes after the <code>#</code> sign. Take extensive notes in your code to remember what you did! </em></p>
+<p><strong>Command + Enter = Run</strong><br />
+<em>…Place your cursor on the line you want to run and press “command” and “enter / return” to run this line of code.</em></p>
+<p><strong>Option + “-” = <code>&lt;-</code></strong><br />
+<em>…To create the assignment operator (<code>&lt;-</code>), use the ‘option’ + “-” keys.</em></p>
+<p><strong>Control + L = clear R console</strong><br />
+<em>…This is helpful if you want a fresh console to work in.</em></p>
+<p><strong>Clears workspace: <code>rm(list=ls())</code></strong><br />
+<em>…To clear everything in your R session (console, variables, datasets, etc.) This doesn’t clear your R script.</em></p>
+<p>See Help &gt; Keyboard Shortcuts for more</p>
+<hr />
+<p>As an object-oriented language, in R you can save things to variables. Below, we’ve saved “5” to the variable <code>x</code> using the <code>&lt;-</code> assignment operator. We’ve also saved a list from 1 to 1,000 in the variable <code>y</code> using <code>c</code> to combine or ‘concatenate.’ Lastly, we’ve generated a random normal distribution and saved it to the variable <code>z</code>. This is done with the <code>rnorm(N, Mean, SD)</code> command.</p>
+<pre class="r"><code>x &lt;- 5
+y &lt;- c(1:1000)
+z &lt;- rnorm(1000, 500, 100)</code></pre>
+<p>We can then use these variables to run analyses. Below we’ve produced a simple histogram of our <code>z</code> variable using the <code>hist()</code> command.</p>
+<pre class="r"><code>hist(z)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Nothing fancy, but we’ll get into more features later. We can also make a scatter plot of our two variables <code>y</code> and <code>z</code>. Using the <code>plot()</code> command, R guesses the best graphing option, but we can specify a scatterplot using the <code>type=p</code> option: <code>plot(y,z, type=&quot;p&quot;)</code>. Placing the <code>?</code> before a command pulls up the R help files: <code>?plot</code></p>
+<pre class="r"><code>plot(y,z)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Similarly bare-bones, but a quick way to visualize on the fly!</p>
+<hr />
+<hr />
+<p>One of the biggest advantages of R is the extensive package library. These free installations dramatically widen R’s functionality. Check out some <a href="https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages">useful packages here.</a></p>
+<p>Let’s install the <code>psych</code> and <code>ggplot2</code> packages. Once they are installed on your computer, you will need to “require” them at the beginning of each new R session. For this reason, I recommend putting a block of code at the beginning of your script with all the packages required. Subsequent lessons will include a package install header at the beginning. (You may see other tutorials using <code>library()</code> in place of <code>require()</code>, but for our purposes they are quivalent.)</p>
+<pre class="r"><code># install.packages(&quot;psych&quot;)
+require(&quot;psych&quot;)
+
+# install.packages(&quot;ggplot2&quot;)
+require(&quot;ggplot2&quot;)</code></pre>
+<p>Load the diamonds dataset that comes with ggplot2: <code>data(diamonds)</code>.<br />
+This is a unique command for built-in datasets. View dataset by typing <code>diamonds</code>. This lists the first ten rows. (Also see enivironment view in upper right).</p>
+<p>From the psych package, the <code>describe()</code> command gives a summary of your dataset:</p>
+<pre class="r"><code>describe(diamonds) </code></pre>
+<pre><code>##          vars     n    mean      sd  median trimmed     mad   min      max
+## carat       1 53940    0.80    0.47    0.70    0.73    0.47   0.2     5.01
+## cut*        2 53940    3.90    1.12    4.00    4.04    1.48   1.0     5.00
+## color*      3 53940    3.59    1.70    4.00    3.55    1.48   1.0     7.00
+## clarity*    4 53940    4.05    1.65    4.00    3.91    1.48   1.0     8.00
+## depth       5 53940   61.75    1.43   61.80   61.78    1.04  43.0    79.00
+## table       6 53940   57.46    2.23   57.00   57.32    1.48  43.0    95.00
+## price       7 53940 3932.80 3989.44 2401.00 3158.99 2475.94 326.0 18823.00
+## x           8 53940    5.73    1.12    5.70    5.66    1.38   0.0    10.74
+## y           9 53940    5.73    1.14    5.71    5.66    1.36   0.0    58.90
+## z          10 53940    3.54    0.71    3.53    3.49    0.85   0.0    31.80
+##             range  skew kurtosis    se
+## carat        4.81  1.12     1.26  0.00
+## cut*         4.00 -0.72    -0.40  0.00
+## color*       6.00  0.19    -0.87  0.01
+## clarity*     7.00  0.55    -0.39  0.01
+## depth       36.00 -0.08     5.74  0.01
+## table       52.00  0.80     2.80  0.01
+## price    18497.00  1.62     2.18 17.18
+## x           10.74  0.38    -0.62  0.00
+## y           58.90  2.43    91.20  0.00
+## z           31.80  1.52    47.08  0.00</code></pre>
+<p>The variables with asteriks(*) are identified as potentially non-numeric, so be careful when working with these summary features.</p>
+<hr />
+<hr />
+</div>
+<div id="grammar-of-graphics-ggplot2" class="section level3">
+<h3>2. Grammar of Graphics: ggplot2</h3>
+<p>Under Hadley Wickham’s philosophy, all visualizations can be broken down into three components: data, a coordinate system, and geoms (for ‘geometric objects’). If you want to read more, check out <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">this excellent article</a> where he explains this ‘grammar of graphics’ and the development of the ggplot2 package. <strong>More importantly, <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">save this excellent cheat sheet</a> as a resource for making plots with ggplot2.</strong></p>
+<p>As a layered approach, ggplot2 works by building components step by step. To understand this logic, lets look at each step incrementally before combining them all. This first command calls the ‘diamonds’ dataset. We can run it, but it won’t look like much yet. Importantly though, it doesn’t produce an error message, which means it’s just an empty visualization.</p>
+<pre class="r"><code>ggplot(diamonds)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Once we specify the variables we want to plot, R can fill out our coordinate system (or axes). Use the <code>aes()</code> code to refer to your graph’s aesthetics, in this case, the x and y axis.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price))</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Finally, we add the geometric object- the visualization itself! In this case, points. Notice how this command is separate from our initial command and joined with a <code>+</code> sign.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point()</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We can add labels with the <code>labs()</code> command:</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Our code is already spilling onto multiple lines. To keep things neat and readable, try to break up your code into multiple lines. You can break anywhere, <strong>as long as each line ends with “+”.</strong> This signals that there is more code to read on the next line.</p>
+<p>Additionally, we can save this code to an object, <code>graph1</code> for example, so we don’t have to keep retyping everything. Once saved, we simply type <code>graph1</code> and R will display our graph.</p>
+<pre class="r"><code>graph1 &lt;- ggplot(diamonds, aes(x=carat, y=price)) + 
+            geom_point() + 
+            labs(x=&quot;Carat&quot;, y=&quot;Price&quot;, title=&quot;Figure 1: Diamond Prices&quot;)
+graph1</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Once saved as an object, you can add layers and other features to this object. This makes editing less cumbersome. Try adding a few of these graph themes to our plot.</p>
+<pre class="r"><code>graph1 + theme_bw() 
+graph1 + theme_gray() # This is default
+graph1 + theme_dark()
+graph1 + theme_classic()
+graph1 + theme_light()
+graph1 + theme_linedraw()
+graph1 + theme_minimal()
+graph1 + theme_void()</code></pre>
+<hr />
+<hr />
+</div>
+<div id="changing-size-shape-alpha" class="section level3">
+<h3>3. Changing size, shape, alpha</h3>
+<p>Within the <code>geom_point()</code> command there are a lot of options for specifying your graph. Here are a couple.</p>
+<p>In this case, the size of the points are 7x larger than the default. Try plugging in values like 0.01, 0.5, 3, 10, etc.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(size=7)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>You can also specify the shape of your points. Try searching online for “R plot symbols” to find these codes. In this case I’ve chosen 8, a large asterik symbol.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(shape=8)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>With a large scatterplot like ours, it’s helpful to change the alpha, or opacity, of our points. This adds a three dimensional quality to see through large datasets and get around issues of overplotting. Alpha can range from 0 (fully translucent) to 1 (fully opaque).</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(alpha=0.2)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-14-1.png" width="672" /> <strong><em> </em></strong></p>
+</div>
+<div id="anchor" class="section level3">
+<h3>4. Changing Color: Three ways</h3>
+<p>There are at least three ways to specify color in R. First, you can use simple color names. R has an extensive color library and most of them are intuitively named. Try searching for “colors in R” online.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=&quot;red4&quot;)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Second, you can use RGB codes. Like a painter’s wheel, this specifies the proportion of red, green, and blue used to create your color. If they’re not expressed in proportions, you will have to set the maximum (usually this is 256). These codes can be found online for certain brands or sports teams. The second example uses RGB codes found online for “Facebook blue.”</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(.5,.7,.6))</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(67,96,156, max=256))</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p>Lastly, you can use hexadecimal codes. These are like RGB codes but act more like a barcode for a specific shade. These are also easy to look up online if you want a specific color. This example uses the code found online for “Minnesota Viking purple”.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=&quot;#582C81&quot;)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="putting-it-all-together" class="section level3">
+<h3>Putting it all together…</h3>
+<p>Using all the commands we’ve learned so far, the following graph has specifications for color, size, shape, and alpha.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(color=&quot;#582C81&quot;, size=4, shape=9, alpha=0.2)</code></pre>
+<p><img src="/code/2018-04-17-dataviz-in-r-part-1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<hr />
+<hr />
+</div>
+<div id="exercise-1" class="section level3">
+<h3>EXERCISE 1</h3>
+<p>Use the “mpg” dataset (built-in) to make a scatterplot of “city mpg” and “highway mpg” (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object “ex1”. Finally, export as a jpg using the <code>ggsave()</code> command. <a href="http://ggplot2.tidyverse.org/reference/ggsave.html">(Google this for more info).</a> Turn in your jpg file (ex1.jpg) in the assignments folder on Canvas.</p>
+<p>For help:</p>
+<pre class="r"><code>?mpg
+describe(mpg)
+?geom_point</code></pre>
+<p>When you are done…<br />
+Why are some triangles darker than others? We can introduce random variation in our data using the ‘jitter’ command to reveal overlapping data points: geom_point(…., position=‘jitter’, …)</p>
+</div>
+<div id="exercise-2" class="section level3">
+<h3>EXERCISE 2</h3>
+<p>Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the “Atlanta Falcons”. (Search online for the hex code or rgb value). Save this plot as an object “ex2”. Export as a jpg.</p>
+<p><a href="/code/">Part 2</a></p>
+</div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+</body>
+</html>
+
