@@ -6,18 +6,18 @@
     <description>Recent content in Dataviz on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/dataviz/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title></title>
-      <link>/dataviz/dataviz_in_r/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>DataViz in R: Part 1</title>
+      <link>/dataviz/dataviz-in-r-part-1/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/dataviz/dataviz_in_r/</guid>
-      <description>Part 1 1. Orientation to RStudio  If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.
- In short, RStudio provides a clean and intuitive interface for working in R. The opening dashboard contains four panes. Open a new R script using the top left-most button.</description>
+      <guid>/dataviz/dataviz-in-r-part-1/</guid>
+      <description></description>
     </item>
     
   </channel>
