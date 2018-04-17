@@ -1,0 +1,784 @@
+---
+title: 'Data Visualization in R'
+author: 'John Bernau'
+date: 'Emory University 2017'
+output:
+  html_document: 
+    toc: true # table of content true
+    toc_float: 
+      collapsed: false
+      toc_depth: 4  # upto three depths of headings (specified by #, ## and ###)
+      theme: journal  # many options for theme, this one is my favorite.
+---
+
+  
+
+<center> ![](/Users/johnbernau/Desktop/ECDS-logo-200.jpg)</center>    
+
+___
+___
+## Part 1
+___
+___
+
+### 1. Orientation to RStudio
+
+* If you are new to R or RStudio, there are a lot of introductory courses and materials online. DataCamp.com and Lynda.com offer professionally curated content, while YouTube and other sites will cover just about everything if you look hard enough.
+
+* In short, RStudio provides a clean and intuitive interface for working in R. The opening dashboard contains four panes. Open a new R script using the top left-most button. Opening in the top left pane of RStudio, this is a saveable version of your R code. When you run commands, they will appear in the R console- the bottom left pane. In the top right pane you'll find an overview of your workspace environment and history. In the bottom right you'll find many helpful things: your plots, your packages, and the help menu. [More information available here.](https://www.rstudio.com/products/RStudio/)
+
+* For now, here are some of my favorite shortcuts to get you started. (Commands here are for Mac OSX)
+
+**Preferences > Code > "Soft Wrap R source files"**  
+*...This will make your R script easier to read by wrapping the text to fit your window.*  
+  
+**Preferences > Appearance**  
+*...This allows you to customize the font / size / color of your R scripts and console.*  
+  
+**Place a `#` before any line to make notes to yourself**  
+*...R will ignore anything that comes after the `#` sign. Take extensive notes in your code to remember what you did! *
+  
+**Command + Enter = Run**  
+*...Place your cursor on the line you want to run and press "command" and "enter / return" to run this line of code.*  
+  
+**Option + "-" = ` <- `**  
+*...To create the assignment operator (`<-`), use the 'option' + "-" keys.*  
+  
+**Control + L = clear R console**  
+*...This is helpful if you want a fresh console to work in.*  
+  
+**Clears workspace: `rm(list=ls())`**  
+*...To clear everything in your R session (console, variables, datasets, etc.) This doesn't clear your R script.*  
+  
+See Help > Keyboard Shortcuts for more  
+
+___
+
+As an object-oriented language, in R you can save things to variables. Below, we've saved "5" to the variable `x` using the `<-` assignment operator. We've also saved a list from 1 to 1,000 in the variable `y` using `c` to combine or 'concatenate.' Lastly, we've generated a random normal distribution and saved it to the variable `z`. This is done with the `rnorm(N, Mean, SD)` command.
+
+```{r}
+x <- 5
+y <- c(1:1000)
+z <- rnorm(1000, 500, 100)
+```
+
+
+We can then use these variables to run analyses. Below we've produced a simple histogram of our `z` variable using the `hist()` command.
+
+```{r}
+hist(z)
+```
+
+Nothing fancy, but we'll get into more features later. We can also make a scatter plot of our two variables `y` and `z`. Using the `plot()` command, R guesses the best graphing option, but we can specify a scatterplot using the `type=p` option: `plot(y,z, type="p")`. Placing the `?` before a command pulls up the R help files: `?plot` 
+
+```{r}
+plot(y,z)
+```
+
+Similarly bare-bones, but a quick way to visualize on the fly!
+
+___
+___
+One of the biggest advantages of R is the extensive package library. These free installations dramatically widen R's functionality. Check out some [useful packages here.](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages)
+  
+Let's install the `psych` and `ggplot2` packages. Once they are installed on your computer, you will need to "require" them at the beginning of each new R session. For this reason, I recommend putting a block of code at the beginning of your script with all the packages required. Subsequent lessons will include a package install header at the beginning. (You may see other tutorials using `library()` in place of `require()`, but for our purposes they are quivalent.)
+
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+
+# install.packages("ggplot2")
+require("ggplot2")
+```
+
+
+Load the diamonds dataset that comes with ggplot2: `data(diamonds)`.  
+This is a unique command for built-in datasets. 
+View dataset by typing `diamonds`. This lists the first ten rows. (Also see enivironment view in upper right).    
+  
+From the psych package, the `describe()` command gives a summary of your dataset:    
+
+```{r}
+describe(diamonds) 
+```
+
+The variables with asteriks(*) are identified as potentially non-numeric, so be careful when working with these summary features. 
+
+___
+___
+  
+  
+### 2. Grammar of Graphics: ggplot2
+  
+Under Hadley Wickham's philosophy, all visualizations can be broken down into three components: data, a coordinate system, and geoms (for 'geometric objects'). If you want to read more, check out [this excellent article](http://vita.had.co.nz/papers/layered-grammar.pdf) where he explains this 'grammar of graphics' and the development of the ggplot2 package. **More importantly, [save this excellent cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) as a resource for making plots with ggplot2.**
+  
+As a layered approach, ggplot2 works by building components step by step. To understand this logic, lets look at each step incrementally before combining them all. This first command calls the 'diamonds' dataset. We can run it, but it won't look like much yet. Importantly though, it doesn't produce an error message, which means it's just an empty visualization. 
+
+```{r}
+ggplot(diamonds)
+```
+
+Once we specify the variables we want to plot, R can fill out our coordinate system (or axes). Use the `aes()` code to refer to your graph's aesthetics, in this case, the x and y axis. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price))
+```
+
+Finally, we add the geometric object- the visualization itself! In this case, points. Notice how this command is separate from our initial command and joined with a `+` sign. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
+```
+
+We can add labels with the `labs()` command:
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + labs(x="Carat", y="Price", title="Figure 1: Diamond Prices")
+```
+
+Our code is already spilling onto multiple lines. To keep things neat and readable, try to break up your code into multiple lines. You can break anywhere, **as long as each line ends with "+".** This signals that there is more code to read on the next line.  
+  
+Additionally, we can save this code to an object, `graph1` for example, so we don't have to keep retyping everything.  Once saved, we simply type `graph1` and R will display our graph. 
+
+
+```{r}
+graph1 <- ggplot(diamonds, aes(x=carat, y=price)) + 
+            geom_point() + 
+            labs(x="Carat", y="Price", title="Figure 1: Diamond Prices")
+graph1
+```
+
+
+
+Once saved as an object, you can add layers and other features to this object. This makes editing less cumbersome. Try adding a few of these graph themes to our plot.
+```{r, eval=FALSE}
+graph1 + theme_bw() 
+graph1 + theme_gray() # This is default
+graph1 + theme_dark()
+graph1 + theme_classic()
+graph1 + theme_light()
+graph1 + theme_linedraw()
+graph1 + theme_minimal()
+graph1 + theme_void()
+```
+
+___
+___
+### 3. Changing Size, Shape, & Alpha
+
+Within the `geom_point()` command there are a lot of options for specifying your graph. Here are a couple.
+  
+In this case, the size of the points are 7x larger than the default. Try plugging in values like 0.01, 0.5, 3, 10, etc.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(size=7)
+```
+
+You can also specify the shape of your points. Try searching online for "R plot symbols" to find these codes. In this case I've chosen 8, a large asterik symbol. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(shape=8)
+```
+
+
+With a large scatterplot like ours, it's helpful to change the alpha, or opacity, of our points. This adds a three dimensional quality to see through large datasets and get around issues of overplotting. Alpha can range from 0 (fully translucent) to 1 (fully opaque). 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(alpha=0.2)
+```
+___
+___
+  
+### 4. Changing Color: Three ways
+
+There are at least three ways to specify color in R. First, you can use simple color names. R has an extensive color library and most of them are intuitively named. Try searching for "colors in R" online. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color="red4")
+```
+
+Second, you can use RGB codes. Like a painter's wheel, this specifies the proportion of red, green, and blue used to create your color. If they're not expressed in proportions, you will have to set the maximum (usually this is 256). These codes can be found online for certain brands or sports teams. The second example uses RGB codes found online for "Facebook blue."
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(.5,.7,.6))
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color=rgb(67,96,156, max=256))
+```
+
+
+
+Lastly, you can use hexadecimal codes. These are like RGB codes but act more like a barcode for a specific shade. These are also easy to look up online if you want a specific color. This example uses the code found online for "Minnesota Viking purple".
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point(color="#582C81")
+```
+
+
+
+
+### Putting it all together...
+
+Using all the commands we've learned so far, the following graph has specifications for color, size, shape, and alpha. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(color="#582C81", size=4, shape=9, alpha=0.2)
+```
+
+___
+___
+
+### EXERCISE 1  
+Use the "mpg" dataset (built-in) to make a scatterplot of "city mpg" and "highway mpg" (two quantitative variables in the dataset). Change axes labels and give your plot a title. Change the points to dark blue triangles and change size to 6 and opacity to 0.3. Save this plot as an object "ex1". Finally, export as a jpg using the `ggsave()` command. [(Google this for more info).](http://ggplot2.tidyverse.org/reference/ggsave.html) Turn in your jpg file (ex1.jpg) in the assignments folder on Canvas.  
+  
+For help:  
+```{r, eval=FALSE}
+?mpg
+describe(mpg)
+?geom_point
+```
+  
+
+When you are done...  
+Why are some triangles darker than others? We can introduce random variation in our data using the 'jitter' command to reveal overlapping data points: geom_point(...., position='jitter', ...)
+
+
+### EXERCISE 2
+Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the "Atlanta Falcons". (Search online for the hex code or rgb value). Save this plot as an object "ex2". Export as a jpg and turn in to the assignments folder on Canvas.  
+  
+___
+___
+## Part 2
+___
+___
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+```
+
+___
+
+### 1. Assigning Variables to Graphic Parameters  
+In part 1 we learned how to set the global options for many parameters such as size, shape, opacity, and color. In part 2 we will learn how to use these parameters to express new information by assigning them to variables. 
+
+First, we can use size to convey the variable 'carat' in our diamonds dataset. (When a scatterplot uses size to convey a variable it is sometimes refered to as a 'bubble chart.')  
+  
+Notice that when assigning parameters to variables, global options (options that apply to everything, like those described in part 1) are simply separated with a comma: `geom_point(size=X, shape=X, ......)`. When assigning these parameters to other variables in our dataset, they must be wrapped in `aes()` within our geom: `geom_point(aes(size=var1, shape=var2, ...))`. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat))
+```
+
+These attributes are called 'scales.' Scales can be continuous or discrete. In this case, carat is continuous. It also automatically creates a legend on the right hand side. With any scale, you can adjust the options with the `scale_...` command. The following command will add a title to the legend and force the size range to a minimum of 3 and maximum of 10. Using `guide=FALSE` here will remove your legend. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat)) + 
+  scale_size(name="Title Here", range=c(3,10))
+```
+
+Using the same logic, let's assign the variable 'cut' to the shape parameter. In the code below, notice how we can combine global parameters like (`size=4`) with variable-assigned parameters (`aes(shape=cut)`). We've also added a legend title using the `scale_shape()` options command. 
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(shape=cut), size=4) +
+  scale_shape(name="Legend title here")
+```
+
+Lastly, we can assign our alpha (or opacity) parameter to a variable in the same way. In the code below our points are shaded according to price: the more expensive a diamond is, the more opaque it becomes. This is helpful for emphasizing influential cases and minimizing the 'noise' of all our low-value cases. 
+  
+The diamonds dataset is so large that even some of the lower priced diamonds appear opaque. Because of this, I've added a custom alpha range, using the `scale_alpha()` command, that starts at 0.001. I've also turned the legend off and added some annotations. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(alpha=price)) +
+  scale_alpha(range=c(0.001, 1), guide=F) +
+  labs(x="Size (carats)", y="Price ($)", title= "Figure 1: Diamond Prices by Carat",
+       subtitle= "Source: ggplot2 dataset")
+
+```
+___
+___
+
+Combine these to express carat, cut, and price using size, shape, and alpha. 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(size=carat, shape=cut, alpha=price))
+```
+
+
+It doesn't take a graphic designer to realize this is a bad visualization. **While graphs often do an excellent job in conveying complex information, they can easily fall into the same trap as the data itself: there is simply too much information to take in.** For this reason keep in mind the main points you want to convey and strive for parsimony.  
+  
+* **Size** - this is best used for continuous variables. It is extremely hard for our eyes to distinguish between small changes in size. Make sure to use the `scale_size(range=c("low range value", "hi range value"))` command to pick a range that helps make your point.
+
+* **Shape** - this is best used for categorical values. Be careful of using too many shapes as your graphic can become distracting quickly. ggplot2 has a maximum of 6 shapes when using them as a scale. 2-3 different shapes are probably ideal. 
+
+* **Alpha** - like size, opacity is best used for continuous variables. This is a subtle effect that is probably best used in conjunction with another parameter. In our examples, alpha mapped onto the y-axis and added a subtle feature. 
+
+___
+___
+
+### 2. Expressing Variables Using Color
+Color is one of the most efficient ways to express information. It works much like the previous examples. If you set it to a continuous variable it will produce an automatic gradient. In this case, we're coloring our data points by the variable 'price'.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price))
+```
+
+The default color gradient goes from navy to light blue. To set it manually use the `scale_color_gradient()` command. As we learned in part 1, you can use color names, RGB, or hexcodes when using color.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=price)) + 
+  scale_color_gradient(name="Title here", low="darkblue", high="orange")
+```
+
+
+When assigning color to a categorical variable, ggplot produces an array of default colors which are evenly spaced on the color wheel. In this case, we're coloring our data by the variable 'clarity'.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity))
+```
+
+The following command will show you the 8 hex codes it used to produce the graph above. You can use these values to emulate or edit this color scheme.
+
+```{r, message=FALSE}
+# First load the scales package
+require(scales)
+# Then specify how many values you want to return. In this case 8. 
+show_col(hue_pal()(8))
+```
+
+If you have specific colors in mind, you can set them manually using the `scale_color_manual()` command: 
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_manual(name="Legend title", values=c("red", "darkblue","darkgreen", "grey50", "darkorange", "grey3", "black", "darkred"))
+```
+
+While you might have a particular reason for using certain colors, setting colors manually can be time-consuming. As we've seen, ggplot's default uses evenly spaced hues on a color wheel. The package RColorBrewer provides some additional palletes to pick from.  After installing (see header), we display the available palletes below. There are 18 are intended for continuous variables, 8 for categorical variables, and 9 divergent palletes. (Use the zoom feature to make out the pallete names.)
+
+```{r}
+display.brewer.all()
+```
+
+We can use these within ggplot by naming the pallete in the `scale_color_brewer()` command.
+  
+PS- To reverse the direction of a pallete, simply add `direction=-1` in the command `scale_color_brewer(..., direction=-1, ...)`
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(aes(color=clarity)) +
+  scale_color_brewer(name="Title here", palette="RdYlGn")
+```
+
+### Putting it all together...
+
+Using all the commands we've learned so far, the following graph assigns opacity of all points to 0.3, colors our data points according to the 'clarity' variable using the 'RdYlGn' pallete from RColorBrewer, adds labels, and uses the minimal theme. 
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point(alpha=0.3, aes(color=clarity)) +
+  scale_color_brewer(name="Clarity", palette="RdYlGn") +
+  labs(x="Carat", y="Price", title= "Figure 1: Diamond Prices") +
+  theme_minimal() 
+```
+
+  
+PS- While the legend obeys the aesthetics of your data points, the following command overrides this by setting alpha and size for our legend manually: 
+`guides(colour = guide_legend(override.aes = list(alpha = 1, size=4)))` 
+
+___
+___
+
+### EXERCISE 3
+Use the "mtcars" dataset (built-in) to make a scatterplot of "weight" and "mpg". Change axes labels and give your plot a title. Set the alpha of all points to 0.7. 
+
+Set the color of the points to the "mpg" variable (continuous). Also, set this color parameter so that high mpgs are colored green and low mpgs are colored blue. Title the legend "MPG". 
+
+Set the size of the points to the "wt" variable (continuous). Also, to make the small points more readable, set the range of sizes to go from 3-10. Title this legend "Weight".
+
+When you're done, save this as an object "ex3", export as a jpg, and turn in to the assignments folder on Canvas.  
+
+For help:
+```{r, eval=FALSE}
+?mtcars
+describe(mtcars)
+?geom_point
+```
+
+
+### EXERCISE 4
+Use the "mpg" dataset to make a scatterplot of "City MPG" and "Highway MPG". Change axes labels and give your plot a title. Set the alpha of all points to 0.8 and the size of all points to 6. Use the position='jitter' command to spread out your data (see exercise 2).  
+
+Because they are numbers, in this dataset "year" and "cyl" are both assumed to be continuous variables. However, we want to graph them as if they are categorical variables. To do this you will write the variables like so: "factor(year)" & "factor(cyl)".
+
+Set shape to year and color to cylinder. Remember to use the factor notation described above! HINT: aes(shape=factor(variable name), color=factor(variable name))
+
+Set the title of these legends to "Year" and "Cylinders."
+When you're done, save this as an object "ex4", export as a jpg, and turn in to the assignments folder on Canvas.  
+
+___
+___
+## Part 3
+___
+___
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+# install.packages("dplyr")
+require("dplyr")
+```
+
+___
+
+### 1. Line Graphs
+In part 1 and 2 we've been working with scatterplots, and here I'll briefly introduce some of the other options. The uniformity of ggplot2 makes it very easy to translate aesthetic commands to other geometric objects, or geoms. 
+
+To begin, perhaps we want a line graph that displays out diamond data better than an individual point for each diamond. Using the `geom_line` instead of `geom_point` seems like an intuitive starting point, but try the first chunk of code and see what happens. What we probably want for this dataset is `geom_smooth` which runs a smoothed line through out data points, rather than a connecting line. 
+
+
+```{r, message=FALSE}
+# ggplot(diamonds, aes(x=carat, y=price)) +
+#   geom_line()
+
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth()
+```
+
+Check out `?geom_smooth` for all the available options, but for now it's important to note the following:
+
+* The default line produces a confidence interval, and `se=F` will turn this off.
+* The default line uses a generalized additive model (GAM) to smooth your data, and the span option controls how smooth this line will be. (From the help menu: "Smaller numbers produce wigglier lines, larger numbers produce smoother lines.")
+* If you prefer a linear method, use `method="lm"` to produce a straight line. 
+* Size and color are produced in the same way they are for `geom_point`: `size=4` or `color="red"`. When assigned to other variables, remember to wrap the option inside `aes()`. You can also use any of the RColorBrewer palettes.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method="lm", size=4)
+```
+
+```{r, message=FALSE}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(aes(color=clarity))
+```
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_smooth(method="lm", aes(color=clarity))
+
+```
+
+
+___
+
+### 2. Bar Graphs
+Bar graphs are extremely effective at displaying information. They sometimes require a bit of data wrangling unless your data is already grouped the way you want. For now, let's focus on a simple bar graph displaying counts of diamonds by cut. Note in this example we only specify an x axis (cut) and the y axis defaults to counts. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar()
+```
+
+When using color for a bar graph, ggplot uses "color" to refer to the border line and "fill" for the inside color. This applies to boxplots and violin plots too. A bit confusing! 
+
+With that in mind, lets split our bars by `clarity` using the fill command. Because clarity is another variable in our dataset, remember to wrap it in `aes()`.
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity))
+```
+
+When displaying multiple categories, the defaults is a 'stacked' position. I find these a bit hard to read and compare accross categories. `fill` presents each category as a percentage, and `dodge` presents each category side by side. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "fill")
+```
+
+  
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge")
+```
+
+Like `geom_point` and `geom_smooth` you can also use any of the RColorBrewer palettes to color your bar graph. For a bar graph, because of the "color" vs "fill" distinction, you will use the `scale_fill_brewer` command instead of the `scale_color_brewer` command.
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="Blues")
+```
+
+___
+
+### 3. Other Geoms...
+There are many geoms out there. While some options will be geom-specific, many of the basic properties will be familiar.
+  
+```{r}
+ggplot(diamonds, aes(cut, price)) + 
+  geom_boxplot(aes(color=cut), fill=NA)
+```
+
+
+```{r}
+ggplot(diamonds, aes(cut, price)) + 
+  geom_violin(aes(color=cut, fill=cut))
+```
+
+```{r}
+ggplot(diamonds, aes(x=price)) + 
+  geom_density(aes(color=cut))
+```
+
+[This site provides a pretty comprehensive list of available geoms.](http://sape.inf.usi.ch/quick-reference/ggplot2/geom)
+
+___
+### 4. Combining Geoms
+Now the beauty of geom layers comes in. You can combine multiple geoms in the same plot, manipulate them separately, change the layering, color, size, etc. 
+
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="Blues") +
+  geom_hline(yintercept = 2000, color="darkred") +
+  annotate("text", x = 1.5, y=2250, label = "My budget", color= "darkred")
+```
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(aes(color=clarity), method="lm")
+```
+
+  
+Geom layers are independent and can obey independent options (and even different datasets). You could specify color for each geom, or you could include it in your global options. This eliminates redundancy if you want each geom to be colored the same way. These codes each produce identical graphs. 
+
+```{r, eval=FALSE}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  geom_smooth(aes(color=clarity))
+
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) +
+  geom_point() +
+  geom_smooth()
+```
+
+With a little wrangling using the "dplyr" package, the follow code creates a nested bar graph: after creating a basic bar graph, I added another geom_bar to breakdown clarity within each level of cut. The dplyr package is very helpful for sorting and cleaning data- [check it out here.](http://dplyr.tidyverse.org/)
+
+```{r}
+dio2 <- diamonds %>% count(cut, clarity)
+
+ggplot(dio2, aes(x=cut, y=n)) +
+  geom_bar(stat="identity", alpha=0.4) +
+  geom_bar(stat="identity", aes(fill=clarity), position="dodge")
+
+```
+
+___
+___
+
+### EXERCISE 5
+Using the plot from ex1, add a smoothed trend line. Save this as an object "ex5", export as a jpg, and turn in to the assignments folder on Canvas. 
+
+
+___
+___
+## Part 4
+___
+___
+
+
+
+```{r, message=FALSE}
+# install.packages("psych")
+require("psych")
+# install.packages("ggplot2")
+require("ggplot2")
+# install.packages("RColorBrewer")
+require("RColorBrewer")
+# install.packages("dplyr")
+require("dplyr")
+```
+
+___
+
+### 1. Adding Text Labels
+
+When adding text to a plot, `geom_text` works like many other geoms in ggplot. Below, using the mpg dataset, we've taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle. Because manufactureer is a variable in the `mpg` dataset, we've wrapped it with the `aes()` code. 
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=manufacturer))
+```
+
+As we learned in part 3, geoms work independently. Perhaps you only want the text and not the scatterplots:
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_text(aes(label=manufacturer, color=cty)) +
+  scale_color_continuous(low="blue", high="orange")
+```
+
+The points add a level of specificity, so let's keep them for now. Let's use the `check_overlap = TRUE` command to clean up our plot. This removes any labels that overlap. Notice that this makes your labels conditional on the size of your graph: try opening this plot in a new window and changing the size. Additionally, we can tweak some other text options:
+          
+*`hjust =` Horizontal justification. 1 = right allign, 0 = left allign. 
+
+*`nudge_x =` In units of the x axis, nudge the text label left or right. 
+
+*`nudge_y =` In units of the y axis, nudge the text label up or down. 
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cty), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=manufacturer), check_overlap = T, hjust=0, nudge_x=0.5, nudge_y=0.5)
+```
+
+?geom_text
+
+It's still a bit cluttered, and with any modestly sized dataset, there will likely be too many datapoints to clearly label. For this reason, we can use text to emphasize certain data rather than simply display it. In the code below I've used an if / else statement to **only label the vehicles who's city mpg is above 25.**
+
+In other words, in place of `label=manufacturer` I've swapped `label=ifelse(cty>25, manufacturer, ''))`. The `ifelse` command takes three arguments, first the logical condition, second, what to do if the condition is true, and third, what to do if the condition is false. Here, we've said 1) If `cty` is greater than 25pmg, 2) return the manufacturer name, and 3) if not return nothing ('').
+
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) + 
+  geom_point(aes(color=cyl), alpha=0.7, size=7, position='jitter') + 
+  scale_color_continuous(low="blue", high="orange") +
+  geom_text(aes(label=ifelse(cty>25, manufacturer, '')), hjust=1, nudge_x=0.5, nudge_y=0.5)
+```
+___
+___
+
+### 2. Facet Wrap
+
+Facet wrap allows you to split your data into multiple panes to easily compare data across variables. Sometimes you will simply have too many categories to distinguish by any visual parameter (color, shape, etc), and facet wrap helps by splitting your data into separate panes. Using our scatterplot of diamond size vs price, we can easily put each category of clarity in a new pane. Use `facet_wrap(~variable)` to specify which variable you want to split by. In this case, I've used `ncol=X` to set the number of colunms to use.
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  facet_wrap(~clarity, ncol=4)
+```
+
+This works for other types of plots too. 
+```{r}
+ggplot(diamonds, aes(cut)) + 
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  scale_fill_brewer(palette="RdYlGn") +
+  facet_wrap(~clarity, ncol=4)
+```
+
+```{r}
+ggplot(diamonds, aes(x=cut, y=price)) + 
+  geom_boxplot(aes(color=clarity), fill=NA) + 
+  scale_color_discrete(guide=F) +
+  facet_wrap(~clarity, ncol=4)
+```
+
+If you have space for a large graphic, you may even try the facet grid option, which will split your data by two variables. In the following graph, there is a separate pane for each combination of color and cut. Looking vertically we can examine how each cut (ie 'Fair') varies by color (D,E,F,G,H,I,J). Looking horizontally, we can examine how each color of diamond varies across different levels of cut. 
+  
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=color)) +
+  facet_grid(color~cut)
+```
+___
+___
+
+
+### 3. Editing Font, Size, & Color
+Things like font, size, background color can all be edited using the `theme()` command. These commands can get a little confusing, and [I recommend bookmarking this link for reference.](http://ggplot2.tidyverse.org/reference/theme.html) Below we've made the title size 17, boldface, and centered, and changed both axis text to be size 14. 
+
+
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name="Clarity") +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  theme(title=element_text(size=17, face="bold"), # title size 17 & boldface
+      plot.title = element_text(hjust = 0.5),     # title centered
+      axis.text.x=element_text(size=14),          # axis text size 14
+      axis.text.y=element_text(size=14))  
+```
+
+
+Because themes can be so cumbersome, you can create your own template and include it at the beginning of every R script. For example, I put together this theme configuration and title it "johntheme1". Then for each graph, I can just add `+ johntheme1` at the end to quickly format it. 
+
+```{r, message=FALSE}
+johntheme1 <- theme(plot.title = element_text(hjust = 0.5), # Centered title
+        plot.background = element_rect(fill="black"), # Black background
+        panel.background = element_rect(fill="gray20"), # Dark grey panel background
+        panel.grid.minor = element_line(color="black"), # Hide grid lines
+        panel.grid.major = element_line(color="black"), # Hide grid lines
+        axis.text = element_text(color="white"), # Make axis text white
+        title = element_text(color="white", face="bold"), # Make title white and bold.
+        legend.background = element_rect(fill="black"), # Make legend background black
+        legend.text = element_text(color="white"), # Make legend text white
+        legend.key = element_rect(fill="black", color="black"), #Squares/borders of legend black
+        legend.position = c(.9,.4)) # Coordinates. Top right = (1,1)
+```
+
+Then add it to existing plot...
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  johntheme1
+```
+
+___
+___
+Changing the fonts can be done with the `extrafont` package. First install, then require, then use `font_import()` to load fonts in, and `fonts()` to display. 
+
+```{r, message=FALSE}
+# install.packages("extrafont")
+require("extrafont")
+# font_import()
+fonts()
+```
+
+Within the theme options, you can specify your font with this command: `theme(text=element_text(family="Times New Roman"))`
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point(aes(color=clarity)) +
+  scale_color_discrete(name="Clarity") +
+  labs(x="Carat", y="Price", title="Figure 1: Diamond Prices") +
+  johntheme1 +
+  theme(text=element_text(family="Times New Roman"))
+```
+
+___
+___
+
+### EXERCISE 6
+Using the plot from ex2, facet wrap by the variable "cyl". Save this as an object "ex6", export as a jpg, and turn in to the assignments folder on Canvas. 
+  
+  
+### EXERCISE 7
+Using the plot from ex3, label each point by their 1/4 mile time (qsec), if their time is less than 16 seconds. Save this as an object "ex7", export as a jpg, and turn in to the assignments folder on Canvas. 
+  
+  
+### EXERCISE 8
+Using the plot from ex4, make the titles size 15 and in boldface. Save this as an object "ex8", export as a jpg, and turn in to the assignments folder on Canvas. 
+

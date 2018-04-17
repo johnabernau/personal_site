@@ -5,13 +5,9 @@ title = "About"
 
 +++
 
-Along with [Ford Prefect](https://en.wikipedia.org/wiki/Ford_Prefect_\(character\)), Dent barely escapes the Earth's destruction as it is demolished to make way for a *hyperspace bypass*. Arthur spends the next several years, still wearing his dressing gown, helplessly launched from crisis to crisis while trying to straighten out his lifestyle. 
+I am a PhD candidate in the Department of Sociology at Emory University . My research focuses on the ways people use language to solve social problems. One of my main research agendas revolves around death in our society. I have interviewed hospital and hospice chaplains and staff to explore the types of conversations people have surrounding death and suffering. I also have used nationally representative survey data to explore what factors predict death anxiety among older adults. My dissertation uses quantitative text analysis to examine how our language about death has changed in the last 50 years.
 
-> He rather enjoys tea, but seems to have trouble obtaining it in the far reaches of the galaxy. 
-
-In time, he learns how to fly and carves a niche for himself as a sandwich-maker.
-
-<img src="//placehold.it/300x300" class="profile">
+The rest of my work can be housed under the broad umbrellas of culture and social psychology. These two branches of sociology cover everything from religion, music, and collective memory, to micro-interactions, friendship formation, and emotions.
 
 <br />
 

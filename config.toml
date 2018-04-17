@@ -17,6 +17,19 @@ googleAnalytics     = ""
 blog  = "blog/:slug/"
 
 [[menu.main]]
+name                   = "research"
+weight                 = -140
+identifier             = "research"
+url                    = "/research/"
+
+
+[[menu.main]]
+name                   = "DataViz"
+weight                 = -130
+identifier             = "dataviz"
+url                    = "/dataviz/"
+
+[[menu.main]]
 name                   = "Blog"
 weight                 = -120
 identifier             = "blog"
