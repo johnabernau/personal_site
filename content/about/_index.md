@@ -1,5 +1,5 @@
 +++
-date = "2015-08-22T06:42:21-07:00"
+date = "2018-08-22T06:42:21-07:00"
 draft = false
 title = "About"
 
@@ -9,6 +9,3 @@ I am a PhD candidate in the Department of Sociology at Emory University . My res
 
 The rest of my work can be housed under the broad umbrellas of culture and social psychology. These two branches of sociology cover everything from religion, music, and collective memory, to micro-interactions, friendship formation, and emotions.
 
-<br />
-
-[About this site](colophon/)
