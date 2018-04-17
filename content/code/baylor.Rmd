@@ -1,5 +1,5 @@
 ---
-title: 'Baylor'
+title: 'Baylor Religion Survey 2010'
 author: John A. Bernau
 date: '2018-04-17'
 slug: baylor
@@ -12,7 +12,7 @@ ___________________________
 In this post, I'll be using R to download, clean, and graph some basic descriptive stats about American religion using the [Baylor Religion Survey of 2010](https://www.baylor.edu/BaylorReligionSurvey/). 
 
 To begin, make sure to load a few basic packages.
-```{r, eval=FALSE}
+```{r, message=FALSE}
 require("tidyverse")
 require("foreign")
 require("psych")
@@ -22,7 +22,7 @@ require("RColorBrewer")
 
 The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It's hosted on [The Association of Religion Data Archives (ARDA)](http://www.thearda.com/). ARDA is a fantastic resource for locating datasets on a number of religious topics. From [this link](http://www.thearda.com/Archive/NatBaylor.asp), click on Wave II > Download > Continue. We'll be using the labeled Stata file. Save this .DTA file somewhere you remember.  You'll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions. 
 
-From the `foreign` package we can use `read.dta()` to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator ` %>% ` to convert this to a [tibble - an popular format for working with data in R,](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) and save it as an object "bay."
+From the `foreign` package we can use `read.dta()` to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator ` %>% ` to convert this to a [tibble - an popular format for working with data in R,](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) and save it as an object "bay.""
 ```{r}
 bay <- read.dta("~/Desktop/bay3_2010.dta") %>% as.tibble()
 ```
@@ -152,7 +152,7 @@ ggsave(filename="/users/johnbernau/Desktop/Baylor2010.jpg", final2, width=11.25,
 *POSTSCRIPT: There are a few different philosophies when it comes to manipulating your data. Some like to keep a copy of the original in case they have to go back. Others say this clutters the working environment, leading to more mistakes. Neither is right or wrong. A condensed version of the code above would look like this.* 
 
 
-```{r, fig.width=7, fig.height=3}
+```{r, eval = FALSE, fig.width=7, fig.height=3}
 
 # Load packages
 require("tidyverse")
@@ -162,7 +162,7 @@ require("car")
 require("RColorBrewer")
 
 # Load data
-bay <- read.dta("/Users/johnbernau/Box Sync/1.Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta") %>% 
+bay <- read.dta("~/Desktop/bay3_2010.dta") %>% 
   as.tibble()
 
 # Delete unwanted variables and rename. 

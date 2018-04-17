@@ -1,9 +1,200 @@
 ---
-title: 'Baylor Religion Survey 2010: Import, Clean, Descriptives'
+title: 'Baylor Religion Survey 2010'
 author: John A. Bernau
 date: '2018-04-17'
 slug: baylor
 categories: []
 tags: []
 ---
+
+___________________________
+  
+In this post, I'll be using R to download, clean, and graph some basic descriptive stats about American religion using the [Baylor Religion Survey of 2010](https://www.baylor.edu/BaylorReligionSurvey/). 
+
+To begin, make sure to load a few basic packages.
+```{r, message=FALSE}
+require("tidyverse")
+require("foreign")
+require("psych")
+require("car")
+require("RColorBrewer")
+```
+
+The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It's hosted on [The Association of Religion Data Archives (ARDA)](http://www.thearda.com/). ARDA is a fantastic resource for locating datasets on a number of religious topics. From [this link](http://www.thearda.com/Archive/NatBaylor.asp), click on Wave II > Download > Continue. We'll be using the labeled Stata file. Save this .DTA file somewhere you remember.  You'll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions. 
+
+From the `foreign` package we can use `read.dta()` to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator ` %>% ` to convert this to a [tibble - an popular format for working with data in R,](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) and save it as an object "bay.""
+```{r}
+bay <- read.dta("~/Desktop/bay3_2010.dta") %>% as.tibble()
+```
+
+Upon first glance (`View(bay)`), the dataset is quite messy. Let's remove all the variables we don't need and save this as "bay2." A primer on dplyr's functions can be [found here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), but the basic format here is `select(dataset, variable_to_keep, -variables_to_remove)`.
+
+```{r}
+bay2 <- select(bay, -(motherl:baylor), -entity, -AUTO_INC, -batch,-LANG1)
+```
+ 
+Looking at the codebook we can rename some of our key questions with more intuitive names. 
+*Q1 asks: "With what religious family, if any, do you most closely identify?"
+*Q3 asks: "How religious do you consider yourself to be?"
+*Q4 asks: "How often do you attend religious services at a place of worship?"
+*The "region" variable groups respondents by East / Midwest / South / West and is already intuitively named. 
+
+```{r}
+bay2 <- rename(bay2, rel_family=Q1, how_religious=Q3, attend=Q4)
+```
+
+Now that we have loaded and the data and can recognize our variables, let's examine the relationship between religious family and region. Format: `table(row_variable, column_variable)`.
+
+```{r}
+table(bay2$rel_family,bay2$region)
+```
+
+We could try to visualize it, but there are too many categories to make sense of right now, so let's collapse some categories. Saving the result as `tab`, the following code does three consecutive things. 1) groups by religious family, 2) creates a `total` variable for the counts of each family, and 3) arranges them in descending order. 
+
+```{r}
+tab <- bay2 %>% 
+  group_by(rel_family) %>% 
+  summarise(total=n()) %>% 
+  arrange(desc(total)) 
+```
+
+Let's plot the top 5 categories and code the rest as "other". A quick way to do that is to make a list of names
+```{r}
+top_5 <- tab$rel_family[1:5]
+rest <- tab$rel_family[6:41]
+```
+
+Leaving our tabulation and returning to our full dataset, let's create a duplicate dataset `bay3` to do our recoding.
+```{r}
+bay3 <- bay2
+```
+
+Then we'll say every religious family that is part of our "rest" list, recode to "Other". The last line cleans up one of our categories to read "None" instead of "No religion [Skip to Q3]."
+
+```{r}
+bay3$rel_family <- recode(bay3$rel_family, ("rest = 'Other'"))
+bay3$rel_family <- recode(bay3$rel_family, ("'No religion [Skip to Q3]' = 'None'"))
+```
+
+Doing a quick table, we can double-check out new coding with the original values. The old categories from bay2 will be on the rows, and our new six-category variable will be on the columns.[Output omitted]
+
+```{r, eval = FALSE}
+table(bay2$rel_family, bay3$rel_family)
+```
+
+Now that our variables are correctly coded / collapsed, we can plot some descriptives. The data we want to plot can be summarized using `table(bay3$region, bay3$rel_family)` but this is still a bit hard to decipher. The following ggplot specifies the dataset `bay3`, the variable to plot `aes(region)`, the geometric object to use `geom_bar()`. This is saved as an object named "final".  
+  
+A few other specifications below:  
+* `aes(fill=rel_family)` = color (fill) the bars according to the variable rel_family.  
+* `stat = "count"` = the y-axis for this bar graph will be the raw counts of each category.  
+* `position = "dodge"` = display the bars side by side.  
+* `scale_fill_brewer()` = use the RColorBrewer package to use predefined color palettes. In this case, the "RdYlBu" palette. `name = ""` removes the legend title.  
+* `labs()` = set main title and axes titles.  
+
+
+```{r, fig.width=7, fig.height=3}
+final <- ggplot(bay3, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
+  scale_fill_brewer(palette= "RdYlBu", name="") + 
+  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+final
+```
+
+Not bad, but lets do one more round of editing. When collapsing categories into "other" we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let's use color to de-emphasize it. To do so, let's add a dark grey to our color scheme. 
+
+First, the `brewer.pal()` command allows you to save a vector of colors. Below we've taked 5 colors from the "RdYlBu" palette and saved it as a vector named "colors." Second, let's add "grey40" to this vector. Now our `colors` vector is a list of six colors with the last one being a dark grey color. 
+
+```{r}
+colors <- brewer.pal(5, "RdYlBu")
+colors <- c(colors, "grey40")
+```
+
+Using this new vector, we'll copy our first ggplot but specify `scale_fill_manual()` and pass our colors vector to the values parameter. 
+```{r, fig.width=7, fig.height=3}
+final2 <- ggplot(bay3, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
+  scale_fill_manual(values=colors, name="") + 
+  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+final2
+```
+
+If you want to super-customize your graph, you can save various themes or templates to use with ggplot. Below I've created a dark template named `johntheme1`.
+
+```{r}
+johntheme1 <- theme(text=element_text(family="Times New Roman"), # New font
+        plot.title = element_text(hjust = 0.5), # Centered title
+        plot.background = element_rect(fill="black"), # Black background
+        panel.background = element_rect(fill="gray20"), # Dark grey panel background
+        panel.grid.minor = element_line(color="black"), # Hide grid lines
+        panel.grid.major = element_line(color="black"), # Hide grid lines
+        axis.text = element_text(color="white"), # Make axis text white
+        title = element_text(color="white", face="bold"), # Make title white and bold.
+        legend.background = element_rect(fill="black"), # Make legend background black
+        legend.text = element_text(color="white"), # Make legend text white
+        legend.key = element_rect(fill="black", color="black")) #Squares/borders of legend black
+```
+
+Using our saved graph, we can add our new custom theme.
+
+```{r, fig.width=7, fig.height=3}
+final2 + johntheme1
+```
+
+A nice graph! Export as a JPG using the `ggsave()` command. 
+
+```{r}
+ggsave(filename="/users/johnbernau/Desktop/Baylor2010.jpg", final2, width=11.25, height=7, units="in")
+```
+
+  
+  ______
+  
+*POSTSCRIPT: There are a few different philosophies when it comes to manipulating your data. Some like to keep a copy of the original in case they have to go back. Others say this clutters the working environment, leading to more mistakes. Neither is right or wrong. A condensed version of the code above would look like this.* 
+
+
+```{r, eval = FALSE, fig.width=7, fig.height=3}
+
+# Load packages
+require("tidyverse")
+require("foreign")
+require("psych")
+require("car")
+require("RColorBrewer")
+
+# Load data
+bay <- read.dta("~/Desktop/bay3_2010.dta") %>% 
+  as.tibble()
+
+# Delete unwanted variables and rename. 
+bay <- select(bay, -(motherl:baylor), -entity, -AUTO_INC, -batch,-LANG1) %>% 
+          rename(rel_family=Q1, how_religious=Q3, attend=Q4)
+
+# Create tabulation of religious families.
+tab <- bay %>% 
+  group_by(rel_family) %>% 
+  summarise(total=n()) %>% 
+  arrange(desc(total)) 
+
+# Save vectors of religious families: top 5 and rest.
+top_5 <- tab$rel_family[1:5]
+rest <- tab$rel_family[6:41]
+
+# Recode variables
+bay$rel_family <- recode(bay$rel_family, ("rest = 'Other'"))
+bay$rel_family <- recode(bay$rel_family, ("'No religion [Skip to Q3]' = 'None'"))
+
+# Create custom color palette
+colors <- brewer.pal(5, "RdYlBu")
+colors <- c(colors, "grey40")
+
+# Plot
+final2 <- ggplot(bay, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
+  scale_fill_manual(values=colors, name="") + 
+  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+final2
+```
+
+
+  
 

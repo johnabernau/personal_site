@@ -7,8 +7,8 @@ categories: []
 tags: []
 ---
 
-2017 [Data Import, Cleaning, & Descriptives in R](code/baylor/)  
-2017 [DataViz in R: Part 4](/code/dataviz4/)  
-2017 [DataViz in R: Part 3](/code/dataviz3/)  
-2017 [DataViz in R: Part 2](/code/dataviz2/)  
-2017 [DataViz in R: Part 1](/code/dataviz1/)
+2017 [Data Import, Cleaning, Descriptives, & Plotting: Baylor Religion Survey 2010](/code/baylor/)  
+2017 [Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes](/code/dataviz4/)  
+2017 [Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)](/code/dataviz3/)  
+2017 [Data Visualization in R: Part 2 - Assigning Variables to Attributes](/code/dataviz2/)  
+2016 [Data Visualization in R: Part 1 - Getting Started](/code/dataviz1/)

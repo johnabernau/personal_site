@@ -9,10 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <meta name="author" content="John A. Bernau">
-<meta name="description" content="">
+<meta name="description" content="In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).">
 
-<meta property="og:title" content="Baylor Religion Survey 2010: Import, Clean, Descriptives" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="Baylor Religion Survey 2010" />
+<meta property="og:description" content="In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/code/baylor/" />
 
@@ -36,7 +40,7 @@
 <title>
 
 
-     Baylor Religion Survey 2010: Import, Clean, Descriptives 
+     Baylor Religion Survey 2010 
 
 </title>
 <link rel="canonical" href="/code/baylor/">
@@ -57,11 +61,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-04-17%2017%3a26%3a54.296578%20-0400%20EDT%20m%3d%2b0.215868674">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-17%2017%3a26%3a54.296578%20-0400%20EDT%20m%3d%2b0.215868674">
-    <link rel="stylesheet" href="/css/main.css?t=2018-04-17%2017%3a26%3a54.296578%20-0400%20EDT%20m%3d%2b0.215868674">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-17%2017%3a59%3a17.962457%20-0400%20EDT%20m%3d%2b0.479447478">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-17%2017%3a59%3a17.962457%20-0400%20EDT%20m%3d%2b0.479447478">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-17%2017%3a59%3a17.962457%20-0400%20EDT%20m%3d%2b0.479447478">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-04-17%2017%3a26%3a54.296578%20-0400%20EDT%20m%3d%2b0.215868674">
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-17%2017%3a59%3a17.962457%20-0400%20EDT%20m%3d%2b0.479447478">
     
 
 
@@ -179,12 +183,168 @@
         <div class="content">
             <div class="page-heading">
 
-    Baylor Religion Survey 2010: Import, Clean, Descriptives
+    Baylor Religion Survey 2010
 
 </div>
 
             <div class="markdown">
-                
+                <hr />
+<p>In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the <a href="https://www.baylor.edu/BaylorReligionSurvey/">Baylor Religion Survey of 2010</a>.</p>
+<p>To begin, make sure to load a few basic packages.</p>
+<pre class="r"><code>require(&quot;tidyverse&quot;)
+require(&quot;foreign&quot;)
+require(&quot;psych&quot;)
+require(&quot;car&quot;)
+require(&quot;RColorBrewer&quot;)</code></pre>
+<p>The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on <a href="http://www.thearda.com/">The Association of Religion Data Archives (ARDA)</a>. ARDA is a fantastic resource for locating datasets on a number of religious topics. From <a href="http://www.thearda.com/Archive/NatBaylor.asp">this link</a>, click on Wave II &gt; Download &gt; Continue. We’ll be using the labeled Stata file. Save this .DTA file somewhere you remember. You’ll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions.</p>
+<p>From the <code>foreign</code> package we can use <code>read.dta()</code> to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator <code>%&gt;%</code> to convert this to a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble - an popular format for working with data in R,</a> and save it as an object “bay.”&quot;</p>
+<pre class="r"><code>bay &lt;- read.dta(&quot;~/Desktop/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
+<p>Upon first glance (<code>View(bay)</code>), the dataset is quite messy. Let’s remove all the variables we don’t need and save this as “bay2.” A primer on dplyr’s functions can be <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">found here</a>, but the basic format here is <code>select(dataset, variable_to_keep, -variables_to_remove)</code>.</p>
+<pre class="r"><code>bay2 &lt;- select(bay, -(motherl:baylor), -entity, -AUTO_INC, -batch,-LANG1)</code></pre>
+<p>Looking at the codebook we can rename some of our key questions with more intuitive names. <em>Q1 asks: “With what religious family, if any, do you most closely identify?” </em>Q3 asks: “How religious do you consider yourself to be?” <em>Q4 asks: “How often do you attend religious services at a place of worship?” </em>The “region” variable groups respondents by East / Midwest / South / West and is already intuitively named.</p>
+<pre class="r"><code>bay2 &lt;- rename(bay2, rel_family=Q1, how_religious=Q3, attend=Q4)</code></pre>
+<p>Now that we have loaded and the data and can recognize our variables, let’s examine the relationship between religious family and region. Format: <code>table(row_variable, column_variable)</code>.</p>
+<pre class="r"><code>table(bay2$rel_family,bay2$region)</code></pre>
+<pre><code>##                                            
+##                                             East Midwest South West
+##   Other                                        8      13    11   14
+##   Adventist                                    0       0     0    2
+##   African Methodist                            0       2     3    1
+##   Assemblies of God                            1       5     4    5
+##   Baha&#39;i                                       0       0     1    0
+##   Baptist                                     20      48   166   24
+##   Bible Church                                 2       0     3    4
+##   Brethren                                     1       1     1    0
+##   Buddhist                                     3       1     4    5
+##   Catholic/Roman Catholic                    111      93   100   86
+##   Christian &amp; Missionary Alliance              7       5     2    0
+##   Christian Reformed                           1       2     0    0
+##   Christian Science                            0       1     0    0
+##   Church of Christ                             2       9    18    2
+##   Church of God                                3       4     6    1
+##   Church of the Nazarene                       1       1     2    1
+##   Congregational                               4       1     2    2
+##   Disciples of Christ                          0       2     1    1
+##   Episcopal/Anglican                          11       5    20    5
+##   Hindu                                        1       2     0    0
+##   Holiness                                     0       1     5    0
+##   Jehovah&#39;s Witnesses                          1       2     4    1
+##   Jewish                                      11       6     7   10
+##   Latter-day Saints                            0       3     3   22
+##   Lutheran                                    12      53    24   21
+##   Mennonite                                    0       1     0    1
+##   Methodist                                   17      37    58   15
+##   Muslim                                       0       0     1    1
+##   Orthodox (Eastern, Russian, Greek)           2       2     2    3
+##   Pentecostal                                  5       9    11    5
+##   Presbyterian                                 7      16    22   16
+##   Quaker/Friends                               0       0     1    1
+##   Reformed Church of America/Dutch Reformed    0       3     1    0
+##   Seventh-day Adventist                        0       0     3    2
+##   Sikh                                         0       0     0    1
+##   Unitarian Universalist                       6       2     2    2
+##   United Church of Christ                      4       9     0    2
+##   Non-denominational Christian                14      30    63   44
+##   No religion [Skip to Q3]                    44      36    41   70
+##   Don&#39;t know                                   5      11     4    2</code></pre>
+<p>We could try to visualize it, but there are too many categories to make sense of right now, so let’s collapse some categories. Saving the result as <code>tab</code>, the following code does three consecutive things. 1) groups by religious family, 2) creates a <code>total</code> variable for the counts of each family, and 3) arranges them in descending order.</p>
+<pre class="r"><code>tab &lt;- bay2 %&gt;% 
+  group_by(rel_family) %&gt;% 
+  summarise(total=n()) %&gt;% 
+  arrange(desc(total)) </code></pre>
+<p>Let’s plot the top 5 categories and code the rest as “other”. A quick way to do that is to make a list of names</p>
+<pre class="r"><code>top_5 &lt;- tab$rel_family[1:5]
+rest &lt;- tab$rel_family[6:41]</code></pre>
+<p>Leaving our tabulation and returning to our full dataset, let’s create a duplicate dataset <code>bay3</code> to do our recoding.</p>
+<pre class="r"><code>bay3 &lt;- bay2</code></pre>
+<p>Then we’ll say every religious family that is part of our “rest” list, recode to “Other”. The last line cleans up one of our categories to read “None” instead of “No religion [Skip to Q3].”</p>
+<pre class="r"><code>bay3$rel_family &lt;- recode(bay3$rel_family, (&quot;rest = &#39;Other&#39;&quot;))
+bay3$rel_family &lt;- recode(bay3$rel_family, (&quot;&#39;No religion [Skip to Q3]&#39; = &#39;None&#39;&quot;))</code></pre>
+<p>Doing a quick table, we can double-check out new coding with the original values. The old categories from bay2 will be on the rows, and our new six-category variable will be on the columns.[Output omitted]</p>
+<pre class="r"><code>table(bay2$rel_family, bay3$rel_family)</code></pre>
+<p>Now that our variables are correctly coded / collapsed, we can plot some descriptives. The data we want to plot can be summarized using <code>table(bay3$region, bay3$rel_family)</code> but this is still a bit hard to decipher. The following ggplot specifies the dataset <code>bay3</code>, the variable to plot <code>aes(region)</code>, the geometric object to use <code>geom_bar()</code>. This is saved as an object named “final”.</p>
+<p>A few other specifications below:<br />
+* <code>aes(fill=rel_family)</code> = color (fill) the bars according to the variable rel_family.<br />
+* <code>stat = &quot;count&quot;</code> = the y-axis for this bar graph will be the raw counts of each category.<br />
+* <code>position = &quot;dodge&quot;</code> = display the bars side by side.<br />
+* <code>scale_fill_brewer()</code> = use the RColorBrewer package to use predefined color palettes. In this case, the “RdYlBu” palette. <code>name = &quot;&quot;</code> removes the legend title.<br />
+* <code>labs()</code> = set main title and axes titles.</p>
+<pre class="r"><code>final &lt;- ggplot(bay3, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
+  scale_fill_brewer(palette= &quot;RdYlBu&quot;, name=&quot;&quot;) + 
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+final</code></pre>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Not bad, but lets do one more round of editing. When collapsing categories into “other” we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let’s use color to de-emphasize it. To do so, let’s add a dark grey to our color scheme.</p>
+<p>First, the <code>brewer.pal()</code> command allows you to save a vector of colors. Below we’ve taked 5 colors from the “RdYlBu” palette and saved it as a vector named “colors.” Second, let’s add “grey40” to this vector. Now our <code>colors</code> vector is a list of six colors with the last one being a dark grey color.</p>
+<pre class="r"><code>colors &lt;- brewer.pal(5, &quot;RdYlBu&quot;)
+colors &lt;- c(colors, &quot;grey40&quot;)</code></pre>
+<p>Using this new vector, we’ll copy our first ggplot but specify <code>scale_fill_manual()</code> and pass our colors vector to the values parameter.</p>
+<pre class="r"><code>final2 &lt;- ggplot(bay3, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
+  scale_fill_manual(values=colors, name=&quot;&quot;) + 
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+final2</code></pre>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>If you want to super-customize your graph, you can save various themes or templates to use with ggplot. Below I’ve created a dark template named <code>johntheme1</code>.</p>
+<pre class="r"><code>johntheme1 &lt;- theme(text=element_text(family=&quot;Times New Roman&quot;), # New font
+        plot.title = element_text(hjust = 0.5), # Centered title
+        plot.background = element_rect(fill=&quot;black&quot;), # Black background
+        panel.background = element_rect(fill=&quot;gray20&quot;), # Dark grey panel background
+        panel.grid.minor = element_line(color=&quot;black&quot;), # Hide grid lines
+        panel.grid.major = element_line(color=&quot;black&quot;), # Hide grid lines
+        axis.text = element_text(color=&quot;white&quot;), # Make axis text white
+        title = element_text(color=&quot;white&quot;, face=&quot;bold&quot;), # Make title white and bold.
+        legend.background = element_rect(fill=&quot;black&quot;), # Make legend background black
+        legend.text = element_text(color=&quot;white&quot;), # Make legend text white
+        legend.key = element_rect(fill=&quot;black&quot;, color=&quot;black&quot;)) #Squares/borders of legend black</code></pre>
+<p>Using our saved graph, we can add our new custom theme.</p>
+<pre class="r"><code>final2 + johntheme1</code></pre>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>A nice graph! Export as a JPG using the <code>ggsave()</code> command.</p>
+<pre class="r"><code>ggsave(filename=&quot;/users/johnbernau/Desktop/Baylor2010.jpg&quot;, final2, width=11.25, height=7, units=&quot;in&quot;)</code></pre>
+<hr />
+<p><em>POSTSCRIPT: There are a few different philosophies when it comes to manipulating your data. Some like to keep a copy of the original in case they have to go back. Others say this clutters the working environment, leading to more mistakes. Neither is right or wrong. A condensed version of the code above would look like this.</em></p>
+<pre class="r"><code># Load packages
+require(&quot;tidyverse&quot;)
+require(&quot;foreign&quot;)
+require(&quot;psych&quot;)
+require(&quot;car&quot;)
+require(&quot;RColorBrewer&quot;)
+
+# Load data
+bay &lt;- read.dta(&quot;~/Desktop/bay3_2010.dta&quot;) %&gt;% 
+  as.tibble()
+
+# Delete unwanted variables and rename. 
+bay &lt;- select(bay, -(motherl:baylor), -entity, -AUTO_INC, -batch,-LANG1) %&gt;% 
+          rename(rel_family=Q1, how_religious=Q3, attend=Q4)
+
+# Create tabulation of religious families.
+tab &lt;- bay %&gt;% 
+  group_by(rel_family) %&gt;% 
+  summarise(total=n()) %&gt;% 
+  arrange(desc(total)) 
+
+# Save vectors of religious families: top 5 and rest.
+top_5 &lt;- tab$rel_family[1:5]
+rest &lt;- tab$rel_family[6:41]
+
+# Recode variables
+bay$rel_family &lt;- recode(bay$rel_family, (&quot;rest = &#39;Other&#39;&quot;))
+bay$rel_family &lt;- recode(bay$rel_family, (&quot;&#39;No religion [Skip to Q3]&#39; = &#39;None&#39;&quot;))
+
+# Create custom color palette
+colors &lt;- brewer.pal(5, &quot;RdYlBu&quot;)
+colors &lt;- c(colors, &quot;grey40&quot;)
+
+# Plot
+final2 &lt;- ggplot(bay, aes(region)) + 
+  geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
+  scale_fill_manual(values=colors, name=&quot;&quot;) + 
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+final2</code></pre>
+
             </div>
         </div>
     </div>

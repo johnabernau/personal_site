@@ -12,12 +12,14 @@
     
     
     <item>
-      <title>Baylor Religion Survey 2010: Import, Clean, Descriptives</title>
+      <title>Baylor Religion Survey 2010</title>
       <link>/code/baylor/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/code/baylor/</guid>
-      <description></description>
+      <description>In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
     </item>
     
     <item>
