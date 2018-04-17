@@ -6,10 +6,37 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 01 Apr 2018 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>I am a PhD candidate in the Department of Sociology at Emory University . My research focuses on the ways people use language to solve social problems. One of my main research agendas revolves around death in our society. I have interviewed hospital and hospice chaplains and staff to explore the types of conversations people have surrounding death and suffering. I also have used nationally representative survey data to explore what factors predict death anxiety among older adults.</description>
+    </item>
+    
+    <item>
+      <title>Country Music</title>
+      <link>/research/country-music/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/research/country-music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DataViz in R: Part 1</title>
+      <link>/dataviz/dataviz-in-r-part-1/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/dataviz/dataviz-in-r-part-1/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>The Sympathetic Leviathan How Do Modern States Culturally Respond to Disasters</title>
@@ -52,17 +79,6 @@ Bool True or false, that which is said of men often occupies as important a plac
 $ git reset --hard @~2 $ git rebase -i @~10 $ git diff @~2..@~3  And also in most scenarios HEAD can be left out completely, so you can say:
 $ git reset -- @{2}  instead of:
 $ git reset -- HEAD@{2}  It takes some getting used to, but it&amp;rsquo;s definitely faster than typing HEAD.</description>
-    </item>
-    
-    <item>
-      <title>colophon</title>
-      <link>/about/colophon/</link>
-      <pubDate>Sat, 22 Aug 2015 06:28:26 -0700</pubDate>
-      
-      <guid>/about/colophon/</guid>
-      <description>This website is a personal homepage.
-The site is built with Hugo—a static site generator made with Go. The website source code is available on GitHub. It uses the cocoa theme. The posts are written in Markdown.
-The primary font face is Open Sans and the monospace font face is Ubuntu Mono. The social icons are from the Ionicons font set. CSS classes for code syntax highlighting are inserted during compile-time by Hugo using Pygments.</description>
     </item>
     
     <item>

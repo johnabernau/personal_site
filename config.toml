@@ -18,34 +18,40 @@ blog  = "blog/:slug/"
 
 [[menu.main]]
 name                   = "research"
-weight                 = -140
+weight                 = 1
 identifier             = "research"
 url                    = "/research/"
 
 
 [[menu.main]]
 name                   = "DataViz"
-weight                 = -130
+weight                 = 2
 identifier             = "dataviz"
 url                    = "/dataviz/"
 
 [[menu.main]]
 name                   = "Blog"
-weight                 = -120
+weight                 = 3
 identifier             = "blog"
 url                    = "/blog/"
 
 [[menu.main]]
 name                   = "About"
-weight                 = -110
+weight                 = 4
 identifier             = "about"
 url                    = "/about/"
 
 [[menu.main]]
 name                   = "Code"
-weight                 = -100
+weight                 = 5
 identifier             = "code"
 url                    = "/code/"
+
+[[menu.main]]
+name                   = "CV"
+weight                 = 6
+identifier             = "cv"
+url                    = "/img/cv2018.pdf"
 
 
 [params]

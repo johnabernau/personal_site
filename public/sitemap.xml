@@ -4,7 +4,17 @@
   
   <url>
     <loc>/about/</loc>
-    <lastmod>2018-08-22T06:42:21-07:00</lastmod>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/research/country-music/</loc>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/dataviz/dataviz-in-r-part-1/</loc>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -33,16 +43,6 @@
   </url>
   
   <url>
-    <loc>/research/</loc>
-    <lastmod>2015-08-22T06:42:21-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/about/colophon/</loc>
-    <lastmod>2015-08-22T06:28:26-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/code/</loc>
     <lastmod>2015-08-19T20:29:37-07:00</lastmod>
   </url>
@@ -58,8 +58,14 @@
   </url>
   
   <url>
+    <loc>/dataviz/</loc>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2018-04-01T21:13:14-05:00</lastmod>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -84,6 +90,12 @@
   <url>
     <loc>/tags/regression/</loc>
     <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/research/</loc>
+    <lastmod>2018-04-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

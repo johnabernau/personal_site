@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Content on John A. Bernau</title>
+    <link>/content/</link>
+    <description>Recent content in Content on John A. Bernau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/content/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>/content/about/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/content/about/</guid>
+      <description>I am a PhD candidate in the Department of Sociology at Emory University . My research focuses on the ways people use language to solve social problems. One of my main research agendas revolves around death in our society. I have interviewed hospital and hospice chaplains and staff to explore the types of conversations people have surrounding death and suffering. I also have used nationally representative survey data to explore what factors predict death anxiety among older adults.</description>
+    </item>
+    
+  </channel>
+</rss>
