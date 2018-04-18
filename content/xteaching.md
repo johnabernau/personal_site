@@ -12,9 +12,9 @@ My teaching philosophy is to do well. Other content here. My teaching philosophy
 **Independently Taught Courses:**  
 [SOC 333: Sociology of Religion](/teaching/sor/) 
 
-**Workshop Leader:**  
+**Workshop Author / Leader:**  
 [Data Visualization in R](/code/dataviz1/)  
-Data Cleaning and Manipulation in R  
+Data Cleaning and Manipulation in R  (co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))
 
 **Proposed Courses:**  
 SOC XXX: Applied Statistics for Social Scientists  
