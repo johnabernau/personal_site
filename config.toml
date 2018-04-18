@@ -20,20 +20,20 @@ blog  = "blog/:slug/"
 name                   = "research"
 weight                 = 1
 identifier             = "research"
-url                    = "/research/"
+url                    = "/xresearch/"
+
+[[menu.main]]
+name                   = "Teaching"
+weight                 = 2
+identifier             = "teaching"
+url                    = "/xteaching/"
 
 
 [[menu.main]]
 name                   = "Blog"
-weight                 = 2
+weight                 = 3
 identifier             = "blog"
 url                    = "/blog/"
-
-[[menu.main]]
-name                   = "About"
-weight                 = 3
-identifier             = "about"
-url                    = "/about/"
 
 [[menu.main]]
 name                   = "Code"
@@ -42,8 +42,14 @@ identifier             = "code"
 url                    = "/xcode/"
 
 [[menu.main]]
-name                   = "CV"
+name                   = "About"
 weight                 = 5
+identifier             = "about"
+url                    = "/about/"
+
+[[menu.main]]
+name                   = "CV"
+weight                 = 6
 identifier             = "cv"
 url                    = "/img/cv2018.pdf"
 

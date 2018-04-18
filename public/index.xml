@@ -109,13 +109,56 @@ Part 4 includes:
     </item>
     
     <item>
-      <title>Meta-Sounds in Modern Country Music: Lyrical Self-Referneces and Boundary Work 1989-2014</title>
+      <title>Meta-Sounds in Modern Country Music: Lyrical Self-References and Boundary Work 1989-2014</title>
       <link>/research/country-music/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/research/country-music/</guid>
       <description>John A. Bernau
 ABSTRACT: This article examines the rise of “self-references” in contemporary country music lyrics - descriptions of a ‘country’ lifestyle, specific styles of music consumption, or reference to famous artists. Using a dataset of 27,384 songs from 1989-2014, I show how these words constitute a meta-cultural practice that constructs and maintains genre boundaries, authenticity, and consecration. Becoming increasingly prevalent since the 1990s, self-references are also more likely to appear in debut albums, songs by Hall-of-Fame artists, and highly repetitive songs, while less likely to appear after Presidential elections.</description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>/xresearch/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/xresearch/</guid>
+      <description>Publications Under Review
+May 2018 - Meta-Sounds in Modern Country Music
+March 2018 - How Do Modern States Culturally Respond to Disasters?
+Manuscripts in Progress
+- Sad Songs &amp;amp; Waltzes: Country Music Sentiment and Chart Performance
+Dissertation Research
+- From Communion to Compassion: Changing Language of Death in America</description>
+    </item>
+    
+    <item>
+      <title>SOC 333 Sociology of Religion</title>
+      <link>/teaching/sor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/teaching/sor/</guid>
+      <description>Syllabus PDF
+This course offers an introduction to the sociological study of religion. As a discipline, sociology blends theory, history, and carefully collected data to better understand social phenomenon. This perspective offers the best chance at understanding the complex phenomenon we know as religion.
+We will look at classical theorists like Karl Marx, Emile Durkheim, and Max Weber to see if their 150-year-old ideas can help us understand religion today: Would Karl Marx and MLK get along?</description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>/xteaching/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/xteaching/</guid>
+      <description>My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here.
+Independently Taught Courses:
+SOC 333: Sociology of Religion
+Workshop Leader:
+Data Visualization in R
+Data Cleaning and Manipulation in R
+Proposed Courses:
+SOC XXX: Applied Statistics for Social Scientists
+SOC XXX: Sociology of Death and Dying</description>
     </item>
     
     <item>
@@ -146,6 +189,15 @@ ABSTRACT: While events are central to the sociology of the state, natural disast
       <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+    </item>
+    
+    <item>
+      <title>New Website!</title>
+      <link>/blog/new-website/</link>
+      <pubDate>Thu, 17 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/new-website/</guid>
+      <description></description>
     </item>
     
   </channel>

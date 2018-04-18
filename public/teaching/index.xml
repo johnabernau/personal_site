@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teaching on John A. Bernau</title>
+    <link>/teaching/</link>
+    <description>Recent content in Teaching on John A. Bernau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright 2018 John A. Bernau</copyright>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/teaching/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SOC 333 Sociology of Religion</title>
+      <link>/teaching/sor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/teaching/sor/</guid>
+      <description>Syllabus PDF
+This course offers an introduction to the sociological study of religion. As a discipline, sociology blends theory, history, and carefully collected data to better understand social phenomenon. This perspective offers the best chance at understanding the complex phenomenon we know as religion.
+We will look at classical theorists like Karl Marx, Emile Durkheim, and Max Weber to see if their 150-year-old ideas can help us understand religion today: Would Karl Marx and MLK get along?</description>
+    </item>
+    
+  </channel>
+</rss>
