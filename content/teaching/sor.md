@@ -14,10 +14,10 @@ We will look at classical theorists like Karl Marx, Emile Durkheim, and Max Webe
 
 Required Texts:
 
-* Pals, Daniel. 2014. Nine Theories of Religion. 3rd Edition. New York: Oxford University Press.  
-* Edmonds, Ennis Barrington. 2008. Rastafari: From Outcasts to Cultural Bearers. 1 edition. Oxford; New York: Oxford University Press.  
-* Berger, Peter L. 1967. The Sacred Canopy: Elements of a Sociological Theory of Religion. New York: Open Road Media.  
-* Chaves, Mark. 2017. American Religion: Contemporary Trends. Princeton, N.J.: Princeton University Press. Second edition.  
+* Pals, Daniel. 2014. *Nine Theories of Religion*. 3rd Edition. New York: Oxford University Press.  
+* Edmonds, Ennis Barrington. 2008. *Rastafari: From Outcasts to Cultural Bearers*. Oxford; New York: Oxford University Press.  
+* Berger, Peter L. 1967. *The Sacred Canopy: Elements of a Sociological Theory of Religion*. New York: Open Road Media.  
+* Chaves, Mark. 2017. *American Religion: Contemporary Trends*. Princeton, N.J.: Princeton University Press. Second edition.  
 
 Taught: Spring 2017, Spring 2018  
 
