@@ -7,7 +7,8 @@ categories: []
 tags: []
 ---
 
-2017 [Data Import, Cleaning, Descriptives, & Plotting: Baylor Religion Survey 2010](/code/baylor/)  
+2018 [Which Denomination Has the Most Empty Pews?](/code/congregation_size/)  
+2017 [Where Do American Baptists Live?](/code/baylor/)  
 2017 [Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes](/code/dataviz4/)  
 2017 [Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)](/code/dataviz3/)  
 2017 [Data Visualization in R: Part 2 - Assigning Variables to Attributes](/code/dataviz2/)  

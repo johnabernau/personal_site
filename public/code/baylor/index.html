@@ -9,12 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <meta name="author" content="John A. Bernau">
-<meta name="description" content="In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
+<meta name="description" content="In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).">
 
-<meta property="og:title" content="Baylor Religion Survey 2010" />
-<meta property="og:description" content="In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
+<meta property="og:title" content="Plotting Regional Concentration of American Denominations" />
+<meta property="og:description" content="In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA)." />
 <meta property="og:type" content="article" />
@@ -40,7 +40,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 <title>
 
 
-     Baylor Religion Survey 2010 
+     Plotting Regional Concentration of American Denominations 
 
 </title>
 <link rel="canonical" href="/code/baylor/">
@@ -61,11 +61,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-04-19%2012%3a11%3a12.107483%20-0400%20EDT%20m%3d%2b0.203104741">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-19%2012%3a11%3a12.107483%20-0400%20EDT%20m%3d%2b0.203104741">
-    <link rel="stylesheet" href="/css/main.css?t=2018-04-19%2012%3a11%3a12.107483%20-0400%20EDT%20m%3d%2b0.203104741">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-19%2014%3a39%3a54.04613%20-0400%20EDT%20m%3d%2b0.265359134">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-19%2014%3a39%3a54.04613%20-0400%20EDT%20m%3d%2b0.265359134">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-19%2014%3a39%3a54.04613%20-0400%20EDT%20m%3d%2b0.265359134">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-04-19%2012%3a11%3a12.107483%20-0400%20EDT%20m%3d%2b0.203104741">
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-19%2014%3a39%3a54.04613%20-0400%20EDT%20m%3d%2b0.265359134">
     
 
 
@@ -191,13 +191,13 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
         <div class="content">
             <div class="page-heading">
 
-    Baylor Religion Survey 2010
+    Plotting Regional Concentration of American Denominations
 
 </div>
 
             <div class="markdown">
                 <hr />
-<p>In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the <a href="https://www.baylor.edu/BaylorReligionSurvey/">Baylor Religion Survey of 2010</a>.</p>
+<p>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the <a href="https://www.baylor.edu/BaylorReligionSurvey/">Baylor Religion Survey of 2010</a>.</p>
 <p>To begin, make sure to load a few basic packages.</p>
 <pre class="r"><code>require(&quot;tidyverse&quot;)
 require(&quot;foreign&quot;)

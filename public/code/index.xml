@@ -6,20 +6,19 @@
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Baylor Religion Survey 2010</title>
-      <link>/code/baylor/</link>
-      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      <title>Empty Pews: Longitudinal Trends in U.S. Congregation Size</title>
+      <link>/code/congregation_size/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/baylor/</guid>
-      <description>In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
-To begin, make sure to load a few basic packages.
-require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
+      <guid>/code/congregation_size/</guid>
+      <description>This post uses data from the US Congregational Life Survey in 2008 to examine trends in congregation size across the ten largest American Christian denominations. Keep in mind longitudinal trends rely on post-hoc estimates by head-clergy. To start, we’ll load some packages.
+require(foreign) require(dplyr) require(tidyr) require(ggplot2) Then we’ll grab the data from the US Congregational Life Survey from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.</description>
     </item>
     
     <item>
@@ -83,6 +82,17 @@ Part 4 includes:
 3. Editing theme elements
 4. Exercise 6, 7, 8
 # install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) # install.packages(&amp;quot;dplyr&amp;quot;) require(&amp;quot;dplyr&amp;quot;) 1. Adding Text Labels When adding text to a plot, geom_text works like many other geoms in ggplot. Below, using the mpg dataset, we’ve taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Regional Concentration of American Denominations</title>
+      <link>/code/baylor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/baylor/</guid>
+      <description>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
     </item>
     
   </channel>

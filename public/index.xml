@@ -6,10 +6,20 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Empty Pews: Longitudinal Trends in U.S. Congregation Size</title>
+      <link>/code/congregation_size/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/congregation_size/</guid>
+      <description>This post uses data from the US Congregational Life Survey in 2008 to examine trends in congregation size across the ten largest American Christian denominations. Keep in mind longitudinal trends rely on post-hoc estimates by head-clergy. To start, we’ll load some packages.
+require(foreign) require(dplyr) require(tidyr) require(ggplot2) Then we’ll grab the data from the US Congregational Life Survey from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.</description>
+    </item>
     
     <item>
       <title>About</title>
@@ -21,23 +31,13 @@
     </item>
     
     <item>
-      <title>Baylor Religion Survey 2010</title>
-      <link>/code/baylor/</link>
-      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/baylor/</guid>
-      <description>In this post, I’ll be using R to download, clean, and graph some basic descriptive stats about American religion using the Baylor Religion Survey of 2010.
-To begin, make sure to load a few basic packages.
-require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
-    </item>
-    
-    <item>
       <title>Code</title>
       <link>/xcode/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xcode/</guid>
-      <description>2017 Data Import, Cleaning, Descriptives, &amp;amp; Plotting: Baylor Religion Survey 2010
+      <description>2018 Which Denomination Has the Most Empty Pews?
+2017 Where Do American Baptists Live?
 2017 Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
 2017 Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
 2017 Data Visualization in R: Part 2 - Assigning Variables to Attributes
@@ -115,6 +115,17 @@ Part 4 includes:
       <guid>/research/country-music/</guid>
       <description>John A. Bernau
 ABSTRACT: This article examines the rise of “self-references” in contemporary country music lyrics - descriptions of a ‘country’ lifestyle, specific styles of music consumption, or reference to famous artists. Using a dataset of 27,384 songs from 1989-2014, I show how these words constitute a meta-cultural practice that constructs and maintains genre boundaries, authenticity, and consecration. Becoming increasingly prevalent since the 1990s, self-references are also more likely to appear in debut albums, songs by Hall-of-Fame artists, and highly repetitive songs, while less likely to appear after Presidential elections.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Regional Concentration of American Denominations</title>
+      <link>/code/baylor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/baylor/</guid>
+      <description>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
     </item>
     
     <item>
