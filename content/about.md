@@ -11,6 +11,6 @@ I am a PhD candidate in the [Department of Sociology](http://sociology.emory.edu
 
 The rest of my work can be housed under the broad umbrellas of culture and social psychology. These two branches of sociology cover everything from religion, music, and collective memory, to micro-interactions, friendship formation, and emotions.
 
-[Email](mailto:john.bernau@emory.edu): john.bernau@emory.edu // [LinkedIn](https://www.linkedin.com/in/john-bernau-b384a9153/) // [GitHub](https://github.com/johnbernau)
+[Email](mailto:john.bernau@emory.edu) // [LinkedIn](https://www.linkedin.com/in/john-bernau-b384a9153/) // [GitHub](https://github.com/johnbernau)
 
 [All content copyright 2018 John A. Bernau]

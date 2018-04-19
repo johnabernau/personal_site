@@ -64,7 +64,6 @@ cachebuster            = true      # add the current unix timestamp in query str
 dateform               = "Jan 2, 2006"
 dateformfull           = "Mon Jan 2 2006 15:04:05 MST"
 description            = "Don't panic"
-copyright              = "Copyright 2018 John A. Bernau"
 email                  = "john.bernau@emory.edu"
 extracssfiles          = [ "/css/override.css" ]       # In your `static` directory, add/remove files as necessary.
 faviconfile            = ""
