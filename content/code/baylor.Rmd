@@ -142,7 +142,7 @@ final2 + johntheme1
 
 A nice graph! Export as a JPG using the `ggsave()` command. 
 
-```{r}
+```{r, eval=FALSE}
 ggsave(filename="/users/johnbernau/Desktop/Baylor2010.jpg", final2, width=11.25, height=7, units="in")
 ```
 
