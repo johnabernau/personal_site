@@ -12,4 +12,10 @@ ABSTRACT: This article examines the rise of “self-references” in contemporar
 
 *Under Review* May 2018
 
-![](/static/nashcopy.jpg)
+___
+
+**Selected Plots**  
+
+![](/research/cm_sr1.jpg)
+![](/research/cm_sr2.jpg)
+![](/research/cm_sr3.jpg)
