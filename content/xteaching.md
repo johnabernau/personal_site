@@ -7,8 +7,6 @@ categories: []
 tags: []
 ---
 
-My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here. My teaching philosophy is to do well. Other content here.
-
 **Independently Taught Courses:**  
 [SOC 333: Sociology of Religion](/teaching/sor/) 
 
