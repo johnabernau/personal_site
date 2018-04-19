@@ -59,11 +59,11 @@ require(foreign) require(dplyr) require(tidyr) require(ggplot2) Then we’ll gra
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-04-19%2014%3a39%3a54.032025%20-0400%20EDT%20m%3d%2b0.251255270">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-19%2014%3a39%3a54.032025%20-0400%20EDT%20m%3d%2b0.251255270">
-    <link rel="stylesheet" href="/css/main.css?t=2018-04-19%2014%3a39%3a54.032025%20-0400%20EDT%20m%3d%2b0.251255270">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-19%2018%3a50%3a56.469487%20-0400%20EDT%20m%3d%2b0.311019971">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-19%2018%3a50%3a56.469487%20-0400%20EDT%20m%3d%2b0.311019971">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-19%2018%3a50%3a56.469487%20-0400%20EDT%20m%3d%2b0.311019971">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-04-19%2014%3a39%3a54.032025%20-0400%20EDT%20m%3d%2b0.251255270">
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-19%2018%3a50%3a56.469487%20-0400%20EDT%20m%3d%2b0.311019971">
     
 
 
@@ -243,8 +243,8 @@ one$DENOM1[startsWith(one$DENOM1, &quot;United Methodist&quot;)] &lt;- &quot;Uni
   geom_line(aes(group = one$congrega, alpha = value)) +
   labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;)</code></pre>
 <p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Takeaways…TOO MANY CATHOLICS!<br />
-This final graph is much the same, but plots each denomination in its own pane using <code>facet_wrap()</code>, removes the color legend <code>scale_color...(guide=FALSE)</code>, and adds some annotations / theme elements. With many categories, these graphs are hard to size correctly. I’ve given a size that works for me and attached the plot here as a raw image file.</p>
+<p>Takeaways…TOO MANY CATHOLICS!</p>
+<p>This final graph is much the same, but plots each denomination in its own pane using <code>facet_wrap()</code>, removes the color legend <code>scale_color...(guide=FALSE)</code>, and adds some annotations / theme elements. With many categories, these graphs are hard to size correctly. I’ve given a size that works for me and attached the plot here as a raw image file.</p>
 <pre class="r"><code>ggplot(one, aes(x = date, y = value, color = DENOM1)) +
   geom_point() +
   geom_line(aes(group = one$congrega)) +
