@@ -17,7 +17,16 @@
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/gen_journals/</guid>
-      <description>Content here…business, Weber, Durkheim solidarity, ASA, etc.</description>
+      <description>[Forthcoming…]</description>
+    </item>
+    
+    <item>
+      <title>New Website!</title>
+      <link>/blog/new-website/</link>
+      <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/new-website/</guid>
+      <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). Lastly, a major shout-out to my friend and colleague Trent Ryan for general R support and encouragement (and help with the cocoa theme!).</description>
     </item>
     
     <item>
@@ -29,15 +38,6 @@
       <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>New Website!</title>
-      <link>/blog/new-website/</link>
-      <pubDate>Thu, 17 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/new-website/</guid>
-      <description></description>
     </item>
     
   </channel>
