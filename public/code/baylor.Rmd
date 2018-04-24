@@ -24,7 +24,7 @@ The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a
 
 From the `foreign` package we can use `read.dta()` to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator ` %>% ` to convert this to a [tibble - an popular format for working with data in R,](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) and save it as an object "bay.""
 ```{r}
-bay <- read.dta("~/Desktop/bay3_2010.dta") %>% as.tibble()
+bay <- read.dta("/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta") %>% as.tibble()
 ```
 
 Upon first glance (`View(bay)`), the dataset is quite messy. Let's remove all the variables we don't need and save this as "bay2." A primer on dplyr's functions can be [found here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), but the basic format here is `select(dataset, variable_to_keep, -variables_to_remove)`.
@@ -162,7 +162,7 @@ require("car")
 require("RColorBrewer")
 
 # Load data
-bay <- read.dta("~/Desktop/bay3_2010.dta") %>% 
+bay <- read.dta("/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta") %>% 
   as.tibble()
 
 # Delete unwanted variables and rename. 
@@ -195,6 +195,10 @@ final2 <- ggplot(bay, aes(region)) +
 final2
 ```
 
+___  
+[Code Home](/xcode/)  
 
-  
+___  
+
+### *Copyright &copy; 2018 John A. Bernau*
 

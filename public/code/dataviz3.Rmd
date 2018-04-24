@@ -180,11 +180,16 @@ ggplot(dio2, aes(x=cut, y=n)) +
 ```
 
 ___
-___
 
 ### EXERCISE 5
 Using the plot from ex1, add a smoothed trend line. Save this as an object "ex5", export as a jpg.  
 
+___
 
 [Code Home](/xcode/)  
 [Part 2 <<<](/code/dataviz2)[>>> Part 4](/code/dataviz4/)
+
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

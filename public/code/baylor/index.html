@@ -61,11 +61,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-04-23%2017%3a29%3a40.300081%20-0400%20EDT%20m%3d%2b0.224397412">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-23%2017%3a29%3a40.300081%20-0400%20EDT%20m%3d%2b0.224397412">
-    <link rel="stylesheet" href="/css/main.css?t=2018-04-23%2017%3a29%3a40.300081%20-0400%20EDT%20m%3d%2b0.224397412">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-04-24%2009%3a44%3a23.217048%20-0400%20EDT%20m%3d%2b0.236301509">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-04-24%2009%3a44%3a23.217048%20-0400%20EDT%20m%3d%2b0.236301509">
+    <link rel="stylesheet" href="/css/main.css?t=2018-04-24%2009%3a44%3a23.217048%20-0400%20EDT%20m%3d%2b0.236301509">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-04-23%2017%3a29%3a40.300081%20-0400%20EDT%20m%3d%2b0.224397412">
+        <link rel="stylesheet" href="/css/override.css?t=2018-04-24%2009%3a44%3a23.217048%20-0400%20EDT%20m%3d%2b0.236301509">
     
 
 
@@ -198,7 +198,7 @@ require(&quot;car&quot;)
 require(&quot;RColorBrewer&quot;)</code></pre>
 <p>The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on <a href="http://www.thearda.com/">The Association of Religion Data Archives (ARDA)</a>. ARDA is a fantastic resource for locating datasets on a number of religious topics. From <a href="http://www.thearda.com/Archive/NatBaylor.asp">this link</a>, click on Wave II &gt; Download &gt; Continue. We’ll be using the labeled Stata file. Save this .DTA file somewhere you remember. You’ll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions.</p>
 <p>From the <code>foreign</code> package we can use <code>read.dta()</code> to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator <code>%&gt;%</code> to convert this to a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble - an popular format for working with data in R,</a> and save it as an object “bay.”&quot;</p>
-<pre class="r"><code>bay &lt;- read.dta(&quot;~/Desktop/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
+<pre class="r"><code>bay &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
 <p>Upon first glance (<code>View(bay)</code>), the dataset is quite messy. Let’s remove all the variables we don’t need and save this as “bay2.” A primer on dplyr’s functions can be <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">found here</a>, but the basic format here is <code>select(dataset, variable_to_keep, -variables_to_remove)</code>.</p>
 <pre class="r"><code>bay2 &lt;- select(bay, -(motherl:baylor), -entity, -AUTO_INC, -batch,-LANG1)</code></pre>
 <p>Looking at the codebook we can rename some of our key questions with more intuitive names. <em>Q1 asks: “With what religious family, if any, do you most closely identify?” </em>Q3 asks: “How religious do you consider yourself to be?” <em>Q4 asks: “How often do you attend religious services at a place of worship?” </em>The “region” variable groups respondents by East / Midwest / South / West and is already intuitively named.</p>
@@ -313,7 +313,7 @@ require(&quot;car&quot;)
 require(&quot;RColorBrewer&quot;)
 
 # Load data
-bay &lt;- read.dta(&quot;~/Desktop/bay3_2010.dta&quot;) %&gt;% 
+bay &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta&quot;) %&gt;% 
   as.tibble()
 
 # Delete unwanted variables and rename. 
@@ -344,6 +344,12 @@ final2 &lt;- ggplot(bay, aes(region)) +
   scale_fill_manual(values=colors, name=&quot;&quot;) + 
   labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
 final2</code></pre>
+<hr />
+<p><a href="/xcode/">Code Home</a></p>
+<hr />
+<div id="copyright-2018-john-a.-bernau" class="section level3">
+<h3><em>Copyright © 2018 John A. Bernau</em></h3>
+</div>
 
             </div>
         </div>

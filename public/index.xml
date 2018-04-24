@@ -36,12 +36,13 @@ require(foreign) require(dplyr) require(tidyr) require(ggplot2) Then we’ll gra
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xcode/</guid>
-      <description>2018 Which Denomination Has the Most Empty Pews?
+      <description> 2018 Which Denomination Has the Most Empty Pews?
 2017 Where Do American Baptists Live?
 2017 Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
 2017 Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
 2017 Data Visualization in R: Part 2 - Assigning Variables to Attributes
-2016 Data Visualization in R: Part 1 - Getting Started</description>
+2016 Data Visualization in R: Part 1 - Getting Started
+Copyright &amp;copy; 2018 John A. Bernau </description>
     </item>
     
     <item>
@@ -134,12 +135,12 @@ require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) requ
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xresearch/</guid>
-      <description>Publications Under Review
+      <description> Publications Under Review
  May 2018 - Meta-Sounds in Modern Country Music
  March 2018 - How Do Modern States Culturally Respond to Disasters?  Manuscripts in Progress
  Sad Songs &amp;amp; Waltzes: Country Music Sentiment and Chart Performance
   Dissertation Research
- The (De)Institutionalization of Kübler-Ross&amp;rsquo;s Five-Stage Model of Death and Dying   </description>
+ The (De)Institutionalization of Kübler-Ross&amp;rsquo;s Five-Stage Model of Death and Dying   Copyright &amp;copy; 2018 John A. Bernau </description>
     </item>
     
     <item>
@@ -171,8 +172,7 @@ SOC XXX: Philosophical Roots of Sociological Thought
 Served as Teaching Assistant:
 SOC 506: Applied Regression (Graduate-level)
 SOC 389: Cont. Chinese Culture
-SOC 343: Mass Media &amp;amp; Society
-SOC 101: Intro to Sociology</description>
+SOC 343: Mass Media &amp;amp; Society</description>
     </item>
     
     <item>
@@ -181,7 +181,8 @@ SOC 101: Intro to Sociology</description>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/gen_journals/</guid>
-      <description>[Forthcoming…]</description>
+      <description>[Forthcoming…]
+Copyright © 2018 John A. Bernau  </description>
     </item>
     
     <item>
@@ -190,7 +191,8 @@ SOC 101: Intro to Sociology</description>
       <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/new-website/</guid>
-      <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). Lastly, a major shout-out to my friend and colleague Trent Ryan for general R support and encouragement (and help with the cocoa theme!).</description>
+      <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). Lastly, a major shout-out to my friend and colleague Trent Ryan for general R support and encouragement (and help with the cocoa theme!).
+Copyright © 2018 John A. Bernau  </description>
     </item>
     
     <item>

@@ -31,7 +31,8 @@ SOC 101: Intro to Sociology
 
  
 
+___
 
-  
+### *Copyright &copy; 2018 John A. Bernau*
   
   

@@ -15,7 +15,7 @@ require(dplyr)
 require(tidyr)
 require(ggplot2)</code></pre>
 <p>Then we’ll grab the data from the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a> from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.</p>
-<pre class="r"><code>data &lt;- read.dta(&quot;/Users/johnbernau/Desktop/uscl2008.DTA&quot;)</code></pre>
+<pre class="r"><code>data &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/US Congregation Study/uscl2008.DTA&quot;)</code></pre>
 <p>Start by examining tabulation of denominations, constrain this variable to character, and then save a list of the ten largest denominations as <code>top10</code>. Lastly, filter dataset to only include top 10 denominations. Save this as <code>data2</code>.</p>
 <pre class="r"><code>denom &lt;- arrange(count(data, DENOM1), desc(n))
 denom$DENOM1 &lt;- as.character(denom$DENOM1)
@@ -85,3 +85,9 @@ one2 &lt;- one %&gt;%
 # But there is weird stuff. Like the capacity is the 2008 building and they&#39;re asked to measure attendance 7 years ago. Maybe they moved buildings, get weird negative empty pew measures. 
 one2 &lt;- one2 %&gt;% 
   filter(emptypews &gt;= 0)</code></pre>
+<hr />
+<p><a href="/xcode/">Code Home</a></p>
+<hr />
+<div id="copyright-2018-john-a.-bernau" class="section level3">
+<h3><em>Copyright © 2018 John A. Bernau</em></h3>
+</div>

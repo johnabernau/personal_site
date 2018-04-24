@@ -11,4 +11,6 @@ I am a PhD candidate in the [Department of Sociology](http://sociology.emory.edu
 
 [Email](mailto:john.bernau@emory.edu) // [LinkedIn](https://www.linkedin.com/in/john-bernau-b384a9153/) // [GitHub](https://github.com/johnbernau)
 
-[All content copyright 2018 John A. Bernau]
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

@@ -197,7 +197,11 @@ Set shape to year and color to cylinder. Remember to use the factor notation des
 Set the title of these legends to "Year" and "Cylinders."
 When you're done, save this as an object "ex4", export as a jpg.
 
-  
+___
    
 [Code Home](/xcode/)  
 [Part 1 <<<](/code/dataviz1)[>>> Part 3](/code/dataviz3/)
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

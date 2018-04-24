@@ -21,3 +21,6 @@ We will look at classical theorists like Karl Marx, Emile Durkheim, and Max Webe
 
 Taught: Spring 2017, Spring 2018  
 
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

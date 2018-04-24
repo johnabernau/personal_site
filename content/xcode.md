@@ -13,3 +13,8 @@ tags: []
 2017 [Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)](/code/dataviz3/)  
 2017 [Data Visualization in R: Part 2 - Assigning Variables to Attributes](/code/dataviz2/)  
 2016 [Data Visualization in R: Part 1 - Getting Started](/code/dataviz1/)
+
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

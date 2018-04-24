@@ -9,4 +9,6 @@ tags: []
 
 My new website is up! It is built by [Hugo](https://gohugo.io/) and deployed through [Netlify](https://www.netlify.com/). A huge thanks to Yihui Xie and colleagues for the [blogdown package in R](https://bookdown.org/yihui/blogdown/) and the many helpful tutorials on getting started ([like this one](https://alison.rbind.io/post/up-and-running-with-blogdown/)). Lastly, a major shout-out to my friend and colleague [Trent Ryan](https://trent.netlify.com/about/) for general R support and encouragement (and help with the cocoa theme!). 
 
+___
 
+### *Copyright &copy; 2018 John A. Bernau*

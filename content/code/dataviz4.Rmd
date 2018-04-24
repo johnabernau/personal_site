@@ -197,5 +197,11 @@ Using the plot from ex3, label each point by their 1/4 mile time (qsec), if thei
 ### EXERCISE 8
 Using the plot from ex4, make the titles size 15 and in boldface. Save this as an object "ex8", export as a jpg.
 
+___
+ 
 [Code Home](/xcode/)  
 [Part 3 <<<](/code/dataviz3)  
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

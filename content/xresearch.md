@@ -23,3 +23,7 @@ tags: []
 
 * The (De)Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying
 ![](/research/kr1.jpg)
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

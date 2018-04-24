@@ -242,6 +242,11 @@ Why are some triangles darker than others? We can introduce random variation in 
 ### EXERCISE 2
 Make a new scatterplot using the same variables, axes labels, and title. This time, use the jitter command described above. Additionally, make these filled triangles with size of 6 and opacity of 0.5. Lastly, make these triangles the same color red as the "Atlanta Falcons". (Search online for the hex code or rgb value). Save this plot as an object "ex2". Export as a jpg. 
   
+___
 
 [Code Home](/xcode/)  
 [>>> Part 2](/code/dataviz2/)
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

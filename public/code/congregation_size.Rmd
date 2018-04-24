@@ -18,7 +18,7 @@ require(ggplot2)
 
 Then we'll grab the data from the [US Congregational Life Survey](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp) from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.
 ```{r}
-data <- read.dta("/Users/johnbernau/Desktop/uscl2008.DTA")
+data <- read.dta("/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/US Congregation Study/uscl2008.DTA")
 ```
 
 Start by examining tabulation of denominations, constrain this variable to character, and then save a list of the ten largest denominations as `top10`. Lastly, filter dataset to only include top 10 denominations. Save this as `data2`.
@@ -111,4 +111,10 @@ one2 <- one2 %>%
   filter(emptypews >= 0)
 ```
 
+___
 
+[Code Home](/xcode/) 
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*
