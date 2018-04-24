@@ -6,10 +6,19 @@
     <description>Recent content in Blog on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2018 Martin Levin ICPSR Training Award</title>
+      <link>/blog/martin-levin-icpsr-training-award/</link>
+      <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/martin-levin-icpsr-training-award/</guid>
+      <description>Last week I was honored to receive the Martin Levin ICPSR Training Award at our annual Sociology Department awards ceremony. Marty Levin was a faculty member in the Emory University Sociology Department for many years, playing a key role in the methodological and statistical training of graduate students. Marty also served on the Board of Governors of ICPSR (Inter-University Consortium for Political and Social Research). This award will give me the opportunity to attend a workshop over the summer and learn new methodologies for the statistical analysis of text as data.</description>
+    </item>
     
     <item>
       <title>Why Read Generalist Journals?</title>
@@ -29,17 +38,6 @@ Copyright © 2018 John A. Bernau  </description>
       <guid>/blog/new-website/</guid>
       <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). Lastly, a major shout-out to my friend and colleague Trent Ryan for general R support and encouragement (and help with the cocoa theme!).
 Copyright © 2018 John A. Bernau  </description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/blog/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/blog/hello-r-markdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
     </item>
     
   </channel>
