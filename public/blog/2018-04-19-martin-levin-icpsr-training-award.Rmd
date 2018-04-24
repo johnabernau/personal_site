@@ -2,7 +2,7 @@
 title: 2018 Martin Levin ICPSR Training Award
 author: John A. Bernau
 date: '2018-04-24'
-slug: martin-levin-icpsr-training-award
+slug: levin_icpsr_award
 categories: []
 tags: []
 ---
