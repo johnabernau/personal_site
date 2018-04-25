@@ -39,7 +39,7 @@ SOC 101: Intro to Sociology
 
 
 ___
-### *Photo credit [Brett Weinstein](https://www.flickr.com/photos/nrbelex/320182240/)*      
+### *Photo (CC) [Brett Weinstein](https://www.flickr.com/photos/nrbelex/320182240/)*      
 ### *Copyright &copy; 2018 John A. Bernau*
   
   
