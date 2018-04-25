@@ -7,12 +7,19 @@ categories: []
 tags: []
 ---
 
+<div style= "float:right;position: relative; top: -20px; left: 10px;">
+<img src="http://farm1.staticflickr.com/131/320182240_34fe83674c_z.jpg" height="300" />
+</div>
+
+
 **Independently Taught Courses:**  
 [SOC 333: Sociology of Religion](/teaching/sor/) 
 
 **Workshop Author / Leader:**  
 [Data Visualization in R](/code/dataviz1/)  
-Data Cleaning and Manipulation in R  (co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))
+Data Cleaning and Manipulation in R  
+&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))  
+Zotero for Academic Research and Publishing
 
 **Proposed Courses:**  
 SOC XXX: Applied Statistics for Social Scientists  
@@ -29,10 +36,10 @@ SOC 457: Dvlp. of Sociological Theory
 SOC 221: Culture & Society  
 SOC 101: Intro to Sociology  
 
- 
+
 
 ___
-
+### *Photo credit [Brett Weinstein](https://www.flickr.com/photos/nrbelex/320182240/)*      
 ### *Copyright &copy; 2018 John A. Bernau*
   
   
