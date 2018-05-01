@@ -11,7 +11,7 @@ title               = "John A. Bernau"
 pygmentsuseclasses  = true
 #disqusshortname     = "cocoaexamplesite" # Comment out to disable Disqus.
 pluralizelisttitles = false
-googleAnalytics     = ""
+googleAnalytics     = "UA-118509886-1"
 
 [permalinks]
 blog  = "blog/:slug/"
