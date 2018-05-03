@@ -15,7 +15,11 @@ ABSTRACT: While events are central to the sociology of the state, natural disast
 *Under Review* April 2018
 
 [![](/research/katrina.jpg)](https://commons.wikimedia.org/wiki/File:FEMA_-_19200_-_Photograph_by_Jocelyn_Augustino_taken_on_09-08-2005_in_Louisiana.jpg)
-  
+
+<div style="text-align: right"> 
+*New Orleans, LA<br>September 8, 2005<br>Photo: Jocelyn Augustino/FEMA*  
+</div>
+
 ___
 
 ### *Copyright &copy; 2018 John A. Bernau*
