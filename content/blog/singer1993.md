@@ -2,7 +2,7 @@
 title: 'REVIEW: Ethics in an Age of Self-Interest by Peter Singer
   (1993)'
 author: John A. Bernau
-date: '2018-05-07'
+date: '2018-05-08'
 slug: singer1993
 categories: []
 tags: []
