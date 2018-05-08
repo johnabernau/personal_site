@@ -22,9 +22,9 @@ The first chapter introduces “the ultimate choice” to be made in one’s lif
 
 Singer doesn’t suggest abandoning the modern concern for self-interest, despite its deleterious effects on inequality and the environment. Instead, he shows how this preoccupation can be stretched to encompass more ethical (read “prosocial”) behaviors. Chapters five uses our commitment to friends and family members as evidence that selfishness isn’t genetic. Chapter six furthers this argument, offering Japanese society as an example of a more communitarian ethos. Chapter seven uses an extended discussion of the prisoner’s dilemma to explain the benefits of cooperation among local strangers. While contemporary work in moral psychology  does a better job of explaining the evolution of morality in terms of group-level selection (cf. Haidt 2013), I especially liked his discussion of Robert Axelrod’s *The Evolution of Cooperation* (1984).
 
-The preliminary conclusion reached at the end of chapter seven is a widening conception of self-interest: as long as we’re talking about friends, family, in-group members, or people you live in close proximity to, there is often much to be gained (self-interestedly) by acting ethically (read “prosocially”). The rest of the book deals with the admittedly tougher question: *why should we act cooperatively towards complete strangers, or those in distant countries?*
+The preliminary conclusion reached at the end of chapter seven is a widening conception of self-interest: as long as we’re talking about friends, family, in-group members, or people you live in close proximity to, there is often much to be gained (self-interestedly) by acting ethically (read “prosocially”). The rest of the book deals with the admittedly tougher question: *why should we act ethically towards complete strangers, or those in distant countries?*
 
-Before answering this question, Singer finally gives us his definition of ethical behavior: 
+Before answering this question, Singer finally gives us a definition of ethical behavior: 
 
 > “To act ethically is to act in a way that one can recommend and justify to others - that, at least, seems to be part of the very meaning of the term.” (p.173). 
 
