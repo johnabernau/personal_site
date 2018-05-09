@@ -87,10 +87,6 @@ One of the larger ironies of the book was his ultimate appeal to self-interest: 
 * Sidgwick, Henry. 1907. *The Methods of Ethics*. Hackett Publishing.
 
 
-
-
-
-
 ___
 
 ### *Copyright &copy; 2018 John A. Bernau*
