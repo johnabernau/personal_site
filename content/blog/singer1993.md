@@ -71,7 +71,7 @@ One of the larger ironies of the book was his ultimate appeal to self-interest: 
 
 * Friedan, Betty. 1963. *The Feminine Mystique*. W. W. Norton & Company.  
 
-* Haidt, Jonathan. 2013. *The Righteous Mind: Why Good People Are Divided by Politics and Religion*. Reprint edition. New York: Vintage.  
+* Haidt, Jonathan. 2013. *The Righteous Mind: Why Good People Are Divided by Politics and Religion*. Reprint edition. New York: Vintage.  [(Check out the book's website here)](http://righteousmind.com/)
 
 * Hare, R. M. 1963. *The Language of Morals*. Oxford: Oxford University Press.  
 
