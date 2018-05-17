@@ -85,22 +85,32 @@ table(bay2$rel_family, bay3$rel_family)
 Now that our variables are correctly coded / collapsed, we can plot some descriptives. The data we want to plot can be summarized using `table(bay3$region, bay3$rel_family)` but this is still a bit hard to decipher. The following ggplot specifies the dataset `bay3`, the variable to plot `aes(region)`, the geometric object to use `geom_bar()`. This is saved as an object named "final".  
   
 A few other specifications below:  
+
 * `aes(fill=rel_family)` = color (fill) the bars according to the variable rel_family.  
+
 * `stat = "count"` = the y-axis for this bar graph will be the raw counts of each category.  
+
 * `position = "dodge"` = display the bars side by side.  
-* `scale_fill_brewer()` = use the RColorBrewer package to use predefined color palettes. In this case, the "RdYlBu" palette. `name = ""` removes the legend title.  
+
+* `scale_fill_brewer()` = use the RColorBrewer package to use predefined color palettes. In this case, the "RdYlBu" palette. `name = ""` removes the legend title.
+
 * `labs()` = set main title and axes titles.  
+
 
 
 ```{r, fig.width=7, fig.height=3}
 final <- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
   scale_fill_brewer(palette= "RdYlBu", name="") + 
-  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+  labs(x="", y="", title="US Religon Distribution", subtitle= "Source: Baylor Religion Survey 2010")
 final
 ```
+Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels. 
+```{r}
+bay3$region <- factor(bay3$region, levels = c("West","Midwest","South", "East"))
+```
 
-Not bad, but lets do one more round of editing. When collapsing categories into "other" we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let's use color to de-emphasize it. To do so, let's add a dark grey to our color scheme. 
+Lets do one more round of editing. When collapsing categories into "other" we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let's use color to de-emphasize it. To do so, let's add a dark grey to our color scheme. 
 
 First, the `brewer.pal()` command allows you to save a vector of colors. Below we've taked 5 colors from the "RdYlBu" palette and saved it as a vector named "colors." Second, let's add "grey40" to this vector. Now our `colors` vector is a list of six colors with the last one being a dark grey color. 
 
@@ -114,7 +124,7 @@ Using this new vector, we'll copy our first ggplot but specify `scale_fill_manua
 final2 <- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
   scale_fill_manual(values=colors, name="") + 
-  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+  labs(x="", y="", title="US Religon Distribution", subtitle= "Source: Baylor Religion Survey 2010")
 final2
 ```
 
@@ -123,6 +133,7 @@ If you want to super-customize your graph, you can save various themes or templa
 ```{r}
 johntheme1 <- theme(text=element_text(family="Times New Roman"), # New font
         plot.title = element_text(hjust = 0.5), # Centered title
+        plot.subtitle = element_text(hjust = 0.5), # Centered subtitle
         plot.background = element_rect(fill="black"), # Black background
         panel.background = element_rect(fill="gray20"), # Dark grey panel background
         panel.grid.minor = element_line(color="black"), # Hide grid lines
@@ -152,7 +163,7 @@ ggsave(filename="/users/johnbernau/Desktop/Baylor2010.jpg", final2, width=11.25,
 *POSTSCRIPT: There are a few different philosophies when it comes to manipulating your data. Some like to keep a copy of the original in case they have to go back. Others say this clutters the working environment, leading to more mistakes. Neither is right or wrong. A condensed version of the code above would look like this.* 
 
 
-```{r, eval = FALSE, fig.width=7, fig.height=3}
+```{r, eval = FALSE, fig.width=7, fig.height=4}
 
 # Load packages
 require("tidyverse")
@@ -194,6 +205,7 @@ final2 <- ggplot(bay, aes(region)) +
   labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
 final2
 ```
+
 
 ___  
 [Code Home](/xcode/)  

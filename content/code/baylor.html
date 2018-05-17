@@ -84,19 +84,22 @@ bay3$rel_family &lt;- recode(bay3$rel_family, (&quot;&#39;No religion [Skip to Q
 <p>Doing a quick table, we can double-check out new coding with the original values. The old categories from bay2 will be on the rows, and our new six-category variable will be on the columns.[Output omitted]</p>
 <pre class="r"><code>table(bay2$rel_family, bay3$rel_family)</code></pre>
 <p>Now that our variables are correctly coded / collapsed, we can plot some descriptives. The data we want to plot can be summarized using <code>table(bay3$region, bay3$rel_family)</code> but this is still a bit hard to decipher. The following ggplot specifies the dataset <code>bay3</code>, the variable to plot <code>aes(region)</code>, the geometric object to use <code>geom_bar()</code>. This is saved as an object named “final”.</p>
-<p>A few other specifications below:<br />
-* <code>aes(fill=rel_family)</code> = color (fill) the bars according to the variable rel_family.<br />
-* <code>stat = &quot;count&quot;</code> = the y-axis for this bar graph will be the raw counts of each category.<br />
-* <code>position = &quot;dodge&quot;</code> = display the bars side by side.<br />
-* <code>scale_fill_brewer()</code> = use the RColorBrewer package to use predefined color palettes. In this case, the “RdYlBu” palette. <code>name = &quot;&quot;</code> removes the legend title.<br />
-* <code>labs()</code> = set main title and axes titles.</p>
+<p>A few other specifications below:</p>
+<ul>
+<li><p><code>aes(fill=rel_family)</code> = color (fill) the bars according to the variable rel_family.</p></li>
+<li><p><code>stat = &quot;count&quot;</code> = the y-axis for this bar graph will be the raw counts of each category.</p></li>
+<li><p><code>position = &quot;dodge&quot;</code> = display the bars side by side.</p></li>
+<li><p><code>scale_fill_brewer()</code> = use the RColorBrewer package to use predefined color palettes. In this case, the “RdYlBu” palette. <code>name = &quot;&quot;</code> removes the legend title.</p></li>
+<li><p><code>labs()</code> = set main title and axes titles.</p></li>
+</ul>
 <pre class="r"><code>final &lt;- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
   scale_fill_brewer(palette= &quot;RdYlBu&quot;, name=&quot;&quot;) + 
-  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final</code></pre>
-<p><img src="/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Not bad, but lets do one more round of editing. When collapsing categories into “other” we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let’s use color to de-emphasize it. To do so, let’s add a dark grey to our color scheme.</p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels.</p>
+<pre class="r"><code>bay3$region &lt;- factor(bay3$region, levels = c(&quot;West&quot;,&quot;Midwest&quot;,&quot;South&quot;, &quot;East&quot;))</code></pre>
+<p>Lets do one more round of editing. When collapsing categories into “other” we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let’s use color to de-emphasize it. To do so, let’s add a dark grey to our color scheme.</p>
 <p>First, the <code>brewer.pal()</code> command allows you to save a vector of colors. Below we’ve taked 5 colors from the “RdYlBu” palette and saved it as a vector named “colors.” Second, let’s add “grey40” to this vector. Now our <code>colors</code> vector is a list of six colors with the last one being a dark grey color.</p>
 <pre class="r"><code>colors &lt;- brewer.pal(5, &quot;RdYlBu&quot;)
 colors &lt;- c(colors, &quot;grey40&quot;)</code></pre>
@@ -104,12 +107,13 @@ colors &lt;- c(colors, &quot;grey40&quot;)</code></pre>
 <pre class="r"><code>final2 &lt;- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
   scale_fill_manual(values=colors, name=&quot;&quot;) + 
-  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final2</code></pre>
-<p><img src="/code/baylor_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>If you want to super-customize your graph, you can save various themes or templates to use with ggplot. Below I’ve created a dark template named <code>johntheme1</code>.</p>
 <pre class="r"><code>johntheme1 &lt;- theme(text=element_text(family=&quot;Times New Roman&quot;), # New font
         plot.title = element_text(hjust = 0.5), # Centered title
+        plot.subtitle = element_text(hjust = 0.5), # Centered subtitle
         plot.background = element_rect(fill=&quot;black&quot;), # Black background
         panel.background = element_rect(fill=&quot;gray20&quot;), # Dark grey panel background
         panel.grid.minor = element_line(color=&quot;black&quot;), # Hide grid lines
@@ -121,7 +125,7 @@ final2</code></pre>
         legend.key = element_rect(fill=&quot;black&quot;, color=&quot;black&quot;)) #Squares/borders of legend black</code></pre>
 <p>Using our saved graph, we can add our new custom theme.</p>
 <pre class="r"><code>final2 + johntheme1</code></pre>
-<p><img src="/code/baylor_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>A nice graph! Export as a JPG using the <code>ggsave()</code> command.</p>
 <pre class="r"><code>ggsave(filename=&quot;/users/johnbernau/Desktop/Baylor2010.jpg&quot;, final2, width=11.25, height=7, units=&quot;in&quot;)</code></pre>
 <hr />
