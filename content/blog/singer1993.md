@@ -9,7 +9,7 @@ tags: []
 ---
 > **Singer, Peter. 1993. *How Are We to Live?: Ethics in an Age of Self-Interest*. Amherst, N.Y: Prometheus Books.** 
 
-<div style="text-align: right">Word Count: 1976</div>
+<div style="text-align: right">Word Count: 1929</div>
 <br>
 
  “Is there still anything to live *for*? Is anything worth pursuing, apart from money, love, and caring for one’s own family? Is so, what could it be?” Like any prospective reader, I was drawn in. Who doesn’t want a philosophically sound argument for how to live one’s life? More specifically, I hoped to learn more about secular accounts of objectivist ethics. What do we mean by “ethical behavior” and what justification is there to give authority to normative “ought” statements? And, to presage the conclusion, the book’s subtitle suggests modern society may be too individualistic and self-interested - a favorite line of sociologists from Emile Durkheim to Robert Putnam. 
