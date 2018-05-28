@@ -7,21 +7,22 @@ categories: []
 tags: []
 ---
 
-This post uses data from the US Congregational Life Survey in 2008 to examine trends in congregation size across the ten largest American Christian denominations. Keep in mind longitudinal trends rely on post-hoc estimates by head-clergy. To start, we'll load some packages. 
+This post tries to answer two broad questions. On the one hand, I'm curious about religious attendance by denomination over time. How has attendance fluctuated in the last eight years? Do some denominations report different rates of growth or decline? One the other hand, I'm curious about the role that empty pews play in encouraging growth or decline. Regardless of absolute size, does a *large empty* church encourage faster decline than a *small full* church? To examine these questions, I use data from the US Congregational Life Survey in 2008. To start, we'll load some packages.  
 
 ```{r, message=FALSE}
 require(foreign)
 require(dplyr)
 require(tidyr)
 require(ggplot2)
+require(stargazer)
 ```
 
 Then we'll grab the data from the [US Congregational Life Survey](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp) from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.
 ```{r}
-data <- read.dta("/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/US Congregation Study/uscl2008.DTA")
+data <- read.dta("http://www.thearda.com/download/download.aspx?file=U.S.%20Congregational%20Life%20Survey,%20Wave%202,%20Random%20Sample%20Congregational%20Profile%20Survey.DTA")
 ```
 
-Start by examining tabulation of denominations, constrain this variable to character, and then save a list of the ten largest denominations as `top10`. Lastly, filter dataset to only include top 10 denominations. Save this as `data2`.
+I start by examining tabulation of denominations, saved as "denom". After constraining the denomination variable ("DENOM1") to character, I save a list of the ten largest denominations as `top10`. Lastly, I filter the dataset to only include top 10 denominations and save this as `data2`.
 ```{r}
 denom <- arrange(count(data, DENOM1), desc(n))
 denom$DENOM1 <- as.character(denom$DENOM1)
@@ -29,7 +30,7 @@ top10 <- denom$DENOM1[1:10]
 data2 <- filter(data, DENOM1 %in% top10)
 ```
 
-Then we'll use the `gather` function to melt the eight years of attendance estimates into two columns. `name` will now contain "ATTEND01", "ATTEND02", etc. and `value` will contain the number estimates for each year. This step is often confusing! Take a look at `data2` vs `data3` to see the changes. The last line puts our five variables of interest up front and arranges by `congrega` which are individual congregation codes.  
+Now let's look at attendance trends. Keep in mind these rely on post-hoc estimates by head-clergy. Each year's attendance is stored as a separate variable but we'll use the `gather` function to melt the eight columns into two columns. `name` will now contain "ATTEND01", "ATTEND02", etc. and `value` will contain the number estimates for each year. This step is often confusing! Take a look at `data2` vs `data3` to see the changes. The last line puts our five variables of interest up front and arranges by `congrega` which are individual congregation codes.  
 
 ```{r}
 data3 <- gather(data2, "name", "value", ATTEND08:ATTEND01)
@@ -41,11 +42,12 @@ Create new dataset to do our recoding...
 one <- data3
 ```
 
-Recoding our yearly attendance variable. Create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008". The `select` function moves this to the front of the dataset. Convert to numeric (or date using `as.Date()`).
+Recoding our yearly attendance variable. Create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008". The `select` function moves this to the front of the dataset. The next line removes the "name" variable we no longer need. Lastly, convert to numeric (or date using `as.Date()`).
 ```{r}
 one$name <- as.character(one$name)
 one$date <- gsub("ATTEND", 20, one$name)
 one <- select(one, 1:4, date, everything())
+one <- select(one, -name)
 one$date <- as.numeric(one$date)
 ```
 
@@ -73,6 +75,7 @@ An initial plot of `date` X `value` with separately colored lines for each level
 ggplot(one, aes(x = date, y = value, color = DENOM1)) +
   geom_point(aes(alpha = value)) +
   geom_line(aes(group = one$congrega, alpha = value)) +
+  scale_alpha_continuous(guide = F) +
   labs(x = "year", y = "Avg Wkly Attend")
 ```
 
@@ -92,24 +95,115 @@ ggplot(one, aes(x = date, y = value, color = DENOM1)) +
 # ggsave("~/Desktop/file.jpg", width = 15, height = 8.5, unit = "in")
 ```
 
-![](/blog/uscong.jpg)
+[<img src="/code/uscong.jpg"/>](/code/uscong.jpg)
 
-While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. More data needed!
+While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. Also notice that the Y-axis is different for each plot. The largest Roman Catholic congregation maxes out at 10,000 members(!) while the largest Unitarian Universalist maxes out at 160. A graphically subtle, but substantively important detail! Nonetheless, we can quickly get an rough idea of the attendance trends for each of these denominations over the last eight years. 
 
 ___
 
-To work on...
+Next, I want to examine the relationship between attendance and empty pews. Does a full church bring more people? Does an empty church turn people away?
+
+We'll need a couple variables:  
+  
+* What is total weekly attendance?
+* How many weekly services are there? 
+* What is average attendance per service?
+* What is the capacity of the worship space?
+* Has the congregation moved to a new location recently?
+
+Before starting on this part, let's clean up our dataset.
+```{r}
+new <- one %>% 
+  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %>% 
+  rename(total_attend = value)
+
+
+```
+
+We've already calculated the total weekly attendance as estimated over the last few years. This is saved as the `total_attend` variable. The `numbsrvc` variable tells us how many weekly services a congregation has. This ranges from 1-28. Check out the histogram below. 
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(new, aes(numbsrvc)) +
+  geom_histogram() +
+  labs(title = "Number of Weekly Services", x = "Number of services / week")
+```
+
+Let's create average service attendance from these variables. 
 
 ```{r}
-# Create "empty pews" measure
-one2 <- one %>% 
-  mutate(emptypews = capacity - value) %>% 
-  select(1:6, emptypews, everything())
-
-# But there is weird stuff. Like the capacity is the 2008 building and they're asked to measure attendance 7 years ago. Maybe they moved buildings, get weird negative empty pew measures. 
-one2 <- one2 %>% 
-  filter(emptypews >= 0)
+new <- new %>%
+  mutate(avg_attend = total_attend / numbsrvc)
 ```
+
+Next, let's create an "empty pews" measure by subtracting attendance from building capacity.
+
+```{r}
+new <- new %>%
+  mutate(emptypews = capacity - avg_attend)
+```
+
+
+Lastly, let's use the `congmovd` variable to see whether the congregation moved to a new location within the last five years. 40 checked YES and 1592 checked NO.
+```{r, eval=FALSE}
+table(new$congmovd)
+```
+
+Let's try to look at our variables.
+```{r, warning=F, message=F}
+ggplot(new, aes(avg_attend, emptypews, color = DENOM1)) +
+  geom_point() +
+  geom_line(aes(group = one$congrega))
+```
+
+Ok, so this is clearly a negative relationship when viewed cross-sectionally: more attendance means less empty pews. But we still need to add the time dimension. How does the number of empty pews at time1 influence attendance at time2? To do this, first, we'll arrange our variables by congregation and date (ascending, or oldest first). Then group by individual congregation (`congrega`) and create two lagged empty pew variables using the handy `lag` function from dplyr. We group by congregation so that each attendance estimate stays bound to individual congregations. (*It might be interesting to see if attendance trends in one congregation influence attendance trends in another, but this is for a different time). The two lagged variables allow us to use time-series data in our predictions: do empty pews in 2007 predict attendance in 2008? Do empty pews in 2006 predict attendnace in 2008? These one- and two-year lagged variables allow us to answer these questions. 
+```{r}
+new <- new %>% 
+  arrange(congrega, date) %>% 
+  group_by(congrega) %>% 
+  mutate(py_emptypews=lag(emptypews)) %>% 
+  mutate(p2y_emptypews=lag(py_emptypews))
+
+```
+
+Getting a basic correlation from our one-year lagged variable...  
+```{r, eval=FALSE}
+cor(new$avg_attend, new$py_emptypews, use = "complete.obs")
+```
+
+...with Pearson significance levels.
+```{r}
+cor.test(new$avg_attend, new$py_emptypews, method = "pearson")
+```
+
+The two-year lagged variable is much the same.
+```{r}
+cor.test(new$avg_attend, new$p2y_emptypews, method = "pearson")
+```
+
+
+This suggests...empty pews one year is generally associated with an increase in attendance?
+
+```{r, warning=F, message=F}
+ggplot(new, aes(py_emptypews, avg_attend)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+```{r, warning=F, message=F}
+ggplot(new, aes(log(py_emptypews), log(avg_attend))) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+
+```{r}
+model <- lm(log(avg_attend) ~ log(py_emptypews) + congmovd, data = new)
+stargazer(model, type = "text")
+```
+
+
+
 
 ___
 

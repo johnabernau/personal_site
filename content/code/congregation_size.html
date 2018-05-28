@@ -9,27 +9,29 @@ tags: []
 
 
 
-<p>This post uses data from the US Congregational Life Survey in 2008 to examine trends in congregation size across the ten largest American Christian denominations. Keep in mind longitudinal trends rely on post-hoc estimates by head-clergy. To start, we’ll load some packages.</p>
+<p>This post tries to answer two broad questions. On the one hand, I’m curious about religious attendance by denomination over time. How has attendance fluctuated in the last eight years? Do some denominations report different rates of growth or decline? One the other hand, I’m curious about the role that empty pews play in encouraging growth or decline. Regardless of absolute size, does a <em>large empty</em> church encourage faster decline than a <em>small full</em> church? To examine these questions, I use data from the US Congregational Life Survey in 2008. To start, we’ll load some packages.</p>
 <pre class="r"><code>require(foreign)
 require(dplyr)
 require(tidyr)
-require(ggplot2)</code></pre>
+require(ggplot2)
+require(stargazer)</code></pre>
 <p>Then we’ll grab the data from the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a> from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.</p>
-<pre class="r"><code>data &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/US Congregation Study/uscl2008.DTA&quot;)</code></pre>
-<p>Start by examining tabulation of denominations, constrain this variable to character, and then save a list of the ten largest denominations as <code>top10</code>. Lastly, filter dataset to only include top 10 denominations. Save this as <code>data2</code>.</p>
+<pre class="r"><code>data &lt;- read.dta(&quot;http://www.thearda.com/download/download.aspx?file=U.S.%20Congregational%20Life%20Survey,%20Wave%202,%20Random%20Sample%20Congregational%20Profile%20Survey.DTA&quot;)</code></pre>
+<p>I start by examining tabulation of denominations, saved as “denom”. After constraining the denomination variable (“DENOM1”) to character, I save a list of the ten largest denominations as <code>top10</code>. Lastly, I filter the dataset to only include top 10 denominations and save this as <code>data2</code>.</p>
 <pre class="r"><code>denom &lt;- arrange(count(data, DENOM1), desc(n))
 denom$DENOM1 &lt;- as.character(denom$DENOM1)
 top10 &lt;- denom$DENOM1[1:10]
 data2 &lt;- filter(data, DENOM1 %in% top10)</code></pre>
-<p>Then we’ll use the <code>gather</code> function to melt the eight years of attendance estimates into two columns. <code>name</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>value</code> will contain the number estimates for each year. This step is often confusing! Take a look at <code>data2</code> vs <code>data3</code> to see the changes. The last line puts our five variables of interest up front and arranges by <code>congrega</code> which are individual congregation codes.</p>
+<p>Now let’s look at attendance trends. Keep in mind these rely on post-hoc estimates by head-clergy. Each year’s attendance is stored as a separate variable but we’ll use the <code>gather</code> function to melt the eight columns into two columns. <code>name</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>value</code> will contain the number estimates for each year. This step is often confusing! Take a look at <code>data2</code> vs <code>data3</code> to see the changes. The last line puts our five variables of interest up front and arranges by <code>congrega</code> which are individual congregation codes.</p>
 <pre class="r"><code>data3 &lt;- gather(data2, &quot;name&quot;, &quot;value&quot;, ATTEND08:ATTEND01)
 data3 &lt;- arrange(select(data3, 1:3, name, value, everything()), congrega)</code></pre>
 <p>Create new dataset to do our recoding…</p>
 <pre class="r"><code>one &lt;- data3</code></pre>
-<p>Recoding our yearly attendance variable. Create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”. The <code>select</code> function moves this to the front of the dataset. Convert to numeric (or date using <code>as.Date()</code>).</p>
+<p>Recoding our yearly attendance variable. Create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”. The <code>select</code> function moves this to the front of the dataset. The next line removes the “name” variable we no longer need. Lastly, convert to numeric (or date using <code>as.Date()</code>).</p>
 <pre class="r"><code>one$name &lt;- as.character(one$name)
 one$date &lt;- gsub(&quot;ATTEND&quot;, 20, one$name)
 one &lt;- select(one, 1:4, date, everything())
+one &lt;- select(one, -name)
 one$date &lt;- as.numeric(one$date)</code></pre>
 <p>Let’s look at a tabulation of our denominations</p>
 <pre class="r"><code>one$DENOM1 &lt;- as.character(one$DENOM1)
@@ -56,6 +58,7 @@ one$DENOM1[startsWith(one$DENOM1, &quot;United Methodist&quot;)] &lt;- &quot;Uni
 <pre class="r"><code>ggplot(one, aes(x = date, y = value, color = DENOM1)) +
   geom_point(aes(alpha = value)) +
   geom_line(aes(group = one$congrega, alpha = value)) +
+  scale_alpha_continuous(guide = F) +
   labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;)</code></pre>
 <p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Takeaways…TOO MANY CATHOLICS!</p>
@@ -70,21 +73,108 @@ one$DENOM1[startsWith(one$DENOM1, &quot;United Methodist&quot;)] &lt;- &quot;Uni
   theme(text=element_text(family = &quot;Times New Roman&quot;, size = 15))
 
 # ggsave(&quot;~/Desktop/file.jpg&quot;, width = 15, height = 8.5, unit = &quot;in&quot;)</code></pre>
-<div class="figure">
-<img src="/blog/uscong.jpg" />
-
-</div>
-<p>While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. More data needed!</p>
+<p><a href="/code/uscong.jpg"><img src="/code/uscong.jpg"/></a></p>
+<p>While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. Also notice that the Y-axis is different for each plot. The largest Roman Catholic congregation maxes out at 10,000 members(!) while the largest Unitarian Universalist maxes out at 160. A graphically subtle, but substantively important detail! Nonetheless, we can quickly get an rough idea of the attendance trends for each of these denominations over the last eight years.</p>
 <hr />
-<p>To work on…</p>
-<pre class="r"><code># Create &quot;empty pews&quot; measure
-one2 &lt;- one %&gt;% 
-  mutate(emptypews = capacity - value) %&gt;% 
-  select(1:6, emptypews, everything())
-
-# But there is weird stuff. Like the capacity is the 2008 building and they&#39;re asked to measure attendance 7 years ago. Maybe they moved buildings, get weird negative empty pew measures. 
-one2 &lt;- one2 %&gt;% 
-  filter(emptypews &gt;= 0)</code></pre>
+<p>Next, I want to examine the relationship between attendance and empty pews. Does a full church bring more people? Does an empty church turn people away?</p>
+<p>We’ll need a couple variables:</p>
+<ul>
+<li>What is total weekly attendance?</li>
+<li>How many weekly services are there?</li>
+<li>What is average attendance per service?</li>
+<li>What is the capacity of the worship space?</li>
+<li>Has the congregation moved to a new location recently?</li>
+</ul>
+<p>Before starting on this part, let’s clean up our dataset.</p>
+<pre class="r"><code>new &lt;- one %&gt;% 
+  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %&gt;% 
+  rename(total_attend = value)</code></pre>
+<p>We’ve already calculated the total weekly attendance as estimated over the last few years. This is saved as the <code>total_attend</code> variable. The <code>numbsrvc</code> variable tells us how many weekly services a congregation has. This ranges from 1-28. Check out the histogram below.</p>
+<pre class="r"><code>ggplot(new, aes(numbsrvc)) +
+  geom_histogram() +
+  labs(title = &quot;Number of Weekly Services&quot;, x = &quot;Number of services / week&quot;)</code></pre>
+<p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Let’s create average service attendance from these variables.</p>
+<pre class="r"><code>new &lt;- new %&gt;%
+  mutate(avg_attend = total_attend / numbsrvc)</code></pre>
+<p>Next, let’s create an “empty pews” measure by subtracting attendance from building capacity.</p>
+<pre class="r"><code>new &lt;- new %&gt;%
+  mutate(emptypews = capacity - avg_attend)</code></pre>
+<p>Lastly, let’s use the <code>congmovd</code> variable to see whether the congregation moved to a new location within the last five years. 40 checked YES and 1592 checked NO.</p>
+<pre class="r"><code>table(new$congmovd)</code></pre>
+<p>Let’s try to look at our variables.</p>
+<pre class="r"><code>ggplot(new, aes(avg_attend, emptypews, color = DENOM1)) +
+  geom_point() +
+  geom_line(aes(group = one$congrega))</code></pre>
+<p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Ok, so this is clearly a negative relationship when viewed cross-sectionally: more attendance means less empty pews. But we still need to add the time dimension. How does the number of empty pews at time1 influence attendance at time2? To do this, first, we’ll arrange our variables by congregation and date (ascending, or oldest first). Then group by individual congregation (<code>congrega</code>) and create two lagged empty pew variables using the handy <code>lag</code> function from dplyr. We group by congregation so that each attendance estimate stays bound to individual congregations. (*It might be interesting to see if attendance trends in one congregation influence attendance trends in another, but this is for a different time). The two lagged variables allow us to use time-series data in our predictions: do empty pews in 2007 predict attendance in 2008? Do empty pews in 2006 predict attendnace in 2008? These one- and two-year lagged variables allow us to answer these questions.</p>
+<pre class="r"><code>new &lt;- new %&gt;% 
+  arrange(congrega, date) %&gt;% 
+  group_by(congrega) %&gt;% 
+  mutate(py_emptypews=lag(emptypews)) %&gt;% 
+  mutate(p2y_emptypews=lag(py_emptypews))</code></pre>
+<p>Getting a basic correlation from our one-year lagged variable…</p>
+<pre class="r"><code>cor(new$avg_attend, new$py_emptypews, use = &quot;complete.obs&quot;)</code></pre>
+<p>…with Pearson significance levels.</p>
+<pre class="r"><code>cor.test(new$avg_attend, new$py_emptypews, method = &quot;pearson&quot;)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  new$avg_attend and new$py_emptypews
+## t = 11.88, df = 1252, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.2676585 0.3671871
+## sample estimates:
+##       cor 
+## 0.3182996</code></pre>
+<p>The two-year lagged variable is much the same.</p>
+<pre class="r"><code>cor.test(new$avg_attend, new$p2y_emptypews, method = &quot;pearson&quot;)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  new$avg_attend and new$p2y_emptypews
+## t = 11.488, df = 1068, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.2772179 0.3839375
+## sample estimates:
+##       cor 
+## 0.3316382</code></pre>
+<p>This suggests…empty pews one year is generally associated with an increase in attendance?</p>
+<pre class="r"><code>ggplot(new, aes(py_emptypews, avg_attend)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(new, aes(log(py_emptypews), log(avg_attend))) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre class="r"><code>model &lt;- lm(log(avg_attend) ~ log(py_emptypews) + congmovd, data = new)
+stargazer(model, type = &quot;text&quot;)</code></pre>
+<pre><code>## 
+## ===============================================
+##                         Dependent variable:    
+##                     ---------------------------
+##                           log(avg_attend)      
+## -----------------------------------------------
+## log(py_emptypews)            0.240***          
+##                               (0.024)          
+##                                                
+## congmovdChecked                0.015           
+##                               (0.116)          
+##                                                
+## Constant                     3.232***          
+##                               (0.128)          
+##                                                
+## -----------------------------------------------
+## Observations                   1,254           
+## R2                             0.077           
+## Adjusted R2                    0.075           
+## Residual Std. Error      0.585 (df = 1251)     
+## F Statistic          51.891*** (df = 2; 1251)  
+## ===============================================
+## Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <hr />
 <p><a href="/xcode/">Code Home</a></p>
 <hr />

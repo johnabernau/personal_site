@@ -17,8 +17,7 @@
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/code/congregation_size/</guid>
-      <description>This post uses data from the US Congregational Life Survey in 2008 to examine trends in congregation size across the ten largest American Christian denominations. Keep in mind longitudinal trends rely on post-hoc estimates by head-clergy. To start, we’ll load some packages.
-require(foreign) require(dplyr) require(tidyr) require(ggplot2) Then we’ll grab the data from the US Congregational Life Survey from The ARDA Archives. I use the pre-labeled Stata (.DTA) file to save time on recoding.</description>
+      <description>This post tries to answer two broad questions. On the one hand, I’m curious about religious attendance by denomination over time. How has attendance fluctuated in the last eight years? Do some denominations report different rates of growth or decline? One the other hand, I’m curious about the role that empty pews play in encouraging growth or decline. Regardless of absolute size, does a large empty church encourage faster decline than a small full church?</description>
     </item>
     
     <item>
