@@ -74,7 +74,7 @@ lang                   = "en"
 linkedin               = "https://www.linkedin.com/in/john-bernau-b384a9153"
 noshowreadtime         = true     # if true, don't show "<x> minutes read" in posts
 selfintro              = "PhD Candidate, Sociology"    # appears in the site header when set to a non-empty string
-twitter                = ""
+twitter                = "https://twitter.com/johnAbernau"
 mastodon               = ""
 
 highlightjs            = true

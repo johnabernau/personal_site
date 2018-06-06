@@ -142,6 +142,7 @@ one$DENOM1[startsWith(one$DENOM1, &quot;United Methodist&quot;)] &lt;- &quot;Uni
 ##       cor 
 ## 0.3316382</code></pre>
 <p>This suggests…empty pews one year is generally associated with an increase in attendance?</p>
+<p>You need to create a new variable attendance change for each year. Then use empty pews to predict change, not absolute attendance. Also need to use HLM - or at least group by congregation and then do correlations.</p>
 <pre class="r"><code>ggplot(new, aes(py_emptypews, avg_attend)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>

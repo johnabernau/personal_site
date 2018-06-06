@@ -183,6 +183,8 @@ cor.test(new$avg_attend, new$p2y_emptypews, method = "pearson")
 
 This suggests...empty pews one year is generally associated with an increase in attendance?
 
+You need to create a new variable attendance change for each year. Then use empty pews to predict change, not absolute attendance. Also need to use HLM - or at least group by congregation and then do correlations. 
+
 ```{r, warning=F, message=F}
 ggplot(new, aes(py_emptypews, avg_attend)) +
   geom_point() +
