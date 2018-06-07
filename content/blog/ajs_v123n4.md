@@ -2,12 +2,12 @@
 title: AJS - Vol. 123 No. 4 - January 2018
 author: John A. Bernau
 date: '2018-05-14'
-slug: ajs123_4
+slug: ajs_v123n4
 categories: []
 tags: []
 ---
 
-<img src="/blog/ajs123_4.jpg" alt="my alt text"/>
+<img src="/blog/ajs_v123n4.jpg" />
 
 **Craciun, Mariana. 2017. “Emotions and Knowledge in Expert Work: A Comparison of Two Psychotherapies.” *American Journal of Sociology* 123(4):959–1003.**
 
