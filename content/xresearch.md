@@ -9,7 +9,7 @@ tags: []
 
 **Publications Under Review** 
 
-* May 2018  - [Meta-Sounds in Modern Country Music](/research/country-music)  
+* June 2018  - [Meta-Sounds in Modern Country Music](/research/country-music)  
 * March 2018  - [How Do Modern States Culturally Respond to Disasters?](/research/sympathetic-leviathan)
 
 
