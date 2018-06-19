@@ -3,16 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/blog/cherlin2010/</loc>
-    <lastmod>2018-05-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/ajs_v123n4/</loc>
-    <lastmod>2018-05-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/singer1993/</loc>
     <lastmod>2018-05-08T00:00:00+00:00</lastmod>
   </url>
@@ -94,7 +84,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2018-05-17T00:00:00+00:00</lastmod>
+    <lastmod>2018-05-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -111,7 +101,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-05-17T00:00:00+00:00</lastmod>
+    <lastmod>2018-05-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
