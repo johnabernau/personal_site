@@ -180,17 +180,16 @@ The two-year lagged variable is much the same.
 cor.test(new$avg_attend, new$p2y_emptypews, method = "pearson")
 ```
 
+Now a true test of this relationship will require a form of hierarchical linear modeling (HLM) - we're trying to predict the relationship of two variables within each congregation (a level below the population sample). This procedure will have to wait for another time! But we can do some quick examinations in the mean time.
 
-This suggests...empty pews one year is generally associated with an increase in attendance?
-
-You need to create a new variable attendance change for each year. Then use empty pews to predict change, not absolute attendance. Also need to use HLM - or at least group by congregation and then do correlations. 
-
+A basic scatterplot...
 ```{r, warning=F, message=F}
 ggplot(new, aes(py_emptypews, avg_attend)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
 
+Logging the variables smooths the distribution...
 ```{r, warning=F, message=F}
 ggplot(new, aes(log(py_emptypews), log(avg_attend))) +
   geom_point() +
@@ -198,6 +197,7 @@ ggplot(new, aes(log(py_emptypews), log(avg_attend))) +
 ```
 
 
+A linear model doesn't tell us much, in part because we are violating the assumptions of independence. More on HLM forthcoming!
 
 ```{r}
 model <- lm(log(avg_attend) ~ log(py_emptypews) + congmovd, data = new)

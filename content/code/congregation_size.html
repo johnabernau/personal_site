@@ -37,18 +37,18 @@ one$date &lt;- as.numeric(one$date)</code></pre>
 <pre class="r"><code>one$DENOM1 &lt;- as.character(one$DENOM1)
 count(one, DENOM1)</code></pre>
 <pre><code>## # A tibble: 10 x 2
-##                                    DENOM1     n
-##                                     &lt;chr&gt; &lt;int&gt;
-##  1              American Baptist Churches    40
-##  2                       Episcopal Church    88
+##    DENOM1                                     n
+##    &lt;chr&gt;                                  &lt;int&gt;
+##  1 American Baptist Churches                 40
+##  2 Episcopal Church                          88
 ##  3 Evangelical Lutheran Church in America   344
-##  4        Lutheran Church, Missouri Synod    64
-##  5                Presbyterian Church USA   232
-##  6                  Roman Catholic Church   400
-##  7                       Southern Baptist    48
-##  8     Unitarian Universalist Association    40
-##  9                United Church of Christ   136
-## 10                United Methodist Church   240</code></pre>
+##  4 Lutheran Church, Missouri Synod           64
+##  5 Presbyterian Church USA                  232
+##  6 Roman Catholic Church                    400
+##  7 Southern Baptist                          48
+##  8 Unitarian Universalist Association        40
+##  9 United Church of Christ                  136
+## 10 United Methodist Church                  240</code></pre>
 <p>Some recoding to help our denomination names fit on our plot.</p>
 <pre class="r"><code>one$DENOM1[one$DENOM1 == &quot;Evangelical Lutheran Church in America&quot;] &lt;- &quot;ELCA&quot;
 one$DENOM1[one$DENOM1 == &quot;Lutheran Church, Missouri Synod&quot;] &lt;- &quot;Missouri Synod&quot;
@@ -141,16 +141,18 @@ one$DENOM1[startsWith(one$DENOM1, &quot;United Methodist&quot;)] &lt;- &quot;Uni
 ## sample estimates:
 ##       cor 
 ## 0.3316382</code></pre>
-<p>This suggests…empty pews one year is generally associated with an increase in attendance?</p>
-<p>You need to create a new variable attendance change for each year. Then use empty pews to predict change, not absolute attendance. Also need to use HLM - or at least group by congregation and then do correlations.</p>
+<p>Now a true test of this relationship will require a form of hierarchical linear modeling (HLM) - we’re trying to predict the relationship of two variables within each congregation (a level below the population sample). This procedure will have to wait for another time! But we can do some quick examinations in the mean time.</p>
+<p>A basic scatterplot…</p>
 <pre class="r"><code>ggplot(new, aes(py_emptypews, avg_attend)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>
 <p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Logging the variables smooths the distribution…</p>
 <pre class="r"><code>ggplot(new, aes(log(py_emptypews), log(avg_attend))) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>
 <p><img src="/code/congregation_size_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>A linear model doesn’t tell us much, in part because we are violating the assumptions of independence. More on HLM forthcoming!</p>
 <pre class="r"><code>model &lt;- lm(log(avg_attend) ~ log(py_emptypews) + congmovd, data = new)
 stargazer(model, type = &quot;text&quot;)</code></pre>
 <pre><code>## 
