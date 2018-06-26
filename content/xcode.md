@@ -7,6 +7,7 @@ categories: []
 tags: []
 ---
 
+2018 [Logistic Regression in R: Catholic Opinions on Celibate Clergy](/code/logistic_gallup/)  
 2018 [Which Denomination Has the Most Empty Pews?](/code/congregation_size/)  
 2017 [Where Do American Baptists Live?](/code/baylor/)  
 2017 [Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes](/code/dataviz4/)  

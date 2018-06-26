@@ -1,0 +1,191 @@
+---
+title: "Logistic Regression in R: Catholic Opinions on Celibate Clergy"
+author: John A. Bernau
+date: "6/26/2018"
+slug: logistic_catholics
+categories: []
+tags: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+This post offers an example of performing logistic regression in R. I'll cover the following topics:
+
+<div style= "float:right;position: relative; top: -10px; left: 10px;">
+<img src="http://prodimage.images-bn.com/pimages/9780316055697_p0_v5_s1200x630.jpg" height="400" />
+</div>
+- [Importing data](#import)
+- [Preparing data](#prep)
+- [Fitting logistic model](#model)
+- [Generating readable output](#output)
+- [Assessing model fit](#fit)
+- Generating predicted probabilities
+- Plotting!
+
+More specifically, I'll be using the [2005 Gallup Poll of Catholics](http://www.thearda.com/Archive/Files/Descriptions/GALLUP05.asp) hosted on the [ARDA data archives](http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp), to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in [their Pulitzer-Prize-winning book](https://www.amazon.com/Betrayal-Catholic-findings-investigation-Spotlight/dp/0316271535)). Gallup conducted multiple waves of its catholic poll (1987, 1992, 1993, 1999, and 2005), but I'll only focus on the most recent wave and set aside any questions of longitudinal trends for now. 
+
+***RQ: How is one's support for priestly celibacy influenced by factors such as age, sex, politics, mass attendance, or education?***
+
+___
+
+
+```{r, message = FALSE}
+# Loading required pacakges:
+require("tidyverse")
+require("foreign")
+require("car")
+require("broom")
+require("stargazer")
+require("RColorBrewer")
+require("scales")
+```
+
+___ 
+
+<a name="import"></a>
+**Importing Data**  
+
+___
+
+
+We'll use `foreign::read.dta()` to read the labeled Stata file directly into R from it's URL. 
+
+```{r}
+gallup <- read.dta("http://www.thearda.com/download/download.aspx?file=Gallup%20Poll%20of%20Catholics,%202005.DTA") %>% 
+  as_tibble()
+```
+
+An initial glimpse gives us an idea of the 96 different variables, but we'll need [the codebook](http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp) to decipher which variables / responses are of interest. 
+```{r, eval = FALSE}
+glimpse(gallup)
+```
+
+___
+
+<a name="prep"></a>
+**Preparing Data**  
+
+___
+
+Let's start by examining age. It seems reasonable to expect support for a somewhat traditional belief to vary across generations. First, I remove any missing values and then plot a histogram. We can see a fairly normal distirbution centered around the mean of 52.
+
+```{r, message=FALSE}
+# Remove missing values of age
+gallup <- gallup %>% 
+  filter(age!= "NA")
+
+# Plot histogram of age, with vertical line at mean
+ggplot(gallup, aes(age)) + 
+  geom_histogram() +
+  geom_vline(xintercept = mean(gallup$age), color = "red")
+```
+
+
+By the same logic, we can include `education` and `sex` to our list of relevant variables.
+
+```{r}
+# Bar chart: education X sex
+ggplot(gallup, aes(educ)) + 
+  geom_bar(aes(fill=sex), stat="count", position="dodge") + 
+  coord_flip()
+```
+
+It looks like there are slightly more women than men in our sample, and a fairly even distribution across levels of education. Let's get rid of the cumbersome labels with a bit of recoding. First, examine the default levels of the education variable.
+
+```{r}
+levels(gallup$educ)
+```
+
+There are many ways to recode, but I find base R's functions intuitive enough. After defining a new variable `educ2`, the following code is best read from inside out. For example, if the original `educ` variable equals "Less than a high school graduate (0-11)" we give our new variable `educ2` a 1. Likewise, high school graduates get a value of 2. Producing a table of our new variable shows a clean output of each of our five new levels. 
+```{r}
+# Using base R is a bit more intuitive for me.
+# Read from inside out. If educ == X then assign NA to gallup$educ2
+gallup$educ2 <- NA
+gallup$educ2[gallup$educ == 'Less than a high school graduate (0-11)'] <- 1
+gallup$educ2[gallup$educ == 'High school graduate (12)'] <- 2
+gallup$educ2[gallup$educ == 'Trade/technical/vocational training'] <- 3
+gallup$educ2[gallup$educ == 'Some college'] <- 3
+gallup$educ2[gallup$educ == 'College graduate'] <- 4
+gallup$educ2[gallup$educ == 'Postgraduate work or academic or professional degree'] <- 5
+
+table(gallup$educ2)
+
+```
+
+To finish, we can assign these levels new labels and save as a new factor variable. The final table shows our clean and recoded education variable. 
+```{r}
+# Generate new factor labels
+gallup$educ2 <- factor(gallup$educ2, labels = c("Less than HS", "High School", "Trade / Some col", "College", "Professional"))
+
+# Remove any missing values
+gallup <- filter(gallup, !is.na(educ2))
+
+# Space permitting, always examine your original vs your recoded variable:
+# table(gallup$educ2, gallup$educ)
+
+# Examine final table
+table(gallup$educ2)
+
+
+```
+
+Replotting our bar chart shows the collapsed categories and new succinct labels.
+```{r}
+ggplot(gallup, aes(educ2)) + 
+  geom_bar(aes(fill=sex), stat="count", position="dodge") + 
+  coord_flip()
+```
+
+To avoid confusion later on, I want to make sex a dichotomous variable. 
+```{r}
+# Initialize new variable
+gallup$female <- NA
+# Recode
+gallup$female[gallup$sex == "Male"] <- 0
+gallup$female[gallup$sex == "Female"] <- 1
+# Double check
+table(gallup$female, gallup$sex)
+```
+
+Another variable of interest is the respondent's political party identification. Are republicans more supportive of priestly chastisty? Do political independents have strong opinions? An initial table shows five levels, of which we'll only keep the first three. 
+
+```{r}
+# Initial examination
+table(gallup$partyid)
+
+# Keep only those respondents in the three desired categories
+gallup <- filter(gallup, partyid == "Republican" | partyid == "Democrat" | partyid == "Independent")
+
+# Visual summary
+ggplot(gallup, aes(partyid)) + 
+  geom_bar(stat="count", position="dodge", aes(fill = partyid))
+```
+
+Most sociological studies of religion rely on some sort of attendance measure, and it makes sense to include it here. How often you attend mass surely affects your opinions of what goes on inside! This variable is intuitively coded, so all we'll do to prepare is remove the "Don't Knows".
+
+```{r}
+table(gallup$attend)
+gallup <- filter(gallup, attend != "Don't know")
+```
+
+The last variable I want to include is US geographic region. There are huge demographic differences in the concentration and race of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, maybe one's opinion of celibate clergy is related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go. 
+```{r}
+table(gallup$region)
+ggplot(gallup, aes(region)) +
+  geom_bar(stat = "count", aes(fill = region))
+```
+
+Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region. 
+
+___
+
+<a name="model"></a>
+**Fitting Logistic Model**  
+
+___
+
+
