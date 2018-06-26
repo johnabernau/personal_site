@@ -2,7 +2,7 @@
 title: "Logistic Regression in R: Catholic Opinions on Celibate Clergy"
 author: John A. Bernau
 date: "6/26/2018"
-slug: logistic_catholics
+slug: logistic_gallup
 categories: []
 tags: []
 ---
