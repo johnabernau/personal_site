@@ -58,11 +58,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-06-26%2019%3a32%3a15.95113%20-0400%20EDT%20m%3d%2b0.237476010">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-06-26%2019%3a32%3a15.95113%20-0400%20EDT%20m%3d%2b0.237476010">
-    <link rel="stylesheet" href="/css/main.css?t=2018-06-26%2019%3a32%3a15.95113%20-0400%20EDT%20m%3d%2b0.237476010">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-06-26%2020%3a00%3a01.506241%20-0400%20EDT%20m%3d%2b0.691518902">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-06-26%2020%3a00%3a01.506241%20-0400%20EDT%20m%3d%2b0.691518902">
+    <link rel="stylesheet" href="/css/main.css?t=2018-06-26%2020%3a00%3a01.506241%20-0400%20EDT%20m%3d%2b0.691518902">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-06-26%2019%3a32%3a15.95113%20-0400%20EDT%20m%3d%2b0.237476010">
+        <link rel="stylesheet" href="/css/override.css?t=2018-06-26%2020%3a00%3a01.506241%20-0400%20EDT%20m%3d%2b0.691518902">
     
 
 
@@ -326,7 +326,7 @@ ggplot(gallup, aes(partyid)) +
 ##            Seldom or never                 Don&#39;t know 
 ##                        107                          1</code></pre>
 <pre class="r"><code>gallup &lt;- filter(gallup, attend != &quot;Don&#39;t know&quot;)</code></pre>
-<p>The last variable I want to include is US geographic region. There are huge demographic differences in the concentration and race of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, maybe one’s opinion of celibate clergy is related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go.</p>
+<p>The last variable I want to include is US geographic region. There are huge demographic differences in the concentration of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, one’s opinion of celibate clergy may be related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go.</p>
 <pre class="r"><code>table(gallup$region)</code></pre>
 <pre><code>## 
 ##    East Midwest   South    West 
@@ -335,6 +335,12 @@ ggplot(gallup, aes(partyid)) +
   geom_bar(stat = &quot;count&quot;, aes(fill = region))</code></pre>
 <p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region.</p>
+<pre class="r"><code># A marginally helpful heatmap of four categorical variables
+ggplot(gallup, aes(partyid, attend)) +
+  geom_tile(alpha=0.1, fill = &quot;darkblue&quot;) +
+  facet_grid(sex~region) +
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5))</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <hr />
 <p><a name="model"></a> <strong>Fitting Logistic Model</strong></p>
 <hr />

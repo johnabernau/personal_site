@@ -172,7 +172,7 @@ table(gallup$attend)
 gallup <- filter(gallup, attend != "Don't know")
 ```
 
-The last variable I want to include is US geographic region. There are huge demographic differences in the concentration and race of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, maybe one's opinion of celibate clergy is related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go. 
+The last variable I want to include is US geographic region. There are huge demographic differences in the concentration of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, one's opinion of celibate clergy may be related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go. 
 ```{r}
 table(gallup$region)
 ggplot(gallup, aes(region)) +
@@ -180,6 +180,15 @@ ggplot(gallup, aes(region)) +
 ```
 
 Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region. 
+
+```{r}
+# A marginally helpful heatmap of four categorical variables
+ggplot(gallup, aes(partyid, attend)) +
+  geom_tile(alpha=0.1, fill = "darkblue") +
+  facet_grid(sex~region) +
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5))
+
+```
 
 ___
 
