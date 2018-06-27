@@ -58,11 +58,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-06-26%2022%3a20%3a24.684534%20-0400%20EDT%20m%3d%2b0.726133166">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-06-26%2022%3a20%3a24.684534%20-0400%20EDT%20m%3d%2b0.726133166">
-    <link rel="stylesheet" href="/css/main.css?t=2018-06-26%2022%3a20%3a24.684534%20-0400%20EDT%20m%3d%2b0.726133166">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-06-27%2011%3a07%3a53.519395%20-0400%20EDT%20m%3d%2b0.342673706">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-06-27%2011%3a07%3a53.519395%20-0400%20EDT%20m%3d%2b0.342673706">
+    <link rel="stylesheet" href="/css/main.css?t=2018-06-27%2011%3a07%3a53.519395%20-0400%20EDT%20m%3d%2b0.342673706">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-06-26%2022%3a20%3a24.684534%20-0400%20EDT%20m%3d%2b0.726133166">
+        <link rel="stylesheet" href="/css/override.css?t=2018-06-27%2011%3a07%3a53.519395%20-0400%20EDT%20m%3d%2b0.342673706">
     
 
 
@@ -220,42 +220,21 @@ require(&quot;scales&quot;)</code></pre>
 <pre class="r"><code>gallup &lt;- read.dta(&quot;http://www.thearda.com/download/download.aspx?file=Gallup%20Poll%20of%20Catholics,%202005.DTA&quot;) %&gt;% 
   as_tibble()</code></pre>
 <p>An initial glimpse gives us an idea of the 96 different variables, but we’ll need <a href="http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp">the codebook</a> to decipher which variables / responses are of interest.</p>
-<pre class="r"><code>glimpse(gallup)</code></pre>
 <hr />
 <p><a name="prep"></a> <strong>Preparing Data</strong></p>
 <hr />
 <div style="text-align: right">
 <a href="#top">Back to Top</a>
 </div>
-<p><br> Let’s start by examining age. It seems reasonable to expect support for a somewhat traditional belief to vary across generations. First, I remove any missing values and then plot a histogram. We can see a fairly normal distirbution centered around the mean of 52.</p>
-<pre class="r"><code># Remove missing values of age
+<p><br> I’ll be looking at six independent (or explanatory) variables: age, education, sex, political identification, mass attendance, and US geographic region. First, I remove any missing values or irrelevant categories. Second, I generate new variables and recode / collapse categories as appropriate. Lastly, I plot some descriptive graphs to examine our clean variables.</p>
+<pre class="r"><code># Remove missing values
 gallup &lt;- gallup %&gt;% 
-  filter(age!= &quot;NA&quot;)
+  filter(!is.na(age),
+         !is.na(educ),
+         partyid == &quot;Republican&quot; | partyid == &quot;Democrat&quot; | partyid == &quot;Independent&quot;,
+         attend != &quot;Don&#39;t know&quot;)
 
-# Plot histogram of age, with vertical line at mean
-ggplot(gallup, aes(age)) + 
-  geom_histogram() +
-  geom_vline(xintercept = mean(gallup$age), color = &quot;red&quot;)</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>By the same logic, we can include <code>education</code> and <code>sex</code> to our list of relevant variables.</p>
-<pre class="r"><code># Bar chart: education X sex
-ggplot(gallup, aes(educ)) + 
-  geom_bar(aes(fill=sex), stat=&quot;count&quot;, position=&quot;dodge&quot;) + 
-  coord_flip()</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>It looks like there are slightly more women than men in our sample, and a fairly even distribution across levels of education. Let’s get rid of the cumbersome labels with a bit of recoding. First, examine the default levels of the education variable.</p>
-<pre class="r"><code>levels(gallup$educ)</code></pre>
-<pre><code>## [1] &quot;Less than a high school graduate (0-11)&quot;             
-## [2] &quot;High school graduate (12)&quot;                           
-## [3] &quot;Some college&quot;                                        
-## [4] &quot;Trade/technical/vocational training&quot;                 
-## [5] &quot;College graduate&quot;                                    
-## [6] &quot;Postgraduate work or academic or professional degree&quot;
-## [7] &quot;Don&#39;t know&quot;                                          
-## [8] &quot;Refused&quot;</code></pre>
-<p>There are many ways to recode, but I find base R’s functions intuitive enough. After defining a new variable <code>educ2</code>, the following code is best read from inside out. For example, if the original <code>educ</code> variable equals “Less than a high school graduate (0-11)” we give our new variable <code>educ2</code> a 1. Likewise, high school graduates get a value of 2. Producing a table of our new variable shows a clean output of each of our five new levels.</p>
-<pre class="r"><code># Using base R is a bit more intuitive for me.
-# Read from inside out. If educ == X then assign NA to gallup$educ2
+# Recoding education
 gallup$educ2 &lt;- NA
 gallup$educ2[gallup$educ == &#39;Less than a high school graduate (0-11)&#39;] &lt;- 1
 gallup$educ2[gallup$educ == &#39;High school graduate (12)&#39;] &lt;- 2
@@ -264,86 +243,46 @@ gallup$educ2[gallup$educ == &#39;Some college&#39;] &lt;- 3
 gallup$educ2[gallup$educ == &#39;College graduate&#39;] &lt;- 4
 gallup$educ2[gallup$educ == &#39;Postgraduate work or academic or professional degree&#39;] &lt;- 5
 
-table(gallup$educ2)</code></pre>
-<pre><code>## 
-##   1   2   3   4   5 
-##  20 173 224 253 197</code></pre>
-<p>To finish, we can assign these levels new labels and save as a new factor variable. The final table shows our clean and recoded education variable.</p>
-<pre class="r"><code># Generate new factor labels
+# Generate new factor labels for education
 gallup$educ2 &lt;- factor(gallup$educ2, labels = c(&quot;Less than HS&quot;, &quot;High School&quot;, &quot;Trade / Some col&quot;, &quot;College&quot;, &quot;Professional&quot;))
 
-# Remove any missing values
-gallup &lt;- filter(gallup, !is.na(educ2))
+# Remove any remaining NAs for education
+gallup &lt;- gallup %&gt;% 
+  filter(!is.na(educ2))
 
-# Space permitting, always examine your original vs your recoded variable:
-# table(gallup$educ2, gallup$educ)
-
-# Examine final table
-table(gallup$educ2)</code></pre>
-<pre><code>## 
-##     Less than HS      High School Trade / Some col          College 
-##               20              173              224              253 
-##     Professional 
-##              197</code></pre>
-<p>Replotting our bar chart shows the collapsed categories and new succinct labels.</p>
-<pre class="r"><code>ggplot(gallup, aes(educ2)) + 
-  geom_bar(aes(fill=sex), stat=&quot;count&quot;, position=&quot;dodge&quot;) + 
-  coord_flip()</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>To avoid confusion later on, I want to make sex a dichotomous variable.</p>
-<pre class="r"><code># Initialize new variable
+# Dichotomizing sex variable into &quot;female&quot;
 gallup$female &lt;- NA
-# Recode
 gallup$female[gallup$sex == &quot;Male&quot;] &lt;- 0
-gallup$female[gallup$sex == &quot;Female&quot;] &lt;- 1
-# Double check
-table(gallup$female, gallup$sex)</code></pre>
-<pre><code>##    
-##     Male Female
-##   0  338      0
-##   1    0    529</code></pre>
-<p>Another variable of interest is the respondent’s political party identification. Are republicans more supportive of priestly chastisty? Do political independents have strong opinions? An initial table shows five levels, of which we’ll only keep the first three.</p>
-<pre class="r"><code># Initial examination
-table(gallup$partyid)</code></pre>
-<pre><code>## 
-##            Republican              Democrat           Independent 
-##                   313                   348                   159 
-##      Some other party No preference/Refused 
-##                    19                     4</code></pre>
-<pre class="r"><code># Keep only those respondents in the three desired categories
-gallup &lt;- filter(gallup, partyid == &quot;Republican&quot; | partyid == &quot;Democrat&quot; | partyid == &quot;Independent&quot;)
-
-# Visual summary
-ggplot(gallup, aes(partyid)) + 
-  geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;, aes(fill = partyid))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Most sociological studies of religion rely on some sort of attendance measure, and it makes sense to include it here. How often you attend mass surely affects your opinions of what goes on inside! This variable is intuitively coded, so all we’ll do to prepare is remove the “Don’t Knows”.</p>
-<pre class="r"><code>table(gallup$attend)</code></pre>
-<pre><code>## 
-##       At least once a week Two or three times a month 
-##                        325                        142 
-##         About once a month         A few times a year 
-##                         91                        154 
-##            Seldom or never                 Don&#39;t know 
-##                        107                          1</code></pre>
-<pre class="r"><code>gallup &lt;- filter(gallup, attend != &quot;Don&#39;t know&quot;)</code></pre>
-<p>The last variable I want to include is US geographic region. There are huge demographic differences in the concentration of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, one’s opinion of celibate clergy may be related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go.</p>
-<pre class="r"><code>table(gallup$region)</code></pre>
-<pre><code>## 
-##    East Midwest   South    West 
-##     219     270     166     164</code></pre>
-<pre class="r"><code>ggplot(gallup, aes(region)) +
-  geom_bar(stat = &quot;count&quot;, aes(fill = region))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Moving to our dependent variable, we have a four-category response to the question:<br />
-&gt; As a Catholic, how important is each of the following to you? Would you say the following is or are very important, somewhat important, or not important at all? E. A celibate male clergy</p>
+gallup$female[gallup$sex == &quot;Female&quot;] &lt;- 1</code></pre>
+<p>Plotting a histogram of age, with vertical line at mean.</p>
+<pre class="r"><code>ggplot(gallup, aes(age)) + 
+  geom_histogram() +
+  geom_vline(xintercept = mean(gallup$age), color = &quot;red&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Plotting a bar chart of education, filled according to sex.</p>
+<pre class="r"><code>ggplot(gallup, aes(educ2)) + 
+  geom_bar(aes(fill=factor(female)), stat=&quot;count&quot;, position=&quot;dodge&quot;) + 
+  coord_flip()</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region.</p>
+<pre class="r"><code># A marginally helpful heatmap of four categorical variables
+ggplot(gallup, aes(partyid, attend)) +
+  geom_tile(alpha=0.1, fill = &quot;darkblue&quot;) +
+  facet_grid(sex~region) +
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5))</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Moving to our dependent variable, we have a four-category response to the question:</p>
+<blockquote>
+<p>As a Catholic, how important is each of the following to you? Would you say the following is or are very important, somewhat important, or not important at all? E. A celibate male clergy</p>
+</blockquote>
 <pre class="r"><code>table(gallup$celclerg)</code></pre>
 <pre><code>## 
 ## Not important at all   Somewhat important       Very important 
 ##                  348                  245                  220 
 ##           Don&#39;t know 
 ##                    6</code></pre>
-<p>Because we’re using a logistic regression, our response must be in binary form. Ideally, we would use a multinomial model to preserve the variation given by a three-level variable, but for our purposes, we’ll collapse into two categories along an “important” vs “not important” dichotomy. We could also reasonably drop the “somewhat important” category to leave just those that feel strongly either way. No matter the decision, make sure to justify your rationale!</p>
+<p>Because we’re using a logistic regression, our response must be in binary form. Ideally, we would use a multinomial model to preserve the variation given by a three-level variable, but for our purposes, we’ll collapse into two categories along an “important” / “not important” dichotomy. We could also reasonably drop the “somewhat important” category to leave just those that feel strongly either way. No matter the decision, make sure to justify your rationale!</p>
 <pre class="r"><code># Initialize new variable &quot;celimp&quot;
 gallup$celimp &lt;- NA
 
@@ -351,88 +290,30 @@ gallup$celimp &lt;- NA
 gallup$celimp[gallup$celclerg == &#39;Not important at all&#39;] &lt;- 0
 gallup$celimp[gallup$celclerg == &#39;Somewhat important&#39;] &lt;- 1
 gallup$celimp[gallup$celclerg == &#39;Very important&#39;] &lt;- 1
-table(gallup$celimp)</code></pre>
-<pre><code>## 
-##   0   1 
-## 348 465</code></pre>
-<pre class="r"><code># Filter only those in our new categories
+
+# Filter only those in our new categories
 gallup &lt;- filter(gallup, celimp == 0 | celimp == 1)</code></pre>
-<p>Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region.</p>
-<pre class="r"><code># A marginally helpful heatmap of four categorical variables
-ggplot(gallup, aes(partyid, attend)) +
-  geom_tile(alpha=0.1, fill = &quot;darkblue&quot;) +
-  facet_grid(sex~region) +
-  theme(axis.text.x = element_text(angle = 60, vjust = 0.5))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Our prepared dataset should have 813 observations of 99 variables after cleaning measures of our dependent variable <code>celimp</code> : “importance of celibate clergy.”</p>
 <hr />
 <p><a name="model"></a> <strong>Fitting Logistic Model</strong></p>
 <hr />
 <div style="text-align: right">
 <a href="#top">Back to Top</a>
 </div>
-<p><br> With a clean dataset, we can run our logistic model with the following code. <code>glm</code> for generalized linear model with the arguments:</p>
-<blockquote>
-<p>glm(DV ~ IV1 + IV2 + IV3…, data = dataset, family = binomial(“logit”))</p>
-</blockquote>
-<p>Make sure to specify which variables to treat as categorical using the <code>factor()</code> notation.</p>
+<p><br> With a clean dataset, we can run our logistic model with the following code. Make sure to specify which variables to treat as categorical using the <code>factor()</code> notation.</p>
 <pre class="r"><code>model &lt;- glm(celimp ~ female + factor(educ2) + age + factor(partyid) + factor(region) + factor(attend), data = gallup, family = binomial(&quot;logit&quot;))</code></pre>
-<p>Our logistic model is now saved as an object in R. Using base R, we can print a summary to the console with the following code.</p>
+<p>Our logistic model is now saved as an object in R. Using base R, we can print a summary to the console with the following code. [Output omitted]</p>
 <pre class="r"><code>summary(model)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = celimp ~ female + factor(educ2) + age + factor(partyid) + 
-##     factor(region) + factor(attend), family = binomial(&quot;logit&quot;), 
-##     data = gallup)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.1198  -1.0937   0.6730   0.9729   1.8543  
-## 
-## Coefficients:
-##                                           Estimate Std. Error z value
-## (Intercept)                               2.274856   0.770871   2.951
-## female                                   -0.163898   0.158148  -1.036
-## factor(educ2)High School                 -0.429433   0.691221  -0.621
-## factor(educ2)Trade / Some col            -0.650816   0.687026  -0.947
-## factor(educ2)College                     -0.869379   0.683706  -1.272
-## factor(educ2)Professional                -1.502871   0.689567  -2.179
-## age                                      -0.003882   0.005619  -0.691
-## factor(partyid)Democrat                  -0.436510   0.172762  -2.527
-## factor(partyid)Independent               -0.732611   0.213703  -3.428
-## factor(region)Midwest                     0.269323   0.201767   1.335
-## factor(region)South                       0.259437   0.227510   1.140
-## factor(region)West                       -0.177544   0.226737  -0.783
-## factor(attend)Two or three times a month -0.337224   0.227996  -1.479
-## factor(attend)About once a month         -1.317867   0.265873  -4.957
-## factor(attend)A few times a year         -1.100016   0.219741  -5.006
-## factor(attend)Seldom or never            -1.239723   0.242975  -5.102
-##                                          Pr(&gt;|z|)    
-## (Intercept)                              0.003167 ** 
-## female                                   0.300036    
-## factor(educ2)High School                 0.534423    
-## factor(educ2)Trade / Some col            0.343489    
-## factor(educ2)College                     0.203526    
-## factor(educ2)Professional                0.029299 *  
-## age                                      0.489624    
-## factor(partyid)Democrat                  0.011515 *  
-## factor(partyid)Independent               0.000608 ***
-## factor(region)Midwest                    0.181936    
-## factor(region)South                      0.254149    
-## factor(region)West                       0.433603    
-## factor(attend)Two or three times a month 0.139119    
-## factor(attend)About once a month         7.17e-07 ***
-## factor(attend)A few times a year         5.56e-07 ***
-## factor(attend)Seldom or never            3.36e-07 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 1110.2  on 812  degrees of freedom
-## Residual deviance: 1001.9  on 797  degrees of freedom
-## AIC: 1033.9
-## 
-## Number of Fisher Scoring iterations: 4</code></pre>
+<p>One thing we may want to change is the reference category of a categorical variable. By default, R chooses the first category, but you can set this to a specific value using the following code. In our case, each education category is tested against “Less than HS.” Because this accounts for only a small number of our respondents, I change the reference category to catholics with a college education.</p>
+<pre class="r"><code>gallup$educ2 &lt;- relevel(gallup$educ2, ref = &quot;College&quot;)
+
+model &lt;- glm(celimp ~ female + factor(educ2) + age + factor(partyid) + factor(region) + factor(attend), data = gallup, family = binomial(&quot;logit&quot;))
+
+# summary(model)</code></pre>
+<p>Before turning to coefficients, we can get an overall sense of model-fit using <code>glance()</code> from the <code>broom</code> package. This reports overall log-Likelihood as well as AIC and BIC fit statistics.</p>
+<pre class="r"><code>glance(model)</code></pre>
+<pre><code>##   null.deviance df.null   logLik      AIC      BIC deviance df.residual
+## 1      1110.161     812 -500.956 1033.912 1109.124 1001.912         797</code></pre>
 <hr />
 <p><a name="coef"></a> <strong>Interpreting Coefficients</strong></p>
 <hr />
@@ -447,47 +328,83 @@ ggplot(gallup, aes(partyid, attend)) +
   geom_errorbarh(aes(xmin = conf.low, xmax = conf.high)) +
   geom_vline(xintercept = 0) +
   scale_color_discrete(guide = FALSE)</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>If you’re like me, estimates of the log-odds don’t mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. We can also add a new term <code>sig</code> for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios).</p>
-<pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE) %&gt;% 
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>By including both the estimate and their confidence intervals using <code>geom_errorbarh()</code> this simple plot shows us most of the important output of our statistical model! By tweaking the ggplot code, we can start to see the benefit of this format.</p>
+<ul>
+<li>Present estimates as odds ratios: OR = exp(estimate)</li>
+<li>Present estimates as percent change: per_change = (OR - 1) * 100</li>
+<li>Color by size of estimate, p-value, or any other grouping</li>
+</ul>
+<p>Coloring by p-value, with darker plots corresponding to “more significant” estiamtes, is especially appealing by underscoring the importance of treating significance tests as a contiuum rather than a binned range of “significant” and “non-significant” values. See <a href="http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&amp;_davey_smith_whats_wrong_with_significance_tests_bmj.pdf">Sterne &amp; Smith 2001</a>.</p>
+<p>Below, I express estimates in terms of percentage change: “For every one-unit increase in X, respondents are Y% more likely to say celibate clergy are important.” Or for our categorical variables: “Compared to someone in category A, someone in category B is Y% more likely to say celibate clergy are important.” Subtracting one from our odds ratios and multiplying by 100 gives us this measure.</p>
+<p>Most of the preparation below is reordering the regression terms in logical way. First, I add four reference categories as <code>refs</code> and row-bind these to the existing data.frame <code>mod_coef</code>. Then I prepare our <code>terms</code> variable for cleaner plotting: remove messy prefixes, group by variable, and reorder the levels. The plot colors each set of coefficients by its parent variable and displays a text label of the estimate if the confidence intervals clear the null value.</p>
+<pre class="r"><code># Tidy estimates + new variables
+mod_coef &lt;- tidy(model, conf.int = TRUE) %&gt;% 
   mutate(OR = exp(estimate),
          OR_ll = exp(conf.low),
          OR_ul = exp(conf.high),
          sig = ifelse(OR_ll &lt; 1 &amp; OR_ul &lt;1 | OR_ll &gt;1 &amp; OR_ul &gt;1, 
                       1, 
-                      0))
-
-# New plot with OR on x-axis
-ggplot(mod_coef, aes(OR, term, color = sig)) +
-  geom_point() + 
-  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-0.5,2.5)) +
-  scale_color_continuous(guide = FALSE)</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Alternatively, you could color by p-value, with darker plots corresponding to “more significant” estiamtes. This method underscores the importance of treating significance tests as a contiuum rather than a binned range of “significant” and “non-significant” values. See <a href="http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&amp;_davey_smith_whats_wrong_with_significance_tests_bmj.pdf">Sterne &amp; Smith 2001</a>.</p>
-<pre class="r"><code>ggplot(mod_coef, aes(OR, term, color = p.value)) +
-  geom_point() +
-  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-0.5,2.5)) </code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>Lastly, we could express our estimates in terms of percentage change: “For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important.” Or for our categorical variables: “Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important.” Subtracting one from our odds ratios and multiplying by 100 gives us this measure.</p>
-<pre class="r"><code>mod_coef &lt;- mod_coef %&gt;% 
-  mutate(per_change = (OR-1)*100,
+                      0),
+         per_change = (OR-1)*100,
          per_ll = (OR_ll-1)*100,
          per_ul = (OR_ul-1)*100)
 
-# Plotting. See text label for identifying relevant estimates
-ggplot(mod_coef, aes(per_change, term, color = sig)) +
-  geom_point() + 
+# Add reference categories for plotting
+refs &lt;- data.frame(term = c(&quot;East&quot;, &quot;Republican&quot;, &quot;College&quot;, &quot;Weekly&quot;), 
+                   per_change = c(0,0,0,0))
+# Row-bind
+require(plyr)
+require(dplyr)
+plot &lt;- rbind.fill(mod_coef, refs)
+
+# Prepare terms for plotting
+# Remove &quot;factor&quot;&quot; prefix
+plot$term &lt;- str_replace_all(plot$term, &quot;factor&quot;, &quot;&quot;)
+
+# Generate &quot;vars&quot; to distinguish groups of categorical terms
+plot$vars &lt;- &quot;rest&quot;
+plot$vars[plot$term == &quot;Weekly&quot;] &lt;- &quot;attend&quot;
+plot$vars[str_detect(plot$term, &quot;attend&quot;)] &lt;- &quot;attend&quot;
+plot$vars[plot$term == &quot;East&quot;] &lt;- &quot;region&quot;
+plot$vars[str_detect(plot$term, &quot;region&quot;)] &lt;- &quot;region&quot;
+plot$vars[plot$term == &quot;Republican&quot;] &lt;- &quot;party&quot;
+plot$vars[str_detect(plot$term, &quot;partyid&quot;)] &lt;- &quot;party&quot;
+plot$vars[plot$term == &quot;College&quot;] &lt;- &quot;educ&quot;
+plot$vars[str_detect(plot$term, &quot;educ2&quot;)] &lt;- &quot;educ&quot;
+
+# Remove prefixes from term labels
+plot$term &lt;- str_replace_all(plot$term, &quot;\\(attend\\)&quot;, &quot;&quot;)
+plot$term &lt;- str_replace_all(plot$term, &quot;\\(region\\)&quot;, &quot;&quot;)
+plot$term &lt;- str_replace_all(plot$term, &quot;\\(partyid\\)&quot;, &quot;&quot;)
+plot$term &lt;- str_replace_all(plot$term, &quot;\\(educ2\\)&quot;, &quot;&quot;)
+plot$term &lt;- str_replace_all(plot$term, &quot;\\(Intercept\\)&quot;, &quot;Intercept&quot;)
+
+# Reorder the levels of our factor
+plot$term &lt;- factor(plot$term, levels = c(&quot;East&quot;, &quot;Midwest&quot;, &quot;West&quot;, &quot;South&quot;, &quot;Weekly&quot;, &quot;Two or three times a month&quot;, &quot;About once a month&quot;, &quot;A few times a year&quot;, &quot;Seldom or never&quot;, &quot;Republican&quot;, &quot;Democrat&quot;, &quot;Independent&quot;, &quot;Less than HS&quot;, &quot;High School&quot;, &quot;Trade / Some col&quot;, &quot;College&quot;, &quot;Professional&quot;, &quot;female&quot;, &quot;age&quot;, &quot;Intercept&quot;))</code></pre>
+<pre class="r"><code># Plotting
+ggplot(plot, aes(per_change, fct_rev(term), color = vars)) +
+  geom_point(size = 2) +
   geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
-  geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), &quot;&quot;)), nudge_x = -60) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-150,150)) +
-  scale_color_continuous(guide = FALSE)</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>Thus, we can easily see that compared to a republican (the reference category), a catholic democrat is 35.37% less likely to say celibate clergy are “very important.”</p>
+  geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), &quot;&quot;)), 
+            nudge_x = -50) +
+  geom_vline(xintercept = 0) +
+  scale_x_continuous(limits = c(-150,150), 
+                     breaks = seq(from = -150, to = 150, by = 50)) +
+  scale_color_brewer(palette = &quot;Set1&quot;, guide = FALSE) +
+  labs(x = &quot;Percent Change in Pr(DV)&quot;, y = &quot;&quot;, 
+       title = &quot;Celibate Clergy as \&quot;Very Important\&quot;&quot;, 
+       subtitle = &quot;Logistic Regression estimates&quot;, 
+       caption = &quot;\nData source: Gallup Poll of Catholics 2005&quot;) +
+   theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
+        axis.text = element_text(size = 10),
+        plot.caption = element_text(size = 9),
+        panel.background = element_rect(fill=&quot;white&quot;),
+        panel.grid.minor = element_line(color=&quot;grey90&quot;),
+        panel.grid.major = element_line(color=&quot;grey90&quot;),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;))</code></pre>
+<p><a href="/code/lr_gall.jpg"><img src = "/code/lr_gall.jpg" height = "650" align="left"></a></p>
+<p>Thus, we can easily see the attendance measures in red, the political measures in green, and the education in blue, with each reference category sitting on the 0% change line. This allows an intuitive way to see the effect of moving between each category. Compared to a republican, a catholic democrat is 35.37% less likely to say celibate clergy are “very important.” Compared to a college-educated catholic, those with a professional degree are 46.93% less likely to say celibate clergy are “very important.” Remember, these estimates emerge after controlling for every other variable in the model. The effect of education is independent of political identification or attendance.</p>
 <p>STOPPED HERE….</p>
 <pre class="r"><code>#####################
 # AUGMENT function
@@ -521,7 +438,7 @@ head(aug_mod)</code></pre>
 ## 6 0.0021996812 -1.4780508</code></pre>
 <pre class="r"><code>ggplot(aug_mod, aes(.resid, .fitted)) +
   geom_point()</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <pre class="r"><code>################################
 # Generate binary predictions
 aug_mod &lt;- aug_mod %&gt;% 
@@ -561,7 +478,7 @@ ggplot(aug_mod, aes(factor.attend., .fitted)) +
   geom_jitter(width = 0.05, 
               alpha = 0.5, 
               aes(color = correct))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
 
             </div>
         </div>

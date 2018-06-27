@@ -57,9 +57,6 @@ gallup <- read.dta("http://www.thearda.com/download/download.aspx?file=Gallup%20
 ```
 
 An initial glimpse gives us an idea of the 96 different variables, but we'll need [the codebook](http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp) to decipher which variables / responses are of interest. 
-```{r, eval = FALSE}
-glimpse(gallup)
-```
 
 ___
 
@@ -69,39 +66,17 @@ ___
 ___
 <div style="text-align: right">[Back to Top](#top)</div> 
 <br>
-Let's start by examining age. It seems reasonable to expect support for a somewhat traditional belief to vary across generations. First, I remove any missing values and then plot a histogram. We can see a fairly normal distirbution centered around the mean of 52.
+I'll be looking at six independent (or explanatory) variables: age, education, sex, political identification, mass attendance, and US geographic region. First, I remove any missing values or irrelevant categories. Second, I generate new variables and recode / collapse categories as appropriate. Lastly, I plot some descriptive graphs to examine our clean variables. 
 
 ```{r, message=FALSE}
-# Remove missing values of age
+# Remove missing values
 gallup <- gallup %>% 
-  filter(age!= "NA")
+  filter(!is.na(age),
+         !is.na(educ),
+         partyid == "Republican" | partyid == "Democrat" | partyid == "Independent",
+         attend != "Don't know")
 
-# Plot histogram of age, with vertical line at mean
-ggplot(gallup, aes(age)) + 
-  geom_histogram() +
-  geom_vline(xintercept = mean(gallup$age), color = "red")
-```
-
-
-By the same logic, we can include `education` and `sex` to our list of relevant variables.
-
-```{r}
-# Bar chart: education X sex
-ggplot(gallup, aes(educ)) + 
-  geom_bar(aes(fill=sex), stat="count", position="dodge") + 
-  coord_flip()
-```
-
-It looks like there are slightly more women than men in our sample, and a fairly even distribution across levels of education. Let's get rid of the cumbersome labels with a bit of recoding. First, examine the default levels of the education variable.
-
-```{r}
-levels(gallup$educ)
-```
-
-There are many ways to recode, but I find base R's functions intuitive enough. After defining a new variable `educ2`, the following code is best read from inside out. For example, if the original `educ` variable equals "Less than a high school graduate (0-11)" we give our new variable `educ2` a 1. Likewise, high school graduates get a value of 2. Producing a table of our new variable shows a clean output of each of our five new levels. 
-```{r}
-# Using base R is a bit more intuitive for me.
-# Read from inside out. If educ == X then assign NA to gallup$educ2
+# Recoding education
 gallup$educ2 <- NA
 gallup$educ2[gallup$educ == 'Less than a high school graduate (0-11)'] <- 1
 gallup$educ2[gallup$educ == 'High school graduate (12)'] <- 2
@@ -110,96 +85,33 @@ gallup$educ2[gallup$educ == 'Some college'] <- 3
 gallup$educ2[gallup$educ == 'College graduate'] <- 4
 gallup$educ2[gallup$educ == 'Postgraduate work or academic or professional degree'] <- 5
 
-table(gallup$educ2)
-
-```
-
-To finish, we can assign these levels new labels and save as a new factor variable. The final table shows our clean and recoded education variable. 
-```{r}
-# Generate new factor labels
+# Generate new factor labels for education
 gallup$educ2 <- factor(gallup$educ2, labels = c("Less than HS", "High School", "Trade / Some col", "College", "Professional"))
 
-# Remove any missing values
-gallup <- filter(gallup, !is.na(educ2))
+# Remove any remaining NAs for education
+gallup <- gallup %>% 
+  filter(!is.na(educ2))
 
-# Space permitting, always examine your original vs your recoded variable:
-# table(gallup$educ2, gallup$educ)
-
-# Examine final table
-table(gallup$educ2)
-
-
-```
-
-Replotting our bar chart shows the collapsed categories and new succinct labels.
-```{r}
-ggplot(gallup, aes(educ2)) + 
-  geom_bar(aes(fill=sex), stat="count", position="dodge") + 
-  coord_flip()
-```
-
-To avoid confusion later on, I want to make sex a dichotomous variable. 
-```{r}
-# Initialize new variable
+# Dichotomizing sex variable into "female"
 gallup$female <- NA
-# Recode
 gallup$female[gallup$sex == "Male"] <- 0
 gallup$female[gallup$sex == "Female"] <- 1
-# Double check
-table(gallup$female, gallup$sex)
+
 ```
 
-Another variable of interest is the respondent's political party identification. Are republicans more supportive of priestly chastisty? Do political independents have strong opinions? An initial table shows five levels, of which we'll only keep the first three. 
+Plotting a histogram of age, with vertical line at mean. 
+```{r, warning = FALSE}
+ggplot(gallup, aes(age)) + 
+  geom_histogram() +
+  geom_vline(xintercept = mean(gallup$age), color = "red")
+```
 
+Plotting a bar chart of education, filled according to sex. 
 ```{r}
-# Initial examination
-table(gallup$partyid)
-
-# Keep only those respondents in the three desired categories
-gallup <- filter(gallup, partyid == "Republican" | partyid == "Democrat" | partyid == "Independent")
-
-# Visual summary
-ggplot(gallup, aes(partyid)) + 
-  geom_bar(stat="count", position="dodge", aes(fill = partyid))
+ggplot(gallup, aes(educ2)) + 
+  geom_bar(aes(fill=factor(female)), stat="count", position="dodge") + 
+  coord_flip()
 ```
-
-Most sociological studies of religion rely on some sort of attendance measure, and it makes sense to include it here. How often you attend mass surely affects your opinions of what goes on inside! This variable is intuitively coded, so all we'll do to prepare is remove the "Don't Knows".
-
-```{r}
-table(gallup$attend)
-gallup <- filter(gallup, attend != "Don't know")
-```
-
-The last variable I want to include is US geographic region. There are huge demographic differences in the concentration of US Catholics. While the northeast was home to most catholics in American history, the influx of immigrants from Latin America has shifted the power balance to the southern states. Furthermore, one's opinion of celibate clergy may be related to the local concentration of catholics, or the distance from the nearest headline-grabbing diocese. Luckily, this variable is already clean and ready to go. 
-```{r}
-table(gallup$region)
-ggplot(gallup, aes(region)) +
-  geom_bar(stat = "count", aes(fill = region))
-```
-
-Moving to our dependent variable, we have a four-category response to the question:  
-> As a Catholic, how important is each of the following to you?  Would you say the following is or are very important, somewhat important, or not important at all?  E. A celibate male clergy
-
-```{r}
-table(gallup$celclerg)
-```
-
-Because we're using a logistic regression, our response must be in binary form. Ideally, we would use a multinomial model to preserve the variation given by a three-level variable, but for our purposes, we'll collapse into two categories along an "important" vs "not important" dichotomy. We could also reasonably drop the "somewhat important" category to leave just those that feel strongly either way. No matter the decision, make sure to justify your rationale! 
-```{r}
-# Initialize new variable "celimp"
-gallup$celimp <- NA
-
-# Recode 
-gallup$celimp[gallup$celclerg == 'Not important at all'] <- 0
-gallup$celimp[gallup$celclerg == 'Somewhat important'] <- 1
-gallup$celimp[gallup$celclerg == 'Very important'] <- 1
-table(gallup$celimp)
-
-# Filter only those in our new categories
-gallup <- filter(gallup, celimp == 0 | celimp == 1)
-```
-
-
 
 Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region. 
 
@@ -212,6 +124,35 @@ ggplot(gallup, aes(partyid, attend)) +
 
 ```
 
+
+
+
+
+Moving to our dependent variable, we have a four-category response to the question:  
+
+> As a Catholic, how important is each of the following to you?  Would you say the following is or are very important, somewhat important, or not important at all?  E. A celibate male clergy
+
+```{r}
+table(gallup$celclerg)
+```
+
+Because we're using a logistic regression, our response must be in binary form. Ideally, we would use a multinomial model to preserve the variation given by a three-level variable, but for our purposes, we'll collapse into two categories along an "important" / "not important" dichotomy. We could also reasonably drop the "somewhat important" category to leave just those that feel strongly either way. No matter the decision, make sure to justify your rationale! 
+```{r}
+# Initialize new variable "celimp"
+gallup$celimp <- NA
+
+# Recode 
+gallup$celimp[gallup$celclerg == 'Not important at all'] <- 0
+gallup$celimp[gallup$celclerg == 'Somewhat important'] <- 1
+gallup$celimp[gallup$celclerg == 'Very important'] <- 1
+
+# Filter only those in our new categories
+gallup <- filter(gallup, celimp == 0 | celimp == 1)
+```
+
+
+Our prepared dataset should have 813 observations of 99 variables after cleaning measures of our dependent variable `celimp` : "importance of celibate clergy."
+
 ___
 
 <a name="model"></a>
@@ -220,20 +161,33 @@ ___
 ___
 <div style="text-align: right">[Back to Top](#top)</div> 
 <br>
-With a clean dataset, we can run our logistic model with the following code. `glm` for generalized linear model with the arguments:  
-
-> glm(DV ~ IV1 + IV2 + IV3..., data = dataset, family = binomial("logit"))
-
-Make sure to specify which variables to treat as categorical using the `factor()` notation.
+With a clean dataset, we can run our logistic model with the following code. Make sure to specify which variables to treat as categorical using the `factor()` notation.
 
 ```{r}
 model <- glm(celimp ~ female + factor(educ2) + age + factor(partyid) + factor(region) + factor(attend), data = gallup, family = binomial("logit"))
 ```
 
-Our logistic model is now saved as an object in R. Using base R, we can print a summary to the console with the following code.
-```{r}
+
+Our logistic model is now saved as an object in R. Using base R, we can print a summary to the console with the following code. [Output omitted]
+```{r, eval = FALSE}
 summary(model)
 ```
+
+One thing we may want to change is the reference category of a categorical variable. By default, R chooses the first category, but you can set this to a specific value using the following code. In our case, each education category is tested against "Less than HS." Because this accounts for only a small number of our respondents, I change the reference category to catholics with a college education. 
+
+```{r}
+gallup$educ2 <- relevel(gallup$educ2, ref = "College")
+
+model <- glm(celimp ~ female + factor(educ2) + age + factor(partyid) + factor(region) + factor(attend), data = gallup, family = binomial("logit"))
+
+# summary(model)
+```
+
+Before turning to coefficients, we can get an overall sense of model-fit using `glance()` from the `broom` package. This reports overall log-Likelihood as well as AIC and BIC fit statistics. 
+```{r}
+glance(model)
+```
+
 
 ___
 
@@ -259,56 +213,92 @@ ggplot(mod_coef, aes(estimate, term, color = term)) +
 
 ```
 
-If you're like me, estimates of the log-odds don't mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. We can also add a new term `sig` for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios). 
+By including both the estimate and their confidence intervals using `geom_errorbarh()` this simple plot shows us most of the important output of our statistical model! By tweaking the ggplot code, we can start to see the benefit of this format. 
 
-```{r, warning = FALSE}
+- Present estimates as odds ratios: OR = exp(estimate)
+- Present estimates as percent change: per_change = (OR - 1) * 100
+- Color by size of estimate, p-value, or any other grouping
+
+Coloring by p-value, with darker plots corresponding to "more significant" estiamtes, is especially appealing by underscoring the importance of treating significance tests as a contiuum rather than a binned range of "significant" and "non-significant" values. See [Sterne & Smith 2001](http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&_davey_smith_whats_wrong_with_significance_tests_bmj.pdf).
+
+Below, I express estimates in terms of percentage change: "For every one-unit increase in X, respondents are Y% more likely to say celibate clergy are important." Or for our categorical variables: "Compared to someone in category A, someone in category B is Y% more likely to say celibate clergy are important." Subtracting one from our odds ratios and multiplying by 100 gives us this measure. 
+
+Most of the preparation below is reordering the regression terms in logical way. First, I add four reference categories as `refs` and row-bind these to the existing data.frame `mod_coef`. Then I prepare our `terms` variable for cleaner plotting: remove messy prefixes, group by variable, and reorder the levels. The plot colors each set of coefficients by its parent variable and displays a text label of the estimate if the confidence intervals clear the null value. 
+
+```{r, warning = FALSE, message=FALSE}
+# Tidy estimates + new variables
 mod_coef <- tidy(model, conf.int = TRUE) %>% 
   mutate(OR = exp(estimate),
          OR_ll = exp(conf.low),
          OR_ul = exp(conf.high),
          sig = ifelse(OR_ll < 1 & OR_ul <1 | OR_ll >1 & OR_ul >1, 
                       1, 
-                      0))
-
-# New plot with OR on x-axis
-ggplot(mod_coef, aes(OR, term, color = sig)) +
-  geom_point() + 
-  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-0.5,2.5)) +
-  scale_color_continuous(guide = FALSE)
-```
-
-Alternatively, you could color by p-value, with darker plots corresponding to "more significant" estiamtes. This method underscores the importance of treating significance tests as a contiuum rather than a binned range of "significant" and "non-significant" values. See [Sterne & Smith 2001](http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&_davey_smith_whats_wrong_with_significance_tests_bmj.pdf).
-
-
-```{r, warning = FALSE}
-ggplot(mod_coef, aes(OR, term, color = p.value)) +
-  geom_point() +
-  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-0.5,2.5)) 
-```
-
-Lastly, we could express our estimates in terms of percentage change: "For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important." Or for our categorical variables: "Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important." Subtracting one from our odds ratios and multiplying by 100 gives us this measure.  
-```{r, warning = FALSE}
-mod_coef <- mod_coef %>% 
-  mutate(per_change = (OR-1)*100,
+                      0),
+         per_change = (OR-1)*100,
          per_ll = (OR_ll-1)*100,
          per_ul = (OR_ul-1)*100)
 
-# Plotting. See text label for identifying relevant estimates
-ggplot(mod_coef, aes(per_change, term, color = sig)) +
-  geom_point() + 
-  geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
-  geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), "")), nudge_x = -60) +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(limits = c(-150,150)) +
-  scale_color_continuous(guide = FALSE)
+# Add reference categories for plotting
+refs <- data.frame(term = c("East", "Republican", "College", "Weekly"), 
+                   per_change = c(0,0,0,0))
+# Row-bind
+require(plyr)
+require(dplyr)
+plot <- rbind.fill(mod_coef, refs)
+
+# Prepare terms for plotting
+# Remove "factor"" prefix
+plot$term <- str_replace_all(plot$term, "factor", "")
+
+# Generate "vars" to distinguish groups of categorical terms
+plot$vars <- "rest"
+plot$vars[plot$term == "Weekly"] <- "attend"
+plot$vars[str_detect(plot$term, "attend")] <- "attend"
+plot$vars[plot$term == "East"] <- "region"
+plot$vars[str_detect(plot$term, "region")] <- "region"
+plot$vars[plot$term == "Republican"] <- "party"
+plot$vars[str_detect(plot$term, "partyid")] <- "party"
+plot$vars[plot$term == "College"] <- "educ"
+plot$vars[str_detect(plot$term, "educ2")] <- "educ"
+
+# Remove prefixes from term labels
+plot$term <- str_replace_all(plot$term, "\\(attend\\)", "")
+plot$term <- str_replace_all(plot$term, "\\(region\\)", "")
+plot$term <- str_replace_all(plot$term, "\\(partyid\\)", "")
+plot$term <- str_replace_all(plot$term, "\\(educ2\\)", "")
+plot$term <- str_replace_all(plot$term, "\\(Intercept\\)", "Intercept")
+
+# Reorder the levels of our factor
+plot$term <- factor(plot$term, levels = c("East", "Midwest", "West", "South", "Weekly", "Two or three times a month", "About once a month", "A few times a year", "Seldom or never", "Republican", "Democrat", "Independent", "Less than HS", "High School", "Trade / Some col", "College", "Professional", "female", "age", "Intercept"))
 ```
 
-Thus, we can easily see that compared to a republican (the reference category), a catholic democrat is 35.37% less likely to say celibate clergy are "very important."
+```{r, eval = FALSE}
+# Plotting
+ggplot(plot, aes(per_change, fct_rev(term), color = vars)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
+  geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), "")), 
+            nudge_x = -50) +
+  geom_vline(xintercept = 0) +
+  scale_x_continuous(limits = c(-150,150), 
+                     breaks = seq(from = -150, to = 150, by = 50)) +
+  scale_color_brewer(palette = "Set1", guide = FALSE) +
+  labs(x = "Percent Change in Pr(DV)", y = "", 
+       title = "Celibate Clergy as \"Very Important\"", 
+       subtitle = "Logistic Regression estimates", 
+       caption = "\nData source: Gallup Poll of Catholics 2005") +
+   theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 10),
+        plot.caption = element_text(size = 9),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+```
 
+[<img src = "/code/lr_gall.jpg" height = "650" align="left">](/code/lr_gall.jpg)
+
+Thus, we can easily see the attendance measures in red, the political measures in green, and the education in blue, with each reference category sitting on the 0% change line. This allows an intuitive way to see the effect of moving between each category. Compared to a republican, a catholic democrat is 35.37% less likely to say celibate clergy are "very important." Compared to a college-educated catholic, those with a professional degree are 46.93% less likely to say celibate clergy are "very important." Remember, these estimates emerge after controlling for every other variable in the model. The effect of education is independent of political identification or attendance. 
 
 STOPPED HERE....
 
