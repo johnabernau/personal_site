@@ -20,7 +20,7 @@ This post offers an example of performing logistic regression in R. I'll cover t
 - [Importing data](#import)
 - [Preparing data](#prep)
 - [Fitting logistic model](#model)
-- [Generating readable output](#output)
+- [Interpreting Coefficients](#coef)
 - [Assessing model fit](#fit)
 - Generating predicted probabilities
 - Plotting!
@@ -235,11 +235,18 @@ Our logistic model is now saved as an object in R. Using base R, we can print a 
 summary(model)
 ```
 
+___
+
+<a name="coef"></a>
+**Interpreting Coefficients**   
+
+___
+<div style="text-align: right">[Back to Top](#top)</div> 
+<br>
 Before turning to substantive interpretation, let's get our model in a readable format. As [David Robinson notes](http://varianceexplained.org/r/broom-intro/), the printed summary isn't exactly a format we're used to working with. Luckily the `broom` package converts statistical models into tidy data frames. Feeding our model through `tidy()` gives us a data frame for our coefficients, with each row corresponding to a regression term and each column providing a generated statistic: slope estimate, standard error, p-values, confidence intervals, etc. 
 
 ```{r}
 mod_coef <- tidy(model, conf.int = TRUE)
-head(mod_coef)
 ```
 
 It may not look like much of a difference, but once in this format, we can apply all our tidy functions to the results of our model. For example, let's examine a plot of our coefficient estimates. 
@@ -252,9 +259,9 @@ ggplot(mod_coef, aes(estimate, term, color = term)) +
 
 ```
 
-If you're like me, estimates of the log-odds don't mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. Taking `(odds ratio - 1) * 100` I calculate the percentage change. We can also add a new term `sig` for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios).
+If you're like me, estimates of the log-odds don't mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. We can also add a new term `sig` for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios). 
 
-```{r}
+```{r, warning = FALSE}
 mod_coef <- tidy(model, conf.int = TRUE) %>% 
   mutate(OR = exp(estimate),
          OR_ll = exp(conf.low),
@@ -262,11 +269,8 @@ mod_coef <- tidy(model, conf.int = TRUE) %>%
          sig = ifelse(OR_ll < 1 & OR_ul <1 | OR_ll >1 & OR_ul >1, 
                       1, 
                       0))
-head(mod_coef)
-```
 
-The following plot presents our coefficient estimates and confidence intervals, in terms of odds ratios. I also color by our new variable `sig` to highlight estimates that don't overlap with our null value. PS - The intercept estimate throws off the scale of our plot, so I constrain the x-axis to a reasonable range. 
-```{r}
+# New plot with OR on x-axis
 ggplot(mod_coef, aes(OR, term, color = sig)) +
   geom_point() + 
   geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
@@ -276,7 +280,9 @@ ggplot(mod_coef, aes(OR, term, color = sig)) +
 ```
 
 Alternatively, you could color by p-value, with darker plots corresponding to "more significant" estiamtes. This method underscores the importance of treating significance tests as a contiuum rather than a binned range of "significant" and "non-significant" values. See [Sterne & Smith 2001](http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&_davey_smith_whats_wrong_with_significance_tests_bmj.pdf).
-```{r}
+
+
+```{r, warning = FALSE}
 ggplot(mod_coef, aes(OR, term, color = p.value)) +
   geom_point() +
   geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
@@ -284,17 +290,14 @@ ggplot(mod_coef, aes(OR, term, color = p.value)) +
   scale_x_continuous(limits = c(-0.5,2.5)) 
 ```
 
-To further improve readability, we could express our estimates in terms of percentage change: "For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important." Or for our categorical variables: "Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important." Subtracting one from our odds ratios and multiplying by 100 gives us this measure.  
-```{r}
+Lastly, we could express our estimates in terms of percentage change: "For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important." Or for our categorical variables: "Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important." Subtracting one from our odds ratios and multiplying by 100 gives us this measure.  
+```{r, warning = FALSE}
 mod_coef <- mod_coef %>% 
   mutate(per_change = (OR-1)*100,
          per_ll = (OR_ll-1)*100,
          per_ul = (OR_ul-1)*100)
-```
 
-Plotting coefficients in terms of percentage change. This plot also adds a text label of the coefficient estimate, provided the confidence interval doesn't overlap the null value. 
-         
-```{r}
+# Plotting. See text label for identifying relevant estimates
 ggplot(mod_coef, aes(per_change, term, color = sig)) +
   geom_point() + 
   geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
@@ -307,6 +310,7 @@ ggplot(mod_coef, aes(per_change, term, color = sig)) +
 Thus, we can easily see that compared to a republican (the reference category), a catholic democrat is 35.37% less likely to say celibate clergy are "very important."
 
 
+STOPPED HERE....
 
 ```{r}
 #####################

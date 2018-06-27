@@ -17,7 +17,7 @@ tags: []
 <li><a href="#import">Importing data</a></li>
 <li><a href="#prep">Preparing data</a></li>
 <li><a href="#model">Fitting logistic model</a></li>
-<li><a href="#output">Generating readable output</a></li>
+<li><a href="#coef">Interpreting Coefficients</a></li>
 <li><a href="#fit">Assessing model fit</a></li>
 <li>Generating predicted probabilities</li>
 <li>Plotting!</li>
@@ -251,23 +251,14 @@ ggplot(gallup, aes(partyid, attend)) +
 ## AIC: 1033.9
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<p>Before turning to substantive interpretation, let’s get our model in a readable format. As <a href="http://varianceexplained.org/r/broom-intro/">David Robinson notes</a>, the printed summary isn’t exactly a format we’re used to working with. Luckily the <code>broom</code> package converts statistical models into tidy data frames. Feeding our model through <code>tidy()</code> gives us a data frame for our coefficients, with each row corresponding to a regression term and each column providing a generated statistic: slope estimate, standard error, p-values, confidence intervals, etc.</p>
-<pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE)
-head(mod_coef)</code></pre>
-<pre><code>##                            term   estimate std.error  statistic
-## 1                   (Intercept)  2.2748561 0.7708715  2.9510186
-## 2                        female -0.1638979 0.1581483 -1.0363559
-## 3      factor(educ2)High School -0.4294333 0.6912210 -0.6212678
-## 4 factor(educ2)Trade / Some col -0.6508158 0.6870263 -0.9472939
-## 5          factor(educ2)College -0.8693787 0.6837055 -1.2715689
-## 6     factor(educ2)Professional -1.5028705 0.6895671 -2.1794406
-##       p.value   conf.low  conf.high
-## 1 0.003167278  0.8556362  3.9478193
-## 2 0.300036133 -0.4750758  0.1453111
-## 3 0.534423461 -1.9748648  0.8217803
-## 4 0.343489062 -2.1902238  0.5905241
-## 5 0.203526315 -2.4041710  0.3636511
-## 6 0.029298953 -3.0466796 -0.2571328</code></pre>
+<hr />
+<p><a name="coef"></a> <strong>Interpreting Coefficients</strong></p>
+<hr />
+<div style="text-align: right">
+<a href="#top">Back to Top</a>
+</div>
+<p><br> Before turning to substantive interpretation, let’s get our model in a readable format. As <a href="http://varianceexplained.org/r/broom-intro/">David Robinson notes</a>, the printed summary isn’t exactly a format we’re used to working with. Luckily the <code>broom</code> package converts statistical models into tidy data frames. Feeding our model through <code>tidy()</code> gives us a data frame for our coefficients, with each row corresponding to a regression term and each column providing a generated statistic: slope estimate, standard error, p-values, confidence intervals, etc.</p>
+<pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE)</code></pre>
 <p>It may not look like much of a difference, but once in this format, we can apply all our tidy functions to the results of our model. For example, let’s examine a plot of our coefficient estimates.</p>
 <pre class="r"><code>ggplot(mod_coef, aes(estimate, term, color = term)) +
   geom_point() +
@@ -275,7 +266,7 @@ head(mod_coef)</code></pre>
   geom_vline(xintercept = 0) +
   scale_color_discrete(guide = FALSE)</code></pre>
 <p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>If you’re like me, estimates of the log-odds don’t mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. Taking <code>(odds ratio - 1) * 100</code> I calculate the percentage change. We can also add a new term <code>sig</code> for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios).</p>
+<p>If you’re like me, estimates of the log-odds don’t mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. We can also add a new term <code>sig</code> for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios).</p>
 <pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE) %&gt;% 
   mutate(OR = exp(estimate),
          OR_ll = exp(conf.low),
@@ -283,58 +274,39 @@ head(mod_coef)</code></pre>
          sig = ifelse(OR_ll &lt; 1 &amp; OR_ul &lt;1 | OR_ll &gt;1 &amp; OR_ul &gt;1, 
                       1, 
                       0))
-head(mod_coef)</code></pre>
-<pre><code>##                            term   estimate std.error  statistic
-## 1                   (Intercept)  2.2748561 0.7708715  2.9510186
-## 2                        female -0.1638979 0.1581483 -1.0363559
-## 3      factor(educ2)High School -0.4294333 0.6912210 -0.6212678
-## 4 factor(educ2)Trade / Some col -0.6508158 0.6870263 -0.9472939
-## 5          factor(educ2)College -0.8693787 0.6837055 -1.2715689
-## 6     factor(educ2)Professional -1.5028705 0.6895671 -2.1794406
-##       p.value   conf.low  conf.high        OR      OR_ll      OR_ul sig
-## 1 0.003167278  0.8556362  3.9478193 9.7265195 2.35287089 51.8222335   1
-## 2 0.300036133 -0.4750758  0.1453111 0.8488287 0.62183793  1.1563993   0
-## 3 0.534423461 -1.9748648  0.8217803 0.6508778 0.13878008  2.2745455   0
-## 4 0.343489062 -2.1902238  0.5905241 0.5216201 0.11189170  1.8049342   0
-## 5 0.203526315 -2.4041710  0.3636511 0.4192119 0.09034036  1.4385722   0
-## 6 0.029298953 -3.0466796 -0.2571328 0.2224906 0.04751644  0.7732655   1</code></pre>
-<p>The following plot presents our coefficient estimates and confidence intervals, in terms of odds ratios. I also color by our new variable <code>sig</code> to highlight estimates that don’t overlap with our null value. PS - The intercept estimate throws off the scale of our plot, so I constrain the x-axis to a reasonable range.</p>
-<pre class="r"><code>ggplot(mod_coef, aes(OR, term, color = sig)) +
+
+# New plot with OR on x-axis
+ggplot(mod_coef, aes(OR, term, color = sig)) +
   geom_point() + 
   geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
   geom_vline(xintercept = 1) +
   scale_x_continuous(limits = c(-0.5,2.5)) +
   scale_color_continuous(guide = FALSE)</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Alternatively, you could color by p-value, with darker plots corresponding to “more significant” estiamtes. This method underscores the importance of treating significance tests as a contiuum rather than a binned range of “significant” and “non-significant” values. See <a href="http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&amp;_davey_smith_whats_wrong_with_significance_tests_bmj.pdf">Sterne &amp; Smith 2001</a>.</p>
 <pre class="r"><code>ggplot(mod_coef, aes(OR, term, color = p.value)) +
   geom_point() +
   geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
   geom_vline(xintercept = 1) +
   scale_x_continuous(limits = c(-0.5,2.5)) </code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>To further improve readability, we could express our estimates in terms of percentage change: “For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important.” Or for our categorical variables: “Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important.” Subtracting one from our odds ratios and multiplying by 100 gives us this measure.</p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Lastly, we could express our estimates in terms of percentage change: “For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important.” Or for our categorical variables: “Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important.” Subtracting one from our odds ratios and multiplying by 100 gives us this measure.</p>
 <pre class="r"><code>mod_coef &lt;- mod_coef %&gt;% 
   mutate(per_change = (OR-1)*100,
          per_ll = (OR_ll-1)*100,
-         per_ul = (OR_ul-1)*100)</code></pre>
-<p>Plotting coefficients in terms of percentage change. This plot also adds a text label of the coefficient estimate, provided the confidence interval doesn’t overlap the null value.</p>
-<pre class="r"><code>ggplot(mod_coef, aes(per_change, term, color = sig)) +
+         per_ul = (OR_ul-1)*100)
+
+# Plotting. See text label for identifying relevant estimates
+ggplot(mod_coef, aes(per_change, term, color = sig)) +
   geom_point() + 
   geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
   geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), &quot;&quot;)), nudge_x = -60) +
   geom_vline(xintercept = 1) +
   scale_x_continuous(limits = c(-150,150)) +
   scale_color_continuous(guide = FALSE)</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_text).</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>Thus, we can easily see that compared to a republican (the reference category), a catholic democrat is 35.37% less likely to say celibate clergy are “very important.”</p>
+<p>STOPPED HERE….</p>
 <pre class="r"><code>#####################
 # AUGMENT function
 #####################
@@ -367,7 +339,7 @@ head(aug_mod)</code></pre>
 ## 6 0.0021996812 -1.4780508</code></pre>
 <pre class="r"><code>ggplot(aug_mod, aes(.resid, .fitted)) +
   geom_point()</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <pre class="r"><code>################################
 # Generate binary predictions
 aug_mod &lt;- aug_mod %&gt;% 
@@ -407,4 +379,4 @@ ggplot(aug_mod, aes(factor.attend., .fitted)) +
   geom_jitter(width = 0.05, 
               alpha = 0.5, 
               aes(color = correct))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>

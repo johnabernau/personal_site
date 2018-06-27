@@ -219,7 +219,7 @@ ABSTRACT: While events are central to the sociology of the state, natural disast
       
       <guid>/code/logistic_gallup/</guid>
       <description>This post offers an example of performing logistic regression in R. I’ll cover the following topics:
-  Importing data Preparing data Fitting logistic model Generating readable output Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
+  Importing data Preparing data Fitting logistic model Interpreting Coefficients Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
     </item>
     
   </channel>
