@@ -9,7 +9,7 @@ tags: []
 
 
 
-<p>This post offers an example of performing logistic regression in R. I’ll cover the following topics:</p>
+<p><a name="top"></a> This post offers an example of performing logistic regression in R. I’ll cover the following topics:</p>
 <div style="float:right;position: relative; top: -10px; left: 10px;">
 <p><img src="http://prodimage.images-bn.com/pimages/9780316055697_p0_v5_s1200x630.jpg" height="400" /></p>
 </div>
@@ -28,9 +28,7 @@ tags: []
 <pre class="r"><code># Loading required pacakges:
 require(&quot;tidyverse&quot;)
 require(&quot;foreign&quot;)
-require(&quot;car&quot;)
 require(&quot;broom&quot;)
-require(&quot;stargazer&quot;)
 require(&quot;RColorBrewer&quot;)
 require(&quot;scales&quot;)</code></pre>
 <hr />
@@ -44,7 +42,10 @@ require(&quot;scales&quot;)</code></pre>
 <hr />
 <p><a name="prep"></a> <strong>Preparing Data</strong></p>
 <hr />
-<p>Let’s start by examining age. It seems reasonable to expect support for a somewhat traditional belief to vary across generations. First, I remove any missing values and then plot a histogram. We can see a fairly normal distirbution centered around the mean of 52.</p>
+<div style="text-align: right">
+<a href="#top">Back to Top</a>
+</div>
+<p><br> Let’s start by examining age. It seems reasonable to expect support for a somewhat traditional belief to vary across generations. First, I remove any missing values and then plot a histogram. We can see a fairly normal distirbution centered around the mean of 52.</p>
 <pre class="r"><code># Remove missing values of age
 gallup &lt;- gallup %&gt;% 
   filter(age!= &quot;NA&quot;)
@@ -152,13 +153,258 @@ ggplot(gallup, aes(partyid)) +
 <pre class="r"><code>ggplot(gallup, aes(region)) +
   geom_bar(stat = &quot;count&quot;, aes(fill = region))</code></pre>
 <p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Moving to our dependent variable, we have a four-category response to the question:<br />
+&gt; As a Catholic, how important is each of the following to you? Would you say the following is or are very important, somewhat important, or not important at all? E. A celibate male clergy</p>
+<pre class="r"><code>table(gallup$celclerg)</code></pre>
+<pre><code>## 
+## Not important at all   Somewhat important       Very important 
+##                  348                  245                  220 
+##           Don&#39;t know 
+##                    6</code></pre>
+<p>Because we’re using a logistic regression, our response must be in binary form. Ideally, we would use a multinomial model to preserve the variation given by a three-level variable, but for our purposes, we’ll collapse into two categories along an “important” vs “not important” dichotomy. We could also reasonably drop the “somewhat important” category to leave just those that feel strongly either way. No matter the decision, make sure to justify your rationale!</p>
+<pre class="r"><code># Initialize new variable &quot;celimp&quot;
+gallup$celimp &lt;- NA
+
+# Recode 
+gallup$celimp[gallup$celclerg == &#39;Not important at all&#39;] &lt;- 0
+gallup$celimp[gallup$celclerg == &#39;Somewhat important&#39;] &lt;- 1
+gallup$celimp[gallup$celclerg == &#39;Very important&#39;] &lt;- 1
+table(gallup$celimp)</code></pre>
+<pre><code>## 
+##   0   1 
+## 348 465</code></pre>
+<pre class="r"><code># Filter only those in our new categories
+gallup &lt;- filter(gallup, celimp == 0 | celimp == 1)</code></pre>
 <p>Our prepared dataset should have 819 observations of 98 variables after cleaning measures of age, education, sex, attendance, political identification and US region.</p>
 <pre class="r"><code># A marginally helpful heatmap of four categorical variables
 ggplot(gallup, aes(partyid, attend)) +
   geom_tile(alpha=0.1, fill = &quot;darkblue&quot;) +
   facet_grid(sex~region) +
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5))</code></pre>
-<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <hr />
 <p><a name="model"></a> <strong>Fitting Logistic Model</strong></p>
 <hr />
+<div style="text-align: right">
+<a href="#top">Back to Top</a>
+</div>
+<p><br> With a clean dataset, we can run our logistic model with the following code. <code>glm</code> for generalized linear model with the arguments:</p>
+<blockquote>
+<p>glm(DV ~ IV1 + IV2 + IV3…, data = dataset, family = binomial(“logit”))</p>
+</blockquote>
+<p>Make sure to specify which variables to treat as categorical using the <code>factor()</code> notation.</p>
+<pre class="r"><code>model &lt;- glm(celimp ~ female + factor(educ2) + age + factor(partyid) + factor(region) + factor(attend), data = gallup, family = binomial(&quot;logit&quot;))</code></pre>
+<p>Our logistic model is now saved as an object in R. Using base R, we can print a summary to the console with the following code.</p>
+<pre class="r"><code>summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = celimp ~ female + factor(educ2) + age + factor(partyid) + 
+##     factor(region) + factor(attend), family = binomial(&quot;logit&quot;), 
+##     data = gallup)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1198  -1.0937   0.6730   0.9729   1.8543  
+## 
+## Coefficients:
+##                                           Estimate Std. Error z value
+## (Intercept)                               2.274856   0.770871   2.951
+## female                                   -0.163898   0.158148  -1.036
+## factor(educ2)High School                 -0.429433   0.691221  -0.621
+## factor(educ2)Trade / Some col            -0.650816   0.687026  -0.947
+## factor(educ2)College                     -0.869379   0.683706  -1.272
+## factor(educ2)Professional                -1.502871   0.689567  -2.179
+## age                                      -0.003882   0.005619  -0.691
+## factor(partyid)Democrat                  -0.436510   0.172762  -2.527
+## factor(partyid)Independent               -0.732611   0.213703  -3.428
+## factor(region)Midwest                     0.269323   0.201767   1.335
+## factor(region)South                       0.259437   0.227510   1.140
+## factor(region)West                       -0.177544   0.226737  -0.783
+## factor(attend)Two or three times a month -0.337224   0.227996  -1.479
+## factor(attend)About once a month         -1.317867   0.265873  -4.957
+## factor(attend)A few times a year         -1.100016   0.219741  -5.006
+## factor(attend)Seldom or never            -1.239723   0.242975  -5.102
+##                                          Pr(&gt;|z|)    
+## (Intercept)                              0.003167 ** 
+## female                                   0.300036    
+## factor(educ2)High School                 0.534423    
+## factor(educ2)Trade / Some col            0.343489    
+## factor(educ2)College                     0.203526    
+## factor(educ2)Professional                0.029299 *  
+## age                                      0.489624    
+## factor(partyid)Democrat                  0.011515 *  
+## factor(partyid)Independent               0.000608 ***
+## factor(region)Midwest                    0.181936    
+## factor(region)South                      0.254149    
+## factor(region)West                       0.433603    
+## factor(attend)Two or three times a month 0.139119    
+## factor(attend)About once a month         7.17e-07 ***
+## factor(attend)A few times a year         5.56e-07 ***
+## factor(attend)Seldom or never            3.36e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1110.2  on 812  degrees of freedom
+## Residual deviance: 1001.9  on 797  degrees of freedom
+## AIC: 1033.9
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Before turning to substantive interpretation, let’s get our model in a readable format. As <a href="http://varianceexplained.org/r/broom-intro/">David Robinson notes</a>, the printed summary isn’t exactly a format we’re used to working with. Luckily the <code>broom</code> package converts statistical models into tidy data frames. Feeding our model through <code>tidy()</code> gives us a data frame for our coefficients, with each row corresponding to a regression term and each column providing a generated statistic: slope estimate, standard error, p-values, confidence intervals, etc.</p>
+<pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE)
+head(mod_coef)</code></pre>
+<pre><code>##                            term   estimate std.error  statistic
+## 1                   (Intercept)  2.2748561 0.7708715  2.9510186
+## 2                        female -0.1638979 0.1581483 -1.0363559
+## 3      factor(educ2)High School -0.4294333 0.6912210 -0.6212678
+## 4 factor(educ2)Trade / Some col -0.6508158 0.6870263 -0.9472939
+## 5          factor(educ2)College -0.8693787 0.6837055 -1.2715689
+## 6     factor(educ2)Professional -1.5028705 0.6895671 -2.1794406
+##       p.value   conf.low  conf.high
+## 1 0.003167278  0.8556362  3.9478193
+## 2 0.300036133 -0.4750758  0.1453111
+## 3 0.534423461 -1.9748648  0.8217803
+## 4 0.343489062 -2.1902238  0.5905241
+## 5 0.203526315 -2.4041710  0.3636511
+## 6 0.029298953 -3.0466796 -0.2571328</code></pre>
+<p>It may not look like much of a difference, but once in this format, we can apply all our tidy functions to the results of our model. For example, let’s examine a plot of our coefficient estimates.</p>
+<pre class="r"><code>ggplot(mod_coef, aes(estimate, term, color = term)) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high)) +
+  geom_vline(xintercept = 0) +
+  scale_color_discrete(guide = FALSE)</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>If you’re like me, estimates of the log-odds don’t mean much. By exponentiating our coefficients (and confidence intervals), we can create odds ratios for easier interpretation. Taking <code>(odds ratio - 1) * 100</code> I calculate the percentage change. We can also add a new term <code>sig</code> for whether our confidence intervals overlap with 1 (our null value in terms of odds ratios).</p>
+<pre class="r"><code>mod_coef &lt;- tidy(model, conf.int = TRUE) %&gt;% 
+  mutate(OR = exp(estimate),
+         OR_ll = exp(conf.low),
+         OR_ul = exp(conf.high),
+         sig = ifelse(OR_ll &lt; 1 &amp; OR_ul &lt;1 | OR_ll &gt;1 &amp; OR_ul &gt;1, 
+                      1, 
+                      0))
+head(mod_coef)</code></pre>
+<pre><code>##                            term   estimate std.error  statistic
+## 1                   (Intercept)  2.2748561 0.7708715  2.9510186
+## 2                        female -0.1638979 0.1581483 -1.0363559
+## 3      factor(educ2)High School -0.4294333 0.6912210 -0.6212678
+## 4 factor(educ2)Trade / Some col -0.6508158 0.6870263 -0.9472939
+## 5          factor(educ2)College -0.8693787 0.6837055 -1.2715689
+## 6     factor(educ2)Professional -1.5028705 0.6895671 -2.1794406
+##       p.value   conf.low  conf.high        OR      OR_ll      OR_ul sig
+## 1 0.003167278  0.8556362  3.9478193 9.7265195 2.35287089 51.8222335   1
+## 2 0.300036133 -0.4750758  0.1453111 0.8488287 0.62183793  1.1563993   0
+## 3 0.534423461 -1.9748648  0.8217803 0.6508778 0.13878008  2.2745455   0
+## 4 0.343489062 -2.1902238  0.5905241 0.5216201 0.11189170  1.8049342   0
+## 5 0.203526315 -2.4041710  0.3636511 0.4192119 0.09034036  1.4385722   0
+## 6 0.029298953 -3.0466796 -0.2571328 0.2224906 0.04751644  0.7732655   1</code></pre>
+<p>The following plot presents our coefficient estimates and confidence intervals, in terms of odds ratios. I also color by our new variable <code>sig</code> to highlight estimates that don’t overlap with our null value. PS - The intercept estimate throws off the scale of our plot, so I constrain the x-axis to a reasonable range.</p>
+<pre class="r"><code>ggplot(mod_coef, aes(OR, term, color = sig)) +
+  geom_point() + 
+  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
+  geom_vline(xintercept = 1) +
+  scale_x_continuous(limits = c(-0.5,2.5)) +
+  scale_color_continuous(guide = FALSE)</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Alternatively, you could color by p-value, with darker plots corresponding to “more significant” estiamtes. This method underscores the importance of treating significance tests as a contiuum rather than a binned range of “significant” and “non-significant” values. See <a href="http://www.jayskaufman.com/uploads/3/0/8/9/30891283/sterne_&amp;_davey_smith_whats_wrong_with_significance_tests_bmj.pdf">Sterne &amp; Smith 2001</a>.</p>
+<pre class="r"><code>ggplot(mod_coef, aes(OR, term, color = p.value)) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = OR_ll, xmax = OR_ul)) +
+  geom_vline(xintercept = 1) +
+  scale_x_continuous(limits = c(-0.5,2.5)) </code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>To further improve readability, we could express our estimates in terms of percentage change: “For every one-unit increase in X, respondents are X% more likely to say celibate clergy are important.” Or for our categorical variables: “Compared to someone in category A, someone in category B is X% more likely to say celibate clergy are important.” Subtracting one from our odds ratios and multiplying by 100 gives us this measure.</p>
+<pre class="r"><code>mod_coef &lt;- mod_coef %&gt;% 
+  mutate(per_change = (OR-1)*100,
+         per_ll = (OR_ll-1)*100,
+         per_ul = (OR_ul-1)*100)</code></pre>
+<p>Plotting coefficients in terms of percentage change. This plot also adds a text label of the coefficient estimate, provided the confidence interval doesn’t overlap the null value.</p>
+<pre class="r"><code>ggplot(mod_coef, aes(per_change, term, color = sig)) +
+  geom_point() + 
+  geom_errorbarh(aes(xmin = per_ll, xmax = per_ul)) +
+  geom_text(aes(label = ifelse(sig == 1, round(per_change, 2), &quot;&quot;)), nudge_x = -60) +
+  geom_vline(xintercept = 1) +
+  scale_x_continuous(limits = c(-150,150)) +
+  scale_color_continuous(guide = FALSE)</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_errorbarh).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_text).</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Thus, we can easily see that compared to a republican (the reference category), a catholic democrat is 35.37% less likely to say celibate clergy are “very important.”</p>
+<pre class="r"><code>#####################
+# AUGMENT function
+#####################
+# Create dataframe with fitted values (in proportions) plus residuals and stuff
+aug_mod &lt;- augment(model, type.predict = &quot;response&quot;)
+
+aug_mod &lt;- augment(model)
+
+head(aug_mod)</code></pre>
+<pre><code>##   celimp female    factor.educ2. age factor.partyid. factor.region.
+## 1      1      0          College  76        Democrat        Midwest
+## 2      1      1      High School  58     Independent           East
+## 3      1      1      High School  45      Republican        Midwest
+## 4      1      1 Trade / Some col  67      Republican          South
+## 5      1      1     Professional  57        Democrat        Midwest
+## 6      0      0          College  81        Democrat           East
+##         factor.attend.   .fitted   .se.fit     .resid       .hat   .sigma
+## 1 At least once a week 0.9432673 0.2789298  0.8109730 0.01569310 1.121536
+## 2 At least once a week 0.7237658 0.2877084  0.8892274 0.01820414 1.121460
+## 3      Seldom or never 0.5364398 0.3027724  0.9596615 0.02134501 1.121384
+## 4 At least once a week 1.4594938 0.2714668  0.6464148 0.01127491 1.121674
+## 5 At least once a week 0.2196332 0.2338911  1.0856780 0.01351265 1.121241
+## 6 At least once a week 0.6545354 0.2800652 -1.4649488 0.01765025 1.120687
+##        .cooksd .std.resid
+## 1 0.0003941594  0.8174122
+## 2 0.0005723745  0.8974335
+## 3 0.0008145997  0.9700704
+## 4 0.0001674912  0.6500900
+## 5 0.0006967101  1.0930884
+## 6 0.0021996812 -1.4780508</code></pre>
+<pre class="r"><code>ggplot(aug_mod, aes(.resid, .fitted)) +
+  geom_point()</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre class="r"><code>################################
+# Generate binary predictions
+aug_mod &lt;- aug_mod %&gt;% 
+  mutate(celimp_hat = round(.fitted))
+
+# Confusion matrix
+cm &lt;- aug_mod %&gt;% 
+  select(celimp, celimp_hat) %&gt;% 
+  table() %&gt;% 
+  addmargins()
+cm</code></pre>
+<pre><code>##       celimp_hat
+## celimp  -2  -1   0   1   2 Sum
+##    0    11  84 160  89   4 348
+##    1     1  37 165 229  33 465
+##    Sum  12 121 325 318  37 813</code></pre>
+<pre class="r"><code># Sensitivity is the true positive rate. Predicted positives / Actual positives.
+# 172/220 = 0.78
+tpr &lt;- cm[3,2] / cm[2,3]
+x &lt;- paste(&quot;True positive rate =&quot;, round(tpr, 3))
+
+# Specificity is the true negative rate. Predicted negatives / actual negatives. 
+# 396 / 348 = 1.14
+tnr &lt;- cm[3,1] / cm[1,3]
+y &lt;- paste(&quot;True negative rate =&quot;, round(tnr, 3))
+
+# Overall
+overall &lt;- (cm[1,1] + cm[2,2]) / cm[3,3]
+z &lt;- paste(&quot;Overall accuracy =&quot;, round(overall, 3))
+
+# Generate new variable: right or wrong
+aug_mod &lt;- aug_mod %&gt;% 
+  mutate(correct = ifelse(celimp == celimp_hat, 1, 0))
+
+# Plotting stuff
+ggplot(aug_mod, aes(factor.attend., .fitted)) +
+  geom_jitter(width = 0.05, 
+              alpha = 0.5, 
+              aes(color = correct))</code></pre>
+<p><img src="/code/logistic_gallup_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
