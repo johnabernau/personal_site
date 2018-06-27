@@ -6,10 +6,20 @@
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Logistic Regression in R: Catholic Opinions on Celibate Clergy</title>
+      <link>/code/logistic_gallup/</link>
+      <pubDate>Wed, 27 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/logistic_gallup/</guid>
+      <description>This post offers an example of performing logistic regression in R. I’ll cover the following topics:
+  Importing data Preparing data Fitting logistic model Interpreting Coefficients Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
+    </item>
     
     <item>
       <title>Empty Pews: Longitudinal Trends in U.S. Congregation Size</title>
@@ -92,16 +102,6 @@ Part 4 includes:
       <description>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
-    </item>
-    
-    <item>
-      <title>Logistic Regression in R: Catholic Opinions on Celibate Clergy</title>
-      <link>/code/logistic_gallup/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/code/logistic_gallup/</guid>
-      <description>This post offers an example of performing logistic regression in R. I’ll cover the following topics:
-  Importing data Preparing data Fitting logistic model Interpreting Coefficients Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
     </item>
     
   </channel>
