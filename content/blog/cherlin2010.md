@@ -1,7 +1,7 @@
 ---
 title: 'REVIEW: The Marriage-Go-Round by Andrew Cherlin (2010)'
 author: John A. Bernau
-date: '2018-07-13'
+date: '2018-06-15'
 slug: cherlin2010
 categories: []
 tags: []
