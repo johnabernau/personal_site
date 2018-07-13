@@ -69,7 +69,7 @@ While incredibly insightful on the topic of marriage, Cherlin’s account seemed
 
 * Durkheim, Emile. [1897] 2006. *Suicide: A Study In Sociology*. New York: Penguin Books.
 
-* Sartre, Jean-Paul. [1946] 2007. *Existentialism Is a Humanism*. Edited by A. Elkaïm-Sartre and A. Cohen-Solal. New Haven: Yale University Press.
+* Sartre, Jean-Paul. [1946] 2007. *Existentialism Is a Humanism*. Edited by A. Elkaïm-Sartre and A. Cohen-Solal. New Haven: Yale University Press. [PDF Online](http://homepages.wmich.edu/~baldner/existentialism.pdf)
 
 * Swidler, Ann. 1986. “Culture in Action: Symbols and Strategies.” *American Sociological Review* 51(2):273–86.
 
