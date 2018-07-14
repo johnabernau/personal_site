@@ -1,5 +1,5 @@
 ---
-title: 'Plotting Regional Concentration of American Denominations'
+title: 'Descriptive Stats: Where Do American Baptists Live?'
 author: John A. Bernau
 date: '2018-04-17'
 slug: baylor
@@ -18,6 +18,7 @@ require(&quot;psych&quot;)
 require(&quot;car&quot;)
 require(&quot;RColorBrewer&quot;)</code></pre>
 <p>The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on <a href="http://www.thearda.com/">The Association of Religion Data Archives (ARDA)</a>. ARDA is a fantastic resource for locating datasets on a number of religious topics. From <a href="http://www.thearda.com/Archive/NatBaylor.asp">this link</a>, click on Wave II &gt; Download &gt; Continue. We’ll be using the labeled Stata file. Save this .DTA file somewhere you remember. You’ll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions.</p>
+<p><a href="http://www.thearda.com/"><img src="/code/arda.png" /></a></p>
 <p>From the <code>foreign</code> package we can use <code>read.dta()</code> to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator <code>%&gt;%</code> to convert this to a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble - an popular format for working with data in R,</a> and save it as an object “bay.”&quot;</p>
 <pre class="r"><code>bay &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
 <p>Upon first glance (<code>View(bay)</code>), the dataset is quite messy. Let’s remove all the variables we don’t need and save this as “bay2.” A primer on dplyr’s functions can be <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">found here</a>, but the basic format here is <code>select(dataset, variable_to_keep, -variables_to_remove)</code>.</p>

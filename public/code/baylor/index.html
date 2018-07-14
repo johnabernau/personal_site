@@ -13,7 +13,7 @@
 To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).">
 
-<meta property="og:title" content="Plotting Regional Concentration of American Denominations" />
+<meta property="og:title" content="Descriptive Stats: Where Do American Baptists Live?" />
 <meta property="og:description" content="In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA)." />
@@ -40,7 +40,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 <title>
 
 
-     Plotting Regional Concentration of American Denominations 
+     Descriptive Stats: Where Do American Baptists Live? 
 
 </title>
 <link rel="canonical" href="/code/baylor/">
@@ -61,11 +61,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-07-14%2007%3a20%3a32.394114%20-0400%20EDT%20m%3d%2b0.787347457">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-07-14%2007%3a20%3a32.394114%20-0400%20EDT%20m%3d%2b0.787347457">
-    <link rel="stylesheet" href="/css/main.css?t=2018-07-14%2007%3a20%3a32.394114%20-0400%20EDT%20m%3d%2b0.787347457">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-07-14%2008%3a53%3a57.122928%20-0400%20EDT%20m%3d%2b0.459092980">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-07-14%2008%3a53%3a57.122928%20-0400%20EDT%20m%3d%2b0.459092980">
+    <link rel="stylesheet" href="/css/main.css?t=2018-07-14%2008%3a53%3a57.122928%20-0400%20EDT%20m%3d%2b0.459092980">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-07-14%2007%3a20%3a32.394114%20-0400%20EDT%20m%3d%2b0.787347457">
+        <link rel="stylesheet" href="/css/override.css?t=2018-07-14%2008%3a53%3a57.122928%20-0400%20EDT%20m%3d%2b0.459092980">
     
 
 
@@ -189,7 +189,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
         <div class="content">
             <div class="page-heading">
 
-    Plotting Regional Concentration of American Denominations
+    Descriptive Stats: Where Do American Baptists Live?
 
 </div>
 
@@ -203,6 +203,7 @@ require(&quot;psych&quot;)
 require(&quot;car&quot;)
 require(&quot;RColorBrewer&quot;)</code></pre>
 <p>The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on <a href="http://www.thearda.com/">The Association of Religion Data Archives (ARDA)</a>. ARDA is a fantastic resource for locating datasets on a number of religious topics. From <a href="http://www.thearda.com/Archive/NatBaylor.asp">this link</a>, click on Wave II &gt; Download &gt; Continue. We’ll be using the labeled Stata file. Save this .DTA file somewhere you remember. You’ll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions.</p>
+<p><a href="http://www.thearda.com/"><img src="/code/arda.png" /></a></p>
 <p>From the <code>foreign</code> package we can use <code>read.dta()</code> to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator <code>%&gt;%</code> to convert this to a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble - an popular format for working with data in R,</a> and save it as an object “bay.”&quot;</p>
 <pre class="r"><code>bay &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
 <p>Upon first glance (<code>View(bay)</code>), the dataset is quite messy. Let’s remove all the variables we don’t need and save this as “bay2.” A primer on dplyr’s functions can be <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">found here</a>, but the basic format here is <code>select(dataset, variable_to_keep, -variables_to_remove)</code>.</p>

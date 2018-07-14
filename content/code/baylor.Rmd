@@ -1,5 +1,5 @@
 ---
-title: 'Plotting Regional Concentration of American Denominations'
+title: 'Descriptive Stats: Where Do American Baptists Live?'
 author: John A. Bernau
 date: '2018-04-17'
 slug: baylor
@@ -21,6 +21,8 @@ require("RColorBrewer")
 ```
 
 The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It's hosted on [The Association of Religion Data Archives (ARDA)](http://www.thearda.com/). ARDA is a fantastic resource for locating datasets on a number of religious topics. From [this link](http://www.thearda.com/Archive/NatBaylor.asp), click on Wave II > Download > Continue. We'll be using the labeled Stata file. Save this .DTA file somewhere you remember.  You'll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions. 
+
+[<img src="/code/arda.png" />](http://www.thearda.com/)
 
 From the `foreign` package we can use `read.dta()` to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator ` %>% ` to convert this to a [tibble - an popular format for working with data in R,](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) and save it as an object "bay.""
 ```{r}

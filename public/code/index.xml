@@ -6,29 +6,10 @@
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 27 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Logistic Regression in R: Catholic Opinions on Celibate Clergy</title>
-      <link>/code/logistic_gallup/</link>
-      <pubDate>Wed, 27 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/logistic_gallup/</guid>
-      <description>This post offers an example of performing logistic regression in R. I’ll cover the following topics:
-  Importing data Preparing data Fitting logistic model Interpreting Coefficients Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
-    </item>
-    
-    <item>
-      <title>Empty Pews: Longitudinal Trends in U.S. Congregation Size</title>
-      <link>/code/congregation_size/</link>
-      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/congregation_size/</guid>
-      <description>This post tries to answer two broad questions. On the one hand, I’m curious about religious attendance by denomination over time. How has attendance fluctuated in the last eight years? Do some denominations report different rates of growth or decline? One the other hand, I’m curious about the role that empty pews play in encouraging growth or decline. Regardless of absolute size, does a large empty church encourage faster decline than a small full church?</description>
-    </item>
     
     <item>
       <title>DataViz in R: Part 1</title>
@@ -94,7 +75,7 @@ Part 4 includes:
     </item>
     
     <item>
-      <title>Plotting Regional Concentration of American Denominations</title>
+      <title>Descriptive Stats: Where Do American Baptists Live?</title>
       <link>/code/baylor/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       

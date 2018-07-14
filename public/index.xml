@@ -6,20 +6,10 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 27 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Logistic Regression in R: Catholic Opinions on Celibate Clergy</title>
-      <link>/code/logistic_gallup/</link>
-      <pubDate>Wed, 27 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/logistic_gallup/</guid>
-      <description>This post offers an example of performing logistic regression in R. I’ll cover the following topics:
-  Importing data Preparing data Fitting logistic model Interpreting Coefficients Assessing model fit Generating predicted probabilities Plotting!  More specifically, I’ll be using the 2005 Gallup Poll of Catholics hosted on the ARDA data archives, to examine the factors that drive catholic opinion on the importance of celibate clergy. This issue became one of national importance when the Boston Globe unearthed the systematic abuse of minors by catholic clery in 2002 (as described in their Pulitzer-Prize-winning book).</description>
-    </item>
     
     <item>
       <title>REVIEW: The Marriage-Go-Round by Andrew Cherlin (2010)</title>
@@ -51,15 +41,6 @@
     </item>
     
     <item>
-      <title>Empty Pews: Longitudinal Trends in U.S. Congregation Size</title>
-      <link>/code/congregation_size/</link>
-      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/congregation_size/</guid>
-      <description>This post tries to answer two broad questions. On the one hand, I’m curious about religious attendance by denomination over time. How has attendance fluctuated in the last eight years? Do some denominations report different rates of growth or decline? One the other hand, I’m curious about the role that empty pews play in encouraging growth or decline. Regardless of absolute size, does a large empty church encourage faster decline than a small full church?</description>
-    </item>
-    
-    <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
@@ -74,13 +55,12 @@
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xcode/</guid>
-      <description>2018 Logistic Regression in R: Catholic Opinions on Celibate Clergy
-2018 Which Denomination Has the Most Empty Pews?
-2017 Descriptive Stats: Where Do American Baptists Live?
+      <description> 2017 Descriptive Stats: Where Do American Baptists Live?
 2017 Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
 2017 Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
 2017 Data Visualization in R: Part 2 - Assigning Variables to Attributes
-2016 Data Visualization in R: Part 1 - Getting Started</description>
+2016 Data Visualization in R: Part 1 - Getting Started
+Copyright &amp;copy; 2018 John A. Bernau </description>
     </item>
     
     <item>
@@ -147,17 +127,7 @@ Part 4 includes:
     </item>
     
     <item>
-      <title>Meta-Sounds in Modern Country Music: Lyrical Intertextuality as Boundary Work 1989-2014</title>
-      <link>/research/country-music/</link>
-      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/research/country-music/</guid>
-      <description>John A. Bernau
-ABSTRACT: This article examines how artistic communities use linguistic codes to signal group membership and police boundaries. Specifically, I examine the contemporary rise of self-reflexive intertextuality in modern country music: songs about specific styles of music consumption, other canonical artists, or “country music” itself. I argue this can be understood as a response to increased genre fuzziness and rising demographic diversity among country audiences. Using an original dataset of 27,682 songs from 1989-2014, I employ dictionary-based computational text analysis to examine this theme over time and in relation to a variety of factors, include artist gender, career status, commercial success, linguistic repetition, and political environment.</description>
-    </item>
-    
-    <item>
-      <title>Plotting Regional Concentration of American Denominations</title>
+      <title>Descriptive Stats: Where Do American Baptists Live?</title>
       <link>/code/baylor/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
@@ -165,6 +135,16 @@ ABSTRACT: This article examines how artistic communities use linguistic codes to
       <description>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
+    </item>
+    
+    <item>
+      <title>Meta-Sounds in Modern Country Music: Lyrical Intertextuality as Boundary Work 1989-2014</title>
+      <link>/research/country-music/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/research/country-music/</guid>
+      <description>John A. Bernau
+ABSTRACT: This article examines how artistic communities use linguistic codes to signal group membership and police boundaries. Specifically, I examine the contemporary rise of self-reflexive intertextuality in modern country music: songs about specific styles of music consumption, other canonical artists, or “country music” itself. I argue this can be understood as a response to increased genre fuzziness and rising demographic diversity among country audiences. Using an original dataset of 27,682 songs from 1989-2014, I employ dictionary-based computational text analysis to examine this theme over time and in relation to a variety of factors, include artist gender, career status, commercial success, linguistic repetition, and political environment.</description>
     </item>
     
     <item>

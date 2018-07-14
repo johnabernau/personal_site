@@ -16,13 +16,13 @@ tags: []
 **Manuscripts in Progress**  
 
 * Sad Songs & Waltzes: Country Music Sentiment and Chart Performance  
-![](/research/cmsent1.jpg)  
+[<img src= "/research/cmsent1.jpg" />](/research/cmsent1.jpg)
 
 
 **Dissertation Research**  
 
 * The (De)Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying
-![](/research/kr1.jpg)
+[<img src= "/research/kr1.jpg" />](/research/kr1.jpg)
 
 ___
 
