@@ -9,7 +9,7 @@ tags: []
 
 > Cherlin, Andrew J. 2010. *The Marriage-Go-Round: The State of Marriage and the Family in America Today.* New York, N.Y: Vintage.
 
-<div style="text-align: right">Word Count: 1990</div>
+<div style="text-align: right">Word Count: 1981</div>
 <br>
 
 The Marriage-Go-Round is an outstanding example of sociological scholarship. Andrew Cherlin combines history, theory, and data to provide a thorough understanding of marriage as an organizing force of American social life. Beginning in colonial America of the 17th century, the book follows the institution of marriage through its turbulent ride to the present. Cherlin uses this historical backdrop to frame modern changes in American family life: rising divorce rates, cohabitation, and debates over same-sex marriage.
