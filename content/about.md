@@ -7,10 +7,12 @@ categories: []
 tags: []
 ---
 
-I am a PhD candidate in the [Department of Sociology](http://sociology.emory.edu/home/index.html) at [Emory University](http://www.emory.edu/home/index.html). My research focuses on the ways people use language to solve social problems. One of my main research agendas revolves around death in our society. I have interviewed hospital and hospice chaplains and staff to explore the types of conversations people have surrounding death and suffering. I also have used nationally representative survey data to explore what factors predict death anxiety among older adults. My dissertation uses quantitative text analysis to examine how our language about death has changed in the last 50 years. The rest of my work can be housed under the broad umbrellas of culture and social psychology.  
+I am a PhD candidate in the [Department of Sociology](http://sociology.emory.edu/home/index.html) at [Emory University](http://www.emory.edu/home/index.html). I study how groups use language to solve social problems. My previous research has examined (1) how modern states differ in their public interpretations of national disasters, and (2) how country musicians use linguistic codes to signal group membership. In my dissertation (3) I develop a method for anchoring multiple word embedding spaces using the cosine similarity of target words. I use this to examine the American language of death and dying as it fluctuates in semantic-syntactic language space over time.
 
-[Email](mailto:john.bernau@emory.edu) // [LinkedIn](https://www.linkedin.com/in/john-bernau-b384a9153/) // [GitHub](https://github.com/johnbernau) // 
-[Twitter](https://twitter.com/johnAbernau)
+I am passionate about data visualization and research methods, and have led over 20 hours of training workshops in R. I also enjoy dogs, sailboats, and old-time music. 
+
+The best place to reach me is email: john.bernau[at]emory.edu
+
 <br>
 <br>
 <br>
