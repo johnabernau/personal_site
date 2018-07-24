@@ -61,11 +61,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-07-24%2010%3a38%3a47.052135%20-0400%20EDT%20m%3d%2b0.781692476">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-07-24%2010%3a38%3a47.052135%20-0400%20EDT%20m%3d%2b0.781692476">
-    <link rel="stylesheet" href="/css/main.css?t=2018-07-24%2010%3a38%3a47.052135%20-0400%20EDT%20m%3d%2b0.781692476">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-07-24%2014%3a15%3a22.74899%20-0400%20EDT%20m%3d%2b0.782393326">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-07-24%2014%3a15%3a22.74899%20-0400%20EDT%20m%3d%2b0.782393326">
+    <link rel="stylesheet" href="/css/main.css?t=2018-07-24%2014%3a15%3a22.74899%20-0400%20EDT%20m%3d%2b0.782393326">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-07-24%2010%3a38%3a47.052135%20-0400%20EDT%20m%3d%2b0.781692476">
+        <link rel="stylesheet" href="/css/override.css?t=2018-07-24%2014%3a15%3a22.74899%20-0400%20EDT%20m%3d%2b0.782393326">
     
 
 
@@ -281,7 +281,7 @@ bay3$rel_family &lt;- recode(bay3$rel_family, (&quot;&#39;No religion [Skip to Q
 <pre class="r"><code>final &lt;- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
   scale_fill_brewer(palette= &quot;RdYlBu&quot;, name=&quot;&quot;) + 
-  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final</code></pre>
 <p><img src="/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels.</p>
 <pre class="r"><code>bay3$region &lt;- factor(bay3$region, levels = c(&quot;West&quot;,&quot;Midwest&quot;,&quot;South&quot;, &quot;East&quot;))</code></pre>
@@ -293,7 +293,7 @@ colors &lt;- c(colors, &quot;grey40&quot;)</code></pre>
 <pre class="r"><code>final2 &lt;- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
   scale_fill_manual(values=colors, name=&quot;&quot;) + 
-  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final2</code></pre>
 <p><img src="/code/baylor_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>If you want to super-customize your graph, you can save various themes or templates to use with ggplot. Below I’ve created a dark template named <code>johntheme1</code>.</p>
@@ -353,7 +353,7 @@ colors &lt;- c(colors, &quot;grey40&quot;)
 final2 &lt;- ggplot(bay, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = &quot;count&quot;, position=&quot;dodge&quot;) +
   scale_fill_manual(values=colors, name=&quot;&quot;) + 
-  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religon Distribution\nBaylor Religion Survey 2010&quot;)
+  labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution\nBaylor Religion Survey 2010&quot;)
 final2</code></pre>
 <hr />
 <p><a href="/xcode/">Code Home</a></p>

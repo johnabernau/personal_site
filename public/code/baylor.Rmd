@@ -104,7 +104,7 @@ A few other specifications below:
 final <- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
   scale_fill_brewer(palette= "RdYlBu", name="") + 
-  labs(x="", y="", title="US Religon Distribution", subtitle= "Source: Baylor Religion Survey 2010")
+  labs(x="", y="", title="US Religion Distribution", subtitle= "Source: Baylor Religion Survey 2010")
 final
 ```
 Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels. 
@@ -126,7 +126,7 @@ Using this new vector, we'll copy our first ggplot but specify `scale_fill_manua
 final2 <- ggplot(bay3, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
   scale_fill_manual(values=colors, name="") + 
-  labs(x="", y="", title="US Religon Distribution", subtitle= "Source: Baylor Religion Survey 2010")
+  labs(x="", y="", title="US Religion Distribution", subtitle= "Source: Baylor Religion Survey 2010")
 final2
 ```
 
@@ -204,7 +204,7 @@ colors <- c(colors, "grey40")
 final2 <- ggplot(bay, aes(region)) + 
   geom_bar(aes(fill=rel_family), stat = "count", position="dodge") +
   scale_fill_manual(values=colors, name="") + 
-  labs(x="", y="", title="US Religon Distribution\nBaylor Religion Survey 2010")
+  labs(x="", y="", title="US Religion Distribution\nBaylor Religion Survey 2010")
 final2
 ```
 
