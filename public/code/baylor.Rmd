@@ -1,5 +1,5 @@
 ---
-title: 'Descriptive Stats: Where Do American Baptists Live?'
+title: 'Data Exploration: Where Do American Baptists Live?'
 author: John A. Bernau
 date: '2018-04-17'
 slug: baylor
@@ -9,7 +9,7 @@ tags: []
 
 ___________________________
   
-In this post, I'll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the [Baylor Religion Survey of 2010](https://www.baylor.edu/BaylorReligionSurvey/). 
+In this post, I'll be using R to download, clean, and plot some basic information about the regional concentration of American denominations using the [Baylor Religion Survey of 2010](https://www.baylor.edu/BaylorReligionSurvey/). 
 
 To begin, make sure to load a few basic packages.
 ```{r, message=FALSE}

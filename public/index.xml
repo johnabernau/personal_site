@@ -66,11 +66,22 @@ Summary: The author uses ethnographic data to examine the role of emotions in th
       
       <guid>/xcode/</guid>
       <description> 2017
- Descriptive Stats: Where Do American Baptists Live?
+ Data Exploration: Where Do American Baptists Live?
  Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
  Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
  Data Visualization in R: Part 2 - Assigning Variables to Attributes
  Data Visualization in R: Part 1 - Getting Started  Copyright &amp;copy; 2018 John A. Bernau </description>
+    </item>
+    
+    <item>
+      <title>Data Exploration: Where Do American Baptists Live?</title>
+      <link>/code/baylor/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/baylor/</guid>
+      <description>In this post, I’ll be using R to download, clean, and plot some basic information about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
+To begin, make sure to load a few basic packages.
+require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
     </item>
     
     <item>
@@ -134,17 +145,6 @@ Part 4 includes:
 3. Editing theme elements
 4. Exercise 6, 7, 8
 # install.packages(&amp;quot;psych&amp;quot;) require(&amp;quot;psych&amp;quot;) # install.packages(&amp;quot;ggplot2&amp;quot;) require(&amp;quot;ggplot2&amp;quot;) # install.packages(&amp;quot;RColorBrewer&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) # install.packages(&amp;quot;dplyr&amp;quot;) require(&amp;quot;dplyr&amp;quot;) 1. Adding Text Labels When adding text to a plot, geom_text works like many other geoms in ggplot. Below, using the mpg dataset, we’ve taken a scatterplot of fuel efficiency and added labels to show the manufacturer of each vehicle.</description>
-    </item>
-    
-    <item>
-      <title>Descriptive Stats: Where Do American Baptists Live?</title>
-      <link>/code/baylor/</link>
-      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/code/baylor/</guid>
-      <description>In this post, I’ll be using R to download, clean, and plot some basic descriptive stats about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
-To begin, make sure to load a few basic packages.
-require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
     </item>
     
     <item>
