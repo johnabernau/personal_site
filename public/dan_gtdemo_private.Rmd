@@ -1,0 +1,175 @@
+---
+title: ''
+author: "John Bernau"
+date: "8/6/2018"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(gtrendsR)
+require(dplyr)
+require(ggplot2)
+require(gganimate)
+```
+
+## Google Trends
+
+John A. Bernau  
+*Emory University*  
+
+August 2018
+
+___  
+
+There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with "+". They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present. At the shortest, you can pull trends from the last hour! 
+
+**State-level geo codes**  
+
+```{r, echo = FALSE}
+US <- filter(countries, country_code == "US")
+head(US)
+```
+
+**City-level geo codes**  
+
+```{r, echo = FALSE}
+city_code <- function(geo){
+  codes <- unique(countries$sub_code[substr(countries$sub_code, 1,5) == geo])
+  if(length(codes) > 1){
+    countries[countries$sub_code %in% codes[2:length(codes)], 2:3]
+  } else{
+    message('No city code for this geo')
+  }
+}
+
+city_code("US-GA")
+```
+
+<br>
+Check out this plot of "mass shooting" vs "gun control" for the US over the last five years:
+
+<img src="/Users/johnbernau/Desktop/2terms.jpg" />
+
+Now check out this plot of the same terms but in the last hour(!). I'll have to check what time zone it's using...
+```{r, echo = FALSE, eval = FALSE}
+# Call googletrends
+res2 <- gtrends(c("mass+shooting", "gun+control"), geo = c("US"), time = "now 1-H")
+
+# Prep variables
+t <- res2$interest_over_time
+t$hits <- as.numeric(t$hits)
+t$hits[is.na(t$hits)] <- 0
+
+# Plot
+ggplot(t, aes(date, hits)) +
+  geom_line(aes(color = keyword)) +
+  scale_color_discrete(name = NULL) +
+  labs(title = "Google Trends Data 2018-08-06", subtitle = "Searches 8:37pm-9:37pm", 
+       x = NULL, y = NULL,
+       caption = "\nSource: Google Trends Data\nNote: y-axis scaled as percentage of maximum") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9))
+
+#ggsave("~/Desktop/2terms_min.jpg", width = 9, height = 5, units = "in")
+```
+
+<img src="/Users/johnbernau/Desktop/2terms_min.jpg" />
+
+Notice the y-axis is using their scaling technique. Within the parameters of your search, the highest point gets a value of 100 and the rest are scaled against this value. This is important to keep in mind when doing comparisons. If you want to compare regions, for example, make sure you have everything included in the primary search. I'll have to go back and read some of SD's articles on the weeds of this measure. 
+
+
+**Here's a plot of "gun control" searches over four states from 2004-present:**  
+
+```{r, echo = F, eval = F}
+res <- gtrends(c("gun+control"), geo = c("US-IA", "US-CT", "US-NJ", "US-GA"), time = "all")
+
+dft <- res$interest_over_time
+
+
+ggplot(dft, aes(date, as.numeric(hits))) +
+  geom_line(aes(color = geo)) +
+  facet_wrap(~geo, ncol = 1) +
+  scale_color_discrete(name = NULL) +
+  labs(title = "Google Trends Data", subtitle = "Searches for \'gun control\' 2004 - 2018", 
+       x = NULL, y = NULL,
+       caption = "\nSource: Google Trends Data\nNote: y-axis scaled as percentage of maximum") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9))
+
+ggsave("~/Desktop/4state.jpg", width = 7, height = 7, units = "in")
+```
+
+<img src="/Users/johnbernau/Desktop/4state.jpg"  width = "600" />
+
+___
+
+**Also this because I just learned how and it's awesome...**  
+
+```{r, echo = F, eval = F}
+r2 <- ggplot(dft, aes(geo, hits, frame = date)) + 
+  geom_point(aes(color = hits, size = hits, alpha = hits, cumulative = T)) +
+  scale_color_continuous(guide = F) +
+  scale_alpha_continuous(guide = F, range = c(0.4, 1)) +
+  scale_size_continuous(guide = F, range = c(5, 15)) +
+  labs(title = "Google Trends Data", subtitle = "Searches for \'gun control\' 2004 - 2018", 
+       x = NULL, y = NULL,
+       caption = "\nSource: Google Trends Data\nNote: y-axis scaled as percentage of maximum") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9))
+r2
+#gganimate(r2, file = "~/Desktop/gt_guns2.gif", interval= 0.1, ani.width=800, ani.height=500)
+ggsave(r2, file = "~/Desktop/gt_guns2.jpg", width = 7, height = 5, units = "in")
+```
+
+[<img src = "/Users/johnbernau/Desktop/gt_guns2.gif">](/Users/johnbernau/Desktop/gt_guns2.jpg)
+
+```{r, echo = F, eval = F}
+dft$hits <- as.numeric(dft$hits)
+dft$year <- as.Date(str_sub(dft$date, 1, 4), "%Y")
+
+r <- ggplot(dft, aes(year, hits, frame = date)) + 
+  facet_wrap(~geo) +
+  geom_point(aes(color = hits, size = hits, alpha = hits, cumulative = T)) +
+  scale_color_continuous(guide = F) +
+  scale_alpha_continuous(guide = F, range = c(0.4, 1)) +
+  scale_size_continuous(guide = F, range = c(5, 15)) +
+  labs(title = "Google Trends Data", subtitle = "Searches for \'gun control\' 2004 - 2018", 
+       x = NULL, y = NULL,
+       caption = "\nSource: Google Trends Data\nNote: y-axis scaled as percentage of maximum") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9))
+r
+#gganimate(r, file = "~/Desktop/gt_guns.gif", interval= 0.1, ani.width=800, ani.height=500)
+ggsave(r, file = "~/Desktop/gt_guns.jpg", width = 10, height = 7, units = "in")
+
+```
+
+[<img src = "/Users/johnbernau/Desktop/gt_guns.gif">](/Users/johnbernau/Desktop/gt_guns.jpg)
+
+(Click for enlarged / static plot)  
+
+Bottom line - let's write a paper ASAP. This stuff is cool and the data is out there! Your criminology angle sounds promising and I'll take your lead on what would be most interesting in the field. 

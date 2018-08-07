@@ -88,6 +88,14 @@
   </url>
   
   <url>
+    <loc>/dan_gtdemo_private/</loc>
+  </url>
+  
+  <url>
+    <loc>/private/dan_gtdemo/</loc>
+  </url>
+  
+  <url>
     <loc>/blog/</loc>
     <lastmod>2018-07-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -107,6 +115,11 @@
   <url>
     <loc>/</loc>
     <lastmod>2018-07-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/private/</loc>
     <priority>0</priority>
   </url>
   

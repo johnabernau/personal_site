@@ -222,5 +222,27 @@ SOC 389: Cont. Chinese Culture</description>
 ABSTRACT: While events are central to the sociology of the state, natural disasters, a type of events with substantive and theoretical significance, have received scant attention. To address this gap, we theorize states’ cultural response to disasters—how states use discourses and actions to address moral and political meanings of death and suffering. We borrow insights from a few strands of scholarship: the sociology of disaster, cultural sociology of the state, and cultural theories of trauma and theodicy.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>/dan_gtdemo_private/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/dan_gtdemo_private/</guid>
+      <description>Google Trends John A. Bernau
+Emory University
+August 2018
+There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with “+”. They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/private/dan_gtdemo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/private/dan_gtdemo/</guid>
+      <description>Google Trends Dan Demo, August 2018
+There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with “+”. They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present. At the shortest, you can pull trends from the last hour!</description>
+    </item>
+    
   </channel>
 </rss>
