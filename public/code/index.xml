@@ -6,10 +6,20 @@
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 17 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data Exploration: Global Trends in Extreme Poverty</title>
+      <link>/code/wb_poverty/</link>
+      <pubDate>Fri, 24 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/wb_poverty/</guid>
+      <description>In this post I perform some data exploration in R. I’ll cover the following topics:
+ Importing data Preparing data Merging data Plotting data APPENDIX: An 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
+    </item>
     
     <item>
       <title>Data Exploration: Where Do American Baptists Live?</title>

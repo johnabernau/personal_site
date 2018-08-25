@@ -1,0 +1,135 @@
+---
+title: 'Data Exploration: Global Trends in Extreme Poverty'
+author: John A. Bernau
+date: '2018-08-24'
+slug: wb_poverty
+categories: []
+tags: []
+---
+
+
+
+<hr />
+<p><a name="top"></a> In this post I perform some data exploration in R. I’ll cover the following topics:</p>
+<p><img src= "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hobos2.jpg" height="400" align = "right" vspace = "50" hspace = "50" /></p>
+<ul>
+<li><a href="#import">Importing data</a></li>
+<li><a href="#prep">Preparing data</a></li>
+<li><a href="#merge">Merging data</a></li>
+<li><a href="#plot">Plotting data</a></li>
+<li><a href="#appendix">APPENDIX: An 10-line code summary</a></li>
+</ul>
+<p>More specifically, I’ll be using the <a href="https://data.worldbank.org/indicator/SI.POV.DDAY?locations=1W&amp;start=1981&amp;end=2013&amp;view=chart">World Bank data</a> on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective. <a href="https://www.gapminder.org/factfulness-book/">Hans Rosling’s recent book (2018)</a> brought this kind of global development data to public attention, and <a href="http://jeffsachs.org/books/the-end-of-poverty/">Jeffrey Sachs’ (2006) book</a> has been on my reading list for some time. Stanford’s Center on Poverty and Inequality publishes a great magazine on the state of the field, with <a href="https://inequality.stanford.edu/publications/pathways/all">all issues available free</a> as PDF or hard copy. For the purpose of my exploration here, the World Bank data measures poverty as the percentage of a country’s population living under the poverty line, considered here $1.90 / day or less in 2011 <a href="https://en.wikipedia.org/wiki/Purchasing_power_parity">purchasing power parity (PPP) dollars</a>.</p>
+<p><strong><em>RQ: How is extreme poverty distributed globally?</em></strong></p>
+<hr />
+<pre class="r"><code># Loading required pacakges:
+require(tidyverse)</code></pre>
+<p><a name="import"></a> <strong>Importing Data</strong></p>
+<p>From the <a href="https://data.worldbank.org/indicator/SI.POV.DDAY?locations=1W&amp;start=1981&amp;end=2013&amp;view=chart">World Bank’s site</a>, download the CSV file and unzip. There will be three CSV files and we’ll start with the “API…csv” first. There are four unnecessary rows, so we’ll set the <code>skip</code> option appropriately, and preserve strings as characters.</p>
+<pre class="r"><code>d &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/worldbankpoverty/API.csv&quot;, skip = 4, stringsAsFactors = FALSE)</code></pre>
+<hr />
+<p><a name="prep"></a> <strong>Preparing Data</strong></p>
+<p>Look at the structure using <code>names(d)</code> and <code>summary(d)</code> and delete unwanted or redundant variables. A quick glimpse shows a lot of missing values.</p>
+<pre class="r"><code>d &lt;- select(d, -Indicator.Name, -Indicator.Code, -X)
+head(d[,1:8], 10)</code></pre>
+<pre><code>##            Country.Name Country.Code X1960 X1961 X1962 X1963 X1964 X1965
+## 1                 Aruba          ABW    NA    NA    NA    NA    NA    NA
+## 2           Afghanistan          AFG    NA    NA    NA    NA    NA    NA
+## 3                Angola          AGO    NA    NA    NA    NA    NA    NA
+## 4               Albania          ALB    NA    NA    NA    NA    NA    NA
+## 5               Andorra          AND    NA    NA    NA    NA    NA    NA
+## 6            Arab World          ARB    NA    NA    NA    NA    NA    NA
+## 7  United Arab Emirates          ARE    NA    NA    NA    NA    NA    NA
+## 8             Argentina          ARG    NA    NA    NA    NA    NA    NA
+## 9               Armenia          ARM    NA    NA    NA    NA    NA    NA
+## 10       American Samoa          ASM    NA    NA    NA    NA    NA    NA</code></pre>
+<p>This first line <a href="https://stackoverflow.com/questions/2643939/remove-columns-from-dataframe-where-all-values-are-na">(borrowed here)</a> removes all columns that have as many NA values as rows. In other words, columns that contain no information. The second line removes any rows that are missing all useful data. Because there are 41 variables, two of which are country info and 39 of which are reporting year, if a row is missing 39 columns, it retains nothing useful for our analysis.</p>
+<pre class="r"><code># Remove missing columns / rows
+d &lt;- d[,colSums(is.na(d)) &lt; nrow(d)]
+d &lt;- d[rowSums(is.na(d)) &lt; 39,]
+
+#Rename some variables for future use.
+d &lt;- rename(d, country_long = Country.Name, country_short = Country.Code)</code></pre>
+<p>Then, gather years into one column and remove missing rows. Essentially turning columns into rows, the <code>gather()</code> function usually trips people up. I’ve included the head of both dataframes pre- and post-gather for clarity.</p>
+<pre class="r"><code>dt &lt;- gather(d, &quot;year&quot;, &quot;value&quot;, X1977:X2016)</code></pre>
+<pre class="r"><code>head(d[,1:8], 10)</code></pre>
+<pre><code>##    country_long country_short X1977 X1979 X1980 X1981 X1982 X1983
+## 3        Angola           AGO    NA    NA    NA    NA    NA    NA
+## 4       Albania           ALB    NA    NA    NA    NA    NA    NA
+## 8     Argentina           ARG    NA    NA   0.2    NA    NA    NA
+## 9       Armenia           ARM    NA    NA    NA    NA    NA    NA
+## 12    Australia           AUS    NA    NA    NA     1    NA    NA
+## 13      Austria           AUT    NA    NA    NA    NA    NA    NA
+## 14   Azerbaijan           AZE    NA    NA    NA    NA    NA    NA
+## 15      Burundi           BDI    NA    NA    NA    NA    NA    NA
+## 16      Belgium           BEL    NA    NA    NA    NA    NA    NA
+## 17        Benin           BEN    NA    NA    NA    NA    NA    NA</code></pre>
+<pre class="r"><code>head(dt, 10)</code></pre>
+<pre><code>##    country_long country_short  year value
+## 1        Angola           AGO X1977    NA
+## 2       Albania           ALB X1977    NA
+## 3     Argentina           ARG X1977    NA
+## 4       Armenia           ARM X1977    NA
+## 5     Australia           AUS X1977    NA
+## 6       Austria           AUT X1977    NA
+## 7    Azerbaijan           AZE X1977    NA
+## 8       Burundi           BDI X1977    NA
+## 9       Belgium           BEL X1977    NA
+## 10        Benin           BEN X1977    NA</code></pre>
+<p>After this, I remove any row with a missing value of our poverty variable. The last preparation is removing the “X” character that preceeds the <code>year</code> variable and convert to a date class. R adds this character to prevent confusion when column names are read as numeric values.</p>
+<pre class="r"><code>dt &lt;- filter(dt, !is.na(value))
+dt$year &lt;- as.Date(gsub(&quot;X&quot;, &quot;&quot;, dt$year), format = &quot;%Y&quot;)</code></pre>
+<p>A quick plot shows some initial information, but we’re not quite done yet. There are too many countries to interpret and aside from hand-coding, there are no easy ways to sort this out.</p>
+<pre class="r"><code>ggplot(dt, aes(year, value)) + 
+  geom_line(aes(group = country_short))</code></pre>
+<p><img src="/code/world_bank_poverty_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<hr />
+<p><a name="merge"></a> <strong>Merging Data</strong></p>
+<p>Luckily, we can use the accompanying metadata file to append region codes to our data. By adding a category of geographic regions (i.e. “North Africa”, “East Asia”) we can start to see larger patterns of geographically grouped countries.</p>
+<pre class="r"><code>m &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/worldbankpoverty/Metadata.Country.csv&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>To join, variables must have exact names. After renaming our country code variable, I join with the initial data. Lastly, we’ll remove any missing <code>Region</code> values and take out North America.</p>
+<pre class="r"><code>m &lt;- rename(m, country_short = Country.Code)
+j &lt;- inner_join(dt, m)
+j$Region[j$Region == &quot;&quot;] &lt;- NA
+j &lt;- filter(j, !is.na(Region) &amp; Region != &quot;North America&quot;)</code></pre>
+<hr />
+<p><a name="plot"></a> <strong>Plotting Data</strong></p>
+<p>Our data is finally ready to plot. Each region gets it’s own facet, and values are colored from red to black for dramatic effect. Make sure to specify the <code>group</code> aesthetic when working with multiple geom_lines. This tells R which observations to connect with a line.</p>
+<pre class="r"><code>ggplot(j, aes(year, value)) + 
+  geom_line(aes(group = country_short, color = value)) +
+  scale_color_continuous(low = &quot;black&quot;, high = &quot;red&quot;, guide = F) +
+  facet_wrap(~Region) +
+  labs(title = &quot;Percent of Population Living Under $1.90 / Day&quot;,
+       x = NULL, y = &quot;% Under Poverty Line&quot;,
+       caption = &quot;\nData: World Bank Extreme Poverty. Adjusted to 2011 PPP.\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
+  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill=&quot;white&quot;),
+        panel.grid.minor = element_line(color=&quot;grey90&quot;),
+        panel.grid.major = element_line(color=&quot;grey90&quot;),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
+        plot.caption = element_text(size = 9))</code></pre>
+<p><img src="/code/world_bank_poverty_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(&quot;~/Desktop/wb_poverty.jpg&quot;, width = 10, height = 7, units = &quot;in&quot;)</code></pre>
+<p>We can see that overall, the percentage of people living in extreme poverty is generally declining across most countries; a hopeful conclusion of both the World Bank’s reporting and Hans Rosling’s book. However, a substantial portion of Sub-Saharan Africa remains in a state of extreme poverty. It’s easy to disagree about effective solutions, but there is no denying the existence of a pressing moral problem.</p>
+<p><em>Link to World Bank blog:</em> <a href="http://blogs.worldbank.org/africacan/"><img src="/code/wb_africa.png"/></a></p>
+<hr />
+<p><a name="appendix"></a> <strong>APPENDIX</strong><br />
+A less verbose coder could accomplish the preparation in a mere 10 lines of code:</p>
+<pre class="r"><code>d &lt;- read.csv(file.choose(), skip = 4, stringsAsFactors = FALSE)
+d &lt;- select(d, -Indicator.Name, -Indicator.Code, -X, -(X1960:X1976))
+d &lt;- rename(d, country_long = Country.Name, country_short = Country.Code)
+dt &lt;- gather(d, &quot;year&quot;, &quot;value&quot;, X1977:X2017) %&gt;% filter(!is.na(value))
+dt$year &lt;- as.Date(gsub(&quot;X&quot;, &quot;&quot;, dt$year), format = &quot;%Y&quot;)
+
+m &lt;- read.csv(file.choose(), stringsAsFactors = FALSE)
+m &lt;- rename(m, country_short = Country.Code)
+j &lt;- inner_join(dt, m)
+j$Region[j$Region == &quot;&quot;] &lt;- NA
+j &lt;- filter(j, !is.na(Region) &amp; Region != &quot;North America&quot;)</code></pre>
+<hr />
+<p><a href="/xcode/">Code Home</a></p>
+<hr />
+<div id="copyright-2018-john-a.-bernau" class="section level3">
+<h3><em>Copyright © 2018 John A. Bernau</em></h3>
+</div>

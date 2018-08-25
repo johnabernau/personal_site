@@ -6,10 +6,20 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 24 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data Exploration: Global Trends in Extreme Poverty</title>
+      <link>/code/wb_poverty/</link>
+      <pubDate>Fri, 24 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/wb_poverty/</guid>
+      <description>In this post I perform some data exploration in R. I’ll cover the following topics:
+ Importing data Preparing data Merging data Plotting data APPENDIX: An 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
+    </item>
     
     <item>
       <title>AJS - Vol. 123 No. 4 - January 2018</title>
@@ -65,12 +75,14 @@ Summary: The author uses ethnographic data to examine the role of emotions in th
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xcode/</guid>
-      <description> 2017
+      <description>2018
+ Data Exploration: Global Trends in Extreme Poverty
+  2017
  Data Exploration: Where Do American Baptists Live?
  Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
  Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
  Data Visualization in R: Part 2 - Assigning Variables to Attributes
- Data Visualization in R: Part 1 - Getting Started  Copyright &amp;copy; 2018 John A. Bernau </description>
+ Data Visualization in R: Part 1 - Getting Started  Copyright &amp;copy; 2018 John A.</description>
     </item>
     
     <item>
@@ -220,18 +232,6 @@ SOC 389: Cont. Chinese Culture</description>
       <guid>/research/sympathetic-leviathan/</guid>
       <description>Bin Xu &amp;amp; John A. Bernau
 ABSTRACT: While events are central to the sociology of the state, natural disasters, a type of events with substantive and theoretical significance, have received scant attention. To address this gap, we theorize states’ cultural response to disasters—how states use discourses and actions to address moral and political meanings of death and suffering. We borrow insights from a few strands of scholarship: the sociology of disaster, cultural sociology of the state, and cultural theories of trauma and theodicy.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/dan_gtdemo_private/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/dan_gtdemo_private/</guid>
-      <description>Google Trends John A. Bernau
-Emory University
-August 2018
-There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with “+”. They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present.</description>
     </item>
     
     <item>

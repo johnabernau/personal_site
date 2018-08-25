@@ -7,6 +7,10 @@ categories: []
 tags: []
 ---
 
+**2018**  
+
+* [Data Exploration: Global Trends in Extreme Poverty](/code/wb_poverty/)  
+
 **2017**  
 
 * [Data Exploration: Where Do American Baptists Live?](/code/baylor/)  
