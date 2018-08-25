@@ -17,7 +17,7 @@ tags: []
 <li><a href="#prep">Preparing data</a></li>
 <li><a href="#merge">Merging data</a></li>
 <li><a href="#plot">Plotting data</a></li>
-<li><a href="#appendix">APPENDIX: An 10-line code summary</a></li>
+<li><a href="#appendix">Appendix: An 10-line code summary</a></li>
 </ul>
 <p>More specifically, I’ll be using the <a href="https://data.worldbank.org/indicator/SI.POV.DDAY?locations=1W&amp;start=1981&amp;end=2013&amp;view=chart">World Bank data</a> on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective. <a href="https://www.gapminder.org/factfulness-book/">Hans Rosling’s recent book (2018)</a> brought this kind of global development data to public attention, and <a href="http://jeffsachs.org/books/the-end-of-poverty/">Jeffrey Sachs’ (2006) book</a> has been on my reading list for some time. Stanford’s Center on Poverty and Inequality publishes a great magazine on the state of the field, with <a href="https://inequality.stanford.edu/publications/pathways/all">all issues available free</a> as PDF or hard copy. For the purpose of my exploration here, the World Bank data measures poverty as the percentage of a country’s population living under the poverty line, considered here $1.90 / day or less in 2011 <a href="https://en.wikipedia.org/wiki/Purchasing_power_parity">purchasing power parity (PPP) dollars</a>.</p>
 <p><strong><em>RQ: How is extreme poverty distributed globally?</em></strong></p>
@@ -114,7 +114,7 @@ j &lt;- filter(j, !is.na(Region) &amp; Region != &quot;North America&quot;)</cod
 <p>We can see that overall, the percentage of people living in extreme poverty is generally declining across most countries; a hopeful conclusion of both the World Bank’s reporting and Hans Rosling’s book. However, a substantial portion of Sub-Saharan Africa remains in a state of extreme poverty. It’s easy to disagree about effective solutions, but there is no denying the existence of a pressing moral problem.</p>
 <p><em>Link to World Bank blog:</em> <a href="http://blogs.worldbank.org/africacan/"><img src="/code/wb_africa.png"/></a></p>
 <hr />
-<p><a name="appendix"></a> <strong>APPENDIX</strong><br />
+<p><a name="appendix"></a> <strong>Appendix</strong><br />
 A less verbose coder could accomplish the preparation in a mere 10 lines of code:</p>
 <pre class="r"><code>d &lt;- read.csv(file.choose(), skip = 4, stringsAsFactors = FALSE)
 d &lt;- select(d, -Indicator.Name, -Indicator.Code, -X, -(X1960:X1976))
