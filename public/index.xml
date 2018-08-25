@@ -18,7 +18,7 @@
       
       <guid>/code/wb_poverty/</guid>
       <description>In this post I perform some data exploration in R. I’ll cover the following topics:
- Importing data Preparing data Merging data Plotting data Appendix: An 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
+ Importing data Preparing data Merging data Plotting data Appendix: A 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
     </item>
     
     <item>
