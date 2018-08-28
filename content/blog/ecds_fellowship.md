@@ -2,7 +2,7 @@
 title: Digital Humanities Fellowship at Emory’s Center for Digital Scholarship
 author: John A. Bernau
 date: '2018-08-28'
-slug: dh_fellow_ecds
+slug: ecds_fellowship
 categories: []
 tags: []
 ---
