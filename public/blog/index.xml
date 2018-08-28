@@ -6,10 +6,19 @@
     <description>Recent content in Blog on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 24 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Digital Humanities Fellowship at Emory’s Center for Digital Scholarship</title>
+      <link>/blog/dh_fellow_ecds/</link>
+      <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/dh_fellow_ecds/</guid>
+      <description>This week I am excited to start my new position as the Digital Humanities Fellow at the Emory Center for Digital Scholarship (ECDS). The center offers a touch-point for faculty and students working on a variety of digital projects, from interactive web design and online publication to the basics of working with video, photography, and audio in an academic setting. ECDS also partners with various academic departments, agencies, and faculty members to produce original scholarship.</description>
+    </item>
     
     <item>
       <title>AJS - Vol. 123 No. 4 - January 2018</title>
