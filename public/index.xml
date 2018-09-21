@@ -6,10 +6,19 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 28 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why Read Generalist Journals?</title>
+      <link>/blog/generalist-journals/</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/generalist-journals/</guid>
+      <description>Word Count: 1340 Sociology is a broad discipline. As the general “social science” it overlaps considerably with history, anthropology, political science, and economics, not to mention African American Studies, Women’s Gender and Sexuality Studies, Communication Studies, et al. While some see this breadth as a positive attribute, the dangers of a fragmented discipline are hard to ignore. For example, as Stinchcombe (2001) argues, sociologists do not agree on the appropriate subject matter nor the way to measure it.</description>
+    </item>
     
     <item>
       <title>Digital Humanities Fellowship at Emory’s Center for Digital Scholarship</title>
@@ -70,12 +79,38 @@ Summary: The author uses ethnographic data to examine the role of emotions in th
     </item>
     
     <item>
+      <title>Data Exploration: Empty Pews in U.S. Congregations</title>
+      <link>/code/empty_pews/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/empty_pews/</guid>
+      <description>This post offers an example of data exploration in R. I’ll cover the following topics:
+ Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al.</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
       <description>I am a PhD candidate in the Department of Sociology at Emory University. I study how groups use language to solve social problems. My previous research has examined (1) how modern states differ in their public interpretations of national disasters, and (2) how country musicians use linguistic codes to signal group membership. In my dissertation (3) I develop a method for anchoring multiple word embedding spaces using the cosine similarity of target words.</description>
+    </item>
+    
+    <item>
+      <title>Code</title>
+      <link>/xcode/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/xcode/</guid>
+      <description>2018
+ Data Exploration: Global Trends in Extreme Poverty
+  2017
+ Data Exploration: Where Do American Baptists Live?
+ Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
+ Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
+ Data Visualization in R: Part 2 - Assigning Variables to Attributes
+ Data Visualization in R: Part 1 - Getting Started  Copyright &amp;copy; 2018 John A.</description>
     </item>
     
     <item>
@@ -251,6 +286,33 @@ ABSTRACT: While events are central to the sociology of the state, natural disast
       <guid>/private/dan_gtdemo/</guid>
       <description>Google Trends Dan Demo, August 2018
 There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with “+”. They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present. At the shortest, you can pull trends from the last hour!</description>
+    </item>
+    
+    <item>
+      <title>Overlapping Shootings</title>
+      <link>/private/gtdemo2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/private/gtdemo2/</guid>
+      <description>In a 30-day window there are 37 events that have some degree of overlap:  {&#34;x&#34;:{&#34;data&#34;:[{&#34;x&#34;:[15540,15541,15542,15543,15544,15545,15546,15547,15548,15549,15550,15551,15552,15553,15554,15555,15556,15557,15558,15559,15560,15561,15562,15563,15564,15565,15566,15567,15568,15569,15570,15571],&#34;y&#34;:[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],&#34;text&#34;:[&#34;id: 41
+total_victims: 82
+date3: 2012-07-19
+id: 41
+case: Aurora theater shooting&#34;,&#34;id: 41
+total_victims: 82
+date3: 2012-07-20
+id: 41
+case: Aurora theater shooting&#34;,&#34;id: 41
+total_victims: 82
+date3: 2012-07-21
+id: 41
+case: Aurora theater shooting&#34;,&#34;id: 41
+total_victims: 82
+date3: 2012-07-22
+id: 41
+case: Aurora theater shooting&#34;,&#34;id: 41
+total_victims: 82
+date3: 2012-07-23</description>
     </item>
     
   </channel>

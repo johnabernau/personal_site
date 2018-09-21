@@ -1,0 +1,394 @@
+---
+title: 'Data Exploration: Empty Pews in U.S. Congregations'
+author: "John A. Bernau"
+date: '2018-04-19'
+slug: empty_pews
+tags: []
+categories: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<a name="top"></a>
+This post offers an example of data exploration in R. I'll cover the following topics:
+
+<img src="/code/macon_catholic.jpg" height="500" align = "right" style="padding:10px;"/>
+
+- [Importing data](#import)
+- [Preparing data](#prep)
+- [Plotting data v.1](#plot1)
+- [Standardizing Variables](#stan)
+- [Plotting data v.2](#plot2)
+- [APPENDIX: Creating smooth animations](#app)
+
+More specifically, I'll be using the [US Congregational Life Survey](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp) from the [ARDA data archives](http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp), to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate [(Berger et al. 2008, Warner 2010)](#ref). 
+
+Measuring church attendance is a notorious methodological challenge [(Marcum 1999, Chaves 2017)](#ref), and this survey asks head clergy in 2008 to estimate weekly attendance for the previous seven years. While not the perfect, this measure gets around problems of social desirability found in individual surveys. 
+
+**RQ: How has American church attendance fluctated between 2001 - 2008, and how does this differ across denominations?**
+
+
+___
+
+
+
+```{r, message=FALSE}
+require(foreign)
+require(tidyverse)
+require(RColorBrewer)
+```
+
+Then we'll grab the data from the  I use the pre-labeled Stata (.DTA) file to save time on recoding.
+
+```{r}
+data <- read.dta("http://www.thearda.com/download/download.aspx?file=U.S.%20Congregational%20Life%20Survey,%20Wave%202,%20Random%20Sample%20Congregational%20Profile%20Survey.DTA")
+```
+
+I start by examining a tabulation of denominations, saved as "denom". After constraining the denomination variable ("DENOM1") to character, I save a list of the ten largest denominations as `top10`. Lastly, I filter the dataset to only include top 10 denominations and save this as `data2`.
+
+```{r}
+denom <- arrange(count(data, DENOM1), desc(n))
+denom$DENOM1 <- as.character(denom$DENOM1)
+top10 <- denom$DENOM1[1:10]
+data2 <- filter(data, DENOM1 %in% top10)
+```
+
+Now let's look at attendance trends. These measures rely 2008 estimates by head-clergy. Each year's attendance is stored as a separate variable but we'll use the `gather` function to transform the eight columns into two columns. `name` will now contain "ATTEND01", "ATTEND02", etc. and `value` will contain the number estimates for each year. This step is often confusing! Take a look at `data2` vs `data3` to see the changes. The last line puts our five variables of interest up front and arranges by `congrega` which are individual congregation codes.  
+
+```{r}
+data3 <- gather(data2, "name", "value", ATTEND08:ATTEND01)
+data3 <- arrange(select(data3, 1:3, name, value, everything()), congrega)
+```
+
+
+To recode our yearly attendance variable, I create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008". These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on [regular expressions in R.](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) The `select` command orders the varibles, putting our new date variable in the fifth column and deleting the `name` variable, while keeping everything else the same. Lastly, I convert date to numeric format. (Alternatively, we could make it a formal date class in R using `as.Date()`).
+
+```{r}
+data3$name <- as.character(data3$name)
+data3$date <- gsub("ATTEND", 20, data3$name)
+data3 <- select(data3, 1:4, date, everything()) %>% select(-name)
+data3$date <- as.numeric(data3$date)
+```
+
+
+Let's look at a tabulation of our denominations
+```{r}
+data3$DENOM1 <- as.character(data3$DENOM1)
+count(data3, DENOM1)
+```
+
+
+Some recoding to help abbreviate denomination names.
+
+```{r}
+data3$DENOM1[data3$DENOM1 == "Evangelical Lutheran Church in America"] <- "ELCA"
+data3$DENOM1[data3$DENOM1 == "Lutheran Church, Missouri Synod"] <- "Missouri Synod"
+data3$DENOM1[startsWith(data3$DENOM1, "Unitarian")] <- "Unit. Universalist"
+data3$DENOM1[startsWith(data3$DENOM1, "United Methodist")] <- "United Methodist"
+data3$DENOM1[startsWith(data3$DENOM1, "United Church of Christ")] <- "UC Christ"
+data3$DENOM1[startsWith(data3$DENOM1, "Pres")] <- "Presbyterian"
+data3$DENOM1[startsWith(data3$DENOM1, "Epis")] <- "Episcopal"
+data3$DENOM1[startsWith(data3$DENOM1, "Am")] <- "Am. Baptist"
+data3$DENOM1[startsWith(data3$DENOM1, "Roman")] <- "Roman Catholic"
+```
+
+
+An initial plot of `date` X `value` with separately colored lines for each level of `DENOM1`. Plot estimates with geom_point() and connect with geom_line(). **Importantly,** to tell R which points to connect with the line, make sure to specify that you want to group by individual congregations (`group = data3$congrega`). Otherwise, R will draw a line connecting each individual ELCA congregation before moving to the next year and doing the same. For a subtle effect, I've made large congregation estimates more opaque than smaller ones using the `alpha = value` command. 
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
+  geom_point(aes(alpha = value)) +
+  geom_line(aes(group = data3$congrega, alpha = value)) +
+  scale_alpha_continuous(guide = F) +
+  labs(x = "year", y = "Avg Wkly Attend")
+```
+
+Takeaways...TOO MANY CATHOLICS! This graph is not helpful. Instead, I plot each denomination in its own pane using `facet_wrap()`. I also remove the color legend using `scale_color...(guide=FALSE)`, and add some annotations / theme elements. With many categories, these graphs are hard to size correctly. I've given a size that works for me and attached the plot here as a raw image file.  
+```{r, eval=FALSE, warning=FALSE}
+ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
+  geom_point() +
+  geom_line(aes(group = data3$congrega)) +
+  geom_smooth(color = "black", se = F) +
+  scale_color_discrete(guide = F) +
+  facet_wrap(~DENOM1, scales = "free", ncol = 5) +
+  labs(x = "Year", y = "Avg Wkly Attend", title = "Average Weekly Attendance (as estimated by head clergy in 2008)*", caption = "*Source: US Congregational Life Survey Wave 2\nN=5,000 US congregations") +
+  theme(text=element_text(family = "Times New Roman", size = 15))
+
+# ggsave("~/Desktop/file.jpg", width = 15, height = 8.5, unit = "in")
+```
+
+[<img src="/code/uscong.jpg"/>](/code/uscong.jpg)
+
+While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. Also notice that the Y-axis is different for each plot. The largest Roman Catholic congregation maxes out at 10,000 members(!) while the largest Unitarian Universalist maxes out at 160. A graphically subtle, but substantively important detail! 
+
+To fix this, let's standardize each congregation at it's starting level of attendance. We're not interested in absolute totals per say, but rather the change in those totals over time. Before starting this analysis, I use `select` to get rid of extra variables. 
+
+```{r}
+new <- data3 %>% 
+  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %>% 
+  rename(total_attend = value)
+```
+
+
+Create a subset of starting values. First, take out rows with no attendance information, then group by congregation and identify the smallest date value for each congregation and save as `base`. This will be the baseline attendance for each congregation. The `fitler` command selects rows where date == base. In other words, the chronoloical first rows of each congregation. The `select` command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point. The `rename` command gives interpretable names. 
+
+```{r}
+new2 <- new %>% 
+  filter(!is.na(total_attend)) %>% 
+  group_by(congrega) %>% 
+  mutate(base = min(date)) %>% 
+  filter(date == base) %>% 
+  select(congrega, date, total_attend) %>% 
+  rename(founded = date, base = total_attend)
+
+head(new2)
+```
+
+
+I then use `inner_join` to combine this dataframe to the original. For every row with matching congregation values, it will tack on our two new columns `founded` and `base`. With this information, we can calculate a new variable `delta` as the difference between a given year's attendance and the congregation's baseline attendance. 
+
+```{r}
+new3 <- inner_join(new, new2) %>% 
+  filter(!is.na(total_attend)) %>% 
+  mutate(delta = total_attend - base)
+```
+
+Now we can start examining the data. The following code plots each congregation's *change in attendance* from it's starting baseline. 90% of congregations report 2001 as their baseline, but 19 congregations started later for whatever reason: (`count(new3, congrega, founded) %>% filter(founded != 2001)`). I also report the net-change in total attendance between 2001 - 2008 by selecting the final year of the survey and adding up the attendance changes `delta`.
+
+```{r}
+filter(new3, date == 2008) %>% summarize(sum(delta))
+```
+
+
+```{r}
+ggplot(new3, aes(date, delta)) +
+  geom_line(aes(group = congrega), 
+            size = 1, alpha = 0.4) +
+  labs(title = "US Church Attendance:", subtitle = "Congregation deviations from baseline",
+       x = NULL, y = NULL,
+       caption = "________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+  annotate("text", x = 2003, y = 1500, size = 4, label = "Net change -2,033")
+```
+
+An ominous looking representation! We see many congregations reporting sustained decline, while a few report enormous growth: +2,000 attendees!
+
+We can make this more informative by coloring according to denomination:
+
+```{r}
+ggplot(new3, aes(date, delta, color = DENOM1)) +
+  geom_line(aes(group = congrega), 
+            size = 1, alpha = 0.4) +
+  labs(title = "US Church Attendance:", subtitle = "Congregation deviations from baseline",
+       x = NULL, y = NULL,
+       caption = "________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+    annotate("text", x = 2003, y = 1500, size = 4, label = "Net change -2,033") +
+    guides(colour = guide_legend(override.aes = list(alpha = 1, size=2))) +
+    scale_color_discrete(name = "Denomination")
+```
+
+Ah yes...again with the Roman Catholics. They simply have a lot of variability. Four churches reported more than 500 new attendees and about six churches reporting declines of at least 500. What about the rest? Using `filter`, we can calculate the non-Catholic net change in attendance and plot the individual congregation trajectories.
+
+```{r}
+# Find new net change
+filter(new3, DENOM1 != "Roman Catholic Church") %>% 
+  filter(date == 2008) %>% 
+  summarize(sum(delta))
+```
+
+```{r}
+# Plotting without Catholics
+ggplot(filter(new3, DENOM1 != "Roman Catholic"), aes(date, delta, color = DENOM1)) +
+  geom_line(aes(group = congrega), 
+            size = 1, alpha = 0.4) +
+  labs(title = "US Church Attendance:", subtitle = "Congregation deviations from 2001 baseline: NO CATHOLICS",
+       x = NULL, y = NULL,
+       caption = "________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations - catholics: 151/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+  annotate("text", x = 2002.5, y = -350, size = 4, label = "Net change -2,656") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size=2))) +
+  scale_color_brewer(palette = "Set1", name = "Denomination")
+
+```
+
+Now we might not be interested in individual congregations. We can aggregate the yearly changes according to denomination. The following code groups by date and denomination and then sums up the yearly change in attendance.
+
+```{r}
+ag <- new3 %>% 
+  group_by(date, DENOM1) %>% 
+  summarise(delta = sum(delta))
+```
+
+This allows us to plot the denomination changes rather than individual congregation changes.
+```{r}
+ggplot(ag, aes(date, delta)) +
+  geom_line(aes(group = DENOM1, color = DENOM1), 
+            size = 1, alpha = 0.7) +
+  labs(title = "US Church Attendance:", subtitle = "Denomination deviations from 2001 baseline",
+       x = NULL, y = NULL,
+       caption = "________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+  annotate("text", x = 2007, y = -3000, size = 4, label = "Net change -2,033") +
+  scale_color_discrete(name = "Denomination")
+```
+
+This puts the catholic deviations in stark contrast. As a researcher, we'd want to look into this. Did the Roman Catholic Churches really gain **4,500 new attendees in only three years?** What could have spurred this increase? Or, more likely, what kind of reporting anomaly can account for this? Keep in mind that these attendance measures come from clergy self-reports in 2008. These post-hoc estimates probably aren't as robust as we'd like...
+
+
+To make this change a bit clearer, we can plot each denomination with it's own axes. 
+```{r}
+ggplot(ag, aes(date, delta)) +
+  geom_line(aes(group = DENOM1, color = DENOM1), 
+            size = 1, alpha = 0.7) +
+  labs(title = "US Church Attendance:", subtitle = "Denomination deviations from 2001 baseline",
+       x = NULL, y = NULL,
+       caption = "\nNet Change = -2,033 Attendees\n________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  scale_x_continuous(breaks = 2001:2008, labels = c("", "2001", "", "", "", "", "2008", "")) +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+  scale_color_discrete(guide = F) +
+  facet_wrap(~DENOM1, scales = "free_y", ncol = 5)
+
+# # Save as an image with appropriate dimensions:
+# ggsave("~/Desktop/dd.jpg", width = 10, height = 6, units = "in")
+```
+
+WRITE CONCLUSION
+
+---
+
+<a name="ref"></a>
+
+* Berger, Peter, Grace Davie, and Effie Fokas. 2008. *Religious America, Secular Europe?: A Theme and Variations.* Aldershot, England; Burlington, VT: Routledge.
+
+* Chaves, Mark. 2017. *American Religion: Contemporary Trends.* Second edition. Princeton, NJ: Princeton University Press.
+
+* Marcum, John P. 1999. “Measuring Church Attendance: A Further Look.” *Review of Religious Research* 41(1):122–30.
+
+* Warner, Rob. 2010. *Secularization and Its Discontents.* London, GB: Continuum.
+
+___
+
+**APPENDIX: Creating Smooth Animations with gganimate and tweenr**  
+
+```{r}
+require(gganimate)
+require(tweenr)
+```
+
+```{r}
+# Create group id variable from congregation id's
+new3$id <- as.factor(new3$congrega)
+new3$id <- as.numeric(new3$id)
+```
+
+
+Select only some variables, rename to fit tweenr conventions
+```{r}
+new4 <- new3 %>% 
+  select(date, delta, congrega, id) %>% 
+  mutate(time = date) %>% 
+  rename(x = date, y = delta) 
+```
+
+
+Remove variables and add "ease" function
+```{r}
+new4 <- select(new4, -congrega)
+new4$ease <- "linear"
+```
+
+
+This is the transformation command. Give it five variables. X, Y, time, id, ease. 
+```{r}
+new_tween <- tween_elements(new4, "time", "id", "ease", nframes = 250)
+```
+
+
+Create new variables for joining...
+```{r}
+new_tween <- new_tween %>% 
+  mutate(date = round(time), id = .group)
+```
+
+
+Be careful of factors. First read literally as character, and then turn this into number. 
+```{r}
+new_tween$id <-  as.character(new_tween$id)
+new_tween$id <-  as.numeric(new_tween$id)
+new5 <- left_join(new_tween, new3) # inner-join produces a weird jumpy gif
+```
+
+
+Create ggplot object.  
+```{r}
+a <- ggplot(new_tween, aes(x, y, frame = .frame)) +
+  geom_line(aes(cumulative = T, group = .group), 
+            size = 1, alpha = 0.4) +
+  labs(title = "US Church Attendance:", subtitle = "Congregation deviations from 2001 baseline",
+       x = NULL, y = NULL,
+       caption = "________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 204/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com") +
+  theme(text=element_text(size = 14, family="Times New Roman"),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor = element_line(color="grey90"),
+        panel.grid.major = element_line(color="grey90"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        plot.caption = element_text(size = 9)) +
+  annotate("text", x = 2003, y = 1500, size = 4, label = "Net change -2,033")
+
+# Before sending to gganimate, double-check the static visualization looks appropriate
+a
+```
+
+Animate using gganimate. This take a while (a few minutes). ggplot constructs individual plots for each frame we specified using tweenr (250). Then stitches them together into an animated gif using gganimate. 
+
+# Save as animation (takes ~2 min)
+gganimate(a, "~/Desktop/secular_spider1.gif", interval = 0.05, title_frame = F)
+
+
+
+
+Nonetheless, we can quickly get an rough idea of the attendance trends for each of these denominations over the last eight years. 
+
+
+
+
+___
+
+[Code Home](/xcode/) 
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*
