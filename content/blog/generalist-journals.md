@@ -24,7 +24,7 @@ One solution to this fragmentation is to sequester yourself deeper within the co
 **Emile Durkheim on Shared Ideas and Shared Community**
 
 >“A religious society does not exist without a collective credo and it is more or less strong and united according to whether this credo is more widely held…The greater the area of free inquiry that a religious group abandons to the judgment of individuals, the more it will be absent from their lives, and the less cohesion and vitality it will possess.”  
--Emile Durkheim, *Suicide* [([1905] 2006:165)](#ref)
+-Emile Durkheim, *Suicide* [([1897] 2006:165)](#ref)
 
 <div style= "float:right;position: relative; top: -10px; left: 10px;"><img src = "/blog/durkheim suicide.gif" height = "350"></div>Academic fragmentation is particularly ironic in sociology, a discipline founded on the study of community, bonding rituals, and anomie. Durkheim’s resounding merits of community membership range from “not committing suicide” to having a metaphysical basis for time itself [(Durkheim [1912] 1995; cf. Bergmann 1992)](#ref). The relationship between shared ideas, community, and reality itself is detailed in Peter Berger’s *Sacred Canopy* [(1967)](#ref), a book that had a profound effect on me in the early years of graduate school. But you do not have to buy the whole social constructionist agenda to see the necessity of shared ideas for group identity and solidarity. If a group is to have any sense of its group-ness, it must be based on something, and in every case this boils down to an idea. Political parties, music genres, religious traditions; each share some common orientation to the world. The more ideas are shared, the more social solidarity a group enjoys. With respect to sociology, I think we can agree on more than “the importance of society” or “Marx, Weber, Durkheim.” We may not agree on every methodological technique or substantive concern, but sociologists’ collective identity rests on having a shared currency of ideas. Our flagship generalist journals provide fertile ground to cultivate and harvest these ideas.
 
@@ -55,7 +55,7 @@ At the end of the day, in Weber’s words, “The ultimately possible attitudes 
 
 * Durkheim, Emile. 1995. *Elementary Forms Of The Religious Life*, Newly Translated By Karen E. Fields. 11th Printing edition. New York: Free Press.
 
-* Durkheim, Emile. 2006. *Suicide: A Study In Sociology*. New York: Penguin Books.
+* Durkheim, Emile. [1897] 2006. *Suicide: A Study In Sociology*. New York: Penguin Books.
 
 * Radkau, Joachim. 2011. *Max Weber: A Biography*. Cambridge, U.K.; Malden, MA: Polity.
 
