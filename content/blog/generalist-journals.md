@@ -6,7 +6,7 @@ slug: generalist-journals
 categories: []
 tags: []
 ---
-<div style="text-align: right">Word Count: 1335</div>
+<div style="text-align: right">Word Count: 1334</div>
 <br>
 Sociology is a broad discipline. As the general “social science” it overlaps considerably with history, anthropology, political science, and economics, not to mention African American Studies, Women’s Gender and Sexuality Studies, Communication Studies, et al. While some see this breadth as a positive attribute, the dangers of a fragmented discipline are hard to ignore. As Stinchcombe [(2001)](#ref) argues, sociologists do not agree on the appropriate subject matter nor the way to measure it. What lies in store for a discipline that shares neither an epistemology nor a substantive focus? This lack of a “core” threatens both the coherence of sociology as a self-conscious branch of scientific study and its continued existence as an administrative department which “studies everything and owns nothing.” Perhaps sociology will go the way of philosophy, who’s subject matter gave birth to the thriving subfields known today as “physics”, “law”, and “mathematics.” Successful subfields like criminology and public health have already begun to distance themselves from sociology departments. This diversity can produce subjective side-effects too. After years of deliberate study, sociologists can easily take a wrong turn at the national ASA conference and find themselves in a hallway of (ostensible) peers speaking a different scientific language. What does one studying the micro-interactions of rural LBGTQ youth [(De Pedro, Lynch, and Esqueda 2018)](#ref) have to say to someone studying the political diffusion of the welfare state in the post-communist Eastern Bloc [(Cook 2007)](#ref)? 
 
