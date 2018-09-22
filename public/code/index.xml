@@ -28,7 +28,7 @@
       
       <guid>/code/empty_pews/</guid>
       <description>This post offers an example of data exploration in R. I’ll cover the following topics:
- Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al.</description>
+ Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how American church attendance has fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al.</description>
     </item>
     
     <item>

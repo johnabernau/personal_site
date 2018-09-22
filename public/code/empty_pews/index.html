@@ -10,11 +10,11 @@
 <meta name="referrer" content="no-referrer">
 <meta name="author" content="John A. Bernau">
 <meta name="description" content="This post offers an example of data exploration in R. I’ll cover the following topics:
- Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al.">
+ Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how American church attendance has fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al.">
 
 <meta property="og:title" content="Data Exploration: Empty Pews in U.S. Congregations" />
 <meta property="og:description" content="This post offers an example of data exploration in R. I’ll cover the following topics:
- Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al." />
+ Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 APPENDIX: Creating smooth animations  More specifically, I’ll be using the US Congregational Life Survey from the ARDA data archives, to examine how American church attendance has fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate (Berger et al." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/code/empty_pews/" />
 
@@ -59,11 +59,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-09-21%2020%3a46%3a14.308388%20-0400%20EDT%20m%3d%2b0.448079870">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-09-21%2020%3a46%3a14.308388%20-0400%20EDT%20m%3d%2b0.448079870">
-    <link rel="stylesheet" href="/css/main.css?t=2018-09-21%2020%3a46%3a14.308388%20-0400%20EDT%20m%3d%2b0.448079870">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-09-21%2022%3a44%3a38.790213%20-0400%20EDT%20m%3d%2b0.476637749">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-09-21%2022%3a44%3a38.790213%20-0400%20EDT%20m%3d%2b0.476637749">
+    <link rel="stylesheet" href="/css/main.css?t=2018-09-21%2022%3a44%3a38.790213%20-0400%20EDT%20m%3d%2b0.476637749">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-09-21%2020%3a46%3a14.308388%20-0400%20EDT%20m%3d%2b0.448079870">
+        <link rel="stylesheet" href="/css/override.css?t=2018-09-21%2022%3a44%3a38.790213%20-0400%20EDT%20m%3d%2b0.476637749">
     
 
 
@@ -202,7 +202,7 @@
 <li><a href="#plot2">Plotting data v.2</a></li>
 <li><a href="#app">APPENDIX: Creating smooth animations</a></li>
 </ul>
-<p>More specifically, I’ll be using the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a> from the <a href="http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp">ARDA data archives</a>, to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate <a href="#ref">(Berger et al. 2008, Warner 2010)</a>.</p>
+<p>More specifically, I’ll be using the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a> from the <a href="http://www.thearda.com/Archive/browse.asp">ARDA data archives</a>, to examine how American church attendance has fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate <a href="#ref">(Berger et al. 2008, Warner 2010)</a>.</p>
 <p>Measuring church attendance is a notorious methodological challenge <a href="#ref">(Marcum 1999, Chaves 2017)</a>, and this survey asks head clergy in 2008 to estimate weekly attendance for the previous seven years. While not the perfect, this measure gets around problems of social desirability found in individual surveys.</p>
 <p><strong>RQ: How has American church attendance fluctated between 2001 - 2008, and how does this differ across denominations?</strong></p>
 <hr />

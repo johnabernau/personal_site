@@ -22,7 +22,7 @@ This post offers an example of data exploration in R. I'll cover the following t
 - [Plotting data v.2](#plot2)
 - [APPENDIX: Creating smooth animations](#app)
 
-More specifically, I'll be using the [US Congregational Life Survey](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp) from the [ARDA data archives](http://www.thearda.com/Archive/Files/Downloads/GALLUP05_DL2.asp), to examine how has American church attendance fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate [(Berger et al. 2008, Warner 2010)](#ref). 
+More specifically, I'll be using the [US Congregational Life Survey](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp) from the [ARDA data archives](http://www.thearda.com/Archive/browse.asp), to examine how American church attendance has fluctuated between 2001 - 2008. This issue is important to any longitudinal understanding of religiosity, and American religiosity in particular has been the subject of much debate [(Berger et al. 2008, Warner 2010)](#ref). 
 
 Measuring church attendance is a notorious methodological challenge [(Marcum 1999, Chaves 2017)](#ref), and this survey asks head clergy in 2008 to estimate weekly attendance for the previous seven years. While not the perfect, this measure gets around problems of social desirability found in individual surveys. 
 
