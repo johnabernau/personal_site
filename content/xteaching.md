@@ -16,9 +16,11 @@ tags: []
 [SOC 333: Sociology of Religion](/teaching/sor/) 
 
 **Workshop Author / Leader:**  
-[Data Visualization in R](/code/dataviz1/)  
+R Basics: An Introduction  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Sara Palmer](http://digitalscholarship.emory.edu/about/people/palmer-sara.html))  
+Data Visualization in R    
 Data Cleaning and Manipulation in R  
-&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))  
 Zotero for Academic Research and Publishing
 
 **Proposed Courses:**  
