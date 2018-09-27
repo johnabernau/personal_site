@@ -7,10 +7,14 @@ categories: []
 tags: []
 ---
 
+**Peer-Reviewed Publications**  
+
+* Bernau, John A. "Text Analysis with JSTOR Archives". *Socius: Sociological Research for a Dynamic World* [In Press]
+
 **Publications Under Review** 
 
-* June 2018  - [Meta-Sounds in Modern Country Music](/research/country-music)  
-* March 2018  - [How Do Modern States Culturally Respond to Disasters?](/research/sympathetic-leviathan)
+* Bernau, John A. "Meta-Sounds in Modern Country Music" [\[Abstract\]](/research/country-music)    
+* Xu, Bin and John A. Bernau. "How Do Modern States Culturally Respond to Disasters?" [\[Abstract\]](/research/sympathetic-leviathan)
 
 
 **Manuscripts in Progress**  
