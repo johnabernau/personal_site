@@ -13,7 +13,8 @@ tags: []
 
 **Publications Under Review** 
 
-* Bernau, John A. "Meta-Sounds in Modern Country Music" [\[Abstract\]](/research/country-music)    
+* Bernau, John A. "Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989-2014" [\[Abstract\]](/research/country-music)    
+  
 * Xu, Bin and John A. Bernau. "How Do Modern States Culturally Respond to Disasters?" [\[Abstract\]](/research/sympathetic-leviathan)
 
 
@@ -22,12 +23,18 @@ tags: []
 * Sad Songs & Waltzes: Country Music Sentiment and Chart Performance  
 [<img src= "/research/cmsent1.jpg" />](/research/cmsent1.jpg)
 
+* Mass Violence, Mass Reaction: Examining Event Attributes and Public Response to Mass Shootings using Google Search Data (w/ Daniel C. Semenza)
+[<img src= "/research/google1.jpg"/>](/research/google1.jpg)
+
 
 **Dissertation Research**  
 
 * The (De)Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying
 [<img src= "/research/kr1.jpg" />](/research/kr1.jpg)
 
+<div style="text-align: right">
+([Bonus plot #1](/research/kr2.jpg) // [Bonus plot #2](/research/kr3.jpg))
+</div>
 ___
 
 ### *Copyright &copy; 2018 John A. Bernau*
