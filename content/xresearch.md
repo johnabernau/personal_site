@@ -9,7 +9,7 @@ tags: []
 
 **Peer-Reviewed Publications**  
 
-* Bernau, John A. "Text Analysis with JSTOR Archives". *Socius: Sociological Research for a Dynamic World* [In Press]
+* Bernau, John A. 2018. "Text Analysis with JSTOR Archives". *Socius: Sociological Research for a Dynamic World* [In Press]
 
 **Publications Under Review** 
 
@@ -23,7 +23,7 @@ tags: []
 * Sad Songs & Waltzes: Country Music Sentiment and Chart Performance  
 [<img src= "/research/cmsent1.jpg" />](/research/cmsent1.jpg)
 
-* Mass Violence, Mass Reaction: Examining Event Attributes and Public Response to Mass Shootings using Google Search Data (w/ Daniel C. Semenza)
+* Mass Violence, Mass Reaction: Examining Event Attributes and Public Response to Mass Shootings using Google Search Data (w/ [Daniel C. Semenza](https://www.danielcsemenza.com/))
 [<img src= "/research/google1.jpg"/>](/research/google1.jpg)
 
 
