@@ -1,0 +1,320 @@
+---
+title: "GoogleData"
+author: "John Bernau"
+date: "10/3/2018"
+output: html_document
+---
+
+
+
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>RQ: How do mass shooting events influence search traffic?<br />
+DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 30-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).</p>
+<hr />
+<p><img src = "/private/sample2.jpg"> <img src = "/private/gt_race.jpg"> <img src = "/private/gt_state.jpg"></p>
+<hr />
+<p>Sample dataset for one term. Looks like panel data…<br />
+<img src = "/private/sample.png"></p>
+<pre class="r"><code>load(&quot;/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Search_Data/Analysis/9.19.18 session/gc_cleaned.RData&quot;)
+require(tidyverse)
+require(broom)
+require(plm)</code></pre>
+<pre class="r"><code>names(t5)</code></pre>
+<pre><code>##  [1] &quot;id&quot;                            &quot;case&quot;                         
+##  [3] &quot;city&quot;                          &quot;state&quot;                        
+##  [5] &quot;event_date&quot;                    &quot;fatalities&quot;                   
+##  [7] &quot;injured&quot;                       &quot;total_victims&quot;                
+##  [9] &quot;total_victims_cat&quot;             &quot;venue&quot;                        
+## [11] &quot;age_of_shooter&quot;                &quot;race&quot;                         
+## [13] &quot;n_weapons2&quot;                    &quot;highest_weapon&quot;               
+## [15] &quot;date&quot;                          &quot;days_after&quot;                   
+## [17] &quot;keyword&quot;                       &quot;hits_local_month&quot;             
+## [19] &quot;hits_local_month_avg&quot;          &quot;hits_local_month_demeaned&quot;    
+## [21] &quot;hits_global_month_avg&quot;         &quot;hits_standard&quot;                
+## [23] &quot;hits_standard_positive&quot;        &quot;hits_standard_positive_scaled&quot;
+## [25] &quot;hits_final&quot;                    &quot;group&quot;                        
+## [27] &quot;weapon_type&quot;                   &quot;weapon_detail&quot;                
+## [29] &quot;n_weapons&quot;</code></pre>
+<pre class="r"><code>ggplot(t5, aes(n_weapons2)) + geom_histogram(stat = &quot;count&quot;)</code></pre>
+<p><img src="/private/google_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(t5, aes(highest_weapon)) + geom_histogram(stat = &quot;count&quot;)</code></pre>
+<p><img src="/private/google_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p>Save as panel data format</p>
+<pre class="r"><code>pt &lt;- pdata.frame(t5, index = c(&quot;id&quot;, &quot;days_after&quot;))</code></pre>
+<p>Gives variance of DV? 61% variance between, 3% variance within?</p>
+<pre class="r"><code>summary(pt$hits_final)</code></pre>
+<pre><code>## total sum of squares: 214817 
+##        id      time 
+## 0.6085118 0.0285026</code></pre>
+</div>
+<div id="pooling-ols-model" class="section level2">
+<h2>Pooling OLS Model</h2>
+<pre class="r"><code>pooling &lt;- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt, model= &quot;pooling&quot;)
+summary(pooling)</code></pre>
+<pre><code>## Pooling Model
+## 
+## Call:
+## plm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon, data = pt, model = &quot;pooling&quot;)
+## 
+## Balanced Panel: n = 65, T = 32, N = 2080
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -16.6169  -5.3226  -1.9644   2.3086  59.2907 
+## 
+## Coefficients:
+##                         Estimate Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)            9.0462770  1.9687162  4.5950 4.589e-06 ***
+## total_victims          0.0134439  0.0028246  4.7596 2.074e-06 ***
+## venueMilitary         -2.7522498  1.9516207 -1.4102 0.1586201    
+## venueOther             0.7713560  1.8397028  0.4193 0.6750530    
+## venueReligious         0.0602941  2.0211708  0.0298 0.9762045    
+## venueSchool            8.0720018  1.9393977  4.1621 3.283e-05 ***
+## venueWorkplace         0.1075657  1.8987544  0.0567 0.9548290    
+## raceblack              0.3598871  0.8970779  0.4012 0.6883313    
+## racelatino            -1.1079308  1.1289384 -0.9814 0.3265146    
+## racenative american   -2.0141010  1.2728703 -1.5823 0.1137274    
+## raceother              4.2038519  1.1499102  3.6558 0.0002628 ***
+## racewhite             -0.3799039  0.8143618 -0.4665 0.6409033    
+## n_weapons2two         -1.2917793  0.5560796 -2.3230 0.0202753 *  
+## n_weapons2three+      -4.2102717  0.6283697 -6.7003 2.674e-11 ***
+## highest_weaponshotgun  4.3649876  0.6693102  6.5216 8.721e-11 ***
+## highest_weaponrifle    7.4157781  0.5438684 13.6352 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    212950
+## Residual Sum of Squares: 171430
+## R-Squared:      0.19499
+## Adj. R-Squared: 0.18914
+## F-statistic: 33.3297 on 15 and 2064 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+<div id="between-model" class="section level2">
+<h2>Between model</h2>
+<pre class="r"><code>between &lt;- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt, model= &quot;between&quot;)
+summary(between)</code></pre>
+<pre><code>## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon, data = pt, model = &quot;between&quot;)
+## 
+## Balanced Panel: n = 65, T = 32, N = 2080
+## Observations used in estimation: 65
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -10.2087  -3.8793  -1.4938   2.4456  28.7536 
+## 
+## Coefficients:
+##                        Estimate Std. Error t-value Pr(&gt;|t|)   
+## (Intercept)            9.046277   9.145595  0.9891 0.327454   
+## total_victims          0.013444   0.013121  1.0246 0.310594   
+## venueMilitary         -2.752250   9.066178 -0.3036 0.762738   
+## venueOther             0.771356   8.546268  0.0903 0.928451   
+## venueReligious         0.060294   9.389270  0.0064 0.994902   
+## venueSchool            8.072002   9.009397  0.8960 0.374658   
+## venueWorkplace         0.107566   8.820590  0.0122 0.990320   
+## raceblack              0.359887   4.167340  0.0864 0.931533   
+## racelatino            -1.107931   5.244440 -0.2113 0.833562   
+## racenative american   -2.014101   5.913070 -0.3406 0.734847   
+## raceother              4.203852   5.341863  0.7870 0.435093   
+## racewhite             -0.379904   3.783086 -0.1004 0.920419   
+## n_weapons2two         -1.291779   2.583246 -0.5001 0.619271   
+## n_weapons2three+      -4.210272   2.919067 -1.4423 0.155570   
+## highest_weaponshotgun  4.364988   3.109254  1.4039 0.166664   
+## highest_weaponrifle    7.415778   2.526520  2.9352 0.005063 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    4042.2
+## Residual Sum of Squares: 2744.6
+## R-Squared:      0.32102
+## Adj. R-Squared: 0.11316
+## F-statistic: 1.54445 on 15 and 49 DF, p-value: 0.12626</code></pre>
+</div>
+<div id="fixed-effect" class="section level2">
+<h2>Fixed effect</h2>
+<p>Also known as “within”&quot; estimator. Variables that don’t vary within clusters are dropped.</p>
+<pre class="r"><code>fixed &lt;- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt, model= &quot;within&quot;)
+summary(fixed)</code></pre>
+<pre><code>## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + days_after, data = pt, model = &quot;within&quot;)
+## 
+## Balanced Panel: n = 65, T = 32, N = 2080
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -25.020640  -2.763277  -0.097482   1.990220  40.352342 
+## 
+## Coefficients:
+##              Estimate Std. Error t-value  Pr(&gt;|t|)    
+## days_after0   1.98059    1.09495  1.8088 0.0706267 .  
+## days_after1   6.89075    1.09495  6.2932 3.816e-10 ***
+## days_after2   6.30754    1.09495  5.7606 9.694e-09 ***
+## days_after3   4.88175    1.09495  4.4584 8.717e-06 ***
+## days_after4   4.87784    1.09495  4.4549 8.862e-06 ***
+## days_after5   4.62423    1.09495  4.2232 2.517e-05 ***
+## days_after6   4.14735    1.09495  3.7877 0.0001566 ***
+## days_after7   3.67117    1.09495  3.3528 0.0008149 ***
+## days_after8   3.62049    1.09495  3.3065 0.0009614 ***
+## days_after9   3.13688    1.09495  2.8649 0.0042157 ** 
+## days_after10  2.15397    1.09495  1.9672 0.0493003 *  
+## days_after11  2.57325    1.09495  2.3501 0.0188650 *  
+## days_after12  1.83091    1.09495  1.6721 0.0946541 .  
+## days_after13  1.23128    1.09495  1.1245 0.2609321    
+## days_after14  1.47118    1.09495  1.3436 0.1792299    
+## days_after15  1.42972    1.09495  1.3057 0.1917920    
+## days_after16  0.67657    1.09495  0.6179 0.5367081    
+## days_after17  0.84604    1.09495  0.7727 0.4398036    
+## days_after18  1.82074    1.09495  1.6629 0.0964981 .  
+## days_after19  2.14828    1.09495  1.9620 0.0499024 *  
+## days_after20  1.64450    1.09495  1.5019 0.1332827    
+## days_after21  1.03349    1.09495  0.9439 0.3453511    
+## days_after22  0.89957    1.09495  0.8216 0.4114248    
+## days_after23  0.62720    1.09495  0.5728 0.5668386    
+## days_after24  1.03835    1.09495  0.9483 0.3430862    
+## days_after25  1.23141    1.09495  1.1246 0.2608818    
+## days_after26  1.32590    1.09495  1.2109 0.2260684    
+## days_after27  0.58622    1.09495  0.5354 0.5924403    
+## days_after28  0.90324    1.09495  0.8249 0.4095181    
+## days_after29  0.92218    1.09495  0.8422 0.3997670    
+## days_after30  0.59642    1.09495  0.5447 0.5860205    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    83601
+## Residual Sum of Squares: 77306
+## R-Squared:      0.075305
+## Adj. R-Squared: 0.031028
+## F-statistic: 5.21201 on 31 and 1984 DF, p-value: &lt; 2.22e-16</code></pre>
+<p>(OLS with dummies for group is identical to fixed effects)</p>
+<pre class="r"><code>ols_model &lt;- lm(hits_final ~ days_after + id, data=pt)
+summary(ols_model)</code></pre>
+</div>
+<div id="random-effect" class="section level2">
+<h2>Random effect</h2>
+<p>Splits the difference between regular pooled OLS (?) and fixed effects.</p>
+<pre class="r"><code>random &lt;- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data = pt, model = &quot;random&quot;)
+summary(random)</code></pre>
+<pre><code>## Oneway (individual) effect Random Effect Model 
+##    (Swamy-Arora&#39;s transformation)
+## 
+## Call:
+## plm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + days_after, data = pt, model = &quot;random&quot;)
+## 
+## Balanced Panel: n = 65, T = 32, N = 2080
+## 
+## Effects:
+##                  var std.dev share
+## idiosyncratic 38.965   6.242 0.416
+## individual    54.794   7.402 0.584
+## theta: 0.8526
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -23.05365  -2.92505  -0.46065   1.79599  40.67004 
+## 
+## Coefficients:
+##                        Estimate Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)            6.823495   9.177288  0.7435 0.4572530    
+## total_victims          0.013444   0.013121  1.0246 0.3056837    
+## venueMilitary         -2.752250   9.066178 -0.3036 0.7614840    
+## venueOther             0.771356   8.546268  0.0903 0.9280923    
+## venueReligious         0.060294   9.389270  0.0064 0.9948770    
+## venueSchool            8.072002   9.009397  0.8960 0.3703836    
+## venueWorkplace         0.107566   8.820590  0.0122 0.9902714    
+## raceblack              0.359887   4.167340  0.0864 0.9311896    
+## racelatino            -1.107931   5.244440 -0.2113 0.8327070    
+## racenative american   -2.014101   5.913070 -0.3406 0.7334260    
+## raceother              4.203852   5.341863  0.7870 0.4313949    
+## racewhite             -0.379904   3.783086 -0.1004 0.9200195    
+## n_weapons2two         -1.291779   2.583246 -0.5001 0.6170867    
+## n_weapons2three+      -4.210272   2.919067 -1.4423 0.1493620    
+## highest_weaponshotgun  4.364988   3.109254  1.4039 0.1605104    
+## highest_weaponrifle    7.415778   2.526520  2.9352 0.0033710 ** 
+## days_after0            1.980587   1.094947  1.8088 0.0706230 .  
+## days_after1            6.890749   1.094947  6.2932 3.798e-10 ***
+## days_after2            6.307541   1.094947  5.7606 9.660e-09 ***
+## days_after3            4.881751   1.094947  4.4584 8.706e-06 ***
+## days_after4            4.877840   1.094947  4.4549 8.851e-06 ***
+## days_after5            4.624226   1.094947  4.2232 2.514e-05 ***
+## days_after6            4.147352   1.094947  3.7877 0.0001565 ***
+## days_after7            3.671170   1.094947  3.3528 0.0008146 ***
+## days_after8            3.620491   1.094947  3.3065 0.0009610 ***
+## days_after9            3.136882   1.094947  2.8649 0.0042146 ** 
+## days_after10           2.153970   1.094947  1.9672 0.0492969 *  
+## days_after11           2.573253   1.094947  2.3501 0.0188626 *  
+## days_after12           1.830906   1.094947  1.6721 0.0946503 .  
+## days_after13           1.231280   1.094947  1.1245 0.2609289    
+## days_after14           1.471175   1.094947  1.3436 0.1792262    
+## days_after15           1.429717   1.094947  1.3057 0.1917884    
+## days_after16           0.676574   1.094947  0.6179 0.5367064    
+## days_after17           0.846044   1.094947  0.7727 0.4398014    
+## days_after18           1.820745   1.094947  1.6629 0.0964943 .  
+## days_after19           2.148282   1.094947  1.9620 0.0498991 *  
+## days_after20           1.644498   1.094947  1.5019 0.1332789    
+## days_after21           1.033487   1.094947  0.9439 0.3453484    
+## days_after22           0.899567   1.094947  0.8216 0.4114224    
+## days_after23           0.627196   1.094947  0.5728 0.5668370    
+## days_after24           1.038351   1.094947  0.9483 0.3430834    
+## days_after25           1.231410   1.094947  1.1246 0.2608785    
+## days_after26           1.325898   1.094947  1.2109 0.2260650    
+## days_after27           0.586223   1.094947  0.5354 0.5924389    
+## days_after28           0.903240   1.094947  0.8249 0.4095157    
+## days_after29           0.922185   1.094947  0.8422 0.3997646    
+## days_after30           0.596418   1.094947  0.5447 0.5860190    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    86413
+## Residual Sum of Squares: 79215
+## R-Squared:      0.083301
+## Adj. R-Squared: 0.062559
+## F-statistic: 4.01607 on 46 and 2033 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+<div id="questions" class="section level2">
+<h2>Questions:</h2>
+<ul>
+<li>How do you know which model to use?<br />
+</li>
+<li>Is model controlling for time, or do you have to add that to the model explicitly?<br />
+</li>
+<li>Interaction effects? Namely, shooting characteristics and time.</li>
+<li>Dynamic panel models? Autocorrelation of DV?</li>
+</ul>
+<hr />
+</div>
+<div id="postestimation" class="section level2">
+<h2>Postestimation:</h2>
+<p>LM test for random effects versus OLS. If significant, use random effects over OLS.</p>
+<pre class="r"><code>plmtest(pooling)</code></pre>
+<pre><code>## 
+##  Lagrange Multiplier Test - (Honda) for balanced panels
+## 
+## data:  hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon
+## normal = 89.166, p-value &lt; 2.2e-16
+## alternative hypothesis: significant effects</code></pre>
+<p>LM test for fixed effects versus OLS. If significant, use fixed effects over OLS.</p>
+<pre class="r"><code>pFtest(fixed, pooling)</code></pre>
+<pre><code>## 
+##  F test for individual effects
+## 
+## data:  hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon +  ...
+## F = 30.195, df1 = 80, df2 = 1984, p-value &lt; 2.2e-16
+## alternative hypothesis: significant effects</code></pre>
+<p>Hausman test for fixed versus random effects model. If significant and “one model is inconsistent” use fixed effects over random.</p>
+<pre class="r"><code>phtest(random, fixed)</code></pre>
+<pre><code>## 
+##  Hausman Test
+## 
+## data:  hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon +  ...
+## chisq = 1.9412e-12, df = 31, p-value = 1
+## alternative hypothesis: one model is inconsistent</code></pre>
+</div>
