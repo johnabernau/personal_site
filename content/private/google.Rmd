@@ -96,6 +96,7 @@ summary(random)
 
 ## Questions:  
 * How do you know which model to use?  
+* First-differences estimator?  
 * Is model controlling for time, or do you have to add that to the model explicitly?  
 * Interaction effects? Namely, shooting characteristics and time.
 * Dynamic panel models? Autocorrelation of DV?  
