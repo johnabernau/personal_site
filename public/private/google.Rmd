@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Overview  
 RQ: How do mass shooting events influence search traffic?  
-DATA: Daily search traffic for terms like "gun+control" from 2004-2018. Extracted 30-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).    
+DATA: Daily search traffic for terms like "gun+control" from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).    
 
 ___  
 
@@ -33,6 +33,7 @@ require(plm)
 
 
 ```{r}
+t5 <- filter(t5, days_after < 15)
 names(t5)
 ```
 
@@ -50,28 +51,29 @@ pt <- pdata.frame(t5, index = c("id", "days_after"))
 
 
 
-Gives variance of DV? 61% variance between, 3% variance within?
+Gives variance of DV? 69% variance between, 3% variance within?
 ```{r}
 summary(pt$hits_final)
 ```
 
 
 ## Pooling OLS Model
+These results would work best with our theory...  
 ```{r}
-pooling <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt, model= "pooling")
+pooling <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt, model= "pooling")
 summary(pooling)
 ```
 
 
 ## Between model
 ```{r}
-between <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt, model= "between")
+between <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt, model= "between")
 summary(between)
 ```
 
 
 ## Fixed effect  
-Also known as "within"" estimator. Variables that don't vary within clusters are dropped. 
+(Also known as "within"" estimator. Variables that don't vary within clusters are dropped.)  
 ```{r}
 fixed <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt, model= "within")
 summary(fixed)
@@ -86,7 +88,7 @@ summary(ols_model)
 
 
 ## Random effect 
-Splits the difference between regular pooled OLS (?) and fixed effects. 
+Splits the difference between regular pooled OLS (?) and fixed effects.  
 ```{r}
 random <- plm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data = pt, model = "random")
 summary(random)
