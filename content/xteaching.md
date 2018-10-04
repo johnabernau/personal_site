@@ -8,7 +8,7 @@ tags: []
 ---
 
 <div style= "float:right;position: relative; top: -20px; left: 10px;">
-<img src="http://farm1.staticflickr.com/131/320182240_34fe83674c_z.jpg" height="300" />
+<img src="/img/emory.jpg" height="300" />
 </div>
 
 
