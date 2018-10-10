@@ -41,85 +41,144 @@ pt$race <- relevel(pt$race, ref = "white")
 RQ: How do mass shooting events influence search traffic?  
 DATA: Daily search traffic for terms like "gun+control" from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc). 
 
+Sample dataset for one term. Looks like panel data...  
+<img src = "/private/sample.png">
+  
+  
 I ran three models:  
-1) pooled OLS with clustered SE  
-2) auto-regressive / dynamic model  
-3) change-score model  
+[1) pooled OLS with clustered SE](#pols)  
+[2) auto-regressive / dynamic model](#ardm)  
+[3) change-score model](#csm)  
+
+Most of the IVs are categorical, which makes the output a bit difficult to read.  
+
+* Venue variable = reference is "workplace"  
+* Race variable = reference is "white"  
+* Number of weapons = reference is "one"  
+* Highest weapon used = reference is "handgun"  
+* Days_after = reference is -1, or the day before the shooting  
+
+
+<a name="pols"></a>
 
 ## Pooled OLS with clustered SE
+This model produces results that would fit best with our theory. Significant effects for victims, school shootings, and type of weapon. One variable I'm wondering about is "days_after", which is essentially the time component. Does controlling for this make sense in a panel model? It works fine here (and produces interesting and significant effects), but introduces some confusion later on. Right now, it's testing each day's traffic against the day before the event. I run it as a categorical variable because otherwise it tries to fit one effect for all days and due to the curvilinear trend (initial spike and slow decay) it doesn't seem like this would fit the data well.
+
+**Questions:**  
+
+* Do I have to formally test for clustered SE? Or is it assumed?  
+* Is "pooled OLS" the same as a regular linear model?  
+
+
 ```{r}
-# Model 1
 reg1 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
-# Run clusteredSE.R file for function
+
 summary(reg1, cluster = c("id"))
 
 ```
-Questions:  
-
-* Do I have to formally test for clustered SE? Or is it assumed?  
 
 ___  
 
 ## Lag structure of DV  
-Very correlated...
-```{r}
+To prepare for the auto-regressive (AR) / dynamic model, I lagged the DV for 1-7 days. It is very highly correlated. A one-day lag is correlated 87% and a seven-day lag is correlated 68.7%.  
+
+**Questions:**  
+
+* Is this a problem? Hopefully the dynamic model takes care of this issue.  
+```{r, echo = FALSE}
 pt$hf <- pt$hits_final
 pt$hf_lag <- lag(pt$hf, 1)
-cor(pt$hf, pt$hf_lag, use = "complete.obs")
+print(paste("1 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag, use = "complete.obs"), 3)))
 
 pt$hf_lag2 <- lag(pt$hf, 2)
-cor(pt$hf, pt$hf_lag2, use = "complete.obs")
+print(paste("2 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag2, use = "complete.obs"), 3)))
 
 pt$hf_lag3 <- lag(pt$hf, 3)
-cor(pt$hf, pt$hf_lag3, use = "complete.obs")
+print(paste("3 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag3, use = "complete.obs"), 3)))
 
 pt$hf_lag4 <- lag(pt$hf, 4)
-cor(pt$hf, pt$hf_lag4, use = "complete.obs")
+print(paste("4 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag4, use = "complete.obs"), 3)))
 
 pt$hf_lag5 <- lag(pt$hf, 5)
-cor(pt$hf, pt$hf_lag5, use = "complete.obs")
+print(paste("5 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag5, use = "complete.obs"), 3)))
 
 pt$hf_lag6 <- lag(pt$hf, 6)
-cor(pt$hf, pt$hf_lag6, use = "complete.obs")
+print(paste("6 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag6, use = "complete.obs"), 3)))
 
 pt$hf_lag7 <- lag(pt$hf, 7)
-cor(pt$hf, pt$hf_lag7, use = "complete.obs")
+print(paste("7 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag7, use = "complete.obs"), 3)))
+
+pt$hf_lag8 <- lag(pt$hf, 8)
+print(paste("8 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag8, use = "complete.obs"), 3)))
+
+pt$hf_lag9 <- lag(pt$hf, 9)
+print(paste("9 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag9, use = "complete.obs"), 3)))
+
+pt$hf_lag10 <- lag(pt$hf, 10)
+print(paste("10 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag10, use = "complete.obs"), 3)))
+
+pt$hf_lag11 <- lag(pt$hf, 11)
+print(paste("11 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag11, use = "complete.obs"), 3)))
+
+pt$hf_lag12 <- lag(pt$hf, 12)
+print(paste("12 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag12, use = "complete.obs"), 3)))
+
+pt$hf_lag13 <- lag(pt$hf, 13)
+print(paste("13 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag13, use = "complete.obs"), 3)))
+
+pt$hf_lag14 <- lag(pt$hf, 14)
+print(paste("14 day lag correlation:", 
+            round(cor(pt$hf, pt$hf_lag14, use = "complete.obs"), 3)))
+
 ```
 
+<a name="ardm"></a>
+
 ## Running auto-regressive / dynamic model
+I introduce this lagged variable (just the one-day lag for now) into the model. The effect sizes drop considerably, but are still interpretable and in the expected directions. Importantly, the R-squared increases dramatically, from 0.287 to 0.782! I suppose this is good, but raises worries of overfitting. By itself, the lagged DV explains about 76% of the variation in the DV.
+
+**Questions:**  
+
+* Does it make sense to control for both time (days_after) AND the lagged DV? Results are stable with and without the days_after time variable. I like the time variable because it's easier to tell a story ("controlling for time elapsed...").
 
 ```{r}
 reg4 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)
-# Run clusteredSE.R file for function
+
 summary(reg4, cluster = c("id"))
 ```
 
-
-```{r}
-# Model 4a: take out days_after and just keep lagged DV
-reg4a <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
-# Run clusteredSE.R file for function
-summary(reg4a, cluster = c("id"))
-```
-
-Questions:  
-
-* Do I have to control for BOTH time (days_after) and previous day traffic?  
-
 ___  
 
-## Using change in DV (change-score)  
+<a name="csm"></a>
+
+## Change-Score Model (using change in DV as DV)
+This model is harder to interpret. Instead of raw search traffic, we're predicting the change in search traffic from the previous day? Does it make sense to still control for days then? Furthermore...this model is just bad. 
 
 ```{r}
+# Creating change score variable
 pt$hfcs <- pt$hf - pt$hf_lag
 
-# Model 5: but with change in y instead of raw y. But what is this predicting? It's trying to predict the changes day to day? But we already know this is a curve...so is it just bad for that reason?
 reg5 <- lm(hfcs ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
-# Run clusteredSE.R file for function
+
 summary(reg5, cluster = c("id"))
 ```
 
-Questions:  
+**Questions:**  
 
-* This model is bad...  
-* Control for time (days_after)?
+* How to think about time in this context? Should it be controlled for or left out? 
+* Should I introduce a squared term to accout for the curvilinear trend (spike + decay)
+?  
+* Should I be thinking about FE / RE? Are there tests to decide if these are better?  

@@ -11,16 +11,37 @@ output: html_document
 <h3>Overview</h3>
 <p>RQ: How do mass shooting events influence search traffic?<br />
 DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).</p>
+<p>Sample dataset for one term. Looks like panel data…<br />
+<img src = "/private/sample.png"></p>
 <p>I ran three models:<br />
-1) pooled OLS with clustered SE<br />
-2) auto-regressive / dynamic model<br />
-3) change-score model</p>
+<a href="#pols">1) pooled OLS with clustered SE</a><br />
+<a href="#ardm">2) auto-regressive / dynamic model</a><br />
+<a href="#csm">3) change-score model</a></p>
+<p>Most of the IVs are categorical, which makes the output a bit difficult to read.</p>
+<ul>
+<li>Venue variable = reference is “workplace”<br />
+</li>
+<li>Race variable = reference is “white”<br />
+</li>
+<li>Number of weapons = reference is “one”<br />
+</li>
+<li>Highest weapon used = reference is “handgun”<br />
+</li>
+<li>Days_after = reference is -1, or the day before the shooting</li>
+</ul>
+<p><a name="pols"></a></p>
 </div>
 <div id="pooled-ols-with-clustered-se" class="section level2">
 <h2>Pooled OLS with clustered SE</h2>
-<pre class="r"><code># Model 1
-reg1 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
-# Run clusteredSE.R file for function
+<p>This model produces results that would fit best with our theory. Significant effects for victims, school shootings, and type of weapon. One variable I’m wondering about is “days_after”, which is essentially the time component. Does controlling for this make sense in a panel model? It works fine here (and produces interesting and significant effects), but introduces some confusion later on. Right now, it’s testing each day’s traffic against the day before the event. I run it as a categorical variable because otherwise it tries to fit one effect for all days and due to the curvilinear trend (initial spike and slow decay) it doesn’t seem like this would fit the data well.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>Do I have to formally test for clustered SE? Or is it assumed?<br />
+</li>
+<li>Is “pooled OLS” the same as a regular linear model?</li>
+</ul>
+<pre class="r"><code>reg1 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
+
 summary(reg1, cluster = c(&quot;id&quot;))</code></pre>
 <pre><code>## 
 ## Call:
@@ -71,42 +92,40 @@ summary(reg1, cluster = c(&quot;id&quot;))</code></pre>
 ##   (32 observations deleted due to missingness)
 ## Multiple R-squared:  0.3084, Adjusted R-squared:  0.2879 
 ## F-statistic: 8.482 on 30 and 64 DF,  p-value: 5.815e-13</code></pre>
-<p>Questions:</p>
-<ul>
-<li>Do I have to formally test for clustered SE? Or is it assumed?</li>
-</ul>
 <hr />
 </div>
 <div id="lag-structure-of-dv" class="section level2">
 <h2>Lag structure of DV</h2>
-<p>Very correlated…</p>
-<pre class="r"><code>pt$hf &lt;- pt$hits_final
-pt$hf_lag &lt;- lag(pt$hf, 1)
-cor(pt$hf, pt$hf_lag, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.8737928</code></pre>
-<pre class="r"><code>pt$hf_lag2 &lt;- lag(pt$hf, 2)
-cor(pt$hf, pt$hf_lag2, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.7464395</code></pre>
-<pre class="r"><code>pt$hf_lag3 &lt;- lag(pt$hf, 3)
-cor(pt$hf, pt$hf_lag3, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.7026557</code></pre>
-<pre class="r"><code>pt$hf_lag4 &lt;- lag(pt$hf, 4)
-cor(pt$hf, pt$hf_lag4, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.6860086</code></pre>
-<pre class="r"><code>pt$hf_lag5 &lt;- lag(pt$hf, 5)
-cor(pt$hf, pt$hf_lag5, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.674836</code></pre>
-<pre class="r"><code>pt$hf_lag6 &lt;- lag(pt$hf, 6)
-cor(pt$hf, pt$hf_lag6, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.6872934</code></pre>
-<pre class="r"><code>pt$hf_lag7 &lt;- lag(pt$hf, 7)
-cor(pt$hf, pt$hf_lag7, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.687826</code></pre>
+<p>To prepare for the auto-regressive (AR) / dynamic model, I lagged the DV for 1-7 days. It is very highly correlated. A one-day lag is correlated 87% and a seven-day lag is correlated 68.7%.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>Is this a problem? Hopefully the dynamic model takes care of this issue.</li>
+</ul>
+<pre><code>## [1] &quot;1 day lag correlation: 0.874&quot;</code></pre>
+<pre><code>## [1] &quot;2 day lag correlation: 0.746&quot;</code></pre>
+<pre><code>## [1] &quot;3 day lag correlation: 0.703&quot;</code></pre>
+<pre><code>## [1] &quot;4 day lag correlation: 0.686&quot;</code></pre>
+<pre><code>## [1] &quot;5 day lag correlation: 0.675&quot;</code></pre>
+<pre><code>## [1] &quot;6 day lag correlation: 0.687&quot;</code></pre>
+<pre><code>## [1] &quot;7 day lag correlation: 0.688&quot;</code></pre>
+<pre><code>## [1] &quot;8 day lag correlation: 0.64&quot;</code></pre>
+<pre><code>## [1] &quot;9 day lag correlation: 0.577&quot;</code></pre>
+<pre><code>## [1] &quot;10 day lag correlation: 0.529&quot;</code></pre>
+<pre><code>## [1] &quot;11 day lag correlation: 0.53&quot;</code></pre>
+<pre><code>## [1] &quot;12 day lag correlation: 0.525&quot;</code></pre>
+<pre><code>## [1] &quot;13 day lag correlation: 0.555&quot;</code></pre>
+<pre><code>## [1] &quot;14 day lag correlation: 0.575&quot;</code></pre>
+<p><a name="ardm"></a></p>
 </div>
 <div id="running-auto-regressive-dynamic-model" class="section level2">
 <h2>Running auto-regressive / dynamic model</h2>
+<p>I introduce this lagged variable (just the one-day lag for now) into the model. The effect sizes drop considerably, but are still interpretable and in the expected directions. Importantly, the R-squared increases dramatically, from 0.287 to 0.782! I suppose this is good, but raises worries of overfitting. By itself, the lagged DV explains about 76% of the variation in the DV.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>Does it make sense to control for both time (days_after) AND the lagged DV? Results are stable with and without the days_after time variable. I like the time variable because it’s easier to tell a story (“controlling for time elapsed…”).</li>
+</ul>
 <pre class="r"><code>reg4 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)
-# Run clusteredSE.R file for function
+
 summary(reg4, cluster = c(&quot;id&quot;))</code></pre>
 <pre><code>## 
 ## Call:
@@ -157,58 +176,17 @@ summary(reg4, cluster = c(&quot;id&quot;))</code></pre>
 ##   (97 observations deleted due to missingness)
 ## Multiple R-squared:  0.7889, Adjusted R-squared:  0.7822 
 ## F-statistic: 405.3 on 30 and 64 DF,  p-value: &lt; 2.2e-16</code></pre>
-<pre class="r"><code># Model 4a: take out days_after and just keep lagged DV
-reg4a &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
-# Run clusteredSE.R file for function
-summary(reg4a, cluster = c(&quot;id&quot;))</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
-##     highest_weapon + hf_lag, data = pt)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -24.900  -2.318  -0.630   1.302  45.281 
-## 
-## Coefficients:
-##                        Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)            1.705838   0.476207   3.582 0.000358 ***
-## total_victims          0.006018   0.001840   3.270 0.001114 ** 
-## venueAirport          -0.732910   0.743942  -0.985 0.324789    
-## venueMilitary         -1.383376   0.929350  -1.489 0.136937    
-## venueOther            -0.065044   0.429951  -0.151 0.879784    
-## venueReligious         0.163794   0.572085   0.286 0.774702    
-## venueSchool            1.968100   0.994018   1.980 0.047996 *  
-## raceasian              0.308019   0.724539   0.425 0.670842    
-## raceblack              0.328410   0.406412   0.808 0.419249    
-## racelatino             0.352291   0.646578   0.545 0.585981    
-## racenative american   -0.524217   0.943533  -0.556 0.578621    
-## raceother              2.357346   1.101124   2.141 0.032538 *  
-## n_weapons2two         -0.461653   0.518709  -0.890 0.373688    
-## n_weapons2three+      -1.005563   0.773817  -1.299 0.194090    
-## highest_weaponshotgun  1.160040   0.658547   1.762 0.078470 .  
-## highest_weaponrifle    1.639010   0.569576   2.878 0.004096 ** 
-## hf_lag                 0.814961   0.028299  28.798  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 5.311 on 958 degrees of freedom
-##   (97 observations deleted due to missingness)
-## Multiple R-squared:  0.774,  Adjusted R-squared:  0.7703 
-## F-statistic: 296.9 on 16 and 64 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Questions:</p>
-<ul>
-<li>Do I have to control for BOTH time (days_after) and previous day traffic?</li>
-</ul>
 <hr />
+<p><a name="csm"></a></p>
 </div>
-<div id="using-change-in-dv-change-score" class="section level2">
-<h2>Using change in DV (change-score)</h2>
-<pre class="r"><code>pt$hfcs &lt;- pt$hf - pt$hf_lag
+<div id="change-score-model-using-change-in-dv-as-dv" class="section level2">
+<h2>Change-Score Model (using change in DV as DV)</h2>
+<p>This model is harder to interpret. Instead of raw search traffic, we’re predicting the change in search traffic from the previous day? Does it make sense to still control for days then? Furthermore…this model is just bad.</p>
+<pre class="r"><code># Creating change score variable
+pt$hfcs &lt;- pt$hf - pt$hf_lag
 
-# Model 5: but with change in y instead of raw y. But what is this predicting? It&#39;s trying to predict the changes day to day? But we already know this is a curve...so is it just bad for that reason?
 reg5 &lt;- lm(hfcs ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
-# Run clusteredSE.R file for function
+
 summary(reg5, cluster = c(&quot;id&quot;))</code></pre>
 <pre><code>## 
 ## Call:
@@ -258,10 +236,11 @@ summary(reg5, cluster = c(&quot;id&quot;))</code></pre>
 ##   (97 observations deleted due to missingness)
 ## Multiple R-squared:  0.07348,    Adjusted R-squared:  0.04504 
 ## F-statistic: 10.72 on 29 and 64 DF,  p-value: 3.138e-15</code></pre>
-<p>Questions:</p>
+<p><strong>Questions:</strong></p>
 <ul>
-<li>This model is bad…<br />
+<li>How to think about time in this context? Should it be controlled for or left out?</li>
+<li>Should I introduce a squared term to accout for the curvilinear trend (spike + decay) ?<br />
 </li>
-<li>Control for time (days_after)?</li>
+<li>Should I be thinking about FE / RE? Are there tests to decide if these are better?</li>
 </ul>
 </div>

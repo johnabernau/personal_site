@@ -40,11 +40,12 @@ load(&amp;quot;/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Sear
       <guid>/private/google2/</guid>
       <description>Overview RQ: How do mass shooting events influence search traffic?
 DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
+Sample dataset for one term. Looks like panel data…
 I ran three models:
 1) pooled OLS with clustered SE
 2) auto-regressive / dynamic model
 3) change-score model
- Pooled OLS with clustered SE # Model 1 reg1 &amp;lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt) # Run clusteredSE.</description>
+Most of the IVs are categorical, which makes the output a bit difficult to read.</description>
     </item>
     
     <item>
