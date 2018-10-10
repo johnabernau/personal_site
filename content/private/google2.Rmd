@@ -1,0 +1,125 @@
+---
+title: 'GoogleData #2'
+author: "John Bernau"
+date: "10/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, message = FALSE}
+library(RCurl)
+library(gdata) 
+library(zoo)
+require(tidyverse)
+require(dplyr)
+require(plm)
+require("stargazer")
+
+# Get clustered SE function from script / web
+url_robust <- "https://raw.githubusercontent.com/IsidoreBeautrelet/economictheoryblog/master/robust_summary.R"
+eval(parse(text = getURL(url_robust, ssl.verifypeer = FALSE)),
+     envir=.GlobalEnv)
+
+# load gc_cleaned.RData
+load("/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Search_Data/Analysis/9.19.18 session/gc_cleaned.RData")
+
+# Only use two week window
+t5 <- filter(t5, days_after < 15)
+
+# Save as panel data format
+pt <- pdata.frame(t5, index = c("id", "days_after"))
+
+pt$year <- str_sub(pt$event_date, 1,4)
+pt$venue <- relevel(pt$venue, ref = "Workplace")
+pt$race <- relevel(pt$race, ref = "white")
+```
+
+### Overview  
+RQ: How do mass shooting events influence search traffic?  
+DATA: Daily search traffic for terms like "gun+control" from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc). 
+
+I ran three models:  
+1) pooled OLS with clustered SE  
+2) auto-regressive / dynamic model  
+3) change-score model  
+
+## Pooled OLS with clustered SE
+```{r}
+# Model 1
+reg1 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
+# Run clusteredSE.R file for function
+summary(reg1, cluster = c("id"))
+
+```
+Questions:  
+
+* Do I have to formally test for clustered SE? Or is it assumed?  
+
+___  
+
+## Lag structure of DV  
+Very correlated...
+```{r}
+pt$hf <- pt$hits_final
+pt$hf_lag <- lag(pt$hf, 1)
+cor(pt$hf, pt$hf_lag, use = "complete.obs")
+
+pt$hf_lag2 <- lag(pt$hf, 2)
+cor(pt$hf, pt$hf_lag2, use = "complete.obs")
+
+pt$hf_lag3 <- lag(pt$hf, 3)
+cor(pt$hf, pt$hf_lag3, use = "complete.obs")
+
+pt$hf_lag4 <- lag(pt$hf, 4)
+cor(pt$hf, pt$hf_lag4, use = "complete.obs")
+
+pt$hf_lag5 <- lag(pt$hf, 5)
+cor(pt$hf, pt$hf_lag5, use = "complete.obs")
+
+pt$hf_lag6 <- lag(pt$hf, 6)
+cor(pt$hf, pt$hf_lag6, use = "complete.obs")
+
+pt$hf_lag7 <- lag(pt$hf, 7)
+cor(pt$hf, pt$hf_lag7, use = "complete.obs")
+```
+
+## Running auto-regressive / dynamic model
+
+```{r}
+reg4 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)
+# Run clusteredSE.R file for function
+summary(reg4, cluster = c("id"))
+```
+
+
+```{r}
+# Model 4a: take out days_after and just keep lagged DV
+reg4a <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
+# Run clusteredSE.R file for function
+summary(reg4a, cluster = c("id"))
+```
+
+Questions:  
+
+* Do I have to control for BOTH time (days_after) and previous day traffic?  
+
+___  
+
+## Using change in DV (change-score)  
+
+```{r}
+pt$hfcs <- pt$hf - pt$hf_lag
+
+# Model 5: but with change in y instead of raw y. But what is this predicting? It's trying to predict the changes day to day? But we already know this is a curve...so is it just bad for that reason?
+reg5 <- lm(hfcs ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
+# Run clusteredSE.R file for function
+summary(reg5, cluster = c("id"))
+```
+
+Questions:  
+
+* This model is bad...  
+* Control for time (days_after)?

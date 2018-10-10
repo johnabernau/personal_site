@@ -302,6 +302,21 @@ load(&amp;quot;/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Sear
     </item>
     
     <item>
+      <title>GoogleData #2</title>
+      <link>/private/google2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/private/google2/</guid>
+      <description>Overview RQ: How do mass shooting events influence search traffic?
+DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
+I ran three models:
+1) pooled OLS with clustered SE
+2) auto-regressive / dynamic model
+3) change-score model
+ Pooled OLS with clustered SE # Model 1 reg1 &amp;lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt) # Run clusteredSE.</description>
+    </item>
+    
+    <item>
       <title>Overlapping Shootings</title>
       <link>/private/gtdemo2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

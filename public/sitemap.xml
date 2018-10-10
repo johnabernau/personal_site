@@ -138,6 +138,10 @@
   </url>
   
   <url>
+    <loc>/private/google2/</loc>
+  </url>
+  
+  <url>
     <loc>/</loc>
     <lastmod>2018-09-21T00:00:00+00:00</lastmod>
     <priority>0</priority>

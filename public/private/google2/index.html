@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau">
+<meta name="description" content="Overview RQ: How do mass shooting events influence search traffic?
+DATA: Daily search traffic for terms like “gun&#43;control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
+I ran three models:
+1) pooled OLS with clustered SE
+2) auto-regressive / dynamic model
+3) change-score model
+ Pooled OLS with clustered SE # Model 1 reg1 &lt;- lm(hits_final ~ total_victims &#43; venue &#43; race &#43; n_weapons2 &#43; highest_weapon &#43; days_after, data=pt) # Run clusteredSE.">
+
+<meta property="og:title" content="GoogleData #2" />
+<meta property="og:description" content="Overview RQ: How do mass shooting events influence search traffic?
+DATA: Daily search traffic for terms like “gun&#43;control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
+I ran three models:
+1) pooled OLS with clustered SE
+2) auto-regressive / dynamic model
+3) change-score model
+ Pooled OLS with clustered SE # Model 1 reg1 &lt;- lm(hits_final ~ total_victims &#43; venue &#43; race &#43; n_weapons2 &#43; highest_weapon &#43; days_after, data=pt) # Run clusteredSE." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/private/google2/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>
+
+
+     GoogleData #2 
+
+</title>
+<link rel="canonical" href="/private/google2/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-10%2011%3a49%3a11.743772%20-0400%20EDT%20m%3d%2b1.360321798">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-10%2011%3a49%3a11.743772%20-0400%20EDT%20m%3d%2b1.360321798">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-10%2011%3a49%3a11.743772%20-0400%20EDT%20m%3d%2b1.360321798">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-10%2011%3a49%3a11.743772%20-0400%20EDT%20m%3d%2b1.360321798">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau</div></a>
+            
+              <h3 class="self-intro">PhD Candidate, Sociology</h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/xresearch/"><span>research</span></a></li>
+                    
+                        <li class="nav-teaching"><a href="/xteaching/"><span>Teaching</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-cv"><a href="/img/bernau_cv_2018.pdf"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="https://twitter.com/johnAbernau" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="https://www.linkedin.com/in/john-bernau-b384a9153" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+<section class="main">
+    <div class="container">
+        <div class="content">
+            <div class="page-heading">
+
+    GoogleData #2
+
+</div>
+
+            <div class="markdown">
+                <div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>RQ: How do mass shooting events influence search traffic?<br />
+DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).</p>
+<p>I ran three models:<br />
+1) pooled OLS with clustered SE<br />
+2) auto-regressive / dynamic model<br />
+3) change-score model</p>
+</div>
+<div id="pooled-ols-with-clustered-se" class="section level2">
+<h2>Pooled OLS with clustered SE</h2>
+<pre class="r"><code># Model 1
+reg1 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
+# Run clusteredSE.R file for function
+summary(reg1, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + days_after, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.067  -5.508  -1.828   3.028  54.803 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            5.600397   2.015330   2.779 0.005556 ** 
+## total_victims          0.026315   0.007377   3.567 0.000378 ***
+## venueAirport          -2.312413   3.453849  -0.670 0.503318    
+## venueMilitary         -6.691648   3.962321  -1.689 0.091563 .  
+## venueOther             0.648291   2.177481   0.298 0.765974    
+## venueReligious         0.905329   2.660633   0.340 0.733725    
+## venueSchool            9.112111   4.597028   1.982 0.047731 *  
+## raceasian              1.050598   3.606330   0.291 0.770866    
+## raceblack              2.524492   2.443978   1.033 0.301878    
+## racelatino             0.622837   3.131776   0.199 0.842399    
+## racenative american   -2.455149   4.717922  -0.520 0.602908    
+## raceother             11.587361   4.321606   2.681 0.007454 ** 
+## n_weapons2two         -2.345495   2.312248  -1.014 0.310645    
+## n_weapons2three+      -5.103887   3.264394  -1.564 0.118248    
+## highest_weaponshotgun  5.716501   3.193703   1.790 0.073765 .  
+## highest_weaponrifle    7.558737   2.546811   2.968 0.003069 ** 
+## days_after0            1.980587   0.877851   2.256 0.024273 *  
+## days_after1            6.890749   1.841148   3.743 0.000192 ***
+## days_after2            6.307541   1.751654   3.601 0.000333 ***
+## days_after3            4.881751   1.563841   3.122 0.001850 ** 
+## days_after4            4.877840   1.460887   3.339 0.000872 ***
+## days_after5            4.624226   1.238825   3.733 0.000200 ***
+## days_after6            4.147352   1.271299   3.262 0.001142 ** 
+## days_after7            3.671170   1.212018   3.029 0.002516 ** 
+## days_after8            3.620491   1.221808   2.963 0.003116 ** 
+## days_after9            3.136882   1.306098   2.402 0.016498 *  
+## days_after10           2.153970   1.081361   1.992 0.046651 *  
+## days_after11           2.573253   1.060526   2.426 0.015424 *  
+## days_after12           1.830906   0.758505   2.414 0.015963 *  
+## days_after13           1.231280   0.766206   1.607 0.108371    
+## days_after14           1.471175   0.782569   1.880 0.060405 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.182 on 1009 degrees of freedom
+##   (32 observations deleted due to missingness)
+## Multiple R-squared:  0.3084, Adjusted R-squared:  0.2879 
+## F-statistic: 8.482 on 30 and 64 DF,  p-value: 5.815e-13</code></pre>
+<p>Questions:</p>
+<ul>
+<li>Do I have to formally test for clustered SE? Or is it assumed?</li>
+</ul>
+<hr />
+</div>
+<div id="lag-structure-of-dv" class="section level2">
+<h2>Lag structure of DV</h2>
+<p>Very correlated…</p>
+<pre class="r"><code>pt$hf &lt;- pt$hits_final
+pt$hf_lag &lt;- lag(pt$hf, 1)
+cor(pt$hf, pt$hf_lag, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.8737928</code></pre>
+<pre class="r"><code>pt$hf_lag2 &lt;- lag(pt$hf, 2)
+cor(pt$hf, pt$hf_lag2, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.7464395</code></pre>
+<pre class="r"><code>pt$hf_lag3 &lt;- lag(pt$hf, 3)
+cor(pt$hf, pt$hf_lag3, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.7026557</code></pre>
+<pre class="r"><code>pt$hf_lag4 &lt;- lag(pt$hf, 4)
+cor(pt$hf, pt$hf_lag4, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.6860086</code></pre>
+<pre class="r"><code>pt$hf_lag5 &lt;- lag(pt$hf, 5)
+cor(pt$hf, pt$hf_lag5, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.674836</code></pre>
+<pre class="r"><code>pt$hf_lag6 &lt;- lag(pt$hf, 6)
+cor(pt$hf, pt$hf_lag6, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.6872934</code></pre>
+<pre class="r"><code>pt$hf_lag7 &lt;- lag(pt$hf, 7)
+cor(pt$hf, pt$hf_lag7, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.687826</code></pre>
+</div>
+<div id="running-auto-regressive-dynamic-model" class="section level2">
+<h2>Running auto-regressive / dynamic model</h2>
+<pre class="r"><code>reg4 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)
+# Run clusteredSE.R file for function
+summary(reg4, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + days_after + hf_lag, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -24.133  -2.337  -0.431   1.707  40.802 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            2.898748   0.828845   3.497 0.000492 ***
+## total_victims          0.005768   0.001768   3.262 0.001145 ** 
+## venueAirport          -0.712145   0.716935  -0.993 0.320809    
+## venueMilitary         -1.320368   0.899488  -1.468 0.142461    
+## venueOther            -0.071908   0.414707  -0.173 0.862379    
+## venueReligious         0.153411   0.554538   0.277 0.782112    
+## venueSchool            1.884478   0.947951   1.988 0.047106 *  
+## raceasian              0.299598   0.698755   0.429 0.668196    
+## raceblack              0.304606   0.389574   0.782 0.434472    
+## racelatino             0.346776   0.623153   0.556 0.578010    
+## racenative american   -0.499931   0.905912  -0.552 0.581179    
+## raceother              2.248168   1.069389   2.102 0.035792 *  
+## n_weapons2two         -0.440226   0.500715  -0.879 0.379519    
+## n_weapons2three+      -0.958643   0.741903  -1.292 0.196625    
+## highest_weaponshotgun  1.107750   0.636796   1.740 0.082261 .  
+## highest_weaponrifle    1.570445   0.539856   2.909 0.003711 ** 
+## days_after1            3.278233   1.270769   2.580 0.010038 *  
+## days_after2           -1.350762   1.259667  -1.072 0.283852    
+## days_after3           -2.296012   0.763713  -3.006 0.002714 ** 
+## days_after4           -1.125125   0.856107  -1.314 0.189087    
+## days_after5           -1.375517   1.142706  -1.204 0.228993    
+## days_after6           -1.643423   1.190248  -1.381 0.167686    
+## days_after7           -1.726678   0.974507  -1.772 0.076742 .  
+## days_after8           -1.385001   0.944378  -1.467 0.142825    
+## days_after9           -1.826853   0.855945  -2.134 0.033074 *  
+## days_after10          -2.411289   1.032363  -2.336 0.019716 *  
+## days_after11          -1.182123   0.876934  -1.348 0.177976    
+## days_after12          -2.269945   1.115737  -2.034 0.042182 *  
+## days_after13          -2.257904   0.941123  -2.399 0.016626 *  
+## days_after14          -1.523940   0.917320  -1.661 0.096986 .  
+## hf_lag                 0.823962   0.027435  30.034  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.171 on 944 degrees of freedom
+##   (97 observations deleted due to missingness)
+## Multiple R-squared:  0.7889, Adjusted R-squared:  0.7822 
+## F-statistic: 405.3 on 30 and 64 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code># Model 4a: take out days_after and just keep lagged DV
+reg4a &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
+# Run clusteredSE.R file for function
+summary(reg4a, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + hf_lag, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -24.900  -2.318  -0.630   1.302  45.281 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.705838   0.476207   3.582 0.000358 ***
+## total_victims          0.006018   0.001840   3.270 0.001114 ** 
+## venueAirport          -0.732910   0.743942  -0.985 0.324789    
+## venueMilitary         -1.383376   0.929350  -1.489 0.136937    
+## venueOther            -0.065044   0.429951  -0.151 0.879784    
+## venueReligious         0.163794   0.572085   0.286 0.774702    
+## venueSchool            1.968100   0.994018   1.980 0.047996 *  
+## raceasian              0.308019   0.724539   0.425 0.670842    
+## raceblack              0.328410   0.406412   0.808 0.419249    
+## racelatino             0.352291   0.646578   0.545 0.585981    
+## racenative american   -0.524217   0.943533  -0.556 0.578621    
+## raceother              2.357346   1.101124   2.141 0.032538 *  
+## n_weapons2two         -0.461653   0.518709  -0.890 0.373688    
+## n_weapons2three+      -1.005563   0.773817  -1.299 0.194090    
+## highest_weaponshotgun  1.160040   0.658547   1.762 0.078470 .  
+## highest_weaponrifle    1.639010   0.569576   2.878 0.004096 ** 
+## hf_lag                 0.814961   0.028299  28.798  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.311 on 958 degrees of freedom
+##   (97 observations deleted due to missingness)
+## Multiple R-squared:  0.774,  Adjusted R-squared:  0.7703 
+## F-statistic: 296.9 on 16 and 64 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Questions:</p>
+<ul>
+<li>Do I have to control for BOTH time (days_after) and previous day traffic?</li>
+</ul>
+<hr />
+</div>
+<div id="using-change-in-dv-change-score" class="section level2">
+<h2>Using change in DV (change-score)</h2>
+<pre class="r"><code>pt$hfcs &lt;- pt$hf - pt$hf_lag
+
+# Model 5: but with change in y instead of raw y. But what is this predicting? It&#39;s trying to predict the changes day to day? But we already know this is a curve...so is it just bad for that reason?
+reg5 &lt;- lm(hfcs ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after, data=pt)
+# Run clusteredSE.R file for function
+summary(reg5, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hfcs ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + days_after, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -28.799  -2.035  -0.022   1.836  41.957 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.9401003  0.8658452   2.241 0.025277 *  
+## total_victims          0.0008654  0.0002504   3.456 0.000573 ***
+## venueAirport          -0.3060415  0.1717379  -1.782 0.075066 .  
+## venueMilitary         -0.0881141  0.1963826  -0.449 0.653761    
+## venueOther            -0.2061323  0.1225773  -1.682 0.092967 .  
+## venueReligious        -0.0496517  0.1604183  -0.310 0.756999    
+## venueSchool            0.2490880  0.1967729   1.266 0.205873    
+## raceasian              0.1349147  0.1284137   1.051 0.293699    
+## raceblack             -0.1609380  0.1489615  -1.080 0.280240    
+## racelatino             0.2389300  0.1287360   1.856 0.063769 .  
+## racenative american   -0.0249711  0.1308585  -0.191 0.848703    
+## raceother              0.1129539  0.1479981   0.763 0.445528    
+## n_weapons2two         -0.0211875  0.1424416  -0.149 0.881786    
+## n_weapons2three+      -0.0410179  0.1552760  -0.264 0.791713    
+## highest_weaponshotgun  0.0851001  0.2029821   0.419 0.675129    
+## highest_weaponrifle    0.2295138  0.1204815   1.905 0.057087 .  
+## days_after1            2.9295749  1.3014409   2.251 0.024613 *  
+## days_after2           -2.5637946  1.4092400  -1.819 0.069186 .  
+## days_after3           -3.4063774  1.0163151  -3.352 0.000835 ***
+## days_after4           -1.9844975  1.0256165  -1.935 0.053297 .  
+## days_after5           -2.2342010  1.3381025  -1.670 0.095314 .  
+## days_after6           -2.4574615  1.3037946  -1.885 0.059756 .  
+## days_after7           -2.4567685  1.0788626  -2.277 0.022998 *  
+## days_after8           -2.0312660  1.0121326  -2.007 0.045043 *  
+## days_after9           -2.4641965  0.9149116  -2.693 0.007199 ** 
+## days_after10          -2.9634988  1.1804806  -2.510 0.012225 *  
+## days_after11          -1.5613036  0.9513969  -1.641 0.101117    
+## days_after12          -2.7229347  1.2480678  -2.182 0.029376 *  
+## days_after13          -2.5802126  0.9891269  -2.609 0.009236 ** 
+## days_after14          -1.7406917  0.9627560  -1.808 0.070920 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.422 on 945 degrees of freedom
+##   (97 observations deleted due to missingness)
+## Multiple R-squared:  0.07348,    Adjusted R-squared:  0.04504 
+## F-statistic: 10.72 on 29 and 64 DF,  p-value: 3.138e-15</code></pre>
+<p>Questions:</p>
+<ul>
+<li>This model is bad…<br />
+</li>
+<li>Control for time (days_after)?</li>
+</ul>
+</div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-118509886-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+</body>
+</html>
+
