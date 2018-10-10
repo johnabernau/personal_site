@@ -152,7 +152,7 @@ I introduce this lagged variable (just the one-day lag for now) into the model. 
 
 **Questions:**  
 
-* Does it make sense to control for both time (days_after) AND the lagged DV? Results are stable with and without the days_after time variable. I like the time variable because it's easier to tell a story ("controlling for time elapsed...").
+* Does it make sense to control for both time (days_after) AND the lagged DV? Aren't these variables measuring the same thing? Results are stable with and without the days_after time variable. I like the time variable because it's easier to tell a story ("controlling for time elapsed..."). 
 
 ```{r}
 reg4 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)

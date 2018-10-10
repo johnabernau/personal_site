@@ -122,7 +122,7 @@ summary(reg1, cluster = c(&quot;id&quot;))</code></pre>
 <p>I introduce this lagged variable (just the one-day lag for now) into the model. The effect sizes drop considerably, but are still interpretable and in the expected directions. Importantly, the R-squared increases dramatically, from 0.287 to 0.782! I suppose this is good, but raises worries of overfitting. By itself, the lagged DV explains about 76% of the variation in the DV.</p>
 <p><strong>Questions:</strong></p>
 <ul>
-<li>Does it make sense to control for both time (days_after) AND the lagged DV? Results are stable with and without the days_after time variable. I like the time variable because it’s easier to tell a story (“controlling for time elapsed…”).</li>
+<li>Does it make sense to control for both time (days_after) AND the lagged DV? Aren’t these variables measuring the same thing? Results are stable with and without the days_after time variable. I like the time variable because it’s easier to tell a story (“controlling for time elapsed…”).</li>
 </ul>
 <pre class="r"><code>reg4 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + days_after + hf_lag, data=pt)
 
