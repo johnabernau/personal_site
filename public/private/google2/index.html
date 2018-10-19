@@ -70,11 +70,11 @@ Most of the IVs are categorical, which makes the output a bit difficult to read.
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-10-10%2013%3a47%3a00.125821%20-0400%20EDT%20m%3d%2b0.888549239">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-10%2013%3a47%3a00.125821%20-0400%20EDT%20m%3d%2b0.888549239">
-    <link rel="stylesheet" href="/css/main.css?t=2018-10-10%2013%3a47%3a00.125821%20-0400%20EDT%20m%3d%2b0.888549239">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-19%2013%3a46%3a48.75739%20-0400%20EDT%20m%3d%2b1.035380537">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-19%2013%3a46%3a48.75739%20-0400%20EDT%20m%3d%2b1.035380537">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-19%2013%3a46%3a48.75739%20-0400%20EDT%20m%3d%2b1.035380537">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-10-10%2013%3a47%3a00.125821%20-0400%20EDT%20m%3d%2b0.888549239">
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-19%2013%3a46%3a48.75739%20-0400%20EDT%20m%3d%2b1.035380537">
     
 
 
@@ -441,6 +441,87 @@ summary(reg5, cluster = c(&quot;id&quot;))</code></pre>
 </li>
 <li>Should I be thinking about FE / RE? Are there tests to decide if these are better?</li>
 </ul>
+</div>
+<div id="pooled-model-wo-days_after" class="section level2">
+<h2>Pooled model w/o “days_after”</h2>
+<pre class="r"><code>reg_another &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt)
+
+summary(reg_another, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -22.404  -5.645  -1.977   2.950  58.356 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            8.937845   2.042733   4.375 1.34e-05 ***
+## total_victims          0.026315   0.007323   3.593 0.000342 ***
+## venueAirport          -2.312413   3.428459  -0.674 0.500161    
+## venueMilitary         -6.691648   3.933193  -1.701 0.089185 .  
+## venueOther             0.648291   2.161474   0.300 0.764292    
+## venueReligious         0.905329   2.641074   0.343 0.731828    
+## venueSchool            9.112111   4.563234   1.997 0.046105 *  
+## raceasian              1.050598   3.579819   0.293 0.769216    
+## raceblack              2.524492   2.426011   1.041 0.298310    
+## racelatino             0.622837   3.108753   0.200 0.841247    
+## racenative american   -2.455149   4.683240  -0.524 0.600224    
+## raceother             11.587361   4.289837   2.701 0.007025 ** 
+## n_weapons2two         -2.345495   2.295250  -1.022 0.307074    
+## n_weapons2three+      -5.103887   3.240397  -1.575 0.115547    
+## highest_weaponshotgun  5.716501   3.170225   1.803 0.071653 .  
+## highest_weaponrifle    7.558737   2.528089   2.990 0.002857 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.3 on 1024 degrees of freedom
+##   (32 observations deleted due to missingness)
+## Multiple R-squared:   0.28,  Adjusted R-squared:  0.2694 
+## F-statistic: 7.106 on 15 and 64 DF,  p-value: 8.337e-09</code></pre>
+</div>
+<div id="lagged-model-wo-days_after" class="section level2">
+<h2>Lagged model w/o “days_after”</h2>
+<pre class="r"><code>reg_another1 &lt;- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
+
+summary(reg_another1, cluster = c(&quot;id&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = hits_final ~ total_victims + venue + race + n_weapons2 + 
+##     highest_weapon + hf_lag, data = pt)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -24.900  -2.318  -0.630   1.302  45.281 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.705838   0.476207   3.582 0.000358 ***
+## total_victims          0.006018   0.001840   3.270 0.001114 ** 
+## venueAirport          -0.732910   0.743942  -0.985 0.324789    
+## venueMilitary         -1.383376   0.929350  -1.489 0.136937    
+## venueOther            -0.065044   0.429951  -0.151 0.879784    
+## venueReligious         0.163794   0.572085   0.286 0.774702    
+## venueSchool            1.968100   0.994018   1.980 0.047996 *  
+## raceasian              0.308019   0.724539   0.425 0.670842    
+## raceblack              0.328410   0.406412   0.808 0.419249    
+## racelatino             0.352291   0.646578   0.545 0.585981    
+## racenative american   -0.524217   0.943533  -0.556 0.578621    
+## raceother              2.357346   1.101124   2.141 0.032538 *  
+## n_weapons2two         -0.461653   0.518709  -0.890 0.373688    
+## n_weapons2three+      -1.005563   0.773817  -1.299 0.194090    
+## highest_weaponshotgun  1.160040   0.658547   1.762 0.078470 .  
+## highest_weaponrifle    1.639010   0.569576   2.878 0.004096 ** 
+## hf_lag                 0.814961   0.028299  28.798  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.311 on 958 degrees of freedom
+##   (97 observations deleted due to missingness)
+## Multiple R-squared:  0.774,  Adjusted R-squared:  0.7703 
+## F-statistic: 296.9 on 16 and 64 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 
             </div>

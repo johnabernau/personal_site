@@ -182,3 +182,21 @@ summary(reg5, cluster = c("id"))
 * Should I introduce a squared term to accout for the curvilinear trend (spike + decay)
 ?  
 * Should I be thinking about FE / RE? Are there tests to decide if these are better?  
+
+##Pooled model w/o "days_after"
+
+```{r}
+reg_another <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon, data=pt)
+
+summary(reg_another, cluster = c("id"))
+
+```
+
+##Lagged model w/o "days_after"
+
+```{r}
+reg_another1 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pt)
+
+summary(reg_another1, cluster = c("id"))
+```
+
