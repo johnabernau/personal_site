@@ -9,7 +9,7 @@ categories: []
 
 
 
-<p><a name="top"></a> This post offers an example of data exploration in R. I’ll cover the following topics:<img src="/code/macon_catholic.jpg" height="400" align = "right" style="padding:10px;"/></p>
+<p><a name="top"></a> This post offers an example of data exploration in R. I will cover the following topics:<img src="/code/macon_catholic.jpg" height="400" align = "right" style="padding:10px;"/></p>
 <ul>
 <li><a href="#import">Importing data</a></li>
 <li><a href="#prep">Preparing data</a></li>
@@ -18,12 +18,22 @@ categories: []
 <li><a href="#plot2">Plotting data v.2</a></li>
 <li><a href="#fin">Conclusion</a></li>
 </ul>
-<p>More specifically, I’ll be using data from the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a>, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially important when considering America’s role as a “religious outlier” in the global landscape <a href="#ref">(Berger et al. 2008)</a>. By focusing on longitudinal trends rather than absolute levels, Voas and Chaves <a href="#ref">(2016)</a> argue America’s decades of religious decline fit squarely within global patterns of secularization. However, measuring religiosity (and its “decline”) is a task with little consensus <a href="#ref">(Voas et al. 2002, Warner 2010)</a>, and church attendance is no exception <a href="#ref">(Marcum 1999, Chaves 2017)</a>. The US Congregational Life Survey asks head clergy in 2008 to estimate weekly attendance for the previous seven years. While not the perfect, this measure gets around problems of social desirability found in individual surveys.</p>
+<p>More specifically, I will be using data from the <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">US Congregational Life Survey</a>, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape <a href="#ref">(Berger et al. 2008)</a>. By focusing on longitudinal trends rather than absolute levels, Voas and Chaves <a href="#ref">(2016)</a> argue America’s decades of religious decline fit squarely within global patterns of secularization. However, measuring religiosity (and its “decline”) is a task with little consensus <a href="#ref">(Voas et al. 2002, Warner 2010)</a>, and church attendance is no exception <a href="#ref">(Marcum 1999, Chaves 2017)</a>. The US Congregational Life Survey asks head clergy in 2008 to estimate weekly attendance for the previous seven years. While not perfect, this measure gets around problems of social desirability found in individual surveys.</p>
 <p><strong>RQ: How has American church attendance fluctated between 2001 - 2008, and how does this differ across denominations?</strong></p>
 <hr />
-<pre class="r"><code>require(foreign)
+<pre class="r"><code># Loading packages
+require(foreign)
 require(tidyverse)
-require(RColorBrewer)</code></pre>
+require(RColorBrewer)
+
+# Custom plot theme
+john_theme &lt;- theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
+        axis.text = element_text(size = 14),
+        panel.background = element_rect(fill=&quot;white&quot;),
+        panel.grid.minor = element_line(color=&quot;grey90&quot;),
+        panel.grid.major = element_line(color=&quot;grey90&quot;),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
+        plot.caption = element_text(size = 9))</code></pre>
 <p><a name="import"></a></p>
 <div id="importing-data" class="section level2">
 <h2>Importing Data</h2>
@@ -38,7 +48,7 @@ require(RColorBrewer)</code></pre>
 denom$DENOM1 &lt;- as.character(denom$DENOM1)
 top10 &lt;- denom$DENOM1[1:10]
 data2 &lt;- filter(data, DENOM1 %in% top10)</code></pre>
-<p>Now let’s look at attendance trends. Each year’s attendance (2001 - 2008) is stored as a separate variable but we’ll use the <code>gather</code> function to transform the eight columns into two columns. <code>name</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>value</code> will contain the number estimates for each year.</p>
+<p>Now let’s look at attendance trends. Head clergy for each congregation were asked the following question: <em>“For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined.”</em> The answers for each year 2001 - 2008 are stored as separate variables, but we’ll use the <code>gather</code> function to transform the eight columns into two columns. <code>name</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>value</code> will contain the number estimates for each year.</p>
 <pre class="r"><code>data3 &lt;- gather(data2, &quot;name&quot;, &quot;value&quot;, ATTEND08:ATTEND01)</code></pre>
 <p>To recode our yearly attendance variable, I create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”, for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">regular expressions in R.</a> After deleting the <code>name</code> variable, I convert some data classes and print out a tabulation of our denominations.</p>
 <pre class="r"><code>data3$name &lt;- as.character(data3$name)
@@ -80,7 +90,7 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
   geom_point(aes(alpha = value)) +
   geom_line(aes(group = congrega, alpha = value)) +
   scale_alpha_continuous(guide = F) +
-  labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;)</code></pre>
+  labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;) + john_theme</code></pre>
 <p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>This graph is not helpful. The Catholic congregations are obscuring other denomination trends. Instead, I plot each denomination in its own pane using <code>facet_wrap()</code>. I also remove the color legend using <code>scale_color...(guide=FALSE)</code>, and add some annotations / theme elements. With many categories, these graphs are hard to size correctly. I’ve given a size that works for me and attached the plot here as a raw image file.</p>
 <pre class="r"><code>ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
@@ -90,13 +100,12 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
   scale_color_discrete(guide = F) +
   facet_wrap(~DENOM1, scales = &quot;free&quot;, ncol = 5) +
   labs(x = &quot;Year&quot;, y = &quot;Avg Wkly Attend&quot;, title = &quot;US Church Attendance&quot;, 
-       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(family = &quot;Times New Roman&quot;, size = 15))
+       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme
 
 # ggsave(&quot;~/Desktop/uscong.jpg&quot;, width = 15, height = 8.5, unit = &quot;in&quot;)</code></pre>
 <p><em>(Click to enlarge)</em><br />
 <a href="/code/uscong.jpg"><img src="/code/uscong.jpg"/></a></p>
-<p>While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. Also notice that the Y-axis is different for each plot. The largest Roman Catholic congregation maxes out at 10,000 members(!) while the largest Unitarian Universalist maxes out at 160. A graphically subtle, but substantively important detail!</p>
+<p>While a hasty observation would conclude that American Baptists have the steepest negative slope, a closer examination would note this trend is only based on four congregations as opposed to the hundreds of ELCA or Catholic congregations. Also notice that the Y-axis is different for each plot. The largest Roman Catholic congregation reports a weekly attendance of 10,000 members(!) while the largest Unitarian Universalist maxes out at 160. A graphically subtle, but substantively important detail!</p>
 <p><a name="stan"></a></p>
 </div>
 <div id="standardizing-variables" class="section level2">
@@ -105,12 +114,12 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
 <pre class="r"><code>new &lt;- data3 %&gt;% 
   select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %&gt;% 
   rename(total_attend = value)</code></pre>
-<p>After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each congregation and save as <code>base</code>. This will serve as the baseline attendance for each congregation. The <code>filter</code> command selects rows where date == base. In other words, the chronoloical first rows of each congregation. The <code>select</code> command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point. The <code>rename</code> command gives these measures interpretable names.</p>
+<p>After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as <code>first_date</code>. This date will serve as the baseline attendance for each congregation. The <code>filter</code> command extracts these baseline rows, the <code>select</code> command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point, and the <code>rename</code> command gives these measures interpretable names.</p>
 <pre class="r"><code>new2 &lt;- new %&gt;% 
   filter(!is.na(total_attend)) %&gt;% 
   group_by(congrega) %&gt;% 
-  mutate(base = min(date)) %&gt;% 
-  filter(date == base) %&gt;% 
+  mutate(first_date = min(date)) %&gt;% 
+  filter(date == first_date) %&gt;% 
   select(congrega, date, total_attend) %&gt;% 
   rename(founded = date, base = total_attend)
 
@@ -129,7 +138,6 @@ head(new2)</code></pre>
 <pre class="r"><code>new3 &lt;- inner_join(new, new2) %&gt;% 
   filter(!is.na(total_attend)) %&gt;% 
   mutate(delta = total_attend - base)</code></pre>
-<pre><code>## Joining, by = &quot;congrega&quot;</code></pre>
 <p>As a side note, 90% of congregations in this survey report 2001 as their baseline, but 19 congregations started later: (<code>count(new3, congrega, founded) %&gt;% filter(founded != 2001)</code>). By filtering the last survey-year and totaling the attendance changes, I also report the net-change in total attendance:</p>
 <p><strong>Across all 195 congregations considered here, attendance has fallen by 2,033 members between 2001 - 2008.</strong></p>
 <pre class="r"><code>filter(new3, date == 2008) %&gt;% summarize(sum(delta))</code></pre>
@@ -147,14 +155,7 @@ head(new2)</code></pre>
   labs(title = &quot;US Church Attendance:&quot;, 
        subtitle = &quot;Congregation deviations from baseline&quot;,
        x = NULL, y = NULL,
-       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
-        axis.text = element_text(size = 14),
-        panel.background = element_rect(fill=&quot;white&quot;),
-        panel.grid.minor = element_line(color=&quot;grey90&quot;),
-        panel.grid.major = element_line(color=&quot;grey90&quot;),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
-        plot.caption = element_text(size = 9))</code></pre>
+       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme</code></pre>
 <p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>While many congregations report sustained decline, a few report enormous growth: +2,000 attendees! We can make this more informative by coloring according to denomination.</p>
 <pre class="r"><code>ggplot(new3, aes(date, delta, color = DENOM1)) +
@@ -164,14 +165,7 @@ head(new2)</code></pre>
   labs(title = &quot;US Church Attendance:&quot;, 
        subtitle = &quot;Congregation deviations from baseline&quot;,
        x = NULL, y = NULL,
-       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
-        axis.text = element_text(size = 14),
-        panel.background = element_rect(fill=&quot;white&quot;),
-        panel.grid.minor = element_line(color=&quot;grey90&quot;),
-        panel.grid.major = element_line(color=&quot;grey90&quot;),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
-        plot.caption = element_text(size = 9)) +
+       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme +
     guides(colour = guide_legend(override.aes = list(alpha = 1, size=2))) +
     scale_color_discrete(name = &quot;Denomination&quot;)</code></pre>
 <p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
@@ -192,14 +186,7 @@ head(new2)</code></pre>
   labs(title = &quot;US Church Attendance:&quot;, 
        subtitle = &quot;Congregation deviations from 2001 baseline: NO CATHOLICS&quot;,
        x = NULL, y = NULL,
-       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations - catholics: 151/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
-        axis.text = element_text(size = 14),
-        panel.background = element_rect(fill=&quot;white&quot;),
-        panel.grid.minor = element_line(color=&quot;grey90&quot;),
-        panel.grid.major = element_line(color=&quot;grey90&quot;),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
-        plot.caption = element_text(size = 9)) +
+       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations - catholics: 151/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme +
   guides(colour = guide_legend(override.aes = list(alpha = 1, size=2)))</code></pre>
 <p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>While this plot does a good job of showing attendance trends for each congregation, it is hard to make any meaningful conclusions. However, we can use this data to create aggregate denomination trends. By first grouping according to denomination and then adding up the yearly changes, we get a much more informative summary (saved as <code>ag</code>) and plot.</p>
@@ -228,14 +215,7 @@ ggplot(ag, aes(date, delta)) +
   labs(title = &quot;US Church Attendance:&quot;, 
        subtitle = &quot;Denomination deviations from 2001 baseline&quot;,
        x = NULL, y = NULL,
-       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
-        axis.text = element_text(size = 14),
-        panel.background = element_rect(fill=&quot;white&quot;),
-        panel.grid.minor = element_line(color=&quot;grey90&quot;),
-        panel.grid.major = element_line(color=&quot;grey90&quot;),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
-        plot.caption = element_text(size = 9))</code></pre>
+       caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme</code></pre>
 <p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Once again, the Catholic variability overpowers all other denominations. At this point, we might want to examine the data more closely. Did the Roman Catholic Churches really gain <strong>4,500 new attendees in only three years?</strong> What could have spurred this increase? Or, more likely, what kind of reporting anomaly can account for this? Keep in mind that these attendance measures come from clergy self-reports in 2008. These post-hoc estimates might not be as robust as we would like. In any case, we can control for this variability by isolating each denomination within its own pane.</p>
 <pre class="r"><code>ggplot(ag, aes(date, delta)) +
@@ -247,14 +227,7 @@ ggplot(ag, aes(date, delta)) +
   labs(title = &quot;US Church Attendance:&quot;, 
        subtitle = &quot;Denomination deviations from 2001 baseline&quot;,
        x = NULL, y = NULL,
-       caption = &quot;\nNet Change = -2,033 Attendees\n________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) +
-  theme(text=element_text(size = 14, family=&quot;Times New Roman&quot;),
-        axis.text = element_text(size = 14),
-        panel.background = element_rect(fill=&quot;white&quot;),
-        panel.grid.minor = element_line(color=&quot;grey90&quot;),
-        panel.grid.major = element_line(color=&quot;grey90&quot;),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), &quot;cm&quot;),
-        plot.caption = element_text(size = 9)) +
+       caption = &quot;\nNet Change = -2,033 Attendees\n________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme +
   facet_wrap(~DENOM1, scales = &quot;free_y&quot;, ncol = 5)
 
 # # Save as an image with appropriate dimensions:
@@ -265,7 +238,7 @@ ggplot(ag, aes(date, delta)) +
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>WRITE CONCLUSIONWRITE CONCLUSION WRITE CONCLUSION WRITE CONCLUSION WRITE CONCLUSION WRITE CONCLUSION WRITE CONCLUSION WRITE CONCLUSION</p>
+<p>This post used the US Congregational Life Study to examine trends in church attendance between 2001 - 2008. While some congregations reported modest increases, the overwhelming trend among the ten largest American denominations is one of decline. For all 195 congregations used here, attendance fell by more than 2,000 members. These trends are based on head clergy estimates in 2008. While not an error-proof source of information, this survey remains one of the best profiles of American religous congregations to date. These findings corroborate previous work by David Voas, Mark Chaves, and others documenting the general decline of religous institutions in America. Future work should take advantage of other variables in this dataset. How might congregational attributes like average age, youth programs, or gender composition predict attendance trends? Specifically, I am wondering about the spatial dynamics of a worship space: holding absolute attendance constant, does a small but full space encourage more new members than a large empty space? Pairing these seven-year attendance estimates with information on number of services, weekly attendees, and worship space capacity, one could estimate a dynamic panel data model predicting the institutional mechanisms of this widespread decline in US church attendance.</p>
 <hr />
 <p><a name="ref"></a></p>
 <ul>

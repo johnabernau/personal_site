@@ -17,7 +17,7 @@
       <pubDate>Fri, 19 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/code/empty_pews/</guid>
-      <description>This post offers an example of data exploration in R. I’ll cover the following topics: Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I’ll be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially important when considering America’s role as a “religious outlier” in the global landscape (Berger et al.</description>
+      <description>This post offers an example of data exploration in R. I will cover the following topics: Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I will be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape (Berger et al.</description>
     </item>
     
     <item>
