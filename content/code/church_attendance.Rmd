@@ -75,10 +75,10 @@ Now let's look at attendance trends. Head clergy for each congregation were aske
 data3 <- gather(data2, "year", "attend", ATTEND08:ATTEND01)
 ```
 
-To recode our yearly attendance variable, I create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008", for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on [regular expressions in R.](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) After deleting the `year` variable, I convert some data classes and print out a tabulation of our denominations. 
+To recode our yearly attendance variable, I create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008", for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on [regular expressions in R.](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) After deleting the `year` variable, I convert some data classes and print out a tabulation of our denominations. (Keep in mind the `n` here represents the number of congregation-years, not the number of congregations.) 
 
 ```{r}
-data3$name <- as.character(data3$year)
+data3$year <- as.character(data3$year)
 data3$date <- gsub("ATTEND", 20, data3$year)
 data3 <- data3 %>% 
   select(-year) %>% 

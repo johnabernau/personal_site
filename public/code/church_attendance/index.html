@@ -57,11 +57,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
-    <link rel="stylesheet" href="/css/main.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
     
 
 
@@ -233,8 +233,8 @@ top10 &lt;- denom$DENOM1[1:10]
 data2 &lt;- filter(data, DENOM1 %in% top10)</code></pre>
 <p>Now let’s look at attendance trends. Head clergy for each congregation were asked the following question: <em>“For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined.”</em> The answers for each year 2001 - 2008 are stored as separate variables, but we’ll use the <code>gather</code> function to transform the eight columns into two columns. <code>year</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>attend</code> will contain the attendance estimates for each year.</p>
 <pre class="r"><code>data3 &lt;- gather(data2, &quot;year&quot;, &quot;attend&quot;, ATTEND08:ATTEND01)</code></pre>
-<p>To recode our yearly attendance variable, I create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”, for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">regular expressions in R.</a> After deleting the <code>year</code> variable, I convert some data classes and print out a tabulation of our denominations.</p>
-<pre class="r"><code>data3$name &lt;- as.character(data3$year)
+<p>To recode our yearly attendance variable, I create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”, for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">regular expressions in R.</a> After deleting the <code>year</code> variable, I convert some data classes and print out a tabulation of our denominations. (Keep in mind the <code>n</code> here represents the number of congregation-years, not the number of congregations.)</p>
+<pre class="r"><code>data3$year &lt;- as.character(data3$year)
 data3$date &lt;- gsub(&quot;ATTEND&quot;, 20, data3$year)
 data3 &lt;- data3 %&gt;% 
   select(-year) %&gt;% 
