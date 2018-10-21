@@ -1,15 +1,198 @@
----
-title: 'Data Exploration: Empty Pews in U.S. Congregations'
-author: "John A. Bernau"
-date: '2018-10-19'
-slug: empty_pews
-tags: []
-categories: []
----
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau">
+<meta name="description" content="This post offers an example of data exploration in R. I will cover the following topics: Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I will be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape (Berger et al.">
+
+<meta property="og:title" content="Data Exploration: U.S. Church Attendance 2001-2008" />
+<meta property="og:description" content="This post offers an example of data exploration in R. I will cover the following topics: Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I will be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape (Berger et al." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/church_attendance/" />
 
 
 
-<p><a name="top"></a> This post offers an example of data exploration in R. I will cover the following topics:<img src="/code/macon_catholic.jpg" height="400" align = "right" style="padding:10px;"/></p>
+<meta property="article:published_time" content="2018-10-21T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-10-21T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+<title>
+
+
+     Data Exploration: U.S. Church Attendance 2001-2008 
+
+</title>
+<link rel="canonical" href="/code/church_attendance/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-20%2022%3a21%3a24.65533%20-0400%20EDT%20m%3d%2b0.475203950">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-20%2022%3a21%3a24.65533%20-0400%20EDT%20m%3d%2b0.475203950">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-20%2022%3a21%3a24.65533%20-0400%20EDT%20m%3d%2b0.475203950">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-20%2022%3a21%3a24.65533%20-0400%20EDT%20m%3d%2b0.475203950">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau</div></a>
+            
+              <h3 class="self-intro">PhD Candidate, Sociology</h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/xresearch/"><span>research</span></a></li>
+                    
+                        <li class="nav-teaching"><a href="/xteaching/"><span>Teaching</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-cv"><a href="/img/bernau_cv_2018.pdf"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="https://twitter.com/johnAbernau" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="https://www.linkedin.com/in/john-bernau-b384a9153" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+<section class="main">
+    <div class="container">
+        <div class="content">
+            <div class="page-heading">
+
+    Data Exploration: U.S. Church Attendance 2001-2008
+
+</div>
+
+            <div class="markdown">
+                <p><a name="top"></a> This post offers an example of data exploration in R. I will cover the following topics:<img src="/code/macon_catholic.jpg" height="400" align = "right" style="padding:10px;"/></p>
 <ul>
 <li><a href="#import">Importing data</a></li>
 <li><a href="#prep">Preparing data</a></li>
@@ -91,7 +274,7 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
   geom_line(aes(group = congrega, alpha = value)) +
   scale_alpha_continuous(guide = F) +
   labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;) + john_theme</code></pre>
-<p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>This graph is not helpful. The Catholic congregations are obscuring other denomination trends. Instead, I plot each denomination in its own pane using <code>facet_wrap()</code>. I also remove the color legend using <code>scale_color...(guide=FALSE)</code>, and add some annotations / theme elements. With many categories, these graphs are hard to size correctly. I’ve given a size that works for me and attached the plot here as a raw image file.</p>
 <pre class="r"><code>ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
   geom_point() +
@@ -156,7 +339,7 @@ head(new2)</code></pre>
        subtitle = &quot;Congregation deviations from baseline&quot;,
        x = NULL, y = NULL,
        caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme</code></pre>
-<p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>While many congregations report sustained decline, a few report enormous growth: +2,000 attendees! We can make this more informative by coloring according to denomination.</p>
 <pre class="r"><code>ggplot(new3, aes(date, delta, color = DENOM1)) +
   geom_line(aes(group = congrega), size = 1, alpha = 0.4) +
@@ -168,7 +351,7 @@ head(new2)</code></pre>
        caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme +
     guides(colour = guide_legend(override.aes = list(alpha = 1, size=2))) +
     scale_color_discrete(name = &quot;Denomination&quot;)</code></pre>
-<p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>The Roman Catholics simply have a lot of variability. Four churches report more than 500 new attendees and about six churches report declines of at least 500. What about the rest? Using <code>filter</code>, we can calculate the non-Catholic net change in attendance:</p>
 <p><strong>These 151 non-Catholic congregations lost 2,656 attendees between 2001 - 2008.</strong></p>
 <pre class="r"><code>filter(new3, DENOM1 != &quot;Roman Catholic&quot;) %&gt;% 
@@ -188,7 +371,7 @@ head(new2)</code></pre>
        x = NULL, y = NULL,
        caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations - catholics: 151/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme +
   guides(colour = guide_legend(override.aes = list(alpha = 1, size=2)))</code></pre>
-<p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>While this plot does a good job of showing attendance trends for each congregation, it is hard to make any meaningful conclusions. However, we can use this data to create aggregate denomination trends. By first grouping according to denomination and then adding up the yearly changes, we get a much more informative summary (saved as <code>ag</code>) and plot.</p>
 <pre class="r"><code>ag &lt;- new3 %&gt;% 
   group_by(date, DENOM1) %&gt;% 
@@ -216,7 +399,7 @@ ggplot(ag, aes(date, delta)) +
        subtitle = &quot;Denomination deviations from 2001 baseline&quot;,
        x = NULL, y = NULL,
        caption = &quot;________________________________________________\nSource: US Congregational Life Survey\nTop-10 largest denominations: 195/251 congregations\nJohn A. Bernau 2018 // www.johnabernau.com&quot;) + john_theme</code></pre>
-<p><img src="/code/empty_pews_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Once again, the Catholic variability overpowers all other denominations. At this point, we might want to examine the data more closely. Did the Roman Catholic Churches really gain <strong>4,500 new attendees in only three years?</strong> What could have spurred this increase? Or, more likely, what kind of reporting anomaly can account for this? Keep in mind that these attendance measures come from clergy self-reports in 2008. These post-hoc estimates might not be as robust as we would like. In any case, we can control for this variability by isolating each denomination within its own pane.</p>
 <pre class="r"><code>ggplot(ag, aes(date, delta)) +
   geom_line(aes(group = DENOM1, color = DENOM1), size = 1, alpha = 0.7) +
@@ -256,3 +439,33 @@ ggplot(ag, aes(date, delta)) +
 <h3><em>Copyright © 2018 John A. Bernau</em></h3>
 </div>
 </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-118509886-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+</body>
+</html>
+

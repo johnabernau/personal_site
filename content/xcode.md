@@ -9,7 +9,8 @@ tags: []
 
 **2018**  
 
-* [Data Exploration: Global Trends in Extreme Poverty](/code/wb_poverty/)  
+* [Data Exploration: U.S. Church Attendance 2001-2008](/code/church_attendance/)
+* [Data Exploration: Global Trends in Extreme Poverty 1977-2016](/code/wb_poverty/)  
 
 **2017**  
 

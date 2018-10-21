@@ -1,8 +1,8 @@
 ---
-title: 'Data Exploration: Empty Pews in U.S. Congregations'
+title: 'Data Exploration: U.S. Church Attendance 2001-2008'
 author: "John A. Bernau"
 date: '2018-10-21'
-slug: empty_pews
+slug: church_attendance
 tags: []
 categories: []
 ---
