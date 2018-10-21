@@ -1,5 +1,5 @@
 ---
-title: 'Data Exploration: Global Trends in Extreme Poverty'
+title: 'Data Exploration: Global Trends in Extreme Poverty 1977-2016'
 author: John A. Bernau
 date: '2018-08-24'
 slug: wb_poverty
@@ -26,7 +26,7 @@ tags: []
 require(tidyverse)</code></pre>
 <p><a name="import"></a> <strong>Importing Data</strong></p>
 <p>From the <a href="https://data.worldbank.org/indicator/SI.POV.DDAY?locations=1W&amp;start=1981&amp;end=2013&amp;view=chart">World Bank’s site</a>, download the CSV file and unzip. There will be three CSV files and we’ll start with the “API…csv” first. There are four unnecessary rows, so we’ll set the <code>skip</code> option appropriately, and preserve strings as characters.</p>
-<pre class="r"><code>d &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/worldbankpoverty/API.csv&quot;, skip = 4, stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code>d &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/6. Methods/1. R/worldbankpoverty/API.csv&quot;, skip = 4, stringsAsFactors = FALSE)</code></pre>
 <hr />
 <p><a name="prep"></a> <strong>Preparing Data</strong></p>
 <p>Look at the structure using <code>names(d)</code> and <code>summary(d)</code> and delete unwanted or redundant variables. A quick glimpse shows a lot of missing values.</p>
@@ -86,7 +86,7 @@ dt$year &lt;- as.Date(gsub(&quot;X&quot;, &quot;&quot;, dt$year), format = &quot
 <hr />
 <p><a name="merge"></a> <strong>Merging Data</strong></p>
 <p>Luckily, we can use the accompanying metadata file to append region codes to our data. By adding a category of geographic regions (i.e. “North Africa”, “East Asia”) we can start to see larger patterns of geographically grouped countries.</p>
-<pre class="r"><code>m &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/worldbankpoverty/Metadata.Country.csv&quot;, stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code>m &lt;- read.csv(&quot;/Users/johnbernau/Box Sync/1. Desktop/6. Methods/1. R/worldbankpoverty/Metadata.Country.csv&quot;, stringsAsFactors = FALSE)</code></pre>
 <p>To join, variables must have exact names. After renaming our country code variable, I join with the initial data. Lastly, we’ll remove any missing <code>Region</code> values and take out North America.</p>
 <pre class="r"><code>m &lt;- rename(m, country_short = Country.Code)
 j &lt;- inner_join(dt, m)
