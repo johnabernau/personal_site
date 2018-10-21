@@ -57,11 +57,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-10-20%2022%3a34%3a44.663573%20-0400%20EDT%20m%3d%2b0.985353246">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-20%2022%3a34%3a44.663573%20-0400%20EDT%20m%3d%2b0.985353246">
-    <link rel="stylesheet" href="/css/main.css?t=2018-10-20%2022%3a34%3a44.663573%20-0400%20EDT%20m%3d%2b0.985353246">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-10-20%2022%3a34%3a44.663573%20-0400%20EDT%20m%3d%2b0.985353246">
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-21%2007%3a57%3a15.544739%20-0400%20EDT%20m%3d%2b0.520252359">
     
 
 
@@ -220,24 +220,24 @@ john_theme &lt;- theme(text=element_text(size = 14, family=&quot;Times New Roman
 <p><a name="import"></a></p>
 <div id="importing-data" class="section level2">
 <h2>Importing Data</h2>
-<p>From <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">the ARDA site</a>, I use the pre-labeled Stata (.DTA) file to save time on recoding.</p>
+<p>From <a href="http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp">the ARDA website</a>, I use the pre-labeled Stata (.DTA) file to save time on recoding.</p>
 <pre class="r"><code>data &lt;- read.dta(&quot;http://www.thearda.com/download/download.aspx?file=U.S.%20Congregational%20Life%20Survey,%20Wave%202,%20Random%20Sample%20Congregational%20Profile%20Survey.DTA&quot;)</code></pre>
 <p><a name="prep"></a></p>
 </div>
 <div id="preparing-data" class="section level2">
 <h2>Preparing Data</h2>
-<p>I start by examining a tabulation of denominations, saved as “denom”. After constraining the denomination variable (“DENOM1”) to character, I save a list of the ten largest denominations as <code>top10</code>. Lastly, I filter the dataset to only include top 10 denominations and save this as <code>data2</code>.</p>
+<p>I start by examining a tabulation of denominations, saved as <code>DENOM1</code>. After constraining to character, I save a list of the ten largest denominations as <code>top10</code>. Lastly, I filter the dataset to only include these top 10 denominations and save as <code>data2</code>.</p>
 <pre class="r"><code>denom &lt;- arrange(count(data, DENOM1), desc(n))
 denom$DENOM1 &lt;- as.character(denom$DENOM1)
 top10 &lt;- denom$DENOM1[1:10]
 data2 &lt;- filter(data, DENOM1 %in% top10)</code></pre>
-<p>Now let’s look at attendance trends. Head clergy for each congregation were asked the following question: <em>“For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined.”</em> The answers for each year 2001 - 2008 are stored as separate variables, but we’ll use the <code>gather</code> function to transform the eight columns into two columns. <code>name</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>value</code> will contain the number estimates for each year.</p>
-<pre class="r"><code>data3 &lt;- gather(data2, &quot;name&quot;, &quot;value&quot;, ATTEND08:ATTEND01)</code></pre>
-<p>To recode our yearly attendance variable, I create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”, for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">regular expressions in R.</a> After deleting the <code>name</code> variable, I convert some data classes and print out a tabulation of our denominations.</p>
-<pre class="r"><code>data3$name &lt;- as.character(data3$name)
-data3$date &lt;- gsub(&quot;ATTEND&quot;, 20, data3$name)
+<p>Now let’s look at attendance trends. Head clergy for each congregation were asked the following question: <em>“For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined.”</em> The answers for each year 2001 - 2008 are stored as separate variables, but we’ll use the <code>gather</code> function to transform the eight columns into two columns. <code>year</code> will now contain “ATTEND01”, “ATTEND02”, etc. and <code>attend</code> will contain the attendance estimates for each year.</p>
+<pre class="r"><code>data3 &lt;- gather(data2, &quot;year&quot;, &quot;attend&quot;, ATTEND08:ATTEND01)</code></pre>
+<p>To recode our yearly attendance variable, I create a new variable <code>date</code> and replace “ATTEND” with “20”. This will turn “ATTEND08” into “2008”, for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">regular expressions in R.</a> After deleting the <code>year</code> variable, I convert some data classes and print out a tabulation of our denominations.</p>
+<pre class="r"><code>data3$name &lt;- as.character(data3$year)
+data3$date &lt;- gsub(&quot;ATTEND&quot;, 20, data3$year)
 data3 &lt;- data3 %&gt;% 
-  select(-name) %&gt;% 
+  select(-year) %&gt;% 
   mutate(date = as.numeric(date),
          DENOM1 = as.character(DENOM1))
 count(data3, DENOM1)</code></pre>
@@ -268,15 +268,15 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
 </div>
 <div id="plotting-data-v.1" class="section level2">
 <h2>Plotting Data v.1</h2>
-<p>With our cleaned variables, we can now plot <code>date</code> X <code>value</code> with separately colored lines for each level of <code>DENOM1</code>. Importantly, to tell R which points to connect with the line, make sure to specify that you want to group by individual congregations (<code>group = congrega</code>). Otherwise, R will draw a line connecting each individual ELCA congregation (for example) before moving to the next year and doing the same. For a subtle effect, I’ve made large congregation estimates more opaque than smaller ones using the <code>alpha = value</code> command.</p>
-<pre class="r"><code>ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
-  geom_point(aes(alpha = value)) +
-  geom_line(aes(group = congrega, alpha = value)) +
+<p>With our cleaned variables, we can now plot <code>date</code> X <code>attend</code> with separately colored lines for each level of <code>DENOM1</code>. Importantly, to tell R which points to connect with the line, make sure to specify that you want to group by individual congregations (<code>group = congrega</code>). Otherwise, R will draw a line connecting each individual ELCA congregation (for example) before moving to the next year and doing the same. For a subtle effect, I’ve made large congregation estimates more opaque than smaller ones using the <code>alpha = attend</code> command.</p>
+<pre class="r"><code>ggplot(data3, aes(x = date, y = attend, color = DENOM1)) +
+  geom_point(aes(alpha = attend)) +
+  geom_line(aes(group = congrega, alpha = attend)) +
   scale_alpha_continuous(guide = F) +
   labs(x = &quot;year&quot;, y = &quot;Avg Wkly Attend&quot;) + john_theme</code></pre>
 <p><img src="/code/church_attendance_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>This graph is not helpful. The Catholic congregations are obscuring other denomination trends. Instead, I plot each denomination in its own pane using <code>facet_wrap()</code>. I also remove the color legend using <code>scale_color...(guide=FALSE)</code>, and add some annotations / theme elements. With many categories, these graphs are hard to size correctly. I’ve given a size that works for me and attached the plot here as a raw image file.</p>
-<pre class="r"><code>ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
+<pre class="r"><code>ggplot(data3, aes(x = date, y = attend, color = DENOM1)) +
   geom_point() +
   geom_line(aes(group = congrega)) +
   geom_smooth(color = &quot;black&quot;, se = F) +
@@ -295,8 +295,8 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
 <h2>Standardizing Variables</h2>
 <p>To fix this, let’s standardize each congregation at its starting level of attendance in 2001. We’re not interested in absolute totals per say, but rather the <em>change</em> in those totals over time. Before starting this analysis, I use <code>select</code> to get rid of extra variables and rename our attendance measure.</p>
 <pre class="r"><code>new &lt;- data3 %&gt;% 
-  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %&gt;% 
-  rename(total_attend = value)</code></pre>
+  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, attend) %&gt;% 
+  rename(total_attend = attend)</code></pre>
 <p>After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as <code>first_date</code>. This date will serve as the baseline attendance for each congregation. The <code>filter</code> command extracts these baseline rows, the <code>select</code> command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point, and the <code>rename</code> command gives these measures interpretable names.</p>
 <pre class="r"><code>new2 &lt;- new %&gt;% 
   filter(!is.na(total_attend)) %&gt;% 

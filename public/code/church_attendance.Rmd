@@ -50,7 +50,7 @@ john_theme <- theme(text=element_text(size = 14, family="Times New Roman"),
 
 ##Importing Data  
 
-From [the ARDA site](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp), I use the pre-labeled Stata (.DTA) file to save time on recoding.
+From [the ARDA website](http://www.thearda.com/Archive/Files/Descriptions/CLS08PR.asp), I use the pre-labeled Stata (.DTA) file to save time on recoding.
 
 ```{r}
 data <- read.dta("http://www.thearda.com/download/download.aspx?file=U.S.%20Congregational%20Life%20Survey,%20Wave%202,%20Random%20Sample%20Congregational%20Profile%20Survey.DTA")
@@ -60,7 +60,7 @@ data <- read.dta("http://www.thearda.com/download/download.aspx?file=U.S.%20Cong
 
 ##Preparing Data  
 
-I start by examining a tabulation of denominations, saved as "denom". After constraining the denomination variable ("DENOM1") to character, I save a list of the ten largest denominations as `top10`. Lastly, I filter the dataset to only include top 10 denominations and save this as `data2`.
+I start by examining a tabulation of denominations, saved as `DENOM1`. After constraining to character, I save a list of the ten largest denominations as `top10`. Lastly, I filter the dataset to only include these top 10 denominations and save as `data2`.
 
 ```{r}
 denom <- arrange(count(data, DENOM1), desc(n))
@@ -69,19 +69,19 @@ top10 <- denom$DENOM1[1:10]
 data2 <- filter(data, DENOM1 %in% top10)
 ```
 
-Now let's look at attendance trends. Head clergy for each congregation were asked the following question: *"For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined."* The answers for each year 2001 - 2008 are stored as separate variables, but we'll use the `gather` function to transform the eight columns into two columns. `name` will now contain "ATTEND01", "ATTEND02", etc. and `value` will contain the number estimates for each year.
+Now let's look at attendance trends. Head clergy for each congregation were asked the following question: *"For each of the last seven years, what is your best estimate of average weekly attendance at worship services for this congregation? If you have more than one worship service, record the average attendance for all services combined."* The answers for each year 2001 - 2008 are stored as separate variables, but we'll use the `gather` function to transform the eight columns into two columns. `year` will now contain "ATTEND01", "ATTEND02", etc. and `attend` will contain the attendance estimates for each year.
 
 ```{r}
-data3 <- gather(data2, "name", "value", ATTEND08:ATTEND01)
+data3 <- gather(data2, "year", "attend", ATTEND08:ATTEND01)
 ```
 
-To recode our yearly attendance variable, I create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008", for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on [regular expressions in R.](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) After deleting the `name` variable, I convert some data classes and print out a tabulation of our denominations. 
+To recode our yearly attendance variable, I create a new variable `date` and replace "ATTEND" with "20". This will turn "ATTEND08" into "2008", for example. These regular expressions are invaluable data wrangling tools. Check out this great resource for more info on [regular expressions in R.](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) After deleting the `year` variable, I convert some data classes and print out a tabulation of our denominations. 
 
 ```{r}
-data3$name <- as.character(data3$name)
-data3$date <- gsub("ATTEND", 20, data3$name)
+data3$name <- as.character(data3$year)
+data3$date <- gsub("ATTEND", 20, data3$year)
 data3 <- data3 %>% 
-  select(-name) %>% 
+  select(-year) %>% 
   mutate(date = as.numeric(date),
          DENOM1 = as.character(DENOM1))
 count(data3, DENOM1)
@@ -106,12 +106,12 @@ data3$DENOM1[startsWith(data3$DENOM1, "Roman")] <- "Roman Catholic"
 
 ##Plotting Data v.1  
 
-With our cleaned variables, we can now plot `date` X `value` with separately colored lines for each level of `DENOM1`. Importantly, to tell R which points to connect with the line, make sure to specify that you want to group by individual congregations (`group = congrega`). Otherwise, R will draw a line connecting each individual ELCA congregation (for example) before moving to the next year and doing the same. For a subtle effect, I've made large congregation estimates more opaque than smaller ones using the `alpha = value` command. 
+With our cleaned variables, we can now plot `date` X `attend` with separately colored lines for each level of `DENOM1`. Importantly, to tell R which points to connect with the line, make sure to specify that you want to group by individual congregations (`group = congrega`). Otherwise, R will draw a line connecting each individual ELCA congregation (for example) before moving to the next year and doing the same. For a subtle effect, I've made large congregation estimates more opaque than smaller ones using the `alpha = attend` command. 
 
 ```{r, message=FALSE, warning=FALSE}
-ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
-  geom_point(aes(alpha = value)) +
-  geom_line(aes(group = congrega, alpha = value)) +
+ggplot(data3, aes(x = date, y = attend, color = DENOM1)) +
+  geom_point(aes(alpha = attend)) +
+  geom_line(aes(group = congrega, alpha = attend)) +
   scale_alpha_continuous(guide = F) +
   labs(x = "year", y = "Avg Wkly Attend") + john_theme
 ```
@@ -119,7 +119,7 @@ ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
 This graph is not helpful. The Catholic congregations are obscuring other denomination trends. Instead, I plot each denomination in its own pane using `facet_wrap()`. I also remove the color legend using `scale_color...(guide=FALSE)`, and add some annotations / theme elements. With many categories, these graphs are hard to size correctly. I've given a size that works for me and attached the plot here as a raw image file.   
 
 ```{r, eval=FALSE, warning=FALSE}
-ggplot(data3, aes(x = date, y = value, color = DENOM1)) +
+ggplot(data3, aes(x = date, y = attend, color = DENOM1)) +
   geom_point() +
   geom_line(aes(group = congrega)) +
   geom_smooth(color = "black", se = F) +
@@ -144,8 +144,8 @@ To fix this, let's standardize each congregation at its starting level of attend
 
 ```{r}
 new <- data3 %>% 
-  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, value) %>% 
-  rename(total_attend = value)
+  select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, attend) %>% 
+  rename(total_attend = attend)
 ```
 
 

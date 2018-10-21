@@ -12,6 +12,7 @@ tags: []
 * [Data Exploration: U.S. Church Attendance 2001-2008](/code/church_attendance/)
 * [Data Exploration: Global Trends in Extreme Poverty 1977-2016](/code/wb_poverty/)  
 
+
 **2017**  
 
 * [Data Exploration: Where Do American Baptists Live?](/code/baylor/)  
