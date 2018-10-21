@@ -57,11 +57,11 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
-    <link rel="stylesheet" href="/css/main.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-21%2018%3a06%3a50.18102%20-0400%20EDT%20m%3d%2b0.338240672">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-21%2018%3a06%3a50.18102%20-0400%20EDT%20m%3d%2b0.338240672">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-21%2018%3a06%3a50.18102%20-0400%20EDT%20m%3d%2b0.338240672">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-10-21%2011%3a06%3a04.390129%20-0400%20EDT%20m%3d%2b0.467296733">
+        <link rel="stylesheet" href="/css/override.css?t=2018-10-21%2018%3a06%3a50.18102%20-0400%20EDT%20m%3d%2b0.338240672">
     
 
 
@@ -297,7 +297,7 @@ data3$DENOM1[startsWith(data3$DENOM1, &quot;Roman&quot;)] &lt;- &quot;Roman Cath
 <pre class="r"><code>new &lt;- data3 %&gt;% 
   select(DENOM1, congrega, congmovd, numbsrvc, capacity,  date, attend) %&gt;% 
   rename(total_attend = attend)</code></pre>
-<p>After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as <code>first_date</code>. This date will serve as the baseline attendance for each congregation. The <code>filter</code> command extracts these baseline rows, the <code>select</code> command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point, and the <code>rename</code> command gives these measures interpretable names.</p>
+<p>After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as <code>first_date</code>. This date will serve as the baseline attendance for each congregation. The <code>filter</code> command extracts these baseline rows, the <code>select</code> command prunes our variables to only three of interest (congregation, the first date in the survey, and the attendance for this time point), and the <code>rename</code> command gives these measures interpretable names.</p>
 <pre class="r"><code>new2 &lt;- new %&gt;% 
   filter(!is.na(total_attend)) %&gt;% 
   group_by(congrega) %&gt;% 

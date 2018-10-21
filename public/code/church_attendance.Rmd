@@ -149,7 +149,7 @@ new <- data3 %>%
 ```
 
 
-After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as `first_date`. This date will serve as the baseline attendance for each congregation. The `filter` command extracts these baseline rows, the `select` command prunes our variables to only three of interest: congregation, the first date in the survey, and the attendance for this time point, and the `rename` command gives these measures interpretable names. 
+After taking out rows with no attendance information, I group by congregation and identify the smallest date value for each and save as `first_date`. This date will serve as the baseline attendance for each congregation. The `filter` command extracts these baseline rows, the `select` command prunes our variables to only three of interest (congregation, the first date in the survey, and the attendance for this time point), and the `rename` command gives these measures interpretable names. 
 
 ```{r}
 new2 <- new %>% 
