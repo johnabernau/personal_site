@@ -11,7 +11,9 @@ categories: []
 knitr::opts_chunk$set(echo = TRUE)
 ```
 <a name="top"></a>
-This post offers an example of data exploration in R. I will cover the following topics:<img src="/code/macon_catholic.jpg" height="400" align = "right" style="padding:10px;"/>
+This post offers an example of data exploration in R. I will cover the following topics:
+
+<img src="/code/macon_catholic.jpg" style="float: right; width: 50%; margin-left: 2%; margin-right: 2%;margin-bottom: 0.5em;">
 
 - [Importing data](#import)
 - [Preparing data](#prep)

@@ -118,10 +118,6 @@
   </url>
   
   <url>
-    <loc>/private/dan_gtdemo/</loc>
-  </url>
-  
-  <url>
     <loc>/blog/</loc>
     <lastmod>2018-10-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -139,25 +135,8 @@
   </url>
   
   <url>
-    <loc>/private/google/</loc>
-  </url>
-  
-  <url>
-    <loc>/private/google2/</loc>
-  </url>
-  
-  <url>
     <loc>/</loc>
     <lastmod>2018-10-29T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/private/gtdemo2/</loc>
-  </url>
-  
-  <url>
-    <loc>/private/</loc>
     <priority>0</priority>
   </url>
   
