@@ -1,0 +1,186 @@
+---
+title: "GoogleData #3"
+author: "John Bernau"
+date: "2018-11-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Overview  
+RQ: How do mass shooting events influence search traffic?  
+DATA: Daily search traffic for terms like "gun+control" from 2004-2018. Extracted 15-day event windows around each shooting (-7 and +7) and appended shooting characteristics (race of shooter, victims, venue, etc). 
+
+Sample dataset for one term. Looks like panel data...  
+<img src = "/private/sample.png">
+
+```{r, echo = FALSE, message = FALSE}
+library(RCurl)
+library(gdata) 
+library(zoo)
+require(tidyverse)
+require(dplyr)
+require(plm)
+
+
+# import the clustered standard errors function
+url_robust <- "https://raw.githubusercontent.com/IsidoreBeautrelet/economictheoryblog/master/robust_summary.R"
+eval(parse(text = getURL(url_robust, ssl.verifypeer = FALSE)),
+     envir=.GlobalEnv)
+
+
+# load gc_cleaned.RData
+load("/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Search_Data/Analysis/11.4.18 session/gc_cleaned.RData")
+
+# Create dummy variable
+t5$post <- NA
+t5$post[t5$days_after < 0] <- 0
+t5$post[t5$days_after >= 0] <- 1
+t5$location__1[t5$location__1 == "\nWorkplace"] <- "Workplace"
+t5$location__1[t5$location__1 == "Other\n"] <- "Other"
+
+# Save as panel data format
+pt <- pdata.frame(t5, index = c("id", "days_after"))
+
+pt$year <- str_sub(pt$event_date, 1,4)
+
+pt$venue <- relevel(pt$location__1, ref = "Workplace")
+pt$race <- relevel(pt$race, ref = "white")
+# Clustered standard errors doesn't work unless its panel format data, but NOT a pooled OLS model from the plm package. Very weird. 
+
+```
+
+## Running the model with dummy variable (pre vs post)  
+This tests whether search traffic is significantly different overall, between pre-shooting days and post-shooting days. As expected, this is significant, but it makes the other coefficients difficult to interpret because they're estimating the "effect of `venue` across all days pre and post". 
+```{r}
+reg1 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + post, data=pt)
+
+summary(reg1, cluster = c("id"))
+
+```
+
+## Running the model with full interactions    
+To fix this, we interact all our predictors with the dummy variable. Thus, the regular IVs show the effect before the shooting (pre) and the interactions show the **change** in effect after the shooting (post). As expected, none of the (pre) coefficients are significant, but...there is not much change in the (post) coefficients either. 
+
+```{r}
+reg1a <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + post + 
+              total_victims:post +
+              venue:post +
+              race:post +
+              n_weapons2:post +
+              highest_weapon:post, data=pt)
+summary(reg1a, cluster = c("id"))
+
+```
+
+```{r, echo = FALSE, message = FALSE}
+#################################################################
+# Adding lagged DV
+#################################################################
+# Add lagged DV. How does the previous day's traffic predict the current traffic. Group by event. shift rows down by one. 
+# x <- lag(1:10, 2)
+# x <- 1:10
+# y <- lag(x, 2)
+# y
+
+pt$hf <- pt$hits_final
+pt$hf_lag <- lag(pt$hf, 1)
+#cor(pt$hf, pt$hf_lag, use = "complete.obs")
+
+# pt$hf_lag2 <- lag(pt$hf, 2)
+# cor(pt$hf, pt$hf_lag2, use = "complete.obs")
+# 
+# pt$hf_lag3 <- lag(pt$hf, 3)
+# cor(pt$hf, pt$hf_lag3, use = "complete.obs")
+# 
+# pt$hf_lag4 <- lag(pt$hf, 4)
+# cor(pt$hf, pt$hf_lag4, use = "complete.obs")
+# 
+# pt$hf_lag5 <- lag(pt$hf, 5)
+# cor(pt$hf, pt$hf_lag5, use = "complete.obs")
+# 
+# pt$hf_lag6 <- lag(pt$hf, 6)
+# cor(pt$hf, pt$hf_lag6, use = "complete.obs")
+# 
+# pt$hf_lag7 <- lag(pt$hf, 7)
+# cor(pt$hf, pt$hf_lag7, use = "complete.obs")
+```
+
+## Adding the lagged DV to full interaction model  
+This model controls for previous days' search traffic, which also acts as a pseudo fixed-effect to remove any event-specific differences.
+
+This is probably the final model (?), but very hard to interpret. A significant interaction coefficient says the difference in coefficient pre vs post is significantly different. Plus most of the IVs are categorical. So how to interpret the reference group here: "Compared to a Workplace shooting after the event, a Religious shooting after the event is not significantly different"?
+
+```{r}
+reg4 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag + post + 
+             total_victims:post +
+             venue:post +
+             race:post +
+             n_weapons2:post +
+             highest_weapon:post +
+             hf_lag:post, data=pt)
+
+summary(reg4, cluster = c("id"))
+
+```
+
+## Alternatively...
+Split data into two datasets (pre and post) and examine two regressions
+
+```{r, echo = FALSE, message = FALSE}
+######################################################################
+# Just run two models - before and after?
+######################################################################
+
+pre <- filter(t5, post == 0)
+post <- filter(t5, post == 1)
+
+# Save as panel data format
+pre_pt <- pdata.frame(pre, index = c("id", "days_after"))
+post_pt <- pdata.frame(post, index = c("id", "days_after"))
+
+pre_pt$year <- str_sub(pre_pt$event_date, 1,4)
+post_pt$year <- str_sub(post_pt$event_date, 1,4)
+
+pre_pt$venue <- relevel(pre_pt$location__1, ref = "Workplace")
+post_pt$venue <- relevel(post_pt$location__1, ref = "Workplace")
+pre_pt$race <- relevel(pre_pt$race, ref = "white")
+post_pt$race <- relevel(post_pt$race, ref = "white")
+
+# Create lagged variable
+pre_pt$hf <- pre_pt$hits_final
+post_pt$hf <- post_pt$hits_final
+
+pre_pt$hf_lag <- lag(pre_pt$hf, 1)
+post_pt$hf_lag <- lag(post_pt$hf, 1)
+```
+
+### 1. Running the model on PRE-event data.  
+This model looks right: there are no significant effects of shooting characteristics on search traffic BEFORE it happened. There is a bit of autocorrelation with previous day's search traffic, but nothing unusual there. 
+```{r}
+reg_test <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=pre_pt)
+
+summary(reg_test, cluster = c("id"))
+```
+
+### 2. Running the model on POST-event data.
+This model also looks right: after the event, a few key characteristics influence search traffic, namely number of victims, school shootings, and race of shooter (latino?). Number of weapons and type of weapon also approach significance and are worth mentioning. 
+
+```{r}
+reg_test2 <- lm(hits_final ~ total_victims + venue + race + n_weapons2 + highest_weapon + hf_lag, data=post_pt)
+
+summary(reg_test2, cluster = c("id"))
+
+```
+
+The question now is how to best present these findings. 
+
+## -1 to 14 days after
+These models seem easiest to interpret. We lag the DV to control for autocorrelation / dynamic processes. We find significant results for certain characteristics on search traffic. Limit the number of interactions to help readability. [Check out the last model on this page](http://www.johnabernau.com/private/google2/)
+
+## -7 to 7 days after
+These models are conceptually interesting, testing the week before vs the week after, but might need a different design. "Regression discontinuity design?" "Interrupted time series"? There is one more chapter I want to read on these types of models. As they stand now, almost illegible: 
+
+> "Before the shooting, a (future) workplace shooting is not significantly different from a (future) religious shooting in terms of search traffic. After the shooting, this difference is not significantly different from the original difference. All controlling for previous day's search traffic."
