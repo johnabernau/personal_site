@@ -26,7 +26,7 @@ In this post I perform some data exploration in R. I'll cover the following topi
 
 More specifically, I'll be using the [World Bank data](https://data.worldbank.org/indicator/SI.POV.DDAY?locations=1W&start=1981&end=2013&view=chart) on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it's useful to remember the state of poverty on a global perspective. [Hans Rosling's recent book (2018)](https://www.gapminder.org/factfulness-book/) brought this kind of global development data to public attention, and [Jeffrey Sachs' (2006) book](http://jeffsachs.org/books/the-end-of-poverty/) has been on my reading list for some time. Stanford's Center on Poverty and Inequality publishes a great magazine on the state of the field, with [all issues available free](https://inequality.stanford.edu/publications/pathways/all) as PDF or hard copy. For the purpose of my exploration here, the World Bank data measures poverty as the percentage of a country's population living under the poverty line, considered here $1.90 / day or less in 2011 [purchasing power parity (PPP) dollars](https://en.wikipedia.org/wiki/Purchasing_power_parity). 
 
-***RQ: How is extreme poverty distributed globally?***
+**RQ: How is extreme poverty distributed globally?**
 
 ___
 
