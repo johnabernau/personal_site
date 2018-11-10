@@ -37,11 +37,9 @@ SOC 355: Social Research
 SOC 457: Dvlp. of Sociological Theory  
 SOC 221: Culture & Society  
 SOC 101: Intro to Sociology  
-
-
+  
+<div style="text-align: right"><font color = "gray", size = "2.5">Photo (CC) <a href= "https://www.flickr.com/photos/nrbelex/320182240/">Brett Weinstein</a></font></div>
 
 ___
-### *Photo (CC) [Brett Weinstein](https://www.flickr.com/photos/nrbelex/320182240/)*      
-### *Copyright &copy; 2018 John A. Bernau*
-  
-  
+
+<font color = "gray", size="2">Copyright &copy; 2018 John A. Bernau</font>

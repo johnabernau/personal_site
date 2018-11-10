@@ -244,7 +244,7 @@ Make a new scatterplot using the same variables, axes labels, and title. This ti
   
 ___
 
-[Code Home](/xcode/)  
+[Code Home](/xcode/) 
 [>>> Part 2](/code/dataviz2/)
 
 ___

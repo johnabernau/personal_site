@@ -23,4 +23,4 @@ tags: []
 
 ___
 
-### *Copyright &copy; 2018 John A. Bernau*
+<font color = "gray", size="2">Copyright &copy; 2018 John A. Bernau</font>
