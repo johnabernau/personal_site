@@ -63,11 +63,11 @@ Raw Text Objects
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2018-11-09%2022%3a50%3a01.785177%20-0500%20EST%20m%3d%2b0.490885688">
-    <link rel="stylesheet" href="/css/pygments.css?t=2018-11-09%2022%3a50%3a01.785177%20-0500%20EST%20m%3d%2b0.490885688">
-    <link rel="stylesheet" href="/css/main.css?t=2018-11-09%2022%3a50%3a01.785177%20-0500%20EST%20m%3d%2b0.490885688">
+    <link rel="stylesheet" href="/css/reset.css?t=2018-11-10%2013%3a35%3a12.23481%20-0500%20EST%20m%3d%2b1.131560241">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-11-10%2013%3a35%3a12.23481%20-0500%20EST%20m%3d%2b1.131560241">
+    <link rel="stylesheet" href="/css/main.css?t=2018-11-10%2013%3a35%3a12.23481%20-0500%20EST%20m%3d%2b1.131560241">
     
-        <link rel="stylesheet" href="/css/override.css?t=2018-11-09%2022%3a50%3a01.785177%20-0500%20EST%20m%3d%2b0.490885688">
+        <link rel="stylesheet" href="/css/override.css?t=2018-11-10%2013%3a35%3a12.23481%20-0500%20EST%20m%3d%2b1.131560241">
     
 
 
@@ -260,7 +260,7 @@ print(vocab_pos)</code></pre>
 <p>Lastly, we can use these results to calculate how many “emotion” words were found in the text and the proportion of these words that were “positive.”</p>
 <pre class="r"><code>emotion_words &lt;- length(vocab_neg) + length(vocab_pos)
 proportion_pos &lt;- length(vocab_pos) / emotion_words</code></pre>
-<p>Based on this sentiment scoring, the opening paragraph of <em>Moby Dick</em> is 2/3 positive and 1/3 negative. <strong>Does this sound accurate as a human reader of the text?</strong> Ishmael tells us of his misanthropic fantasies, of the “<em>damp drizzly November in my soul</em>”, and how going to sea is his only option to stave off suicide: “<em>my substitute for pistol and ball.</em>” This type of dictionary-based text analysis is ultimately limited to an atomistic model of language that fails to pick up on fairly basic literary techniques. Recent developments <a href="https://nlp.stanford.edu/sentiment/">like this one at Stanford</a> have used neural networks to account for more complex sentence structures.</p>
+<p>Based on this sentiment scoring, the opening paragraph of <em>Moby Dick</em> is 2/3 positive and 1/3 negative. <strong>Does this sound accurate as a human reader of the text?</strong> Ishmael tells us of his misanthropic fantasies, of the “<em>damp drizzly November in my soul</em>”, and how going to sea is his only option to stave off suicide: “<em>my substitute for pistol and ball.</em>” This type of dictionary-based text analysis is ultimately limited to an atomistic model of language that fails to pick up on fairly basic literary techniques. Recent developments <a href="https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf">like this one at Stanford</a> have used neural networks to account for more complex sentence structures.</p>
 <p>To sum up, after starting with a raw string of text, I removed unwanted characters, calculated a few vocabulary metrics, ran a dictionary-based sentiment analysis, and summarized the results. The following code saves this information as a dataframe.</p>
 <pre class="r"><code>moby_df &lt;- data.frame(moby, total_words, unique_words, lex_div, moby_clean, 
                       vocab_neg = paste(vocab_neg, collapse = &quot; &quot;), 
@@ -284,7 +284,7 @@ glimpse(moby_df)</code></pre>
 <div id="text-within-data-frames" class="section level2">
 <h2>Text within Data Frames</h2>
 <p>To start, a dataframe with a column for text data…</p>
-<pre class="r"><code># Generate some respondent ids and (identical) text responses
+<pre class="r"><code># Generate some respondent ids and three (identical) text responses
 id &lt;- c(&quot;person1&quot;, &quot;person2&quot;, &quot;person3&quot;)
 text &lt;- rep(&quot;Example text with UPPER CASE, punctuation (!), and numbers (123456789). This should serve us well in our text-cleaning journey. Also, here are some sad negative words and some happy positive words.&quot;, 3)
 
@@ -304,7 +304,7 @@ df$text &lt;- gsub(&quot;[[:digit:]]&quot;, &quot;&quot;, df$text) # Remove numb
 df$text &lt;- gsub(&quot;\\s+&quot;, &quot; &quot;, str_trim(df$text)) # Remove extra whitespaces
 df$text[1] # Print</code></pre>
 <pre><code>## [1] &quot;example text with upper case punctuation and numbers this should serve us well in our textcleaning journey also here are some sad negative words and some happy positive words&quot;</code></pre>
-<p>Note that by removing punctuation, “textcleaning” was collapsed into one word. This is usually acceptable for most hyphenated words, but in case you want to preserve the spacing, you can just replace all punctuation with a space (&quot; “) and the subsequent line will strip / collapse any extra spaces that result.</p>
+<p>Note that by removing punctuation, “textcleaning” was collapsed into one word. This is usually acceptable for most hyphenated words, but to preserve the spacing, just replace all punctuation with a space (&quot; “) and the subsequent line will strip / collapse any extra spaces that result.</p>
 <p><a name="vocab2"></a></p>
 <p><strong>Vocabulary Metrics</strong><br />
 Within a dataframe, it is generally easiest to expand the text to one-word-per-row using <code>unnest_tokens()</code>.</p>
@@ -318,7 +318,7 @@ head(vocab)</code></pre>
 ## 1.3 person1       upper
 ## 1.4 person1        case
 ## 1.5 person1 punctuation</code></pre>
-<p>Then I create a separate dataframe that captures a few summary measures (total, unique, and lexical diversity). This will come in handy later on.</p>
+<p>Creating a separate dataframe that captures a few summary measures (total, unique, and lexical diversity). This will come in handy later.</p>
 <pre class="r"><code>total_unique_ld &lt;- vocab %&gt;% 
   group_by(id) %&gt;% 
   count(word) %&gt;% 
@@ -330,14 +330,14 @@ head(vocab)</code></pre>
 <p><strong>Removing stopwords </strong></p>
 <pre class="r"><code>vocab_nsw &lt;- vocab %&gt;% 
   anti_join(stop_words)</code></pre>
-<p>Saving this tidy dataframe as new strings by collapsing words <a href="https://stackoverflow.com/questions/46734501/opposite-of-unnest-tokens">(thanks to stackoverflow)</a>. This will come in handy later on.</p>
+<p>Saving this tidy dataframe as new strings by collapsing words <a href="https://stackoverflow.com/questions/46734501/opposite-of-unnest-tokens">(thanks to stackoverflow)</a>. This will come in handy later.</p>
 <pre class="r"><code>cleantext &lt;- nest(vocab_nsw, word) %&gt;%
   mutate(text = map(data, unlist),
          text_clean = map(text, paste, collapse = &quot; &quot;)) %&gt;%
   select(-data, -text)</code></pre>
 <p><a name="sent2"></a></p>
 <p><strong>Basic Sentiment Scores</strong><br />
-To get the dictionary-based sentiment results, I first run an <code>inner-join</code> which retains only the “emotion words” in the <code>bing</code> dictionary. Then, I do calculate two things: (1) a string of the positive / negative words that were extracted, and (2) a count of the total emotion words extracted and the proportion positive.</p>
+To get the dictionary-based sentiment results, I first run an <code>inner-join</code> which retains only the “emotion words” in the <code>bing</code> dictionary. Then, I generate two things: (1) a string of the positive / negative words that were extracted, and (2) a count of the total emotion words extracted and the proportion positive.</p>
 <pre class="r"><code>vocab_sent &lt;- vocab_nsw %&gt;%
   inner_join(get_sentiments(&quot;bing&quot;))
 
@@ -379,10 +379,7 @@ glimpse(df_final)</code></pre>
 ## $ positive      &lt;int&gt; 2, 2, 2
 ## $ emotion_words &lt;int&gt; 4, 4, 4
 ## $ positive_prop &lt;dbl&gt; 0.5, 0.5, 0.5</code></pre>
-<div style="text-align: center">
-<strong>The End</strong>
-</div>
-<p><img src="/code/hm2.jpg" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 3%;"> <img src="/code/dwsb.jpg" style="float: right; width: 49%; margin-right: 1%; margin-bottom: 3%;"></p>
+<p><img src="/code/chi_boat.jpg"></p>
 <hr />
 <p><a href="/xcode/">Code Home</a></p>
 <hr />
