@@ -109,6 +109,8 @@ moby_df <- data.frame(moby, total_words, unique_words, lex_div, moby_clean,
 glimpse(moby_df)
 ```
 
+<img src = "/code/uvic.jpg">
+
 <a name="df"></a>
 
 ## Text within Data Frames
@@ -214,7 +216,8 @@ glimpse(df_final)
 
 <div style = "text-align: center">**The End**</div>
 
-<img src = "/code/uvic.jpg">
+<img src="/code/hm2.jpg" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 3%;">
+<img src="/code/dwsb.jpg" style="float: right; width: 49%; margin-right: 1%; margin-bottom: 3%;">
 
 ___
 
