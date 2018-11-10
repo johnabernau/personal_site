@@ -1,0 +1,225 @@
+---
+title: Introduction to Text Analysis in R
+author: John A. Bernau
+date: '2018-11-09'
+slug: text_analysis
+categories: []
+tags: []
+---
+
+One of the biggest advantages of R over other statistical programs is the ability to work with text data. In the post, I cover the same four tasks using two types of text data:
+[<img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Herman_Melville_1860.jpg" style="float: right; width: 40%; margin-left: 2%; margin-right: 2%;margin-bottom: 0.5em;">](https://upload.wikimedia.org/wikipedia/commons/1/1d/Herman_Melville_1860.jpg)
+
+[**Raw Text Objects**](#raw)
+
+- [Cleaning text](#clean1)
+- [Calculating vocabulary metrics](#vocab1)
+- [Removing stopwords](#stop1)
+- [Calculating basic sentiment scores](#sent1)
+
+[**Text within Data Frames**](#df)
+
+- [Cleaning text](#clean2)
+- [Calculating vocabulary metrics](#vocab2)
+- [Removing stopwords](#stop2)
+- [Calculating basic sentiment scores](#sent2)
+
+There are many great resources for learning text analysis in R, including [quanteda's extensive documentation](https://quanteda.io/index.html) and [Silge & Robinson's Text Mining with R](https://www.tidytextmining.com/). In this post, I try to keep everything in a familiar format, favoring data frames over "corpus" and "data-feature-matrix" objects. These are undoubtedly necessary for more advanced operations, but tend to confuse those looking to do basic tasks. While I do not cover importing text data, I suggest looking at the [readtext package](https://github.com/quanteda/readtext) if your data is not in R yet. By the end of this post, you will be able to quickly clean and summarize text in multiple formats. 
+
+```{r, warning=FALSE, message=FALSE}
+require(tidyverse)
+require(tidytext)
+```
+
+<a name="raw"></a>
+
+## Raw Text Objects 
+To start, a block of text...
+```{r}
+moby <- "Call me Ishmael. Some years ago —nevermind how long precisely— having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off - then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me."
+```
+
+<a name="clean1"></a>
+
+**Cleaning Text**  
+The first thing to do is convert everything to lowercase and remove punctuation, numbers, and problematic whitespaces. A few regular expressions make this quite simple. `gsub()` is the "find and replace" of R: the first argument is what to look for, the second argument is what to replace it with, and the third argument is where to look. Take a look at the regular expression / stringr cheat sheets [here](https://www.rstudio.com/resources/cheatsheets/).
+```{r}
+moby <- tolower(moby) # Lowercase
+moby <- gsub("[[:punct:]]", "", moby) # Remove punctuation
+moby <- gsub("[[:digit:]]", "", moby) # Remove numbers
+moby <- gsub("\\s+", " ", str_trim(moby)) # Remove extra whitespaces
+```
+
+<a name="vocab1"></a>
+
+**Vocabulary Metrics**  
+Next we'll split our text block into individual words and calculate a few summary measures: total words, unique words, and "lexical diversity." 
+```{r}
+vocab <- unlist(str_split(moby, " ")) # Split into vocab list
+total_words <- length(vocab) # Total words
+unique_words <- length(unique(vocab)) # Unique Words
+lex_div <- unique_words / total_words # Lexical Diversity 
+```
+<a name="stop1"></a>
+
+**Removing Stopwords**  
+With our vocab list handy, we can filter out uninformative stopwords ("the", "and", "of"). In this example I'm using the full `stop_words` list from the `tidytext` package. Using the full list might be a bit liberal as it contains three separate stopword dictionaries. Be careful about these decisions!
+```{r}
+vocab_nsw <- vocab[!(vocab) %in% stop_words$word] # Only keep non-stopwords
+moby_clean <- paste(vocab_nsw, collapse = " ") # Gather back into one string
+print(moby_clean) # Examining our cleaned text block
+```
+
+<a name="sent1"></a>
+
+**Basic Sentiment Scores**  
+Using pre-defined dictionaries of "sentiment-specific" words, we can quickly analyze a text to get a rough idea of sentiment. 
+
+```{r}
+# Load negative words from "bing" sentiment dictionary
+negative <- get_sentiments("bing") %>% filter(sentiment == "negative") 
+# Only keep negative words
+vocab_neg <- vocab[(vocab) %in% negative$word]
+print(vocab_neg)
+```
+
+
+```{r}
+# Load positive words from "bing" sentiment dictionary
+positive <- get_sentiments("bing") %>% filter(sentiment == "positive")
+# Only keep positive words
+vocab_pos <- vocab[(vocab) %in% positive$word] 
+print(vocab_pos)
+```
+
+Lastly, we can use these results to calculate how many "emotion" words were found in the text and the proportion of these words that were "positive."
+```{r}
+emotion_words <- length(vocab_neg) + length(vocab_pos)
+proportion_pos <- length(vocab_pos) / emotion_words
+```
+
+Based on this sentiment scoring, the opening paragraph of *Moby Dick* is 2/3 positive and 1/3 negative. **Does this sound accurate as a human reader of the text?** Ishmael tells us of his misanthropic fantasies, of the "*damp drizzly November in my soul*", and how going to sea is his only option to stave off suicide: "*my substitute for pistol and ball.*" This type of dictionary-based text analysis is ultimately limited to an atomistic model of language that fails to pick up on fairly basic literary techniques. Recent developments [like this one at Stanford](https://nlp.stanford.edu/sentiment/) have used neural networks to account for more complex sentence structures.
+  
+To sum up, after starting with a raw string of text, I removed unwanted characters, calculated a few vocabulary metrics, ran a dictionary-based sentiment analysis, and summarized the results. The following code saves this information as a dataframe.   
+```{r}
+moby_df <- data.frame(moby, total_words, unique_words, lex_div, moby_clean, 
+                      vocab_neg = paste(vocab_neg, collapse = " "), 
+                      vocab_pos = paste(vocab_pos, collapse = " "), 
+                      emotion_words, proportion_pos, stringsAsFactors = F)
+glimpse(moby_df)
+```
+
+<a name="df"></a>
+
+## Text within Data Frames
+To start, a dataframe with a column for text data...
+```{r}
+# Generate some respondent ids and (identical) text responses
+id <- c("person1", "person2", "person3")
+text <- rep("Example text with UPPER CASE, punctuation (!), and numbers (123456789). This should serve us well in our text-cleaning journey. Also, here are some sad negative words and some happy positive words.", 3)
+
+# Save as data frame
+df_original <- data.frame(id, text, stringsAsFactors = FALSE) 
+df <- df_original # Save original dataset and make workhorse "df"
+glimpse(df)
+```
+
+<a name="clean2"></a>
+
+**Cleaning text**
+```{r}
+df$text <- tolower(df$text) # Lowercase
+df$text <- gsub("[[:punct:]]", "", df$text) # Remove punctuation
+df$text <- gsub("[[:digit:]]", "", df$text) # Remove numbers
+df$text <- gsub("\\s+", " ", str_trim(df$text)) # Remove extra whitespaces
+df$text[1] # Print
+```
+
+Note that by removing punctuation, "textcleaning" was collapsed into one word. This is usually acceptable for most hyphenated words, but in case you want to preserve the spacing, you can just replace all punctuation with a space (" ") and the subsequent line will strip / collapse any extra spaces that result. 
+
+<a name="vocab2"></a>
+
+**Vocabulary Metrics**  
+Within a dataframe, it is generally easiest to expand the text to one-word-per-row using `unnest_tokens()`. 
+```{r}
+vocab <- df %>% 
+  unnest_tokens(word, text)
+head(vocab)
+```
+
+Then I create a separate dataframe that captures a few summary measures (total, unique, and lexical diversity). This will come in handy later on.
+```{r}
+total_unique_ld <- vocab %>% 
+  group_by(id) %>% 
+  count(word) %>% 
+  summarize(total_words = sum(n),
+            unique_words = n(),
+            lex_div = unique_words / total_words) %>% 
+  ungroup()
+```
+
+<a name="stop2"></a>
+
+**Removing stopwords **
+```{r, message = FALSE}
+vocab_nsw <- vocab %>% 
+  anti_join(stop_words)
+```
+
+Saving this tidy dataframe as new strings by collapsing words [(thanks to stackoverflow)](https://stackoverflow.com/questions/46734501/opposite-of-unnest-tokens). This will come in handy later on. 
+```{r}
+cleantext <- nest(vocab_nsw, word) %>%
+  mutate(text = map(data, unlist),
+         text_clean = map(text, paste, collapse = " ")) %>%
+  select(-data, -text)
+```
+
+<a name="sent2"></a>
+
+**Basic Sentiment Scores**  
+To get the dictionary-based sentiment results, I first run an `inner-join` which retains only the "emotion words" in the `bing` dictionary. Then, I do calculate two things: (1) a string of the positive / negative words that were extracted, and (2) a count of the total emotion words extracted and the proportion positive. 
+```{r, message = FALSE}
+vocab_sent <- vocab_nsw %>%
+  inner_join(get_sentiments("bing"))
+
+# 1. Collapse words into positive / negative strings
+sent_strings <- nest(vocab_sent, word) %>% 
+  mutate(text = map(data, unlist), 
+         text_clean = map(text, paste, collapse = " ")) %>%
+  select(-data, -text) %>% 
+  spread(sentiment, text_clean) %>%
+  rename(vocab_neg = negative,
+         vocab_pos = positive)
+
+# 2. Save sentiment summary measures
+vocab_summary <- vocab_sent %>% 
+  group_by(id) %>%
+  count(sentiment) %>%
+  spread(sentiment, n) %>%
+  mutate(emotion_words = negative + positive,
+         positive_prop = positive / emotion_words)
+```
+
+
+Joining all these ingredients together, our work is complete! Starting with two variables, we have added ten new variables: total words, unique words, lexical diversity, cleaned text, list of negative / positive words, number of negative / positive words, total emotion words extracted, and a proportion of positive words. 
+```{r, message = FALSE}
+df_final <- df_original %>%
+  inner_join(total_unique_ld) %>%
+  inner_join(cleantext) %>% 
+  inner_join(sent_strings) %>%
+  inner_join(vocab_summary)
+
+glimpse(df_final)
+```
+
+<div style = "text-align: center">**The End**</div>
+
+<img src = "/code/uvic.jpg">
+
+___
+
+[Code Home](/xcode/) 
+
+___
+
+### *Copyright &copy; 2018 John A. Bernau*

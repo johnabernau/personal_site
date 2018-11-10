@@ -1,0 +1,202 @@
+---
+title: Introduction to Text Analysis in R
+author: John A. Bernau
+date: '2018-11-09'
+slug: text_analysis
+categories: []
+tags: []
+---
+
+
+
+<p>One of the biggest advantages of R over other statistical programs is the ability to work with text data. In the post, I cover the same four tasks using two types of text data: <a href="https://upload.wikimedia.org/wikipedia/commons/1/1d/Herman_Melville_1860.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Herman_Melville_1860.jpg" style="float: right; width: 40%; margin-left: 2%; margin-right: 2%;margin-bottom: 0.5em;"></a></p>
+<p><a href="#raw"><strong>Raw Text Objects</strong></a></p>
+<ul>
+<li><a href="#clean1">Cleaning text</a></li>
+<li><a href="#vocab1">Calculating vocabulary metrics</a></li>
+<li><a href="#stop1">Removing stopwords</a></li>
+<li><a href="#sent1">Calculating basic sentiment scores</a></li>
+</ul>
+<p><a href="#df"><strong>Text within Data Frames</strong></a></p>
+<ul>
+<li><a href="#clean2">Cleaning text</a></li>
+<li><a href="#vocab2">Calculating vocabulary metrics</a></li>
+<li><a href="#stop2">Removing stopwords</a></li>
+<li><a href="#sent2">Calculating basic sentiment scores</a></li>
+</ul>
+<p>There are many great resources for learning text analysis in R, including <a href="https://quanteda.io/index.html">quanteda’s extensive documentation</a> and <a href="https://www.tidytextmining.com/">Silge &amp; Robinson’s Text Mining with R</a>. In this post, I try to keep everything in a familiar format, favoring data frames over “corpus” and “data-feature-matrix” objects. These are undoubtedly necessary for more advanced operations, but tend to confuse those looking to do basic tasks. While I do not cover importing text data, I suggest looking at the <a href="https://github.com/quanteda/readtext">readtext package</a> if your data is not in R yet. By the end of this post, you will be able to quickly clean and summarize text in multiple formats.</p>
+<pre class="r"><code>require(tidyverse)
+require(tidytext)</code></pre>
+<p><a name="raw"></a></p>
+<div id="raw-text-objects" class="section level2">
+<h2>Raw Text Objects</h2>
+<p>To start, a block of text…</p>
+<pre class="r"><code>moby &lt;- &quot;Call me Ishmael. Some years ago —nevermind how long precisely— having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off - then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.&quot;</code></pre>
+<p><a name="clean1"></a></p>
+<p><strong>Cleaning Text</strong><br />
+The first thing to do is convert everything to lowercase and remove punctuation, numbers, and problematic whitespaces. A few regular expressions make this quite simple. <code>gsub()</code> is the “find and replace” of R: the first argument is what to look for, the second argument is what to replace it with, and the third argument is where to look. Take a look at the regular expression / stringr cheat sheets <a href="https://www.rstudio.com/resources/cheatsheets/">here</a>.</p>
+<pre class="r"><code>moby &lt;- tolower(moby) # Lowercase
+moby &lt;- gsub(&quot;[[:punct:]]&quot;, &quot;&quot;, moby) # Remove punctuation
+moby &lt;- gsub(&quot;[[:digit:]]&quot;, &quot;&quot;, moby) # Remove numbers
+moby &lt;- gsub(&quot;\\s+&quot;, &quot; &quot;, str_trim(moby)) # Remove extra whitespaces</code></pre>
+<p><a name="vocab1"></a></p>
+<p><strong>Vocabulary Metrics</strong><br />
+Next we’ll split our text block into individual words and calculate a few summary measures: total words, unique words, and “lexical diversity.”</p>
+<pre class="r"><code>vocab &lt;- unlist(str_split(moby, &quot; &quot;)) # Split into vocab list
+total_words &lt;- length(vocab) # Total words
+unique_words &lt;- length(unique(vocab)) # Unique Words
+lex_div &lt;- unique_words / total_words # Lexical Diversity </code></pre>
+<p><a name="stop1"></a></p>
+<p><strong>Removing Stopwords</strong><br />
+With our vocab list handy, we can filter out uninformative stopwords (“the”, “and”, “of”). In this example I’m using the full <code>stop_words</code> list from the <code>tidytext</code> package. Using the full list might be a bit liberal as it contains three separate stopword dictionaries. Be careful about these decisions!</p>
+<pre class="r"><code>vocab_nsw &lt;- vocab[!(vocab) %in% stop_words$word] # Only keep non-stopwords
+moby_clean &lt;- paste(vocab_nsw, collapse = &quot; &quot;) # Gather back into one string
+print(moby_clean) # Examining our cleaned text block</code></pre>
+<pre><code>## [1] &quot;call ishmael ago nevermind precisely money purse shore sail watery world driving spleen regulating circulation growing grim mouth damp drizzly november soul involuntarily pausing coffin warehouses bringing rear funeral meet hypos upper hand requires strong moral principle prevent deliberately stepping street methodically knocking peoples hats account time sea substitute pistol ball philosophical flourish cato throws sword quietly ship surprising degree time cherish feelings ocean&quot;</code></pre>
+<p><a name="sent1"></a></p>
+<p><strong>Basic Sentiment Scores</strong><br />
+Using pre-defined dictionaries of “sentiment-specific” words, we can quickly analyze a text to get a rough idea of sentiment.</p>
+<pre class="r"><code># Load negative words from &quot;bing&quot; sentiment dictionary
+negative &lt;- get_sentiments(&quot;bing&quot;) %&gt;% filter(sentiment == &quot;negative&quot;) 
+# Only keep negative words
+vocab_neg &lt;- vocab[(vocab) %in% negative$word]
+print(vocab_neg)</code></pre>
+<pre><code>## [1] &quot;grim&quot;          &quot;involuntarily&quot;</code></pre>
+<pre class="r"><code># Load positive words from &quot;bing&quot; sentiment dictionary
+positive &lt;- get_sentiments(&quot;bing&quot;) %&gt;% filter(sentiment == &quot;positive&quot;)
+# Only keep positive words
+vocab_pos &lt;- vocab[(vocab) %in% positive$word] 
+print(vocab_pos)</code></pre>
+<pre><code>## [1] &quot;precisely&quot; &quot;strong&quot;    &quot;flourish&quot;  &quot;cherish&quot;</code></pre>
+<p>Lastly, we can use these results to calculate how many “emotion” words were found in the text and the proportion of these words that were “positive.”</p>
+<pre class="r"><code>emotion_words &lt;- length(vocab_neg) + length(vocab_pos)
+proportion_pos &lt;- length(vocab_pos) / emotion_words</code></pre>
+<p>Based on this sentiment scoring, the opening paragraph of <em>Moby Dick</em> is 2/3 positive and 1/3 negative. <strong>Does this sound accurate as a human reader of the text?</strong> Ishmael tells us of his misanthropic fantasies, of the “<em>damp drizzly November in my soul</em>”, and how going to sea is his only option to stave off suicide: “<em>my substitute for pistol and ball.</em>” This type of dictionary-based text analysis is ultimately limited to an atomistic model of language that fails to pick up on fairly basic literary techniques. Recent developments <a href="https://nlp.stanford.edu/sentiment/">like this one at Stanford</a> have used neural networks to account for more complex sentence structures.</p>
+<p>To sum up, after starting with a raw string of text, I removed unwanted characters, calculated a few vocabulary metrics, ran a dictionary-based sentiment analysis, and summarized the results. The following code saves this information as a dataframe.</p>
+<pre class="r"><code>moby_df &lt;- data.frame(moby, total_words, unique_words, lex_div, moby_clean, 
+                      vocab_neg = paste(vocab_neg, collapse = &quot; &quot;), 
+                      vocab_pos = paste(vocab_pos, collapse = &quot; &quot;), 
+                      emotion_words, proportion_pos, stringsAsFactors = F)
+glimpse(moby_df)</code></pre>
+<pre><code>## Observations: 1
+## Variables: 9
+## $ moby           &lt;chr&gt; &quot;call me ishmael some years ago nevermind how l...
+## $ total_words    &lt;int&gt; 200
+## $ unique_words   &lt;int&gt; 133
+## $ lex_div        &lt;dbl&gt; 0.665
+## $ moby_clean     &lt;chr&gt; &quot;call ishmael ago nevermind precisely money pur...
+## $ vocab_neg      &lt;chr&gt; &quot;grim involuntarily&quot;
+## $ vocab_pos      &lt;chr&gt; &quot;precisely strong flourish cherish&quot;
+## $ emotion_words  &lt;int&gt; 6
+## $ proportion_pos &lt;dbl&gt; 0.6666667</code></pre>
+<p><a name="df"></a></p>
+</div>
+<div id="text-within-data-frames" class="section level2">
+<h2>Text within Data Frames</h2>
+<p>To start, a dataframe with a column for text data…</p>
+<pre class="r"><code># Generate some respondent ids and (identical) text responses
+id &lt;- c(&quot;person1&quot;, &quot;person2&quot;, &quot;person3&quot;)
+text &lt;- rep(&quot;Example text with UPPER CASE, punctuation (!), and numbers (123456789). This should serve us well in our text-cleaning journey. Also, here are some sad negative words and some happy positive words.&quot;, 3)
+
+# Save as data frame
+df_original &lt;- data.frame(id, text, stringsAsFactors = FALSE) 
+df &lt;- df_original # Save original dataset and make workhorse &quot;df&quot;
+glimpse(df)</code></pre>
+<pre><code>## Observations: 3
+## Variables: 2
+## $ id   &lt;chr&gt; &quot;person1&quot;, &quot;person2&quot;, &quot;person3&quot;
+## $ text &lt;chr&gt; &quot;Example text with UPPER CASE, punctuation (!), and numbe...</code></pre>
+<p><a name="clean2"></a></p>
+<p><strong>Cleaning text</strong></p>
+<pre class="r"><code>df$text &lt;- tolower(df$text) # Lowercase
+df$text &lt;- gsub(&quot;[[:punct:]]&quot;, &quot;&quot;, df$text) # Remove punctuation
+df$text &lt;- gsub(&quot;[[:digit:]]&quot;, &quot;&quot;, df$text) # Remove numbers
+df$text &lt;- gsub(&quot;\\s+&quot;, &quot; &quot;, str_trim(df$text)) # Remove extra whitespaces
+df$text[1] # Print</code></pre>
+<pre><code>## [1] &quot;example text with upper case punctuation and numbers this should serve us well in our textcleaning journey also here are some sad negative words and some happy positive words&quot;</code></pre>
+<p>Note that by removing punctuation, “textcleaning” was collapsed into one word. This is usually acceptable for most hyphenated words, but in case you want to preserve the spacing, you can just replace all punctuation with a space (&quot; “) and the subsequent line will strip / collapse any extra spaces that result.</p>
+<p><a name="vocab2"></a></p>
+<p><strong>Vocabulary Metrics</strong><br />
+Within a dataframe, it is generally easiest to expand the text to one-word-per-row using <code>unnest_tokens()</code>.</p>
+<pre class="r"><code>vocab &lt;- df %&gt;% 
+  unnest_tokens(word, text)
+head(vocab)</code></pre>
+<pre><code>##          id        word
+## 1   person1     example
+## 1.1 person1        text
+## 1.2 person1        with
+## 1.3 person1       upper
+## 1.4 person1        case
+## 1.5 person1 punctuation</code></pre>
+<p>Then I create a separate dataframe that captures a few summary measures (total, unique, and lexical diversity). This will come in handy later on.</p>
+<pre class="r"><code>total_unique_ld &lt;- vocab %&gt;% 
+  group_by(id) %&gt;% 
+  count(word) %&gt;% 
+  summarize(total_words = sum(n),
+            unique_words = n(),
+            lex_div = unique_words / total_words) %&gt;% 
+  ungroup()</code></pre>
+<p><a name="stop2"></a></p>
+<p><strong>Removing stopwords </strong></p>
+<pre class="r"><code>vocab_nsw &lt;- vocab %&gt;% 
+  anti_join(stop_words)</code></pre>
+<p>Saving this tidy dataframe as new strings by collapsing words <a href="https://stackoverflow.com/questions/46734501/opposite-of-unnest-tokens">(thanks to stackoverflow)</a>. This will come in handy later on.</p>
+<pre class="r"><code>cleantext &lt;- nest(vocab_nsw, word) %&gt;%
+  mutate(text = map(data, unlist),
+         text_clean = map(text, paste, collapse = &quot; &quot;)) %&gt;%
+  select(-data, -text)</code></pre>
+<p><a name="sent2"></a></p>
+<p><strong>Basic Sentiment Scores</strong><br />
+To get the dictionary-based sentiment results, I first run an <code>inner-join</code> which retains only the “emotion words” in the <code>bing</code> dictionary. Then, I do calculate two things: (1) a string of the positive / negative words that were extracted, and (2) a count of the total emotion words extracted and the proportion positive.</p>
+<pre class="r"><code>vocab_sent &lt;- vocab_nsw %&gt;%
+  inner_join(get_sentiments(&quot;bing&quot;))
+
+# 1. Collapse words into positive / negative strings
+sent_strings &lt;- nest(vocab_sent, word) %&gt;% 
+  mutate(text = map(data, unlist), 
+         text_clean = map(text, paste, collapse = &quot; &quot;)) %&gt;%
+  select(-data, -text) %&gt;% 
+  spread(sentiment, text_clean) %&gt;%
+  rename(vocab_neg = negative,
+         vocab_pos = positive)
+
+# 2. Save sentiment summary measures
+vocab_summary &lt;- vocab_sent %&gt;% 
+  group_by(id) %&gt;%
+  count(sentiment) %&gt;%
+  spread(sentiment, n) %&gt;%
+  mutate(emotion_words = negative + positive,
+         positive_prop = positive / emotion_words)</code></pre>
+<p>Joining all these ingredients together, our work is complete! Starting with two variables, we have added ten new variables: total words, unique words, lexical diversity, cleaned text, list of negative / positive words, number of negative / positive words, total emotion words extracted, and a proportion of positive words.</p>
+<pre class="r"><code>df_final &lt;- df_original %&gt;%
+  inner_join(total_unique_ld) %&gt;%
+  inner_join(cleantext) %&gt;% 
+  inner_join(sent_strings) %&gt;%
+  inner_join(vocab_summary)
+
+glimpse(df_final)</code></pre>
+<pre><code>## Observations: 3
+## Variables: 12
+## $ id            &lt;chr&gt; &quot;person1&quot;, &quot;person2&quot;, &quot;person3&quot;
+## $ text          &lt;chr&gt; &quot;Example text with UPPER CASE, punctuation (!), ...
+## $ total_words   &lt;int&gt; 29, 29, 29
+## $ unique_words  &lt;int&gt; 26, 26, 26
+## $ lex_div       &lt;dbl&gt; 0.8965517, 0.8965517, 0.8965517
+## $ text_clean    &lt;list&gt; [&quot;text upper punctuation serve textcleaning jou...
+## $ vocab_neg     &lt;list&gt; [&quot;sad negative&quot;, &quot;sad negative&quot;, &quot;sad negative&quot;]
+## $ vocab_pos     &lt;list&gt; [&quot;happy positive&quot;, &quot;happy positive&quot;, &quot;happy pos...
+## $ negative      &lt;int&gt; 2, 2, 2
+## $ positive      &lt;int&gt; 2, 2, 2
+## $ emotion_words &lt;int&gt; 4, 4, 4
+## $ positive_prop &lt;dbl&gt; 0.5, 0.5, 0.5</code></pre>
+<div style="text-align: center">
+<strong>The End</strong>
+</div>
+<p><img src = "/code/uvic.jpg"></p>
+<hr />
+<p><a href="/xcode/">Code Home</a></p>
+<hr />
+<div id="copyright-2018-john-a.-bernau" class="section level3">
+<h3><em>Copyright © 2018 John A. Bernau</em></h3>
+</div>
+</div>

@@ -6,10 +6,22 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 05 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introduction to Text Analysis in R</title>
+      <link>/code/text_analysis/</link>
+      <pubDate>Fri, 09 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/code/text_analysis/</guid>
+      <description>One of the biggest advantages of R over other statistical programs is the ability to work with text data. In the post, I cover the same four tasks using two types of text data: 
+Raw Text Objects
+ Cleaning text Calculating vocabulary metrics Removing stopwords Calculating basic sentiment scores  Text within Data Frames
+ Cleaning text Calculating vocabulary metrics Removing stopwords Calculating basic sentiment scores  There are many great resources for learning text analysis in R, including quanteda’s extensive documentation and Silge &amp;amp; Robinson’s Text Mining with R.</description>
+    </item>
     
     <item>
       <title>GoogleData #3</title>
@@ -125,29 +137,13 @@ Summary: The author uses ethnographic data to examine the role of emotions in th
       
       <guid>/xcode/</guid>
       <description>2018
- Data Exploration: U.S. Church Attendance 2001-2008 Data Exploration: Global Trends in Extreme Poverty 1977-2016
+ Introduction to Text Analysis in R Data Exploration: U.S. Church Attendance 2001-2008 Data Exploration: Global Trends in Extreme Poverty 1977-2016
   2017
  Data Exploration: Where Do American Baptists Live?
  Data Visualization: Part 4 - Text Labels, Faceting, Editing Themes
  Data Visualization: Part 3 - Other Geoms (lines, bars, box, violin, density)
  Data Visualization: Part 2 - Assigning Variables to Attributes
  Data Visualization: Part 1 - Getting Started in R  Copyright &amp;copy; 2018 John A.</description>
-    </item>
-    
-    <item>
-      <title>Code</title>
-      <link>/xcode/</link>
-      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/xcode/</guid>
-      <description>2018
- Data Exploration: Global Trends in Extreme Poverty
-  2017
- Data Exploration: Where Do American Baptists Live?
- Data Visualization in R: Part 4 - Text Labels, Faceting, Editing Themes
- Data Visualization in R: Part 3 - Other Geoms (lines, bars, box, violin, density)
- Data Visualization in R: Part 2 - Assigning Variables to Attributes
- Data Visualization in R: Part 1 - Getting Started  Copyright &amp;copy; 2018 John A.</description>
     </item>
     
     <item>
