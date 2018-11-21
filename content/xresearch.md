@@ -9,7 +9,7 @@ tags: []
 
 **Peer-Reviewed Publications**  
 
-* Bernau, John A. 2018. ["Text Analysis with JSTOR Archives"](https://doi.org/10.1177%2F2378023118809264). *Socius: Sociological Research for a Dynamic World* 4:1-2. [[PDF]](/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf)
+* Bernau, John A. 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives"</a>. *Socius: Sociological Research for a Dynamic World* 4:1-2. [[PDF]](/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf)
 
 **Publications Under Review** 
 
