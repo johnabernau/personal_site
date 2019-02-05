@@ -13,18 +13,17 @@ tags: []
 
 **Publications Under Review** 
 
-* Bernau, John A. "Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989-2014" [\[Abstract\]](/research/country-music)    
-  
 * Xu, Bin and John A. Bernau. "How Do Modern States Culturally Respond to Disasters?" [\[Abstract\]](/research/sympathetic-leviathan)
 
+* Semenza, Daniel C. and John A. Bernau. “Are All Mass Shootings Equal? Assessing a Cultural-Cognitive Theory of Public Interest using Google Search Data” 
 
 **Manuscripts in Progress**  
+
+* Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989-2014 [\[Abstract\]](/research/country-music)   
 
 * Sad Songs & Waltzes: Country Music Sentiment and Chart Performance  
 [<img src= "/research/cmsent1.jpg" />](/research/cmsent1.jpg)
 
-* Mass Violence, Mass Reaction: Examining Event Attributes and Public Response to Mass Shootings using Google Search Data (w/ [Daniel C. Semenza](https://www.danielcsemenza.com/))
-[<img src= "/research/google1.jpg"/>](/research/google1.jpg)
 
 
 **Dissertation Research**  
