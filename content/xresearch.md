@@ -15,7 +15,7 @@ tags: []
 
 **Publications Under Review** 
 
-* Xu, Bin and John A. Bernau. "How Do Modern States Culturally Respond to Disasters?"
+* Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
 
 [<img src = "/research/leviathan.jpg" />](/research/leviathan.jpg)
 
@@ -25,10 +25,10 @@ tags: []
 
 **Manuscripts in Progress**  
 
-* Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989-2014
+* Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989 - 2014
 [<img src = "/research/cm_sr3.jpg" />](/research/cm_sr3.jpg)
 
-* Sad Songs & Waltzes: Country Music Sentiment and Chart Performance  
+* Sad Songs & Waltzes: Country Music Sentiment and Chart Performance 1989 - 2014
 [<img src= "/research/cmsent1.jpg" />](/research/cmsent1.jpg)
 
 

@@ -17,16 +17,22 @@ tags: []
 
 **Workshop Author / Leader:**  
 R Basics: An Introduction  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Sara Palmer](http://digitalscholarship.emory.edu/about/people/palmer-sara.html))  
-Data Visualization in R    
+<font color = "gray", size = "2.5">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Sara Palmer](http://digitalscholarship.emory.edu/about/people/palmer-sara.html))
+</font>  
 Data Cleaning and Manipulation in R  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))  
-Zotero for Academic Research and Publishing
+<font color = "gray", size = "2.5">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))
+</font>  
+Data Visualization in R    
+R Application: Social Media Scraping  
+<font color = "gray", size = "2.5">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(co-led with [Joshua C. Fjelstul](http://www.joshuafjelstul.com/) & [Rob O'Reilly](http://web.library.emory.edu/about/staff-directory/woodruff/oreilly-rob.html))
+</font>  
+Zotero for Academic Research and Publishing  
 
-**Proposed Courses:**  
-SOC XXX: Applied Statistics for Social Scientists  
-SOC XXX: Sociology of Death and Dying  
-SOC XXX: Philosophical Roots of Sociological Thought 
+
 
 **Served as Teaching Assistant:**  
 SOC 506: Applied Regression (Graduate-level)  
