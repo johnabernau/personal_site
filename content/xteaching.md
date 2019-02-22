@@ -13,7 +13,7 @@ tags: []
 
 
 **Independently Taught Courses:**  
-[SOC 333: Sociology of Religion](/teaching/sor/) 
+SOC 333: Sociology of Religion [[Syllabus]](/teaching/SOC333_Bernau18.pdf) 
 
 **Workshop Author / Leader:**  
 R Basics: An Introduction  
