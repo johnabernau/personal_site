@@ -18,6 +18,10 @@ tags: []
 
 * Semenza, Daniel C. and John A. Bernau. “Are All Mass Shootings Equal? Assessing a Cultural-Cognitive Theory of Public Interest using Google Search Data” 
 
+**Non-Refereed Publications**  
+
+* Bernau, John A. 2019. “Introducing DOIs to Atlanta Studies” *Atlanta Studies*. <a target = "_blank" rel="noopener noreferrer" href = "https://doi.org/10.18737/atls20190418">https://doi.org/10.18737/atls20190418</a>.  
+
 
 **Manuscripts in Progress**  
 
