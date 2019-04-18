@@ -11,7 +11,6 @@ tags: []
 
 * Bernau, John A. 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives"</a>. *Socius: Sociological Research for a Dynamic World* 4:1-2. <a href = "/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf" target = "_blank">[PDF]</a>
 
-
 **Publications Under Review** 
 
 * Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
@@ -20,8 +19,7 @@ tags: []
 
 **Non-Refereed Publications**  
 
-* Bernau, John A. 2019. “Introducing DOIs to Atlanta Studies” *Atlanta Studies*. <a target = "_blank" rel="noopener noreferrer" href = "https://doi.org/10.18737/atls20190418">https://doi.org/10.18737/atls20190418</a>.  
-
+* Bernau, John A. 2019. <a href = "https://doi.org/10.18737/atls20190418" target = "_blank">“Introducing DOIs to Atlanta Studies”</a>. *Atlanta Studies*.  
 
 **Manuscripts in Progress**  
 
