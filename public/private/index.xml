@@ -6,22 +6,9 @@
     <description>Recent content in Private on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 05 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/private/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>GoogleData #3</title>
-      <link>/private/google3/</link>
-      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/private/google3/</guid>
-      <description>Overview RQ: How do mass shooting events influence search traffic?
-DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 15-day event windows around each shooting (-7 and +7) and appended shooting characteristics (race of shooter, victims, venue, etc).
-Sample dataset for one term. Looks like panel data…
- Running the model with dummy variable (pre vs post) This tests whether search traffic is significantly different overall, between pre-shooting days and post-shooting days.</description>
-    </item>
     
     <item>
       <title></title>
@@ -30,71 +17,6 @@ Sample dataset for one term. Looks like panel data…
       
       <guid>/private/atls/</guid>
       <description>ATLS Analytics 2017 - 2018 window.FlexDashboardComponents = [];  [{&#34;icon&#34;:&#34;fa-share-alt&#34;,&#34;items&#34;:[{&#34;title&#34;:&#34;Twitter&#34;,&#34;icon&#34;:&#34;fa-twitter&#34;},{&#34;title&#34;:&#34;Facebook&#34;,&#34;icon&#34;:&#34;fa-facebook&#34;},{&#34;title&#34;:&#34;Google+&#34;,&#34;icon&#34;:&#34;fa-google-plus&#34;},{&#34;title&#34;:&#34;LinkedIn&#34;,&#34;icon&#34;:&#34;fa-linkedin&#34;},{&#34;title&#34;:&#34;Pinterest&#34;,&#34;icon&#34;:&#34;fa-pinterest&#34;}]},{&#34;title&#34;:&#34;Source Code&#34;,&#34;icon&#34;:&#34;fa-code&#34;,&#34;href&#34;:&#34;source_embed&#34;,&#34;align&#34;:&#34;right&#34;}]                /* Dashboard CSS from Keen IO Dashboards (https://github.com/keen/dashboards) */ body { background: #f2f2f2; padding: 60px 0 0 8px; /* padding-top overridden by theme */ } body hr { border-color: #d7d7d7; margin: 10px 0; } .navbar-inverse .navbar-nav  li  a, .navbar .navbar-brand { text-decoration: none; } .</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/private/dan_gtdemo/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/private/dan_gtdemo/</guid>
-      <description>Google Trends Dan Demo, August 2018
-There is an R package that allows you to directly import GoogleTrend data. You specify 1) search terms, 2) geographic region, and 3) time span. You can search one word or multiple-word phrases by combining with “+”. They have region codes at most levels you could want: global, country, state, city, metropolitan area, etc. At the widest, time span can go from 2004-present. At the shortest, you can pull trends from the last hour!</description>
-    </item>
-    
-    <item>
-      <title>GoogleData</title>
-      <link>/private/google/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/private/google/</guid>
-      <description>Overview RQ: How do mass shooting events influence search traffic?
-DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
-Sample dataset for one term. Looks like panel data…
-load(&amp;quot;/Users/johnbernau/Box Sync/1. Desktop/3. Publications/Google_Search_Data/Analysis/9.19.18 session/gc_cleaned.RData&amp;quot;) require(tidyverse) require(broom) require(plm) t5 &amp;lt;- filter(t5, days_after &amp;lt; 15) names(t5) ## [1] &amp;quot;id&amp;quot; &amp;quot;case&amp;quot; ## [3] &amp;quot;city&amp;quot; &amp;quot;state&amp;quot; ## [5] &amp;quot;event_date&amp;quot; &amp;quot;fatalities&amp;quot; ## [7] &amp;quot;injured&amp;quot; &amp;quot;total_victims&amp;quot; ## [9] &amp;quot;total_victims_cat&amp;quot; &amp;quot;venue&amp;quot; ## [11] &amp;quot;age_of_shooter&amp;quot; &amp;quot;race&amp;quot; ## [13] &amp;quot;n_weapons2&amp;quot; &amp;quot;highest_weapon&amp;quot; ## [15] &amp;quot;date&amp;quot; &amp;quot;days_after&amp;quot; ## [17] &amp;quot;keyword&amp;quot; &amp;quot;hits_local_month&amp;quot; ## [19] &amp;quot;hits_local_month_avg&amp;quot; &amp;quot;hits_local_month_demeaned&amp;quot; ## [21] &amp;quot;hits_global_month_avg&amp;quot; &amp;quot;hits_standard&amp;quot; ## [23] &amp;quot;hits_standard_positive&amp;quot; &amp;quot;hits_standard_positive_scaled&amp;quot; ## [25] &amp;quot;hits_final&amp;quot; &amp;quot;group&amp;quot; ## [27] &amp;quot;weapon_type&amp;quot; &amp;quot;weapon_detail&amp;quot; ## [29] &amp;quot;n_weapons&amp;quot; ggplot(t5, aes(n_weapons2)) + geom_histogram(stat = &amp;quot;count&amp;quot;) ggplot(t5, aes(highest_weapon)) + geom_histogram(stat = &amp;quot;count&amp;quot;) Save as panel data format</description>
-    </item>
-    
-    <item>
-      <title>GoogleData #2</title>
-      <link>/private/google2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/private/google2/</guid>
-      <description>Overview RQ: How do mass shooting events influence search traffic?
-DATA: Daily search traffic for terms like “gun+control” from 2004-2018. Extracted 14-day event windows around each shooting and appended shooting characteristics (race of shooter, victims, venue, etc).
-Sample dataset for one term. Looks like panel data…
-I ran three models:
-1) pooled OLS with clustered SE
-2) auto-regressive / dynamic model
-3) change-score model
-Most of the IVs are categorical, which makes the output a bit difficult to read.</description>
-    </item>
-    
-    <item>
-      <title>Overlapping Shootings</title>
-      <link>/private/gtdemo2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/private/gtdemo2/</guid>
-      <description>In a 30-day window there are 37 events that have some degree of overlap:  {&#34;x&#34;:{&#34;data&#34;:[{&#34;x&#34;:[15540,15541,15542,15543,15544,15545,15546,15547,15548,15549,15550,15551,15552,15553,15554,15555,15556,15557,15558,15559,15560,15561,15562,15563,15564,15565,15566,15567,15568,15569,15570,15571],&#34;y&#34;:[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],&#34;text&#34;:[&#34;id: 41
-total_victims: 82
-date3: 2012-07-19
-id: 41
-case: Aurora theater shooting&#34;,&#34;id: 41
-total_victims: 82
-date3: 2012-07-20
-id: 41
-case: Aurora theater shooting&#34;,&#34;id: 41
-total_victims: 82
-date3: 2012-07-21
-id: 41
-case: Aurora theater shooting&#34;,&#34;id: 41
-total_victims: 82
-date3: 2012-07-22
-id: 41
-case: Aurora theater shooting&#34;,&#34;id: 41
-total_victims: 82
-date3: 2012-07-23</description>
     </item>
     
   </channel>
