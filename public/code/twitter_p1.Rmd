@@ -1,0 +1,35 @@
+---
+title: Working with Twitter Data in R (Part 1)
+author: John A. Bernau
+date: '2019-05-16'
+slug: twitter_p1
+categories: []
+tags: []
+---
+
+This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin's funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.
+
+**Three Sources of Twitter Data**
+
+Who owns Twitter data? In a word, Twitter. There is no "public record" of Twitter data. If you want to see all Tweets that were produced on say, September 24th, 2014, you will need to submit a request (and a sizable check) to Jack Dorsey. However, Twitter has made a few concessions to developers. There are two other ways to access Twitter data. The first involves the rtweet package (LINK). After setting up a developer account, this package allows a user to make specific requests through Twitter's API and returns the data in a fairly clean R data frame. More information can be found on the package website here. The downsides of this are ____________presentism_____. 
+
+The second source of Twitter data comes through the use of pre-collected datasets of historical Tweet IDs. As stipulated in Twitter's developer terms (LINK), you cannot distribute full-text Twitter datasets, only the unique numerical identifiers associated with each Tweet. 
+
+(PICTURE HERE)
+
+
+While the specific collection procedures are somewhat opaque, these datasets are collected by various parties / institutions and involve some form of hshtag-based streaming capture. The main benefit of these collections is the analysis of historic data. 
+
+**Finding Twitter Data**
+
+
+
+
+
+**Preparing Twitter Data**
+
+
+
+
+**Cleaning Twitter Data**
+
