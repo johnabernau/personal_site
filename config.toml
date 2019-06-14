@@ -59,7 +59,7 @@ url                    = "/img/Bernau_CV.pdf"
 include_rss            = false   # include RSS <link> tag in <head> and show RSS icon
 latestpostscount       = -1      # how many posts to display on the home page
 i18n_flags             = false   # whether to display small country flags for available translations
-author                 = "John A. Bernau"
+author                 = "John A. Bernau, PhD"
 cachebuster            = true      # add the current unix timestamp in query string for cache busting css assets
 dateform               = "Jan 2, 2006"
 dateformfull           = "Mon Jan 2 2006 15:04:05 MST"
@@ -73,7 +73,7 @@ px500                  = ""
 lang                   = "en"
 linkedin               = "https://www.linkedin.com/in/john-bernau-b384a9153"
 noshowreadtime         = true     # if true, don't show "<x> minutes read" in posts
-selfintro              = "PhD Candidate, Sociology"    # appears in the site header when set to a non-empty string
+selfintro              = " "    # appears in the site header when set to a non-empty string
 twitter                = "https://twitter.com/johnAbernau"
 mastodon               = ""
 
