@@ -19,22 +19,8 @@ To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/code/baylor/" />
-
-
-
 <meta property="article:published_time" content="2018-04-17T00:00:00&#43;00:00"/>
-
 <meta property="article:modified_time" content="2018-04-17T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 
 <title>
@@ -61,11 +47,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-07-06%2018%3a58%3a03.272898%20-0400%20EDT%20m%3d%2b1.283693161">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-07-06%2018%3a58%3a03.272898%20-0400%20EDT%20m%3d%2b1.283693161">
-    <link rel="stylesheet" href="/css/main.css?t=2019-07-06%2018%3a58%3a03.272898%20-0400%20EDT%20m%3d%2b1.283693161">
+    <link rel="stylesheet" href="/css/reset.css?t=2019-07-16%2009%3a32%3a31.866256%20-0400%20EDT%20m%3d%2b0.116727734">
+    <link rel="stylesheet" href="/css/pygments.css?t=2019-07-16%2009%3a32%3a31.866256%20-0400%20EDT%20m%3d%2b0.116727734">
+    <link rel="stylesheet" href="/css/main.css?t=2019-07-16%2009%3a32%3a31.866256%20-0400%20EDT%20m%3d%2b0.116727734">
     
-        <link rel="stylesheet" href="/css/override.css?t=2019-07-06%2018%3a58%3a03.272898%20-0400%20EDT%20m%3d%2b1.283693161">
+        <link rel="stylesheet" href="/css/override.css?t=2019-07-16%2009%3a32%3a31.866256%20-0400%20EDT%20m%3d%2b0.116727734">
     
 
 
@@ -97,8 +83,6 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
                 
                 
                 
-                
-                    
                 
                     
                 
@@ -196,7 +180,10 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 </div>
 
             <div class="markdown">
-                <hr />
+                
+
+
+<hr />
 <p>In this post, I’ll be using R to download, clean, and plot some basic information about the regional concentration of American denominations using the <a href="https://www.baylor.edu/BaylorReligionSurvey/">Baylor Religion Survey of 2010</a>.</p>
 <p>To begin, make sure to load a few basic packages.</p>
 <pre class="r"><code>require(&quot;tidyverse&quot;)
@@ -370,12 +357,16 @@ final2</code></pre>
 </section>
 
 
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-118509886-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-118509886-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

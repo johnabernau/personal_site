@@ -270,7 +270,7 @@ SOC 389: Cont.</description>
       <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/new-website/</guid>
-      <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). For general R / data / blogging inspiration, check out Julia Silge’s and David Robinson’s websites, as well as the editorial team at The Pudding who put together beautiful data-visualization-driven essays. Lastly, a major shout-out to my friend and colleague Trent Ryan for general R support and encouragement (and help with the cocoa theme!</description>
+      <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). For general R / data / blogging inspiration, check out Julia Silge’s and David Robinson’s websites, as well as the editorial team at The Pudding who put together beautiful data-visualization-driven essays.</description>
     </item>
     
     <item>
