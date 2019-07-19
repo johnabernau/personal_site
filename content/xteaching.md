@@ -13,25 +13,18 @@ tags: []
 
 
 **Independently Taught Courses:**  
-SOC 333: Sociology of Religion [[Syllabus]](/teaching/SOC333_Bernau18.pdf) 
+SOC 333: Sociology of Religion <a href = "https://drive.google.com/file/d/1HZw8XLUFDt9Grpl1D9jKaGLpbvj2MTfo/view?usp=sharing" target="_blank">[Syllabus]</a> 
+
+
 
 **Workshop Author / Leader:**  
+Data Visualization in R   
 R Basics: An Introduction  
-<font color = "gray", size = "2.5">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Sara Palmer](http://digitalscholarship.emory.edu/about/people/palmer-sara.html))
-</font>  
 Data Cleaning and Manipulation in R  
-<font color = "gray", size = "2.5">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(co-led with [Megan Slemons](http://digitalscholarship.emory.edu/about/people/slemons-megan.html))
-</font>  
-Data Visualization in R    
-R Application: Social Media Scraping  
-<font color = "gray", size = "2.5">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-(co-led with [Joshua C. Fjelstul](http://www.joshuafjelstul.com/) & [Rob O'Reilly](http://web.library.emory.edu/about/staff-directory/woodruff/oreilly-rob.html))
-</font>  
+R Intermediate: Data Visualization II  
+R Advanced: Social Media Scraping  
 Zotero for Academic Research and Publishing  
-
+Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[PDF Handout]</a>
 
 
 **Served as Teaching Assistant:**  
@@ -48,4 +41,4 @@ SOC 101: Intro to Sociology
 
 ___
 
-<font color = "gray", size="2">Copyright &copy; 2018 John A. Bernau</font>
+<font color = "gray", size="2">Copyright &copy; 2019 John A. Bernau</font>
