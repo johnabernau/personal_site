@@ -18,13 +18,13 @@ SOC 333: Sociology of Religion <a href = "https://drive.google.com/file/d/1HZw8X
 
 
 **Workshop Author / Leader:**  
-Data Visualization in R   
+Data Visualization in R <a href = "https://drive.google.com/file/d/17UBBWxrU7fvHE2HAJyVOGTnqLBBDc_ry/view?usp=sharing" target="_blank">[Flyer PDF]</a>    
 R Basics: An Introduction  
 Data Cleaning and Manipulation in R  
 R Intermediate: Data Visualization II  
 R Advanced: Social Media Scraping  
 Zotero for Academic Research and Publishing  
-Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[PDF Handout]</a>
+Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[Handout PDF]</a>
 
 
 **Served as Teaching Assistant:**  

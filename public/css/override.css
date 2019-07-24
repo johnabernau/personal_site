@@ -1,1 +1,6 @@
 /* override css styles of the main theme here */
+
+.hangingindent {
+  padding-left: 22px ;
+  text-indent: -22px ;
+}

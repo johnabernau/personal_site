@@ -6,10 +6,20 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Conference in Copenhagen, Denmark</title>
+      <link>/blog/copenhagen2019/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/copenhagen2019/</guid>
+      <description>Shortly after finishing my dissertation I flew to Copenhagen to present a paper at a small conference “Politics, Societies, and Disasters: China and Beyond.” I was honored to be invited by my mentor and colleague Bin Xu. I presented our co-authored paper “The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?” and you can find the slides here.
+Having never been to Denmark (or any other Nordic country), I assembled a reading list to better prepare for my brief cultural immersion.</description>
+    </item>
     
     <item>
       <title>Dissertation Defense</title>
@@ -262,13 +272,13 @@ Part 4 includes:
       <description>Independently Taught Courses:
 SOC 333: Sociology of Religion [Syllabus]
 Workshop Author / Leader:
-Data Visualization in R
+Data Visualization in R [Flyer PDF]
 R Basics: An Introduction
 Data Cleaning and Manipulation in R
 R Intermediate: Data Visualization II
 R Advanced: Social Media Scraping
 Zotero for Academic Research and Publishing
-Developing an Online Presence [PDF Handout]
+Developing an Online Presence [Handout PDF]
 Served as Teaching Assistant:
 SOC 506: Applied Regression (Graduate-level)
 SOC 389: Cont. Chinese Culture

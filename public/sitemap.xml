@@ -4,19 +4,24 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2019-06-19T00:00:00+00:00</lastmod>
+    <lastmod>2019-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/copenhagen2019/</loc>
+    <lastmod>2019-07-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-07-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/blog/dissertation-defense/</loc>
     <lastmod>2019-06-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2019-06-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
