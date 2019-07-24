@@ -7,9 +7,6 @@ categories: []
 tags: []
 ---
 
-
-
-
 <figure style = "float:right; padding: 0px 0px 0px 15px">
 <a href="/blog/copenhagen_poster.jpg"><img src="/blog/copenhagen_poster.jpg" height = "400" /></a>
 </figure>
@@ -20,7 +17,9 @@ Shortly after finishing my dissertation I flew to Copenhagen to present a paper 
 Having never been to Denmark (or any other Nordic country), I assembled a reading list to better prepare for my brief cultural immersion. Luckily, I inherited blonde hair and a fair complexion from my father’s father’s mother’s parents – who emigrated from Jutland, Denmark around the turn of the nineteenth century – so I figured my 1/8th Danish heritage made me less of a tourist and more of a long-lost Danish expatriate returning to the homeland. *Skål!* Culturally, Denmark today is known for their food (*Noma*), television (*The Killing*), design (*hygge*), and energy efficiency. In fact, the <a href="https://www.newyorker.com/magazine/2008/07/07/the-island-in-the-wind" target="_blank">tiny island town of Samsø</a> is known as one of the few carbon negative places on earth. Another Danish town – Ringkøbing – carries the mantle of being the happiest town in the happiest country in the world according to studies by Cambridge University and the United Nations [(Kingsley 2013)](#ref). 
 
 <figure style = "float:left; padding: 0px 15px 0px 0px">
-<a href="/blog/danish_books.png"><img src="/blog/danish_books.png" height = "250"></a>
+<a href="/blog/danish_books.png">
+<img src="/blog/danish_books.png" height = "250">
+</a>
 <font color = "gray", size="2">
 <figcaption>My Danish reading list</figcaption>
 </font>
@@ -30,8 +29,10 @@ Having never been to Denmark (or any other Nordic country), I assembled a readin
 
 Of course, progressive politicians champion Danish happiness as the causal corelate of its extensive welfare state. Residents pay up to 60% of their income in taxes in exchange for state-provided childcare, healthcare, education, and college. College students even receive a stipend to cover living expenses while in school. Danes also enjoy the highest minimum wage in the world and the unemployed can get up to 90% of their previous salary for up to four years while looking for work. Sociologically, this is interesting against the backdrop of relative racial and cultural homogeneity. That is, many argue the success of the Danish welfare state is dependent on its status as a small isolated monoculture. Once a sprawling European empire enjoying full reign of the Baltic State in the 10th-century, by 1864 Denmark had lost much of its territory to secession movements to the east and military campaigns to the south. Thus, the nineteenth century saw Denmark finally coming to terms with their status as a small and unified culture set apart from the rest of Europe [(Jespersen 2019)](#ref). 
 
-<figure style = "float:right; padding: 0px 0px 0px 15px" width = "50%">
-<a href="/blog/jensens.jpg"><img src="/blog/jensens.jpg" height = "400"></a>
+<figure style = "float:right; padding: 0px 0px 0px 15px; width: 50%;">
+<a href="/blog/jensens.jpg">
+<img src="/blog/jensens.jpg">
+</a>
 <font color = "gray", size="2">
 <figcaption align = "right">My great-great grandparents Rasmuss</figcaption>
 <figcaption align = "right">Jensen (1874–1956) and Johana Nelson</figcaption>
