@@ -34,11 +34,13 @@ All this to say that the people and events that led me here are many. To enterta
 
 This summer I start a new position at the [Center for the Study of Law and Religion](http://cslr.law.emory.edu/) at Emory as their inaugural Digital Scholarship Fellow.
 
----
-<font color = "gray", size="2">
-Abbott, Andrew. 1988. *The System of Professions: An Essay on the Division of Expert Labor.* Chicago: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;University of Chicago Press.
-</font>
+___
 
+<p class="hangingindent">
+<font color = "gray", size="2">
+Abbott, Andrew. 1988. *The System of Professions: An Essay on the Division of Expert Labor.* Chicago: University of Chicago Press.
+</font>
+</p>
 ___
 
 <font color = "gray", size="2">Copyright &copy; 2019 John A. Bernau</font>
