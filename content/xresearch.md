@@ -6,22 +6,23 @@ slug: xresearch
 categories: []
 tags: []
 ---
+<br>
 
-**Peer-Reviewed Publications**  
+### Peer-Reviewed Publications 
 
 * Bernau, John A. 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives"</a>. *Socius: Sociological Research for a Dynamic World* 4:1-2. <a href = "/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf" target = "_blank">[PDF]</a>
 
-**Publications Under Review** 
+### Publications Under Review 
 
 * Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
 
 * Semenza, Daniel C. and John A. Bernau. “Are All Mass Shootings Equal? Assessing a Cultural-Cognitive Theory of Public Interest using Google Search Data” 
 
-**Non-Refereed Publications**  
+### Non-Refereed Publications  
 
 * Bernau, John A. 2019. <a href = "https://doi.org/10.18737/atls20190418" target = "_blank">“Introducing DOIs to Atlanta Studies”</a>. *Atlanta Studies*.  
 
-**Manuscripts in Progress**  
+### Manuscripts in Progress  
 
 * Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989 - 2014
 
@@ -31,7 +32,7 @@ tags: []
 
 ___
 
-**Plot Gallery**
+### Plot Gallery
 
 [<img src="/research/socius.jpg" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">](/research/socius.jpg)
 

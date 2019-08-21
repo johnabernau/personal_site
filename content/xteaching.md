@@ -12,12 +12,12 @@ tags: []
 </div>
 
 
-**Independently Taught Courses:**  
+### Independently Taught Courses
 SOC 333: Sociology of Religion <a href = "https://drive.google.com/file/d/1HZw8XLUFDt9Grpl1D9jKaGLpbvj2MTfo/view?usp=sharing" target="_blank">[Syllabus]</a> 
 
 
 
-**Workshop Author / Leader:**  
+### Workshop Author / Leader  
 Data Visualization in R <a href = "https://drive.google.com/file/d/17UBBWxrU7fvHE2HAJyVOGTnqLBBDc_ry/view?usp=sharing" target="_blank">[Flyer PDF]</a>    
 R Basics: An Introduction  
 Data Cleaning and Manipulation in R  
@@ -27,7 +27,7 @@ Zotero for Academic Research and Publishing
 Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[Handout PDF]</a>
 
 
-**Served as Teaching Assistant:**  
+### Teaching Assistant  
 SOC 506: Applied Regression (Graduate-level)  
 SOC 389: Cont. Chinese Culture  
 SOC 343: Mass Media & Society  
