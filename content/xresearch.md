@@ -16,7 +16,7 @@ tags: []
 
 * Semenza, Daniel C. and John A. Bernau. “Are All Mass Shootings Equal? Assessing a Cultural-Cognitive Theory of Public Interest using Google Search Data” 
 
-* Bernau, John A. "The Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying""
+* Bernau, John A. "The Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying"
 
 * Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
 
@@ -26,7 +26,7 @@ tags: []
 
 ### Manuscripts in Progress  
 
-* Bernau, John A. "Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989—2014""
+* Bernau, John A. "Meta-Sounds in Modern Country Music: Lyric Intertextuality as Boundary Work 1989—2014"
 
 * Bernau, John A. "The Language of Religion and Spirituality in Modern Medical Institutions: Evaluating the Efficacy of Small-Corpus Word Vector Representations"
 
