@@ -25,7 +25,7 @@ R Intermediate: Data Visualization II
 R Advanced: Social Media Scraping <a href = "https://drive.google.com/file/d/1CRJHc24Zzb4vcHuG5ulvGFWOpsm0Bmlj/view?usp=sharing" target="_blank">[PDF Slides]</a>  
 Zotero for Academic Research and Publishing  
 Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[PDF Handout]</a>  
-Introduction to Web Development <a href="https://drive.google.com/file/d/1gFzigEW68Uw3qE7jfW_svvOngKNX8SKo/view?usp=sharing" target="_blank">[PDF Handout]</a>  
+Introduction to Web Development <a href="https://drive.google.com/file/d/1Oo7SqHG_wuiVgwupOFD3SJ12J6I5Lw8k/view?usp=sharing" target="_blank">[PDF Handout]</a>  
 
 
 ### Teaching Assistant  
