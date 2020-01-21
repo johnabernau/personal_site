@@ -18,13 +18,14 @@ SOC 333: Sociology of Religion <a href = "https://drive.google.com/file/d/1HZw8X
 
 
 ### Workshop Author / Leader  
-Data Visualization in R <a href = "https://drive.google.com/file/d/17UBBWxrU7fvHE2HAJyVOGTnqLBBDc_ry/view?usp=sharing" target="_blank">[Flyer PDF]</a>    
+Data Visualization in R <a href = "https://drive.google.com/file/d/17UBBWxrU7fvHE2HAJyVOGTnqLBBDc_ry/view?usp=sharing" target="_blank">[PDF Flyer]</a>    
 R Basics: An Introduction <a href = "https://drive.google.com/file/d/1gFzigEW68Uw3qE7jfW_svvOngKNX8SKo/view?usp=sharing" target="_blank">[PDF Slides]</a>  
 Data Cleaning and Manipulation in R  
 R Intermediate: Data Visualization II  
 R Advanced: Social Media Scraping <a href = "https://drive.google.com/file/d/1CRJHc24Zzb4vcHuG5ulvGFWOpsm0Bmlj/view?usp=sharing" target="_blank">[PDF Slides]</a>  
 Zotero for Academic Research and Publishing  
-Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[Handout PDF]</a>
+Developing an Online Presence <a href = "https://drive.google.com/file/d/1jqSYnx9qVCPlcrGjD6GCAi9WpJfuVRRN/view?usp=sharing" target="_blank">[PDF Handout]</a>  
+Introduction to Web Development <a href="https://drive.google.com/file/d/1gFzigEW68Uw3qE7jfW_svvOngKNX8SKo/view?usp=sharing" target="_blank">[PDF Handout]</a>  
 
 
 ### Teaching Assistant  
