@@ -55,4 +55,4 @@ ___
 
 ___
 
-<font color = "gray", size="2">Copyright &copy; 2019 John A. Bernau</font>
+<font color = "gray", size="2">Copyright &copy; 2020 John A. Bernau</font>
