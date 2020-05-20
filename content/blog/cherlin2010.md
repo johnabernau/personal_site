@@ -44,9 +44,9 @@ The first is the rising age of first marriages. Couples are waiting longer than 
 
 A second example of the increasingly symbolic importance of marriage is the contemporary debate over same-sex marriage in America. Nowhere else is the debate so heated. Same-sex activists are not content to receive the practicalities of marriage (i.e. a civil union). There is something else to be gained. This contestation reveals the universal acceptance of the cultural model of marriage: **both sides agree that marriage is of paramount symbolic importance.** The disagreement comes from an idea of marriage rooted in expressive individualism vs an idea of marriage rooted in religious-moral traditionalism. The [2015 Supreme Court case](https://en.wikipedia.org/wiki/Obergefell_v._Hodges) did much to solidify a national-legal conception of marriage align with expressive individualism, but it’s worth noting the speed at which this debate unfolded. In no other area has public opinion fluctuated so drastically. In a mere 25 years, states went from legally neutral (white), to *legally prohibitive* (brown/orange), to constitutionally accepted (green). 
 
-<iframe src="https://giphy.com/embed/1ZDxIXH5JLaSHnjWTi" width="600" height="384" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-
-<p><a href="http://www.pewforum.org/2015/06/26/same-sex-marriage-state-by-state/">Via Pew Research Center</a></p>
+<a target ="_blank" href="http://www.pewforum.org/2015/06/26/same-sex-marriage-state-by-state/">
+<img src="/blog/pew1.png" height="450" />
+</a><a href="http://www.pewforum.org/2015/06/26/same-sex-marriage-state-by-state/">Via Pew Research Center</a></p>
 
 Taken together, the changes we see in marriage today reflect an unprecedented emphasis on individual choice:
 
