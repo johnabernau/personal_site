@@ -20,9 +20,11 @@ tags: []
 
 * Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
 
-### Non-Refereed Publications  
+### Essays  
 
-* Bernau, John A. 2019. <a href = "https://doi.org/10.18737/atls20190418" target = "_blank">“Introducing DOIs to Atlanta Studies”</a>. *Atlanta Studies*.  
+* Bernau, John A. 2020. <a href = "https://scholarblogs.emory.edu/ecds/staff-feature-john-bernau-1/" target = "_blank">"Digital Scholarship: Discipline or Method?"</a> *ECDS Project Team Blog*.  
+
+* Bernau, John A. 2019. <a href = "https://doi.org/10.18737/atls20190418" target = "_blank">“Introducing DOIs to Atlanta Studies.”</a> *Atlanta Studies*.  
 
 ### Manuscripts in Progress  
 
