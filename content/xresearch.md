@@ -10,7 +10,7 @@ tags: []
 
 ### Peer-Reviewed Publications 
 
-* Semenza, Daniel Charles and John A. Bernau. 2020 <a href = "https://doi.org/10.1177%2F0731121420964785" target = "_blank">"Information-seeking in the Wake of Tragedy: An Examination of Public Response to Mass Shootings Using Google Search Data."</a> *Sociological Perspectives* X:X-XX.
+* Semenza, Daniel Charles and John A. Bernau. 2020 <a href = "https://doi.org/10.1177%2F0731121420964785" target = "_blank">"Information-seeking in the Wake of Tragedy: An Examination of Public Response to Mass Shootings Using Google Search Data."</a> *Sociological Perspectives* x:x-xx.
 
 * Bernau, John A. 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives."</a> *Socius: Sociological Research for a Dynamic World* 4:1-2. <a href = "/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf" target = "_blank">[PDF]</a>
 
