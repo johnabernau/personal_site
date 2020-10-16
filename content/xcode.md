@@ -7,14 +7,9 @@ categories: []
 tags: []
 ---
 
-**2018**  
-
 * [Introduction to Text Analysis in R](/code/text_analysis/)
 * [Data Exploration: U.S. Church Attendance 2001-2008](/code/church_attendance/)
 * [Data Exploration: Global Trends in Extreme Poverty 1977-2016](/code/wb_poverty/)  
-
-**2017** 
-
 * [Data Exploration: Where Do American Baptists Live?](/code/baylor/)  
 * [Data Visualization: Part 4 - Text Labels, Faceting, Editing Themes](/code/dataviz4/)  
 * [Data Visualization: Part 3 - Other Geoms (lines, bars, box, violin, density)](/code/dataviz3/)  

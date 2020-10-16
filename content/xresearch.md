@@ -10,18 +10,18 @@ tags: []
 
 ### Peer-Reviewed Publications 
 
-* Semenza, Daniel Charles and **John A. Bernau.** 2020 <a href = "https://doi.org/10.1177%2F0731121420964785" target = "_blank">"Information-seeking in the Wake of Tragedy: An Examination of Public Response to Mass Shootings Using Google Search Data."</a> *Sociological Perspectives* X:X-XX.
+* Semenza, Daniel Charles and John A. Bernau. 2020 <a href = "https://doi.org/10.1177%2F0731121420964785" target = "_blank">"Information-seeking in the Wake of Tragedy: An Examination of Public Response to Mass Shootings Using Google Search Data."</a> *Sociological Perspectives* X:X-XX.
 
-* **Bernau, John A.** 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives."</a> *Socius: Sociological Research for a Dynamic World* 4:1-2. <a href = "/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf" target = "_blank">[PDF]</a>
+* Bernau, John A. 2018. <a href = "https://doi.org/10.1177%2F2378023118809264" target = "_blank">"Text Analysis with JSTOR Archives."</a> *Socius: Sociological Research for a Dynamic World* 4:1-2. <a href = "/research/Bernau - 2018 - Text Analysis with JSTOR Archives.pdf" target = "_blank">[PDF]</a>
 
 
 ### Publications Under Review 
 
-* **Bernau, John A.** "The Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying."
+* Bernau, John A. "The Institutionalization of Kübler-Ross's Five-Stage Model of Death and Dying."
 
-* **Bernau, John A.** "From Communion to Compassion: Changing Language of Healthcare Professionals."
+* Bernau, John A. "From Communion to Compassion: Changing Language of Healthcare Professionals."
 
-* Xu, Bin and **John A. Bernau.** "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
+* Xu, Bin and John A. Bernau. "The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?"
 
 ### Essays  
 
