@@ -51,7 +51,7 @@ url                    = "/about/"
 name                   = "CV"
 weight                 = 6
 identifier             = "cv"
-url                    = "/Bernau_CV.pdf"
+url                    = "https://drive.google.com/file/d/1KWUN0LHxek83v_7eP3BoFj_-sVptpu8q/view?usp=sharing"
 
 
 
@@ -71,7 +71,7 @@ github                 = "https://github.com/johnbernau"
 instagram              = ""
 px500                  = ""
 lang                   = "en"
-linkedin               = "https://www.linkedin.com/in/john-bernau-b384a9153"
+linkedin               = "https://www.linkedin.com/in/john-bernau/"
 noshowreadtime         = true     # if true, don't show "<x> minutes read" in posts
 selfintro              = " "    # appears in the site header when set to a non-empty string
 twitter                = "https://twitter.com/johnAbernau"
