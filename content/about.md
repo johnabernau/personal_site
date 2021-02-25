@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-As a sociologist, my research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Sociological Perspectives*, and *Socius*. I received my PhD from the [Department of Sociology](http://sociology.emory.edu/home/index.html) at [Emory University](http://www.emory.edu/home/index.html) and am currently a Postdoctoral Fellow in Digital Scholarship at the [Emory Center for the Study of Law and Religion](http://cslr.law.emory.edu/).
+As a sociologist, my research focuses on the use and evolution of language, especially in religious contexts. My work has appeared in the *Journal for the Scientific Study of Religion*, *Sociological Perspectives*, and *Socius*. I received my PhD from the [Department of Sociology](http://sociology.emory.edu/home/index.html) at [Emory University](http://www.emory.edu/home/index.html) and am currently a Postdoctoral Fellow in Digital Scholarship at the [Emory Center for the Study of Law and Religion](http://cslr.law.emory.edu/).
 
 I am passionate about data visualization, statistics, and recent developments in computational text analysis, and have led over 20 hours of training workshops in R. I also enjoy dogs, sailboats, and old-timey music. 
 

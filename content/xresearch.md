@@ -9,7 +9,14 @@ tags: []
 <br>
 My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Sociological Perspectives*, and *Socius.*  
 <p style="text-align: right;">
-View my <a href = "https://orcid.org/0000-0001-6482-5368" target = "_blank">ORCID research page.<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon"></a>
+<a href = "https://scholar.google.com/citations?user=tHKnII0AAAAJ&hl=en" target = "_blank">
+Google Scholar
+</a>
+|
+<a href = "https://orcid.org/0000-0001-6482-5368" target = "_blank">
+ORCID
+<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">
+</a>
 </p>
 
 ___  
