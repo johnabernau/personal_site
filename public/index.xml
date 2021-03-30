@@ -6,10 +6,20 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 20 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ARS - The Culminating Crisis of American Sociology (House 2019)</title>
+      <link>/blog/house2019/</link>
+      <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/house2019/</guid>
+      <description>House, James S. 2019. “The Culminating Crisis of American Sociology and Its Role in Social Science and Public Policy: An Autobiographical, Multimethod, Reflexive Perspective.” Annual Review of Sociology 45(1):1–26. doi: 10.1146/annurev-soc-073117-041052.
+ James House recounts his 50-year career as a sociologist, starting in the 1960s. He held prominent positions at the Survey Research Center and Ford School of Public Policy at the University of Michigan. In short, the story of sociology after the 1960s and 70s is not optimistic.</description>
+    </item>
     
     <item>
       <title>REVIEW: Visions of the Sociological Tradition (Levine 1995)</title>
@@ -169,6 +179,21 @@ Summary: The author uses ethnographic data to examine the role of emotions in th
       <guid>/about/</guid>
       <description>As a sociologist, my research focuses on the use and evolution of language, especially in religious contexts. My work has appeared in the Journal for the Scientific Study of Religion, Sociological Perspectives, and Socius. I received my PhD from the Department of Sociology at Emory University and am currently a Postdoctoral Fellow in Digital Scholarship at the Emory Center for the Study of Law and Religion.
 I am passionate about data visualization, statistics, and recent developments in computational text analysis, and have led over 20 hours of training workshops in R.</description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>/xblog/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/xblog/</guid>
+      <description>Reviews &amp;amp; Reflections Mar 30, 2021 ARS - The Culminating Crisis of American Sociology (House 2019)
+Oct 20, 2019 Visions of the Sociological Tradition (Levine 1995)
+May 3, 2019 A Man in Full by Tom Wolfe (1998)
+Sep 21, 2018 Why Read Generalist Journals?
+Jul 24, 2018 AJS - Vol. 123 No. 4 - January 2018
+Jun 15, 2018 The Marriage-Go-Round by Andrew Cherlin (2010)
+May 8, 2018 Ethics in an Age of Self-Interest by Peter Singer (1993)</description>
     </item>
     
     <item>

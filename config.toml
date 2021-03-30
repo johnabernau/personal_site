@@ -33,7 +33,7 @@ url                    = "/xteaching/"
 name                   = "Blog"
 weight                 = 3
 identifier             = "blog"
-url                    = "/blog/"
+url                    = "/xblog/"
 
 [[menu.main]]
 name                   = "Code"
