@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-> House, James S. 2019. “The Culminating Crisis of American Sociology and Its Role in Social Science and Public Policy: An Autobiographical, Multimethod, Reflexive Perspective.” *Annual Review of Sociology* 45(1):1–26. doi: 10.1146/annurev-soc-073117-041052.  
+> House, James S. 2019. “The Culminating Crisis of American Sociology and Its Role in Social Science and Public Policy: An Autobiographical, Multimethod, Reflexive Perspective.” *Annual Review of Sociology* 45(1):1–26. [https://doi.org/10.1146/annurev-soc-073117-041052](https://doi.org/10.1146/annurev-soc-073117-041052).  
 
 <div align = "justify">
 James House recounts his 50-year career as a sociologist, starting in the 1960s. He held prominent positions at the Survey Research Center and Ford School of Public Policy at the University of Michigan. In short, the story of sociology after the 1960s and 70s is not optimistic. Since its heyday, the discipline has lost its scientific reputation on account of internal disagreements about theory and methods and receded from policy discussions. These trends are not unrelated. 
