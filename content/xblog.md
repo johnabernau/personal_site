@@ -9,6 +9,7 @@ tags: []
 
 ### Reviews & Reflections
 
+
 Mar 30, 2021 [ARS - The Culminating Crisis of American Sociology (House 2019)](/blog/house2019)  
 Oct 20, 2019 [Visions of the Sociological Tradition (Levine 1995)](/blog/levine1995)  
 May 3, 2019 [A Man in Full by Tom Wolfe (1998)](/blog/wolfe1998)  
@@ -19,6 +20,7 @@ May 8, 2018 [Ethics in an Age of Self-Interest by Peter Singer (1993)](/blog/sin
 
 ### Updates
 
+Mar 23, 2021 [Research Featured in Christianity Today](/blog/christianity-today-press)  
 Jul 23, 2019 [Conference in Copenhagen, Denmark](/blog/copenhagen2019)  
 Jun 19, 2019 [Dissertation Defense](/blog/dissertation-defense)  
 Oct 29, 2018 [SSSR Conference in Las Vegas, NV](/blog/sssr2018)  

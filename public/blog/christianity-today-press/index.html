@@ -9,27 +9,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <meta name="author" content="John A. Bernau, PhD">
-<meta name="description" content="This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin’s funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.
-Three Sources of Twitter Data
-Who owns Twitter data? In a word, Twitter. There is no “public record” of Twitter data.">
+<meta name="description" content="You can read it here or download a PDF.
 
-<meta property="og:title" content="Working with Twitter Data in R (Part 1)" />
-<meta property="og:description" content="This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin’s funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.
-Three Sources of Twitter Data
-Who owns Twitter data? In a word, Twitter. There is no “public record” of Twitter data." />
+Copyright &copy; 2021 John A. Bernau">
+
+<meta property="og:title" content="Research Featured in Christianity Today" />
+<meta property="og:description" content="You can read it here or download a PDF.
+
+Copyright &copy; 2021 John A. Bernau" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/code/twitter_p1/" />
-<meta property="article:published_time" content="2019-05-16T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-05-16T00:00:00&#43;00:00"/>
+<meta property="og:url" content="/blog/christianity-today-press/" />
+<meta property="article:published_time" content="2021-03-23T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2021-03-23T00:00:00&#43;00:00"/>
 
 
 <title>
 
 
-     Working with Twitter Data in R (Part 1) 
+     Research Featured in Christianity Today 
 
 </title>
-<link rel="canonical" href="/code/twitter_p1/">
+<link rel="canonical" href="/blog/christianity-today-press/">
 
 
 
@@ -47,11 +47,11 @@ Who owns Twitter data? In a word, Twitter. There is no “public record” of Tw
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2021-03-31%2011%3a02%3a15.973678%20-0400%20EDT%20m%3d%2b0.114764237">
-    <link rel="stylesheet" href="/css/pygments.css?t=2021-03-31%2011%3a02%3a15.973678%20-0400%20EDT%20m%3d%2b0.114764237">
-    <link rel="stylesheet" href="/css/main.css?t=2021-03-31%2011%3a02%3a15.973678%20-0400%20EDT%20m%3d%2b0.114764237">
+    <link rel="stylesheet" href="/css/reset.css?t=2021-03-31%2011%3a02%3a15.965436%20-0400%20EDT%20m%3d%2b0.106522791">
+    <link rel="stylesheet" href="/css/pygments.css?t=2021-03-31%2011%3a02%3a15.965436%20-0400%20EDT%20m%3d%2b0.106522791">
+    <link rel="stylesheet" href="/css/main.css?t=2021-03-31%2011%3a02%3a15.965436%20-0400%20EDT%20m%3d%2b0.106522791">
     
-        <link rel="stylesheet" href="/css/override.css?t=2021-03-31%2011%3a02%3a15.973678%20-0400%20EDT%20m%3d%2b0.114764237">
+        <link rel="stylesheet" href="/css/override.css?t=2021-03-31%2011%3a02%3a15.965436%20-0400%20EDT%20m%3d%2b0.106522791">
     
 
 
@@ -170,33 +170,52 @@ Who owns Twitter data? In a word, Twitter. There is no “public record” of Tw
     </div>
 </section>
 
-<section class="main">
+
+<section class="main post non-narrow zero-top-spacing">
     <div class="container">
         <div class="content">
-            <div class="page-heading">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
 
-    Working with Twitter Data in R (Part 1)
+    Research Featured in Christianity Today
 
 </div>
 
-            <div class="markdown">
-                
-
-
-<p>This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin’s funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.</p>
-<p><strong>Three Sources of Twitter Data</strong></p>
-<p>Who owns Twitter data? In a word, Twitter. There is no “public record” of Twitter data. If you want to see all Tweets that were produced on say, September 24th, 2014, you will need to submit a request (and a sizable check) to Jack Dorsey. However, Twitter has made a few concessions to developers. There are two other ways to access Twitter data. The first involves the rtweet package (LINK). After setting up a developer account, this package allows a user to make specific requests through Twitter’s API and returns the data in a fairly clean R data frame. More information can be found on the package website here. The downsides of this are ____________presentism_____.</p>
-<p>The second source of Twitter data comes through the use of pre-collected datasets of historical Tweet IDs. As stipulated in Twitter’s developer terms (LINK), you cannot distribute full-text Twitter datasets, only the unique numerical identifiers associated with each Tweet.</p>
-<p>(PICTURE HERE)</p>
-<p>While the specific collection procedures are somewhat opaque, these datasets are collected by various parties / institutions and involve some form of hshtag-based streaming capture. The main benefit of these collections is the analysis of historic data.</p>
-<p><strong>Finding Twitter Data</strong></p>
-<p><strong>Preparing Twitter Data</strong></p>
-<p><strong>Cleaning Twitter Data</strong></p>
-
+                    <div class="initials"><a href="/">ad</a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Mar 23 2021 00:00:00 UTC'>Mar 23, 2021</div>
+                    
+                    
+                </div>
             </div>
+            <div class="markdown">
+                <p><div align = "justify">
+You can <a href="https://www.christianitytoday.com/ct/2021/march-web-only/pastoral-care-counseling-journal-psychology-language.html">read it here</a> or <a href="https://drive.google.com/file/d/1iURwnEO7oQ2W72M7Oq6cU3ja2DZCSctI/view?usp=sharing">download a PDF</a>.</p>
+
+<p><a href="https://www.christianitytoday.com/ct/2021/march-web-only/pastoral-care-counseling-journal-psychology-language.html">
+<img src="/blog/20210331ct.png">
+</a></p>
+
+<hr />
+
+<p><font color = "gray", size="2">
+Copyright &copy; 2021 John A. Bernau</font></p>
+
+                <br>
+		<p class="back-to-posts"><a href="/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
         </div>
     </div>
 </section>
+
 
 
 <script type="application/javascript">
