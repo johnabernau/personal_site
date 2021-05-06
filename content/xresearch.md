@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 <br>
-My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Sociological Perspectives*, and *Socius.*  
+My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Poetics*, *Sociological Perspectives*, and *Socius.*  
 <p style="text-align: right;">
 <a href = "https://scholar.google.com/citations?user=tHKnII0AAAAJ&hl=en" target = "_blank">
 Google Scholar
@@ -22,6 +22,18 @@ ORCID
 ___  
 
 ### Publications 
+
+Xu, Bin and John A. Bernau. 2021. <a href = "https://doi.org/10.1016/j.poetic.2021.101564" target = "_blank">"The Sympathetic Leviathan: Modern States' Cultural Response to Disasters." </a> *Poetics* x:x-xx.
+
+<p style="text-align: justify;">
+<font color = "grey">
+<strong>Abstract.</strong> The sociology of disaster has paid scant attention to states’ cultural response—states’ effort to use meaningful narratives and symbolic actions to address issues about citizens’ suffering and death to enhance their legitimacy and secure citizens’ support. Our paper starts to address this gap by asking: How do states culturally respond to massive disasters? How effective are their responses? What can explain the efficacy of their cultural responses? We propose a perspective based on the cultural sociology of the state and cultural theories of trauma, theodicy, and performance. We illustrate this perspective in a comparative study of the 2008 Sichuan earthquake in China and the 2005 Hurricane Katrina in the United States. We argue that the efficacy of their cultural responses depended on whether and how effectively they addressed the key components of the meaning structure of disasters through compassionate reaction to citizens’ suffering and death, convincing accounts of states’ accountability, and cogent narratives about the long-term consequences of disasters on citizens. Both states struggled to address these issues at various points in their respective disasters, and their cultural responses were shaped by their political structures. The findings also speak to an enduring debate over whether democratic or authoritarian regimes perform better in disaster responses. We eschew the exclusive focus of the debate on administrative responses and its simplistic correlation between regime type and responses. 
+<br>
+<br>
+</font>
+</p>  
+
+___  
 
 Bernau, John A. 2021. <a href = "https://doi.org/10.1111/jssr.12711" target = "_blank">"From Christ to Compassion: The Changing Language of Pastoral Care."</a> *Journal for the Scientific Study of Religion* x:x-xx.
 
