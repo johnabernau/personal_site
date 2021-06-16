@@ -35,7 +35,7 @@ Xu, Bin and John A. Bernau. 2021. <a href = "https://doi.org/10.1016/j.poetic.20
 
 ___  
 
-Bernau, John A. 2021. <a href = "https://doi.org/10.1111/jssr.12711" target = "_blank">"From Christ to Compassion: The Changing Language of Pastoral Care."</a> *Journal for the Scientific Study of Religion* x:x-xx.
+Bernau, John A. 2021. <a href = "https://doi.org/10.1111/jssr.12711" target = "_blank">"From Christ to Compassion: The Changing Language of Pastoral Care."</a> *Journal for the Scientific Study of Religion* 60(2):362–381.
 
 <p style="text-align: justify;">
 <font color = "grey">
