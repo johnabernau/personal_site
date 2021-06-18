@@ -6,10 +6,21 @@
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ARS - Machine Learning for Sociology (Molina and Garip 2019)</title>
+      <link>/blog/molina-garip-2019/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/molina-garip-2019/</guid>
+      <description>Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
+ Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
+In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV).</description>
+    </item>
     
     <item>
       <title>ARS - The Culminating Crisis of American Sociology (House 2019)</title>
@@ -198,13 +209,12 @@ I am passionate about data visualization, statistics, and recent developments in
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/xblog/</guid>
-      <description>Reviews &amp;amp; Reflections Mar 30, 2021 ARS - The Culminating Crisis of American Sociology (House 2019)
+      <description>Reviews &amp;amp; Reflections Jun 18, 2021 ARS - Machine Learning for Sociology (Molina and Garip 2019)
+Mar 30, 2021 ARS - The Culminating Crisis of American Sociology (House 2019)
 Oct 20, 2019 Visions of the Sociological Tradition (Levine 1995)
 May 3, 2019 A Man in Full by Tom Wolfe (1998)
 Sep 21, 2018 Why Read Generalist Journals?
-Jul 24, 2018 AJS - Vol. 123 No. 4 - January 2018
-Jun 15, 2018 The Marriage-Go-Round by Andrew Cherlin (2010)
-May 8, 2018 Ethics in an Age of Self-Interest by Peter Singer (1993)</description>
+Jul 24, 2018 AJS - Vol. 123 No. 4 - January 2018</description>
     </item>
     
     <item>

@@ -9,7 +9,7 @@ tags: []
 
 ### Reviews & Reflections
 
-
+Jun 18, 2021 [ARS - Machine Learning for Sociology (Molina and Garip 2019)](/blog/molina-garip-2019)  
 Mar 30, 2021 [ARS - The Culminating Crisis of American Sociology (House 2019)](/blog/house2019)  
 Oct 20, 2019 [Visions of the Sociological Tradition (Levine 1995)](/blog/levine1995)  
 May 3, 2019 [A Man in Full by Tom Wolfe (1998)](/blog/wolfe1998)  

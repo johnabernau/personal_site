@@ -6,10 +6,21 @@
     <description>Recent content in Blog on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ARS - Machine Learning for Sociology (Molina and Garip 2019)</title>
+      <link>/blog/molina-garip-2019/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/molina-garip-2019/</guid>
+      <description>Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
+ Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
+In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV).</description>
+    </item>
     
     <item>
       <title>ARS - The Culminating Crisis of American Sociology (House 2019)</title>

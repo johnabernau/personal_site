@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="John A. Bernau, PhD">
+<meta name="description" content="Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
+ Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
+In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV).">
+
+<meta property="og:title" content="ARS - Machine Learning for Sociology (Molina and Garip 2019)" />
+<meta property="og:description" content="Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
+ Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
+In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blog/molina-garip-2019/" />
+<meta property="article:published_time" content="2021-06-18T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2021-06-18T00:00:00&#43;00:00"/>
+
+
+<title>
+
+
+     ARS - Machine Learning for Sociology (Molina and Garip 2019) 
+
+</title>
+<link rel="canonical" href="/blog/molina-garip-2019/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2021-06-18%2017%3a13%3a17.83094%20-0400%20EDT%20m%3d%2b0.196454551">
+    <link rel="stylesheet" href="/css/pygments.css?t=2021-06-18%2017%3a13%3a17.83094%20-0400%20EDT%20m%3d%2b0.196454551">
+    <link rel="stylesheet" href="/css/main.css?t=2021-06-18%2017%3a13%3a17.83094%20-0400%20EDT%20m%3d%2b0.196454551">
+    
+        <link rel="stylesheet" href="/css/override.css?t=2021-06-18%2017%3a13%3a17.83094%20-0400%20EDT%20m%3d%2b0.196454551">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
+            
+            <a href="/"><div class="name">John A. Bernau, PhD</div></a>
+            
+              <h3 class="self-intro"> </h3>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-research"><a href="/xresearch/"><span>research</span></a></li>
+                    
+                        <li class="nav-teaching"><a href="/xteaching/"><span>Teaching</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/xblog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-cv"><a href="https://drive.google.com/file/d/1wV6DZo-hD9M36w9Xi6htHRlvEVq7SPvT/view?usp=sharing"><span>CV</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="https://twitter.com/johnAbernau" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+	
+
+        
+
+        
+
+        
+            <a href="https://www.linkedin.com/in/john-bernau/" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    ARS - Machine Learning for Sociology (Molina and Garip 2019)
+
+</div>
+
+                    <div class="initials"><a href="/">ad</a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Fri Jun 18 2021 00:00:00 UTC'>Jun 18, 2021</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+
+<blockquote>
+<p>Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” <em>Annual Review of Sociology</em> 45(1):27–45. <a href = https://doi.org/10.1146/annurev-soc-073117-041106 target = _blank>https://doi.org/10.1146/annurev-soc-073117-041106</a>.</p>
+</blockquote>
+<div align = "justify">
+<p>Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.</p>
+<p>In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV). You then try to produce an accurate generative model to understand the effect of the IVs on the DV. This usually involves including or excluding certain variables, trying a few interaction effects, etc. Models are usually evaluated according to R-squared (or some variant) and the number of statistically significant predictors. The end result is the model itself, which allows a better understanding of how an outcome came to be. This workflow evolved in a world where data were scarce and computing power was limited.</p>
+<p>In data science, you (usually) start with an industry-defined prediction task: <em>How do we know which videos a user will click on? How do we predict which product customers will buy?</em> You then try to produce a predictive model to estimate your DV given a set of IVs. This usually involves using as many IVs as are available and letting the statistical model sort out which ones produce accurate predictions. To avoid overfitting, machine learning employs sophisticated models as well as norms about workflow like separating the data into training sets (to fit the model), validation sets (to tune the model), and test sets (to evaluate the model). Models are usually evaluated according to predictive accuracy of the model on the test set. The end results are thus the predictions, which can be used to drive future decision-making. However, these models are usually too complex to derive meaningful understanding of relationships and can end up producing “black box” predictions. This workflow evolved in a world with abundant data and computing power.</p>
+<div align = "left">
+<table>
+<colgroup>
+<col width="16%" />
+<col width="49%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Sociology</strong></th>
+<th><strong>Machine learning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Starts with…</strong></td>
+<td>theory-driven RQ</td>
+<td>industry-defined prediction task</td>
+</tr>
+<tr class="even">
+<td><strong>Creates a…</strong></td>
+<td>generative model</td>
+<td>predictive model</td>
+</tr>
+<tr class="odd">
+<td><strong>With the goal of…</strong></td>
+<td>understanding relationships (<span class="math inline">\(\color{black}{\beta}\)</span>) between IV / DV</td>
+<td>making accurate out-of-sample predictions of DV</td>
+</tr>
+<tr class="even">
+<td><strong>Workflow</strong></td>
+<td>use all data to fit model</td>
+<td>split into training, validation, test data</td>
+</tr>
+<tr class="odd">
+<td><strong>Evaluated on…</strong></td>
+<td><span class="math inline">\(\color{black}{R^2}\)</span>, significant IVs</td>
+<td>prediction accuracy (test set)</td>
+</tr>
+<tr class="even">
+<td><strong>Limitations</strong></td>
+<td>overfitting, unknown out-of-sample performance</td>
+<td>obscure causal pathways, “black box” predictions</td>
+</tr>
+</tbody>
+</table>
+<p>(PS - Create simple markdown tables <a href = https://www.tablesgenerator.com/markdown_tables target = _blank>here</a>!)</p>
+<div align = "justify">
+<p>Of course, these two emphases are literally two sides of the same coin: a regression equation includes both betas for your IVs and y-hats for your predictions. So the distinction is mostly one of emphasis and procedural norms. However, it’s important to note that these differences emerged to tackle real limitations in traditional statistical approaches to new world of data. Let’s take a closer look at a few techniques.</p>
+<p>First, every statistical model determines parameters using an optimization function. In OLS, this is the sum of squared residuals:</p>
+<p><span class="math display">\[\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2}\]</span></p>
+<p><strong>Penalized regression</strong> introduces a <font color = "red">“regularizer”<font color = "black"> that shrink coefficients towards zero in order to prevent over-fitting. In other words, when using large and complicated datasets with many predictors, interactions, and non-linearities, penalized regression prevents your model from being too complicated. However, it’s important to scale variables first (i.e. dividing by standard deviation) so coefficients are evaluated evenly. Three types of penalized regression include lasso, ridge, and elastic net regression.</p>
+<p><strong>Lasso regression</strong> stands for <em>Least Absolute Shrinkage and Selection Operator</em>. Starts with the SSR and adds a regularizer where lambda (<span class="math inline">\(\color{black}{\lambda}\)</span>) is a (researcher-set) penalty introduced for the sum of absolute values of coefficients (<span class="math inline">\(\color{black}{\beta}\)</span>). Because the model is trying to minimize this function, in some cases this pushes coefficients to zero, eliminating unhelpful variables. In the absence of theoretical motivation, this is a useful way to sort through a large number of predictors.</p>
+<p><span class="math display">\[\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\sum_{j=1}^p|\beta_j|}\]</span></p>
+<p><strong>Ridge regression</strong> is similar to lasso regression, but adds a regularizer where lambda (<span class="math inline">\(\color{black}{\lambda}\)</span>) is a (researcher-set) penalty introduced for the sum of squared coefficients (<span class="math inline">\(\color{black}{\beta}\)</span>). This will reduce coefficient size, but never all the way to zero. The is useful if model has mostly informative variables. Thus, ridge regression decreases the complexity of a model but does not reduce the number of variables, it just shrinks their effect.</p>
+<p><span class="math display">\[\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\sum_{j=1}^p\beta_j^2}\]</span></p>
+<p><strong>Elastic net regression</strong> is simply a combination of lasso and ridge regression, where lambda (<span class="math inline">\(\color{black}{\lambda}\)</span>) is a (researcher-set) penalty term and alpha (<span class="math inline">\(\color{black}{\alpha}\)</span>) (researcher-set) is used to balance both penalties: the sum of absolute values of coefficients (lasso) and the sum of squared coefficients (ridge). Most real-world applications involve testing a model with varying levels of alpha from 0 (ridge regression) to 1 (lasso regression) and seeing which parameters arrive at the best predictions.</p>
+<p><span class="math display">\[\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\left(\alpha\sum_{j=1}^p|\beta_j| + (1 - \alpha)\sum_{j=1}^p\beta_j^2\right)}\]</span></p>
+<p><strong>Regression trees</strong> are another form of machine learning that models complex relationships between IVs and DVs. These models are best understood visually as a series of branching variables and their interactions. Formally, they “describes a sequence of splits in the input space (X) that predict an output (Y) at the end node” (p31). Essentially, in a linear modeling framework, it takes your data and makes new dummy variables to represent certain threshold cutoff points and interacts them all. The result is a very complicated model that is very hard to interpret: “Being 50 years or older puts you in a framework where having less than ten years of education means being male improves income.” It does a good job of predicting, but it’s hard to step back and theorize about “the role of age on income.” Like penalized regression it has it’s own parameters to control how many splits (nodes / leaves) in the tree there are. Don’t miss <a href=http://www.r2d3.us/visual-intro-to-machine-learning-part-1/ target = _blank>this incredible visual explanation </a>of regression trees from <a href=http://www.r2d3.us/ target = _blank>R2D3</a>.</p>
+<p>Penalized regression and regression trees are both example of <em>supervised machine learning</em>: a function that connects known inputs to known outputs. <em>Unsupervised machine learning</em> describes methods to summarize inputs without reference to outputs: principal component analysis, factor analysis, cluster analysis, latent class analysis, sequence analysis, topic modeling, community detection, etc. These techniques attempt to simplify or represent your inputs in a parsimonius and potentially useful way.</p>
+<p>The article raises a lot of interesting questions as sociology learns to live alongside data science. Duncan Watts has been working in this space for a while and encourages sociologists to focus more on prediction problems: If you claim to know how something works, you need to prove it by making predictions. <a href=https://doi.org/10.1086/678271 target = _blank>His AJS paper </a> explores this and other problems of sociological “explanation,” and <a href = https://www.youtube.com/watch?v=0O6COXI0cx8 target = _blank>this talk</a> he gave at Cornell includes a lively debate about how sociologists might adopt techniques from machine learning.5</p>
+<p><br>
+<br>
+<br>
+___</p>
+<p><font color = "gray" size="2">Copyright © 2021 John A. Bernau</font></p>
+
+                <br>
+		<p class="back-to-posts"><a href="/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-118509886-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,64 @@
+---
+title: "ARS - Machine Learning for Sociology (Molina and Garip 2019)"
+author: "John A. Bernau"
+date: '2021-06-18'
+output: word_document
+slug: molina-garip-2019
+tags: []
+categories: []
+---
+
+> Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” *Annual Review of Sociology* 45(1):27–45. <a href = https://doi.org/10.1146/annurev-soc-073117-041106 target = _blank>https://doi.org/10.1146/annurev-soc-073117-041106</a>.
+
+<div align = "justify">
+Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
+
+In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV). You then try to produce an accurate generative model to understand the effect of the IVs on the DV. This usually involves including or excluding certain variables, trying a few interaction effects, etc. Models are usually evaluated according to R-squared (or some variant) and the number of statistically significant predictors. The end result is the model itself, which allows a better understanding of how an outcome came to be. This workflow evolved in a world where data were scarce and computing power was limited. 
+
+In data science, you (usually) start with an industry-defined prediction task: *How do we know which videos a user will click on? How do we predict which product customers will buy?* You then try to produce a predictive model to estimate your DV given a set of IVs. This usually involves using as many IVs as are available and letting the statistical model sort out which ones produce accurate predictions. To avoid overfitting, machine learning employs sophisticated models as well as norms about workflow like separating the data into training sets (to fit the model), validation sets (to tune the model), and test sets (to evaluate the model). Models are usually evaluated according to predictive accuracy of the model on the test set. The end results are thus the predictions, which can be used to drive future decision-making. However, these models are usually too complex to derive meaningful understanding of relationships and can end up producing "black box" predictions. This workflow evolved in a world with abundant data and computing power.
+
+<div align = "left">
+|                         | **Sociology**                                                              | **Machine learning**                                 |
+|-------------------------|----------------------------------------------------------------------------|------------------------------------------------------|
+| **Starts with...**      |     theory-driven RQ                                                       |     industry-defined prediction task                 |
+| **Creates a...**        |     generative model                                                       |     predictive model                                 |
+| **With the goal of...** |     understanding relationships ($\color{black}{\beta}$) between IV / DV   |     making accurate out-of-sample predictions of DV  |
+| **Workflow**            |     use all data to fit model                                              |     split into training, validation, test data       |
+| **Evaluated on...**     | $\color{black}{R^2}$, significant IVs                                      |     prediction accuracy (test set)                   |
+| **Limitations**         |     overfitting, unknown out-of-sample performance                         |     obscure causal pathways, "black box" predictions |
+
+(PS - Create simple markdown tables <a href = https://www.tablesgenerator.com/markdown_tables target = _blank>here</a>!)
+
+<div align = "justify">
+Of course, these two emphases are literally two sides of the same coin: a regression equation includes both betas for your IVs and y-hats for your predictions. So the distinction is mostly one of emphasis and procedural norms. However, it's important to note that these differences emerged to tackle real limitations in traditional statistical approaches to new world of data. Let's take a closer look at a few techniques.
+
+First, every statistical model determines parameters using an optimization function. In OLS, this is the sum of squared residuals: 
+
+$$\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2}$$
+
+**Penalized regression** introduces a <font color = "red">"regularizer"<font color = "black"> that shrink coefficients towards zero in order to prevent over-fitting. In other words, when using large and complicated datasets with many predictors, interactions, and non-linearities, penalized regression prevents your model from being too complicated. However, it's important to scale variables first (i.e. dividing by standard deviation) so coefficients are evaluated evenly. Three types of penalized regression include lasso, ridge, and elastic net regression.
+
+**Lasso regression** stands for *Least Absolute Shrinkage and Selection Operator*. Starts with the SSR and adds a regularizer where lambda ($\color{black}{\lambda}$) is a (researcher-set) penalty introduced for the sum of absolute values of coefficients ($\color{black}{\beta}$). Because the model is trying to minimize this function, in some cases this pushes coefficients to zero, eliminating unhelpful variables. In the absence of theoretical motivation, this is a useful way to sort through a large number of predictors.
+
+$$\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\sum_{j=1}^p|\beta_j|}$$
+
+**Ridge regression** is similar to lasso regression, but adds a regularizer where lambda ($\color{black}{\lambda}$) is a (researcher-set) penalty introduced for the sum of squared coefficients ($\color{black}{\beta}$). This will reduce coefficient size, but never all the way to zero. The is useful if model has mostly informative variables. Thus, ridge regression decreases the complexity of a model but does not reduce the number of variables, it just shrinks their effect. 
+
+$$\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\sum_{j=1}^p\beta_j^2}$$
+
+**Elastic net regression** is simply a combination of lasso and ridge regression, where lambda ($\color{black}{\lambda}$) is a (researcher-set) penalty term and alpha ($\color{black}{\alpha}$) (researcher-set) is used to balance both penalties: the sum of absolute values of coefficients (lasso) and the sum of squared coefficients (ridge). Most real-world applications involve testing a model with varying levels of alpha from 0 (ridge regression) to 1 (lasso regression) and seeing which parameters arrive at the best predictions. 
+
+$$\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\left(\alpha\sum_{j=1}^p|\beta_j| + (1 - \alpha)\sum_{j=1}^p\beta_j^2\right)}$$
+
+**Regression trees** are another form of machine learning that models complex relationships between IVs and DVs. These models are best understood visually as a series of branching variables and their interactions. Formally, they "describes a sequence of splits in the input space (X) that predict an output (Y) at the end node" (p31). Essentially, in a linear modeling framework, it takes your data and makes new dummy variables to represent certain threshold cutoff points and interacts them all. The result is a very complicated model that is very hard to interpret: "Being 50 years or older puts you in a framework where having less than ten years of education means being male improves income." It does a good job of predicting, but it's hard to step back and theorize about "the role of age on income." Like penalized regression it has it's own parameters to control how many splits (nodes / leaves) in the tree there are. Don't miss <a href=http://www.r2d3.us/visual-intro-to-machine-learning-part-1/ target = _blank>this incredible visual explanation </a>of regression trees from <a href=http://www.r2d3.us/ target = _blank>R2D3</a>.
+
+Penalized regression and regression trees are both example of *supervised machine learning*: a function that connects known inputs to known outputs. *Unsupervised machine learning* describes methods to summarize inputs without reference to outputs: principal component analysis, factor analysis, cluster analysis, latent class analysis, sequence analysis, topic modeling, community detection, etc. These techniques attempt to simplify or represent your inputs in a parsimonius and potentially useful way. 
+
+The article raises a lot of interesting questions as sociology learns to live alongside data science. Duncan Watts has been working in this space for a while and encourages sociologists to focus more on prediction problems: If you claim to know how something works, you need to prove it by making predictions. <a href=https://doi.org/10.1086/678271 target = _blank>His AJS paper </a> explores this and other problems of sociological "explanation," and <a href = https://www.youtube.com/watch?v=0O6COXI0cx8 target = _blank>this talk</a> he gave at Cornell includes a lively debate about how sociologists might adopt techniques from machine learning.5
+
+<br>
+<br>
+<br>
+___
+
+<font color = "gray" size="2">Copyright &copy; 2021 John A. Bernau</font>
