@@ -30,7 +30,7 @@ In data science, you (usually) start with an industry-defined prediction task: *
 (PS - Create simple markdown tables <a href = https://www.tablesgenerator.com/markdown_tables target = _blank>here</a>!)
 
 <div align = "justify">
-Of course, these two emphases are literally two sides of the same coin: a regression equation includes both betas for your IVs and y-hats for your predictions. So the distinction is mostly one of emphasis and procedural norms. However, it's important to note that these differences emerged to tackle real limitations in traditional statistical approaches to new world of data. Let's take a closer look at a few techniques.
+Of course, these two emphases are literally two sides of the same coin: a regression equation includes both $\color{black}{\beta s}$ for your IVs and $\color{black}{\hat{y}}$ for your predictions. So the distinction is mostly one of emphasis and procedural norms. However, it's important to note that these differences emerged to tackle real limitations in traditional statistical approaches to new world of data. Let's take a closer look at a few techniques.
 
 First, every statistical model determines parameters using an optimization function. In OLS, this is the sum of squared residuals: 
 
@@ -54,7 +54,7 @@ $$\color{black}{SSR = \sum_{i=1}^n[y_i - f(x_i)]^2 +~}\color{red}{\lambda\left(\
 
 Penalized regression and regression trees are both example of *supervised machine learning*: a function that connects known inputs to known outputs. *Unsupervised machine learning* describes methods to summarize inputs without reference to outputs: principal component analysis, factor analysis, cluster analysis, latent class analysis, sequence analysis, topic modeling, community detection, etc. These techniques attempt to simplify or represent your inputs in a parsimonius and potentially useful way. 
 
-The article raises a lot of interesting questions as sociology learns to live alongside data science. Duncan Watts has been working in this space for a while and encourages sociologists to focus more on prediction problems: If you claim to know how something works, you need to prove it by making predictions. <a href=https://doi.org/10.1086/678271 target = _blank>His AJS paper </a> explores this and other problems of sociological "explanation," and <a href = https://www.youtube.com/watch?v=0O6COXI0cx8 target = _blank>this talk</a> he gave at Cornell includes a lively debate about how sociologists might adopt techniques from machine learning.5
+The article raises a lot of interesting questions as sociology learns to live alongside data science. Duncan Watts has been working in this space for a while and encourages sociologists to focus more on prediction problems: If you claim to know how something works, you need to prove it by making predictions. <a href=https://doi.org/10.1086/678271 target = _blank>His AJS paper </a> explores this and other problems of sociological "explanation," and <a href = https://www.youtube.com/watch?v=0O6COXI0cx8 target = _blank>this talk</a> he gave at Cornell includes a lively debate about how sociologists might adopt techniques from machine learning.
 
 <br>
 <br>
