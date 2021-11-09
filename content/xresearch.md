@@ -23,6 +23,21 @@ ___
 
 ### Publications 
 
+Browne, Irene, John A. Bernau, Katharine M. Tatum, and Jieyu Jiao. 2021. <a href = "https://doi.org/10.1080/00380253.2021.1947757" target = "_blank">"Immigration Coverage in the Black Press and the General Audience Press: What Can Mixed Methods Reveal about Race and Immigration?"</a> *The Sociological Quarterly* x:x–xx. 
+
+<p style="text-align: justify;">
+<font color = "grey">
+<strong>Abstract.</strong> This paper has two aims. First, we apply Bourdieu’s field theory to investigate media discourse on race and immigration, demonstrating how features of news organizations influence news content. Second, we compare contemporary natural language processing (NLP) techniques with qualitative hand-coding. Extending a previous study, we compare newspaper articles from the mainstream and black press in Atlanta. We find significant differences in both word-use and topical coverage in immigration articles aimed at the two audiences. With a focus on organizational resources and values, our quantitative approach to field theory facilitates a better understanding of the journalistic landscape.  
+<br>
+<br>
+<strong>Figure 1.</strong> Word frequencies vary by newspaper (Browne et al. 2021:12)
+</font>
+</p>  
+
+[<img src="/research/browne_etal_2021.jpg">](/research/browne_etal_2021.jpg)
+
+___  
+
 Xu, Bin and John A. Bernau. 2021. <a href = "https://doi.org/10.1016/j.poetic.2021.101564" target = "_blank">"The Sympathetic Leviathan: Modern States' Cultural Response to Disasters." </a> *Poetics* x:x-xx.
 
 <p style="text-align: justify;">
