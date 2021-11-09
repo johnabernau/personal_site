@@ -18,7 +18,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 To begin, make sure to load a few basic packages.
 require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&quot;) require(&quot;car&quot;) require(&quot;RColorBrewer&quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA)." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://you.github.io/code/baylor/" />
+<meta property="og:url" content="/code/baylor/" />
 <meta property="article:published_time" content="2018-04-17T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-04-17T00:00:00&#43;00:00"/>
 
@@ -29,7 +29,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
      Data Exploration: Where Do American Baptists Live? 
 
 </title>
-<link rel="canonical" href="https://you.github.io/code/baylor/">
+<link rel="canonical" href="/code/baylor/">
 
 
 
@@ -47,11 +47,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 
     
-    <link rel="stylesheet" href="https://you.github.io/css/reset.css?t=2021-11-09%2009%3a18%3a10.366132%20-0500%20EST%20m%3d%2b0.154424257">
-    <link rel="stylesheet" href="https://you.github.io/css/pygments.css?t=2021-11-09%2009%3a18%3a10.366132%20-0500%20EST%20m%3d%2b0.154424257">
-    <link rel="stylesheet" href="https://you.github.io/css/main.css?t=2021-11-09%2009%3a18%3a10.366132%20-0500%20EST%20m%3d%2b0.154424257">
+    <link rel="stylesheet" href="/css/reset.css?t=2021-06-21%2007%3a22%3a34.375413%20-0400%20EDT%20m%3d%2b0.230593956">
+    <link rel="stylesheet" href="/css/pygments.css?t=2021-06-21%2007%3a22%3a34.375413%20-0400%20EDT%20m%3d%2b0.230593956">
+    <link rel="stylesheet" href="/css/main.css?t=2021-06-21%2007%3a22%3a34.375413%20-0400%20EDT%20m%3d%2b0.230593956">
     
-        <link rel="stylesheet" href="https://you.github.io/css/override.css?t=2021-11-09%2009%3a18%3a10.366132%20-0500%20EST%20m%3d%2b0.154424257">
+        <link rel="stylesheet" href="/css/override.css?t=2021-06-21%2007%3a22%3a34.375413%20-0400%20EDT%20m%3d%2b0.230593956">
     
 
 
@@ -59,7 +59,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
 
 <link rel="shortcut icon"
 
-    href="https://you.github.io/img/favicon.ico"
+    href="/img/favicon.ico"
 
 >
 
@@ -103,26 +103,26 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
                     
                 
                 
-                <a href="https://you.github.io/"><img class="avatar" src="https://you.github.io/img/fb2.jpg" srcset="https://you.github.io/img/fb2.jpg 1x"></a>
+                <a href="/"><img class="avatar" src="/img/fb2.jpg" srcset="/img/fb2.jpg 1x"></a>
             
-            <a href="https://you.github.io/"><div class="name">John A. Bernau, PhD</div></a>
+            <a href="/"><div class="name">John A. Bernau, PhD</div></a>
             
               <h3 class="self-intro"> </h3>
             
             <nav>
                 <ul>
                     
-                        <li class="nav-research"><a href="https://you.github.io/xresearch/"><span>research</span></a></li>
+                        <li class="nav-research"><a href="/xresearch/"><span>research</span></a></li>
                     
-                        <li class="nav-teaching"><a href="https://you.github.io/xteaching/"><span>Teaching</span></a></li>
+                        <li class="nav-teaching"><a href="/xteaching/"><span>Teaching</span></a></li>
                     
-                        <li class="nav-blog"><a href="https://you.github.io/xblog/"><span>Blog</span></a></li>
+                        <li class="nav-blog"><a href="/xblog/"><span>Blog</span></a></li>
                     
-                        <li class="nav-code"><a href="https://you.github.io/xcode/"><span>Code</span></a></li>
+                        <li class="nav-code"><a href="/xcode/"><span>Code</span></a></li>
                     
-                        <li class="nav-about"><a href="https://you.github.io/about/"><span>About</span></a></li>
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
                     
-                        <li class="nav-cv"><a href="https://drive.google.com/file/d/1GPqnJRDTUtlOWIQqth00_zKf88quGYp5/view?usp=sharing"><span>CV</span></a></li>
+                        <li class="nav-cv"><a href="https://drive.google.com/file/d/1wV6DZo-hD9M36w9Xi6htHRlvEVq7SPvT/view?usp=sharing"><span>CV</span></a></li>
                     
                 </ul>
             </nav>
@@ -134,11 +134,11 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
     <div class="container">
         <div class="content">
         
-            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="https://you.github.io/img/github.svg" alt="github" /></a>
+            <a href="https://github.com/johnbernau" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
         
 
         
-            <a href="https://twitter.com/johnAbernau" target="_blank" rel="noopener"><img class="icon" src="https://you.github.io/img/twitter.svg" alt="twitter" /></a>
+            <a href="https://twitter.com/johnAbernau" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
         
 
 	
@@ -148,7 +148,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
         
 
         
-            <a href="https://www.linkedin.com/in/john-bernau/" target="_blank" rel="noopener"><img class="icon" src="https://you.github.io/img/linkedin.svg" alt="linkedin" /></a>
+            <a href="https://www.linkedin.com/in/john-bernau/" target="_blank" rel="noopener"><img class="icon" src="/img/linkedin.svg" alt="linkedin" /></a>
         
 
         
@@ -160,7 +160,7 @@ require(&quot;tidyverse&quot;) require(&quot;foreign&quot;) require(&quot;psych&
         
 
         
-            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="https://you.github.io/img/email.svg" alt="email" /></a>
+            <a href="mailto:john.bernau@emory.edu"><img class="icon" src="/img/email.svg" alt="email" /></a>
         
 
         
@@ -214,7 +214,7 @@ require(&quot;psych&quot;)
 require(&quot;car&quot;)
 require(&quot;RColorBrewer&quot;)</code></pre>
 <p>The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on <a href="http://www.thearda.com/">The Association of Religion Data Archives (ARDA)</a>. ARDA is a fantastic resource for locating datasets on a number of religious topics. From <a href="http://www.thearda.com/Archive/NatBaylor.asp">this link</a>, click on Wave II &gt; Download &gt; Continue. We’ll be using the labeled Stata file. Save this .DTA file somewhere you remember. You’ll also want to have the codebook handy: this shows you the exact wording and responses of the survey questions.</p>
-<p><a href="http://www.thearda.com/"><img src="https://you.github.io/code/arda.png" /></a></p>
+<p><a href="http://www.thearda.com/"><img src="/code/arda.png" /></a></p>
 <p>From the <code>foreign</code> package we can use <code>read.dta()</code> to read the Stata .DTA file into our R environment. Make sure to replace the path with the location of your saved file. I use the pipe operator <code>%&gt;%</code> to convert this to a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble - an popular format for working with data in R,</a> and save it as an object “bay.”&quot;</p>
 <pre class="r"><code>bay &lt;- read.dta(&quot;/Users/johnbernau/Box Sync/1. Desktop/4. Methods/1. R/Baylor Religion 2010/bay3_2010.dta&quot;) %&gt;% as.tibble()</code></pre>
 <p>Upon first glance (<code>View(bay)</code>), the dataset is quite messy. Let’s remove all the variables we don’t need and save this as “bay2.” A primer on dplyr’s functions can be <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">found here</a>, but the basic format here is <code>select(dataset, variable_to_keep, -variables_to_remove)</code>.</p>
@@ -294,7 +294,7 @@ bay3$rel_family &lt;- recode(bay3$rel_family, (&quot;&#39;No religion [Skip to Q
   scale_fill_brewer(palette= &quot;RdYlBu&quot;, name=&quot;&quot;) + 
   labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final</code></pre>
-<p><img src="https://you.github.io/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels.</p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Maybe we want to order our regional categories in a more geographical order, so West is on the left, and East is on the right. This can be accomplished by reordering the factor levels.</p>
 <pre class="r"><code>bay3$region &lt;- factor(bay3$region, levels = c(&quot;West&quot;,&quot;Midwest&quot;,&quot;South&quot;, &quot;East&quot;))</code></pre>
 <p>Lets do one more round of editing. When collapsing categories into “other” we made a category that dominates most regions of the US, somewhat obscuring our story. Rather than take this data out, let’s use color to de-emphasize it. To do so, let’s add a dark grey to our color scheme.</p>
 <p>First, the <code>brewer.pal()</code> command allows you to save a vector of colors. Below we’ve taked 5 colors from the “RdYlBu” palette and saved it as a vector named “colors.” Second, let’s add “grey40” to this vector. Now our <code>colors</code> vector is a list of six colors with the last one being a dark grey color.</p>
@@ -306,7 +306,7 @@ colors &lt;- c(colors, &quot;grey40&quot;)</code></pre>
   scale_fill_manual(values=colors, name=&quot;&quot;) + 
   labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution&quot;, subtitle= &quot;Source: Baylor Religion Survey 2010&quot;)
 final2</code></pre>
-<p><img src="https://you.github.io/code/baylor_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>If you want to super-customize your graph, you can save various themes or templates to use with ggplot. Below I’ve created a dark template named <code>johntheme1</code>.</p>
 <pre class="r"><code>johntheme1 &lt;- theme(text=element_text(family=&quot;Times New Roman&quot;), # New font
         plot.title = element_text(hjust = 0.5), # Centered title
@@ -322,7 +322,7 @@ final2</code></pre>
         legend.key = element_rect(fill=&quot;black&quot;, color=&quot;black&quot;)) #Squares/borders of legend black</code></pre>
 <p>Using our saved graph, we can add our new custom theme.</p>
 <pre class="r"><code>final2 + johntheme1</code></pre>
-<p><img src="https://you.github.io/code/baylor_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/code/baylor_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>A nice graph! Export as a JPG using the <code>ggsave()</code> command.</p>
 <pre class="r"><code>ggsave(filename=&quot;/users/johnbernau/Desktop/Baylor2010.jpg&quot;, final2, width=11.25, height=7, units=&quot;in&quot;)</code></pre>
 <hr />
@@ -367,7 +367,7 @@ final2 &lt;- ggplot(bay, aes(region)) +
   labs(x=&quot;&quot;, y=&quot;&quot;, title=&quot;US Religion Distribution\nBaylor Religion Survey 2010&quot;)
 final2</code></pre>
 <hr />
-<p><a href="https://you.github.io/xcode/">Code Home</a></p>
+<p><a href="/xcode/">Code Home</a></p>
 <hr />
 <div id="copyright-2018-john-a.-bernau" class="section level3">
 <h3><em>Copyright © 2018 John A. Bernau</em></h3>

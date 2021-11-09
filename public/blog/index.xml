@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on John A. Bernau</title>
-    <link>https://you.github.io/blog/</link>
+    <link>/blog/</link>
     <description>Recent content in Blog on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://you.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>ARS - Machine Learning for Sociology (Molina and Garip 2019)</title>
-      <link>https://you.github.io/blog/molina-garip-2019/</link>
+      <link>/blog/molina-garip-2019/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/molina-garip-2019/</guid>
+      <guid>/blog/molina-garip-2019/</guid>
       <description>Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
  Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
 In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV).</description>
@@ -24,20 +24,20 @@ In sociology, you (ostensibly) start with a theory-driven research question abou
     
     <item>
       <title>ARS - The Culminating Crisis of American Sociology (House 2019)</title>
-      <link>https://you.github.io/blog/house2019/</link>
+      <link>/blog/house2019/</link>
       <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/house2019/</guid>
+      <guid>/blog/house2019/</guid>
       <description>House, James S. 2019. “The Culminating Crisis of American Sociology and Its Role in Social Science and Public Policy: An Autobiographical, Multimethod, Reflexive Perspective.” Annual Review of Sociology 45(1):1–26. https://doi.org/10.1146/annurev-soc-073117-041052.
  James House recounts his 50-year career as a sociologist, starting in the 1960s. He held prominent positions at the Survey Research Center and Ford School of Public Policy at the University of Michigan. In short, the story of sociology after the 1960s and 70s is not optimistic.</description>
     </item>
     
     <item>
       <title>Research Featured in Christianity Today</title>
-      <link>https://you.github.io/blog/christianity-today-press/</link>
+      <link>/blog/christianity-today-press/</link>
       <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/christianity-today-press/</guid>
+      <guid>/blog/christianity-today-press/</guid>
       <description>You can read it here or download a PDF.
 
 Copyright &amp;copy; 2021 John A. Bernau</description>
@@ -45,30 +45,30 @@ Copyright &amp;copy; 2021 John A. Bernau</description>
     
     <item>
       <title>REVIEW: Visions of the Sociological Tradition (Levine 1995)</title>
-      <link>https://you.github.io/blog/levine1995/</link>
+      <link>/blog/levine1995/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/levine1995/</guid>
+      <guid>/blog/levine1995/</guid>
       <description>Levine, Donald N. 1995. Visions of the Sociological Tradition. Chicago: University of Chicago Press.
  Word Count: 1776  Levine’s book is an essential text for all professional sociologists. It begins by offering a “history of histories” that describes the various ways sociologists have tried to make sense of their work. Levine then situates familiar sociological pioneers within a multigenerational global conversation about human nature, society, and ethics that birthed modern social science.</description>
     </item>
     
     <item>
       <title>Conference in Copenhagen, Denmark</title>
-      <link>https://you.github.io/blog/copenhagen2019/</link>
+      <link>/blog/copenhagen2019/</link>
       <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/copenhagen2019/</guid>
+      <guid>/blog/copenhagen2019/</guid>
       <description>Shortly after finishing my dissertation I flew to Copenhagen to present a paper at a small conference “Politics, Societies, and Disasters: China and Beyond.” I was honored to be invited by my mentor and colleague Bin Xu. I presented our co-authored paper “The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?” and you can find the slides here.
 Having never been to Denmark (or any other Nordic country), I assembled a reading list to better prepare for my brief cultural immersion.</description>
     </item>
     
     <item>
       <title>Dissertation Defense</title>
-      <link>https://you.github.io/blog/dissertation-defense/</link>
+      <link>/blog/dissertation-defense/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/dissertation-defense/</guid>
+      <guid>/blog/dissertation-defense/</guid>
       <description>On June 12th, 2019 I successfully defended my dissertation &amp;ldquo;Talk of Death: American Discourse in Three Spheres.&amp;rdquo; It took the form of three independent empirical studies united under a common theme and you can read the overall abstract below. Inspired readers can find my defense slides here.
 ABSTRACT
 This dissertation is a study of how modern America talks about death. I examine these discussions in roughly three spheres (popular, professional, and personal) by analyzing the release and reception of the best-selling book on death and dying in the past fifty years, over seventy years of professional journal articles, and in-depth interviews with practicing healthcare chaplains.</description>
@@ -76,86 +76,86 @@ This dissertation is a study of how modern America talks about death. I examine 
     
     <item>
       <title>REVIEW: A Man in Full by Tom Wolfe (1998)</title>
-      <link>https://you.github.io/blog/wolfe1998/</link>
+      <link>/blog/wolfe1998/</link>
       <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/wolfe1998/</guid>
+      <guid>/blog/wolfe1998/</guid>
       <description>Wolfe, Tom. 1998. A Man in Full. New York: Farrar, Straus and Giroux.
  Word Count: 971 As the Digital Humanities Fellow at ECDS I serve on the editorial staff of Atlanta Studies, an interdisciplinary open access journal about the city. The journal has been a great opportunity to explore Atlanta as more than a scenic background: as a site rich with history, culture, and on-going tensions. It was here that Fiddlin’ Johnny Carson recorded the first “country music,” W.</description>
     </item>
     
     <item>
       <title>SSSR Conference in Las Vegas, NV</title>
-      <link>https://you.github.io/blog/sssr2018/</link>
+      <link>/blog/sssr2018/</link>
       <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/sssr2018/</guid>
+      <guid>/blog/sssr2018/</guid>
       <description>This year’s Society for the Scientific Study of Religion (SSSR) conference was held in Las Vegas, NV over the weekend. What a great time! It was exciting to hear about forthcoming research by Mark Chaves, David Voas, Christel Manning, Evan Stewart, and countless others. I also enjoyed getting to meet some of the people at the Pew Research Center – a bottomless source of data visualization and general inspiration.</description>
     </item>
     
     <item>
       <title>Why Read Generalist Journals?</title>
-      <link>https://you.github.io/blog/generalist-journals/</link>
+      <link>/blog/generalist-journals/</link>
       <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/generalist-journals/</guid>
+      <guid>/blog/generalist-journals/</guid>
       <description>Word Count: 1334 Sociology is a broad discipline. As the general “social science” it overlaps considerably with history, anthropology, political science, and economics, not to mention African American Studies, Women’s Gender and Sexuality Studies, Communication Studies, et al. While some see this breadth as a positive attribute, the dangers of a fragmented discipline are hard to ignore. As Stinchcombe (2001) argues, sociologists do not agree on the appropriate subject matter nor the way to measure it.</description>
     </item>
     
     <item>
       <title>Digital Humanities Fellowship at Emory’s Center for Digital Scholarship</title>
-      <link>https://you.github.io/blog/ecds_fellowship/</link>
+      <link>/blog/ecds_fellowship/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/ecds_fellowship/</guid>
+      <guid>/blog/ecds_fellowship/</guid>
       <description>This week I am excited to start my new position as the Digital Humanities Fellow at the Emory Center for Digital Scholarship (ECDS). The center offers a touch-point for faculty and students working on a variety of digital projects, from interactive web design and online publication to the basics of working with video, photography, and audio in an academic setting. ECDS also partners with various academic departments, agencies, and faculty members to produce original scholarship.</description>
     </item>
     
     <item>
       <title>AJS - Vol. 123 No. 4 - January 2018</title>
-      <link>https://you.github.io/blog/ajs_v123n4/</link>
+      <link>/blog/ajs_v123n4/</link>
       <pubDate>Tue, 24 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/ajs_v123n4/</guid>
+      <guid>/blog/ajs_v123n4/</guid>
       <description>Craciun, Mariana. 2017. “Emotions and Knowledge in Expert Work: A Comparison of Two Psychotherapies.” American Journal of Sociology 123(4):959–1003.
 Summary: The author uses ethnographic data to examine the role of emotions in the work of psychoanalysis (PA) and cognitive-behavioral (CB) therapy. She proposes a model of emotions as supportive, didactic, and inductive (an “affective-relational framework”). While both therapies use emotions, PA knowledge and/or findings don&amp;rsquo;t translate well outside their discipline (i.</description>
     </item>
     
     <item>
       <title>REVIEW: The Marriage-Go-Round by Andrew Cherlin (2010)</title>
-      <link>https://you.github.io/blog/cherlin2010/</link>
+      <link>/blog/cherlin2010/</link>
       <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/cherlin2010/</guid>
+      <guid>/blog/cherlin2010/</guid>
       <description>Cherlin, Andrew J. 2010. The Marriage-Go-Round: The State of Marriage and the Family in America Today. New York, N.Y: Vintage.
  Word Count: 1981 The Marriage-Go-Round is an outstanding example of sociological scholarship. Andrew Cherlin combines history, theory, and data to provide a thorough understanding of marriage as an organizing force of American social life. Beginning in colonial America of the 17th century, the book follows the institution of marriage through its turbulent ride to the present.</description>
     </item>
     
     <item>
       <title>REVIEW: Ethics in an Age of Self-Interest by Peter Singer (1993)</title>
-      <link>https://you.github.io/blog/singer1993/</link>
+      <link>/blog/singer1993/</link>
       <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/singer1993/</guid>
+      <guid>/blog/singer1993/</guid>
       <description>Singer, Peter. 1993. How Are We to Live?: Ethics in an Age of Self-Interest. Amherst, N.Y: Prometheus Books.
  Word Count: 1929 “Is there still anything to live for? Is anything worth pursuing, apart from money, love, and caring for one’s own family? Is so, what could it be?” Like any prospective reader, I was drawn in. Who doesn’t want a philosophically sound argument for how to live one’s life?</description>
     </item>
     
     <item>
       <title>2018 Martin Levin ICPSR Training Award</title>
-      <link>https://you.github.io/blog/levin_icpsr_award/</link>
+      <link>/blog/levin_icpsr_award/</link>
       <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/levin_icpsr_award/</guid>
+      <guid>/blog/levin_icpsr_award/</guid>
       <description>Last week I was honored to receive the Martin Levin ICPSR Training Award at our annual Sociology Department awards ceremony. Marty Levin was a faculty member in the Emory University Sociology Department for many years, playing a key role in the methodological and statistical training of graduate students. Marty also served on the Board of Governors of ICPSR (Inter-University Consortium for Political and Social Research). This award will give me the opportunity to attend a workshop over the summer and learn new methodologies for the statistical analysis of text as data.</description>
     </item>
     
     <item>
       <title>New Website!</title>
-      <link>https://you.github.io/blog/new-website/</link>
+      <link>/blog/new-website/</link>
       <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/blog/new-website/</guid>
+      <guid>/blog/new-website/</guid>
       <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). For general R / data / blogging inspiration, check out Julia Silge’s and David Robinson’s websites, as well as the editorial team at The Pudding who put together beautiful data-visualization-driven essays.</description>
     </item>
     
