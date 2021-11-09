@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code on John A. Bernau</title>
-    <link>/code/</link>
+    <link>https://you.github.io/code/</link>
     <description>Recent content in Code on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Thu, 16 May 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://you.github.io/code/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Working with Twitter Data in R (Part 1)</title>
-      <link>/code/twitter_p1/</link>
+      <link>https://you.github.io/code/twitter_p1/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/code/twitter_p1/</guid>
+      <guid>https://you.github.io/code/twitter_p1/</guid>
       <description>This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin’s funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.
 Three Sources of Twitter Data
 Who owns Twitter data? In a word, Twitter. There is no “public record” of Twitter data.</description>
@@ -24,10 +24,10 @@ Who owns Twitter data? In a word, Twitter. There is no “public record” of Tw
     
     <item>
       <title>Introduction to Text Analysis in R</title>
-      <link>/code/text_analysis/</link>
+      <link>https://you.github.io/code/text_analysis/</link>
       <pubDate>Fri, 09 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/text_analysis/</guid>
+      <guid>https://you.github.io/code/text_analysis/</guid>
       <description>One of the biggest advantages of R over other statistical programs is the ability to work with text data. In the post, I cover the same four tasks using two types of text data: 
 Raw Text Objects
  Cleaning text Calculating vocabulary metrics Removing stopwords Calculating basic sentiment scores  Text within Data Frames
@@ -36,30 +36,30 @@ Raw Text Objects
     
     <item>
       <title>Data Exploration: U.S. Church Attendance 2001-2008</title>
-      <link>/code/church_attendance/</link>
+      <link>https://you.github.io/code/church_attendance/</link>
       <pubDate>Sun, 21 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/church_attendance/</guid>
+      <guid>https://you.github.io/code/church_attendance/</guid>
       <description>This post offers an example of data exploration in R. I will cover the following topics:
  Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I will be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape (Berger et al.</description>
     </item>
     
     <item>
       <title>Data Exploration: Global Trends in Extreme Poverty 1977-2016</title>
-      <link>/code/wb_poverty/</link>
+      <link>https://you.github.io/code/wb_poverty/</link>
       <pubDate>Fri, 24 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/wb_poverty/</guid>
+      <guid>https://you.github.io/code/wb_poverty/</guid>
       <description>In this post I perform some data exploration in R. I’ll cover the following topics:
  Importing data Preparing data Merging data Plotting data Appendix: A 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
     </item>
     
     <item>
       <title>Data Exploration: Where Do American Baptists Live?</title>
-      <link>/code/baylor/</link>
+      <link>https://you.github.io/code/baylor/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/baylor/</guid>
+      <guid>https://you.github.io/code/baylor/</guid>
       <description>In this post, I’ll be using R to download, clean, and plot some basic information about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
@@ -67,10 +67,10 @@ require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) requ
     
     <item>
       <title>DataViz in R: Part 1</title>
-      <link>/code/dataviz1/</link>
+      <link>https://you.github.io/code/dataviz1/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz1/</guid>
+      <guid>https://you.github.io/code/dataviz1/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 1 includes:
 1. Orientation to RStudio
@@ -84,10 +84,10 @@ Part 1 includes:
     
     <item>
       <title>DataViz in R: Part 2</title>
-      <link>/code/dataviz2/</link>
+      <link>https://you.github.io/code/dataviz2/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz2/</guid>
+      <guid>https://you.github.io/code/dataviz2/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 2 includes:
 1. Assigning variables to graphical parameters
@@ -99,10 +99,10 @@ Part 2 includes:
     
     <item>
       <title>DataViz in R: Part 3</title>
-      <link>/code/dataviz3/</link>
+      <link>https://you.github.io/code/dataviz3/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz3/</guid>
+      <guid>https://you.github.io/code/dataviz3/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 3 includes:
 1. Line graphs
@@ -115,10 +115,10 @@ Part 3 includes:
     
     <item>
       <title>DataViz in R: Part 4</title>
-      <link>/code/dataviz4/</link>
+      <link>https://you.github.io/code/dataviz4/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz4/</guid>
+      <guid>https://you.github.io/code/dataviz4/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 4 includes:
 1. Adding text labels

@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 <br>
-_My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Poetics*, *Sociological Perspectives*, *The Sociological Quarterly*, and *Socius.*  
+My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the *Journal for the Scientific Study of Religion*, *Poetics*, *Sociological Perspectives*, *The Sociological Quarterly*, and *Socius.*  
 <p style="text-align: right;">
 <a href = "https://scholar.google.com/citations?user=tHKnII0AAAAJ&hl=en" target = "_blank">
 Google Scholar

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>John A. Bernau</title>
-    <link>/</link>
+    <link>https://you.github.io/</link>
     <description>Recent content on John A. Bernau</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://you.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>ARS - Machine Learning for Sociology (Molina and Garip 2019)</title>
-      <link>/blog/molina-garip-2019/</link>
+      <link>https://you.github.io/blog/molina-garip-2019/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/molina-garip-2019/</guid>
+      <guid>https://you.github.io/blog/molina-garip-2019/</guid>
       <description>Molina, Mario, and Filiz Garip. 2019. “Machine Learning for Sociology.” Annual Review of Sociology 45(1):27–45. https://doi.org/10.1146/annurev-soc-073117-041106.
  Machine learning refers to advanced statistical modeling techniques used primarily by data scientists. In the last ten years, this field has developed different cultures and norms about working with data.
 In sociology, you (ostensibly) start with a theory-driven research question about the relationship between an outcome of interest (DV) and one or more predictor variables (IV).</description>
@@ -24,20 +24,20 @@ In sociology, you (ostensibly) start with a theory-driven research question abou
     
     <item>
       <title>ARS - The Culminating Crisis of American Sociology (House 2019)</title>
-      <link>/blog/house2019/</link>
+      <link>https://you.github.io/blog/house2019/</link>
       <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/house2019/</guid>
+      <guid>https://you.github.io/blog/house2019/</guid>
       <description>House, James S. 2019. “The Culminating Crisis of American Sociology and Its Role in Social Science and Public Policy: An Autobiographical, Multimethod, Reflexive Perspective.” Annual Review of Sociology 45(1):1–26. https://doi.org/10.1146/annurev-soc-073117-041052.
  James House recounts his 50-year career as a sociologist, starting in the 1960s. He held prominent positions at the Survey Research Center and Ford School of Public Policy at the University of Michigan. In short, the story of sociology after the 1960s and 70s is not optimistic.</description>
     </item>
     
     <item>
       <title>Research Featured in Christianity Today</title>
-      <link>/blog/christianity-today-press/</link>
+      <link>https://you.github.io/blog/christianity-today-press/</link>
       <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/christianity-today-press/</guid>
+      <guid>https://you.github.io/blog/christianity-today-press/</guid>
       <description>You can read it here or download a PDF.
 
 Copyright &amp;copy; 2021 John A. Bernau</description>
@@ -45,30 +45,30 @@ Copyright &amp;copy; 2021 John A. Bernau</description>
     
     <item>
       <title>REVIEW: Visions of the Sociological Tradition (Levine 1995)</title>
-      <link>/blog/levine1995/</link>
+      <link>https://you.github.io/blog/levine1995/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/levine1995/</guid>
+      <guid>https://you.github.io/blog/levine1995/</guid>
       <description>Levine, Donald N. 1995. Visions of the Sociological Tradition. Chicago: University of Chicago Press.
  Word Count: 1776  Levine’s book is an essential text for all professional sociologists. It begins by offering a “history of histories” that describes the various ways sociologists have tried to make sense of their work. Levine then situates familiar sociological pioneers within a multigenerational global conversation about human nature, society, and ethics that birthed modern social science.</description>
     </item>
     
     <item>
       <title>Conference in Copenhagen, Denmark</title>
-      <link>/blog/copenhagen2019/</link>
+      <link>https://you.github.io/blog/copenhagen2019/</link>
       <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/copenhagen2019/</guid>
+      <guid>https://you.github.io/blog/copenhagen2019/</guid>
       <description>Shortly after finishing my dissertation I flew to Copenhagen to present a paper at a small conference “Politics, Societies, and Disasters: China and Beyond.” I was honored to be invited by my mentor and colleague Bin Xu. I presented our co-authored paper “The Sympathetic Leviathan: How Do Modern States Culturally Respond to Disasters?” and you can find the slides here.
 Having never been to Denmark (or any other Nordic country), I assembled a reading list to better prepare for my brief cultural immersion.</description>
     </item>
     
     <item>
       <title>Dissertation Defense</title>
-      <link>/blog/dissertation-defense/</link>
+      <link>https://you.github.io/blog/dissertation-defense/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/dissertation-defense/</guid>
+      <guid>https://you.github.io/blog/dissertation-defense/</guid>
       <description>On June 12th, 2019 I successfully defended my dissertation &amp;ldquo;Talk of Death: American Discourse in Three Spheres.&amp;rdquo; It took the form of three independent empirical studies united under a common theme and you can read the overall abstract below. Inspired readers can find my defense slides here.
 ABSTRACT
 This dissertation is a study of how modern America talks about death. I examine these discussions in roughly three spheres (popular, professional, and personal) by analyzing the release and reception of the best-selling book on death and dying in the past fifty years, over seventy years of professional journal articles, and in-depth interviews with practicing healthcare chaplains.</description>
@@ -76,10 +76,10 @@ This dissertation is a study of how modern America talks about death. I examine 
     
     <item>
       <title>Working with Twitter Data in R (Part 1)</title>
-      <link>/code/twitter_p1/</link>
+      <link>https://you.github.io/code/twitter_p1/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/code/twitter_p1/</guid>
+      <guid>https://you.github.io/code/twitter_p1/</guid>
       <description>This post describes how to find, prepare, load, and clean existing collections of Twitter data in R. Specifically, I use a dataset of 250,000 Tweets about Aretha Franklin’s funeral between August 24th and August 31st, 2018 to demonstrate the use of the Hydrator application and the unique challenges of cleaning open-ended text data.
 Three Sources of Twitter Data
 Who owns Twitter data? In a word, Twitter. There is no “public record” of Twitter data.</description>
@@ -87,20 +87,20 @@ Who owns Twitter data? In a word, Twitter. There is no “public record” of Tw
     
     <item>
       <title>REVIEW: A Man in Full by Tom Wolfe (1998)</title>
-      <link>/blog/wolfe1998/</link>
+      <link>https://you.github.io/blog/wolfe1998/</link>
       <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/wolfe1998/</guid>
+      <guid>https://you.github.io/blog/wolfe1998/</guid>
       <description>Wolfe, Tom. 1998. A Man in Full. New York: Farrar, Straus and Giroux.
  Word Count: 971 As the Digital Humanities Fellow at ECDS I serve on the editorial staff of Atlanta Studies, an interdisciplinary open access journal about the city. The journal has been a great opportunity to explore Atlanta as more than a scenic background: as a site rich with history, culture, and on-going tensions. It was here that Fiddlin’ Johnny Carson recorded the first “country music,” W.</description>
     </item>
     
     <item>
       <title>Introduction to Text Analysis in R</title>
-      <link>/code/text_analysis/</link>
+      <link>https://you.github.io/code/text_analysis/</link>
       <pubDate>Fri, 09 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/text_analysis/</guid>
+      <guid>https://you.github.io/code/text_analysis/</guid>
       <description>One of the biggest advantages of R over other statistical programs is the ability to work with text data. In the post, I cover the same four tasks using two types of text data: 
 Raw Text Objects
  Cleaning text Calculating vocabulary metrics Removing stopwords Calculating basic sentiment scores  Text within Data Frames
@@ -109,106 +109,106 @@ Raw Text Objects
     
     <item>
       <title>SSSR Conference in Las Vegas, NV</title>
-      <link>/blog/sssr2018/</link>
+      <link>https://you.github.io/blog/sssr2018/</link>
       <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/sssr2018/</guid>
+      <guid>https://you.github.io/blog/sssr2018/</guid>
       <description>This year’s Society for the Scientific Study of Religion (SSSR) conference was held in Las Vegas, NV over the weekend. What a great time! It was exciting to hear about forthcoming research by Mark Chaves, David Voas, Christel Manning, Evan Stewart, and countless others. I also enjoyed getting to meet some of the people at the Pew Research Center – a bottomless source of data visualization and general inspiration.</description>
     </item>
     
     <item>
       <title>Data Exploration: U.S. Church Attendance 2001-2008</title>
-      <link>/code/church_attendance/</link>
+      <link>https://you.github.io/code/church_attendance/</link>
       <pubDate>Sun, 21 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/church_attendance/</guid>
+      <guid>https://you.github.io/code/church_attendance/</guid>
       <description>This post offers an example of data exploration in R. I will cover the following topics:
  Importing data Preparing data Plotting data v.1 Standardizing Variables Plotting data v.2 Conclusion  More specifically, I will be using data from the US Congregational Life Survey, to examine how American church attendance has fluctuated between 2001 - 2008. These trends are an important part of any contemporary understanding of religiosity, and especially relevant when considering America’s role as a “religious outlier” in the global landscape (Berger et al.</description>
     </item>
     
     <item>
       <title>Why Read Generalist Journals?</title>
-      <link>/blog/generalist-journals/</link>
+      <link>https://you.github.io/blog/generalist-journals/</link>
       <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/generalist-journals/</guid>
+      <guid>https://you.github.io/blog/generalist-journals/</guid>
       <description>Word Count: 1334 Sociology is a broad discipline. As the general “social science” it overlaps considerably with history, anthropology, political science, and economics, not to mention African American Studies, Women’s Gender and Sexuality Studies, Communication Studies, et al. While some see this breadth as a positive attribute, the dangers of a fragmented discipline are hard to ignore. As Stinchcombe (2001) argues, sociologists do not agree on the appropriate subject matter nor the way to measure it.</description>
     </item>
     
     <item>
       <title>Digital Humanities Fellowship at Emory’s Center for Digital Scholarship</title>
-      <link>/blog/ecds_fellowship/</link>
+      <link>https://you.github.io/blog/ecds_fellowship/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/ecds_fellowship/</guid>
+      <guid>https://you.github.io/blog/ecds_fellowship/</guid>
       <description>This week I am excited to start my new position as the Digital Humanities Fellow at the Emory Center for Digital Scholarship (ECDS). The center offers a touch-point for faculty and students working on a variety of digital projects, from interactive web design and online publication to the basics of working with video, photography, and audio in an academic setting. ECDS also partners with various academic departments, agencies, and faculty members to produce original scholarship.</description>
     </item>
     
     <item>
       <title>Data Exploration: Global Trends in Extreme Poverty 1977-2016</title>
-      <link>/code/wb_poverty/</link>
+      <link>https://you.github.io/code/wb_poverty/</link>
       <pubDate>Fri, 24 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/wb_poverty/</guid>
+      <guid>https://you.github.io/code/wb_poverty/</guid>
       <description>In this post I perform some data exploration in R. I’ll cover the following topics:
  Importing data Preparing data Merging data Plotting data Appendix: A 10-line code summary  More specifically, I’ll be using the World Bank data on extreme poverty to plot global trends of 162 countries between 1977 to 2016. While sociologists talk about inequality at length, it’s useful to remember the state of poverty on a global perspective.</description>
     </item>
     
     <item>
       <title>AJS - Vol. 123 No. 4 - January 2018</title>
-      <link>/blog/ajs_v123n4/</link>
+      <link>https://you.github.io/blog/ajs_v123n4/</link>
       <pubDate>Tue, 24 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/ajs_v123n4/</guid>
+      <guid>https://you.github.io/blog/ajs_v123n4/</guid>
       <description>Craciun, Mariana. 2017. “Emotions and Knowledge in Expert Work: A Comparison of Two Psychotherapies.” American Journal of Sociology 123(4):959–1003.
 Summary: The author uses ethnographic data to examine the role of emotions in the work of psychoanalysis (PA) and cognitive-behavioral (CB) therapy. She proposes a model of emotions as supportive, didactic, and inductive (an “affective-relational framework”). While both therapies use emotions, PA knowledge and/or findings don&amp;rsquo;t translate well outside their discipline (i.</description>
     </item>
     
     <item>
       <title>REVIEW: The Marriage-Go-Round by Andrew Cherlin (2010)</title>
-      <link>/blog/cherlin2010/</link>
+      <link>https://you.github.io/blog/cherlin2010/</link>
       <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/cherlin2010/</guid>
+      <guid>https://you.github.io/blog/cherlin2010/</guid>
       <description>Cherlin, Andrew J. 2010. The Marriage-Go-Round: The State of Marriage and the Family in America Today. New York, N.Y: Vintage.
  Word Count: 1981 The Marriage-Go-Round is an outstanding example of sociological scholarship. Andrew Cherlin combines history, theory, and data to provide a thorough understanding of marriage as an organizing force of American social life. Beginning in colonial America of the 17th century, the book follows the institution of marriage through its turbulent ride to the present.</description>
     </item>
     
     <item>
       <title>REVIEW: Ethics in an Age of Self-Interest by Peter Singer (1993)</title>
-      <link>/blog/singer1993/</link>
+      <link>https://you.github.io/blog/singer1993/</link>
       <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/singer1993/</guid>
+      <guid>https://you.github.io/blog/singer1993/</guid>
       <description>Singer, Peter. 1993. How Are We to Live?: Ethics in an Age of Self-Interest. Amherst, N.Y: Prometheus Books.
  Word Count: 1929 “Is there still anything to live for? Is anything worth pursuing, apart from money, love, and caring for one’s own family? Is so, what could it be?” Like any prospective reader, I was drawn in. Who doesn’t want a philosophically sound argument for how to live one’s life?</description>
     </item>
     
     <item>
       <title>2018 Martin Levin ICPSR Training Award</title>
-      <link>/blog/levin_icpsr_award/</link>
+      <link>https://you.github.io/blog/levin_icpsr_award/</link>
       <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/levin_icpsr_award/</guid>
+      <guid>https://you.github.io/blog/levin_icpsr_award/</guid>
       <description>Last week I was honored to receive the Martin Levin ICPSR Training Award at our annual Sociology Department awards ceremony. Marty Levin was a faculty member in the Emory University Sociology Department for many years, playing a key role in the methodological and statistical training of graduate students. Marty also served on the Board of Governors of ICPSR (Inter-University Consortium for Political and Social Research). This award will give me the opportunity to attend a workshop over the summer and learn new methodologies for the statistical analysis of text as data.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>/about/</link>
+      <link>https://you.github.io/about/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/about/</guid>
-      <description>As a sociologist, my research focuses on the use and evolution of language, especially in religious contexts. My work has appeared in the Journal for the Scientific Study of Religion, Poetics, Sociological Perspectives, and Socius. I received my PhD from the Department of Sociology at Emory University and am currently a Postdoctoral Fellow in Digital Scholarship at the Emory Center for the Study of Law and Religion.
+      <guid>https://you.github.io/about/</guid>
+      <description>As a sociologist, my research focuses on the use and evolution of language, especially in religious contexts. My work has appeared in the Journal for the Scientific Study of Religion, Poetics, Sociological Perspectives, The Sociological Quarterly, and Socius. I received my PhD from the Department of Sociology at Emory University and am currently the Director of Digital Scholarship at the Emory Center for the Study of Law and Religion.
 I am passionate about data visualization, statistics, and recent developments in computational text analysis, and have led over 20 hours of training workshops in R.</description>
     </item>
     
     <item>
       <title>Blog</title>
-      <link>/xblog/</link>
+      <link>https://you.github.io/xblog/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/xblog/</guid>
+      <guid>https://you.github.io/xblog/</guid>
       <description>Reviews &amp;amp; Reflections Jun 18, 2021 ARS - Machine Learning for Sociology (Molina and Garip 2019)
 Mar 30, 2021 ARS - The Culminating Crisis of American Sociology (House 2019)
 Oct 20, 2019 Visions of the Sociological Tradition (Levine 1995)
@@ -219,10 +219,10 @@ Jul 24, 2018 AJS - Vol. 123 No. 4 - January 2018</description>
     
     <item>
       <title>Code</title>
-      <link>/xcode/</link>
+      <link>https://you.github.io/xcode/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/xcode/</guid>
+      <guid>https://you.github.io/xcode/</guid>
       <description>Data Visualization 2020: GitHub Repository Introduction to Text Analysis in R Data Exploration: U.S. Church Attendance 2001-2008 Data Exploration: Global Trends in Extreme Poverty 1977-2016
  Data Exploration: Where Do American Baptists Live?
  Data Visualization: Part 4 - Text Labels, Faceting, Editing Themes
@@ -233,10 +233,10 @@ Jul 24, 2018 AJS - Vol. 123 No. 4 - January 2018</description>
     
     <item>
       <title>Data Exploration: Where Do American Baptists Live?</title>
-      <link>/code/baylor/</link>
+      <link>https://you.github.io/code/baylor/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/baylor/</guid>
+      <guid>https://you.github.io/code/baylor/</guid>
       <description>In this post, I’ll be using R to download, clean, and plot some basic information about the regional concentration of American denominations using the Baylor Religion Survey of 2010.
 To begin, make sure to load a few basic packages.
 require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) require(&amp;quot;psych&amp;quot;) require(&amp;quot;car&amp;quot;) require(&amp;quot;RColorBrewer&amp;quot;) The dataset I will be using comes from the 2010 Baylor Religion Survey (2010), a nationally representative survey of more than 1,500 American adults. It’s hosted on The Association of Religion Data Archives (ARDA).</description>
@@ -244,10 +244,10 @@ require(&amp;quot;tidyverse&amp;quot;) require(&amp;quot;foreign&amp;quot;) requ
     
     <item>
       <title>DataViz in R: Part 1</title>
-      <link>/code/dataviz1/</link>
+      <link>https://you.github.io/code/dataviz1/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz1/</guid>
+      <guid>https://you.github.io/code/dataviz1/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 1 includes:
 1. Orientation to RStudio
@@ -261,10 +261,10 @@ Part 1 includes:
     
     <item>
       <title>DataViz in R: Part 2</title>
-      <link>/code/dataviz2/</link>
+      <link>https://you.github.io/code/dataviz2/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz2/</guid>
+      <guid>https://you.github.io/code/dataviz2/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 2 includes:
 1. Assigning variables to graphical parameters
@@ -276,10 +276,10 @@ Part 2 includes:
     
     <item>
       <title>DataViz in R: Part 3</title>
-      <link>/code/dataviz3/</link>
+      <link>https://you.github.io/code/dataviz3/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz3/</guid>
+      <guid>https://you.github.io/code/dataviz3/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 3 includes:
 1. Line graphs
@@ -292,10 +292,10 @@ Part 3 includes:
     
     <item>
       <title>DataViz in R: Part 4</title>
-      <link>/code/dataviz4/</link>
+      <link>https://you.github.io/code/dataviz4/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/code/dataviz4/</guid>
+      <guid>https://you.github.io/code/dataviz4/</guid>
       <description>These materials come from an interactive workshop I lead at the Emory Center for Digital Scholarship.
 Part 4 includes:
 1. Adding text labels
@@ -307,20 +307,20 @@ Part 4 includes:
     
     <item>
       <title>Research</title>
-      <link>/xresearch/</link>
+      <link>https://you.github.io/xresearch/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/xresearch/</guid>
-      <description>My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the Journal for the Scientific Study of Religion, Poetics, Sociological Perspectives, and Socius.
-Google Scholar  | ORCID  Publications Xu, Bin and John A. Bernau. 2021. &amp;ldquo;The Sympathetic Leviathan: Modern States&amp;rsquo; Cultural Response to Disasters.</description>
+      <guid>https://you.github.io/xresearch/</guid>
+      <description>My research focuses on the use and evolution of language, especially in religious contexts. I am passionate about data visualization, statistics, and recent developments in computational text analysis. My work has appeared in the Journal for the Scientific Study of Religion, Poetics, Sociological Perspectives, The Sociological Quarterly, and Socius.
+Google Scholar  | ORCID  Publications Browne, Irene, John A. Bernau, Katharine M. Tatum, and Jieyu Jiao. 2021. &amp;ldquo;Immigration Coverage in the Black Press and the General Audience Press: What Can Mixed Methods Reveal about Race and Immigration?</description>
     </item>
     
     <item>
       <title>Teaching</title>
-      <link>/xteaching/</link>
+      <link>https://you.github.io/xteaching/</link>
       <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/xteaching/</guid>
+      <guid>https://you.github.io/xteaching/</guid>
       <description>Independently Taught Courses SOC 333: Sociology of Religion [Syllabus]
 Workshop Author / Leader Data Visualization in R [PDF Flyer]
 R Basics: An Introduction [PDF Slides]
@@ -335,19 +335,19 @@ Teaching Assistant SOC 506: Applied Regression (Graduate-level)</description>
     
     <item>
       <title>New Website!</title>
-      <link>/blog/new-website/</link>
+      <link>https://you.github.io/blog/new-website/</link>
       <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/new-website/</guid>
+      <guid>https://you.github.io/blog/new-website/</guid>
       <description>My new website is up! It is built by Hugo and deployed through Netlify. A huge thanks to Yihui Xie and colleagues for the blogdown package in R and the many helpful tutorials on getting started (like this one). For general R / data / blogging inspiration, check out Julia Silge’s and David Robinson’s websites, as well as the editorial team at The Pudding who put together beautiful data-visualization-driven essays.</description>
     </item>
     
     <item>
       <title></title>
-      <link>/private/atls/</link>
+      <link>https://you.github.io/private/atls/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/private/atls/</guid>
+      <guid>https://you.github.io/private/atls/</guid>
       <description>ATLS Analytics 2017 - 2018 window.FlexDashboardComponents = [];  [{&#34;icon&#34;:&#34;fa-share-alt&#34;,&#34;items&#34;:[{&#34;title&#34;:&#34;Twitter&#34;,&#34;icon&#34;:&#34;fa-twitter&#34;},{&#34;title&#34;:&#34;Facebook&#34;,&#34;icon&#34;:&#34;fa-facebook&#34;},{&#34;title&#34;:&#34;Google+&#34;,&#34;icon&#34;:&#34;fa-google-plus&#34;},{&#34;title&#34;:&#34;LinkedIn&#34;,&#34;icon&#34;:&#34;fa-linkedin&#34;},{&#34;title&#34;:&#34;Pinterest&#34;,&#34;icon&#34;:&#34;fa-pinterest&#34;}]},{&#34;title&#34;:&#34;Source Code&#34;,&#34;icon&#34;:&#34;fa-code&#34;,&#34;href&#34;:&#34;source_embed&#34;,&#34;align&#34;:&#34;right&#34;}]                /* Dashboard CSS from Keen IO Dashboards (https://github.com/keen/dashboards) */ body { background: #f2f2f2; padding: 60px 0 0 8px; /* padding-top overridden by theme */ } body hr { border-color: #d7d7d7; margin: 10px 0; } .navbar-inverse .navbar-nav  li  a, .navbar .navbar-brand { text-decoration: none; } .</description>
     </item>
     
